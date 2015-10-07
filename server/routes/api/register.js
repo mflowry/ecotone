@@ -8,7 +8,7 @@ pg = require('pg');
 //client.connect();
 
 var Users = require('../../models/users');
-
+//console.log('test');
 //function createUser(req, res, next){
 //  var userData = {
 //    username: req.body.name,
@@ -33,12 +33,36 @@ var Users = require('../../models/users');
 //  });
 //}
 
+router.get('/',function(req,res,next){
+    res.sendStatus(200);
+});
+
 router.post('/', function(req, res, next) {
   //var user = new Users(req.body);
-  Users.create(req.body)
+    var options = {
+        where: {
+            email: req.body.email
+        },
+        defaults: req.body
+    };
+  Users.findOrCreate(options)
       .then(function(user){
-      console.log(user);
-  });
+      //console.log(user);
+          res.sendStatus(200);
+  }).catch(function(err){
+          console.log('there was an error',err);
+      });
+
+    //    Users.sync().then(function () {
+    //
+    //        Users.findOrCreate(options)
+    //        .spread(function(user){
+    //            console.log(user);
+    //            res.sendStatus(200);
+    //        }).error(function(err){
+    //                console.log(err);
+    //            });
+    //});
 });
 
 module.exports = router;

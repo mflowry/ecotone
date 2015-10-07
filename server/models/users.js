@@ -17,7 +17,9 @@ var userSchema = sequelize.define('user',
             type: Sequelize.STRING,
             field: 'user_name',
             unique: true,
-            isAlphanumeric: true
+            validate: {
+                isAlphanumeric: true
+            }
         },
         password: {
             type: Sequelize.STRING,
@@ -27,33 +29,45 @@ var userSchema = sequelize.define('user',
             type: Sequelize.STRING,
             field: 'email',
             unique: true,
-            isEmail: true
+            validate: {
+                isEmail: true
+            }
         },
         firstName: {
             type: Sequelize.STRING,
             field: 'firstName',
-            isAlpha: true
+            validate:{
+                isAlpha: true
+            }
         },
         lastName: {
             type: Sequelize.STRING,
             field: 'last_name',
-            isAlpha: true
+            validate:{
+                isAlpha: true
+            }
         },
         title: {
             type: Sequelize.STRING,
             field: 'title',
-            isAlpha: true
+            validate: {
+                isAlpha: true
+            }
         },
         companyName: {
             type: Sequelize.STRING,
             field: 'company_name',
             unique: true,
-            isAlpha: true
+            validate: {
+                isAlpha: true
+            }
         },
         zipCode: {
             type: Sequelize.STRING,
             field: 'zip_code',
-            isInt: true
+            validate: {
+                isInt: true
+            }
         },
         registerDate: {
             type: Sequelize.DATE,
@@ -77,21 +91,23 @@ var userSchema = sequelize.define('user',
     }
 });
 
-userSchema.hook('beforeCreate',function(user,options){
+userSchema.hook('beforeValidate',function(user,options,next){
     //var user = this;
-
     if (!user.registerDate){
         user.registerDate = pg.types.setTypeParser(1114, function(stringValue){
             return new Date(stringValue,"-0600");
         });
-        //this.registerDate = new Date();
+        user.registerDate = new Date();
+        //console.log(user.registerDate);
+
     }
 
     //only hash the password if it has been modified (or is new)
     if (!user.changed('password')){
+        console.log('not modified!');
         return next();
     }
-
+    console.log('in here!');
     //generate a salty snack
     bcrypt.genSalt(SALT_WORK_FACTOR,function(err,salt){
         if (err){
@@ -102,14 +118,16 @@ userSchema.hook('beforeCreate',function(user,options){
         bcrypt.hash(user.password, salt, function(err, hash){
             if (err) {
                 return next(err);
+                console.log(err);
             }
-
+            //console.log(user.password,hash);
             // override the cleartext password with the hashed one
             user.password = hash;
             next();
 
         });
     });
+    console.log(user.password);
 });
 
 //userSchema.instanceMethods.comparePassword = function(candidatePassword, cb){
