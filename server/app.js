@@ -1,15 +1,16 @@
 const
-    express = require('express');
-    path = require('path');
-    favicon = require('serve-favicon');
-    logger = require('morgan');
-    cookieParser = require('cookie-parser');
-    bodyParser = require('body-parser');
+    express = require('express'),
+    path = require('path'),
+    favicon = require('serve-favicon'),
+    logger = require('morgan'),
+    cookieParser = require('cookie-parser'),
+    bodyParser = require('body-parser'),
+    jsonwebtoken = require('jsonwebtoken');
 
 const
     routes = require('./routes/index'),
-    users = require('./routes/users'),
-    test = require('./routes/api/querytest');
+    login = require('./routes/api/login'),
+    test = require('./routes/api/querytest'),
     register = require('./routes/api/register');
 
 var app = express();
@@ -27,7 +28,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/login', login);
 app.use('/test', test);
 app.use('/register',register);
 

@@ -2,7 +2,8 @@ const
     bcrypt = require('bcrypt'),
     SALT_WORK_FACTOR =  15,
     Sequelize = require('sequelize'),
-    pg = require('pg');
+    pg = require('pg'),
+    jsonwebtoken = require('jsonwebtoken');
 
 var sequelize = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost:5432/ecotone');
 
@@ -80,16 +81,63 @@ var userSchema = sequelize.define('user',
          comparePassword: function(candidatePassword, cb){
              bcrypt.compare(candidatePassword, this.password, function(err,isMatch){
 
-                 if(err){
-                     return cb(err);
-                 }
+                     if(err){
+                         return cb(err);
+                     }
 
-                 cb(null,isMatch);
+                     cb(null,isMatch);
 
-             });
-         }
-    }
-});
+                 });
+            }
+
+        },
+        classMethods: {
+            getAuthenticated: function (user, callback) {
+                console.log('getAuthenticated', user);
+                user.find({username: user.username}, function (err, instance) {
+                    if (err) {
+                        console.log(err);
+                        return callback(err);
+                    }
+
+                    // make sure the user exists
+                    else if (!instance) {
+                        console.log('No user found,');
+                        return callback(new Error('Invalid username or password.', 401), null);
+                    }
+                    else {
+                        // test for a matching password
+                        instance.comparePassword(user.password, function (err, isMatch) {
+                            if (err) {
+                                console.log(err);
+                                return callback(err);
+                            }
+
+                            // check if the password was a match
+                            if (isMatch) {
+                                var user = {
+                                    username: instance.username,
+                                    id: instance.id,
+                                    firstName: instance.firstName,
+                                    lastName: instance.lastName
+                                };
+
+                                // return the jwt
+                                var token = jsonwebtoken.sign(user, 'supersecret', {
+                                    expiresInMinutes: 1440 // expires in 24 hours
+                                });
+                                return callback(null, token, user);
+                            }
+                            else {
+                                return callback(new Error('Invalid username or password.'), null);
+
+                            }
+                        });
+                    }
+                });
+            }
+        }
+    });
 
 userSchema.hook('beforeValidate',function(user,options,next){
     //var user = this;
