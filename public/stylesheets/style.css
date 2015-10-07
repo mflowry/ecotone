@@ -1,8 +1,16 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+.md-primary {
+  background-color: #4CAF50; }
 
-a {
-  color: #00B7FF;
-}
+.md-accent {
+  background-color: #03A9F4; }
+
+.md-warn {
+  color: #FF9800; }
+
+.md-toolbar-tools h1 {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: inherit; }
+
+body h1 {
+  color: #4CAF50; }

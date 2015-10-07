@@ -1,7 +1,19 @@
 doctype html
-html
+html(lang="en" app="calculatorApp")
   head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
+    title Ecotone Calculator
+    link(rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css")
+    link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic")
+    link(rel="stylesheet" href="angular.css")
+    link(rel="stylesheet", href='/stylesheets/style.css')
+    meta(name="viewport" content="initial-scale=1")
+
+  body(layout="column" ng-controller="AppCtrl")
+    header
+      md-toolbar(layout="row")
+        div(class="md-primary md-toolbar-tools")
+          md-button(ng-click="toggleSidenav('left')" hide-gt-sm class="md-icon-button")
+            md-icon(aria-label="Menu" md-svg-icon="https://s3-us-west-2.amazonaws.com/s.cdpn.io/68133/menu.svg")
+          h1 Ecotone Calculator
+
     block content

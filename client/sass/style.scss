@@ -1,0 +1,22 @@
+$primary-color: #4CAF50;
+
+.md-primary{
+  background-color: #4CAF50 ;
+}
+.md-accent {
+  background-color: #03A9F4 ;
+}
+.md-warn {
+  color: #FF9800 ;
+}
+.md-toolbar-tools h1 {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: inherit;
+}
+
+body{
+  h1{
+    color: $primary-color;
+  }
+}
