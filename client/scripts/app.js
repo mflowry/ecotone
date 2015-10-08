@@ -1,4 +1,4 @@
-var app = angular.module('ecotoneApp', ['ngRoute', 'ngMaterial', 'ngAnimate', 'ngAria', 'ngMessages']);
+var app = angular.module('ecotoneApp', ['ngRoute', 'ngMaterial', 'ngMessages']);
 
 app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpProvider', function($mdThemingProvider, $routeProvider, $locationProvider, $httpProvider){
     $locationProvider.html5Mode(true);
@@ -10,39 +10,39 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
 
     $routeProvider.when('/',
         {
-            templateUrl: 'client/views/calculator.html',
+            templateUrl: '/views/calculator.html',
             controller: 'calcCtrl'
         }).when('/login',
         {
-            templateUrl: 'client/views/login.html',
-            controller: 'loginCtrl'
+            templateUrl: '/views/login.html',
+            controller: ''
         }).when('/register',
         {
-            templateUrl: 'client/views/register.html',
+            templateUrl: '/views/register.html',
             controller: 'createAccountCtrl'
         }).when('/account',
         {
-            templateUrl: 'client/views/account.html',
+            templateUrl: '/views/account.html',
             controller: ''
         }).when('/dashboard',
         {
-            templateUrl: 'client/views/dashboard.html',
+            templateUrl: '/views/dashboard.html',
             controller: ''
         }).when('/projects',
         {
-            templateUrl: 'client/views/project.html',
+            templateUrl: '/views/project.html',
             controller: ''
         }).when('/about',
         {
-            templateUrl: 'client/views/about.html',
+            templateUrl: '/views/about.html',
             controller: ''
         }).when('/contact',
         {
-            templateUrl: 'client/views/contact.html',
+            templateUrl: '/views/contact.html',
             controller: ''
         }).when('/privacy',
         {
-            templateUrl: 'client/views/privacy.html',
+            templateUrl: '/views/privacy.html',
             controller: ''
         }).otherwise({
             redirectTo: '/'
