@@ -30,11 +30,8 @@ router.get('/', function( req, res, next ){
     pg.connect( connectionString , function( err, client, done ) {
         if (err) console.log(err);
 
-        client.query('select p.primary_cat, s.secondary_cat, px.warm_cat, px.c02 from primaries p ' +
-            'join secondaries s on s.primary_id = p.id ' +
-            'join proxies px on s.warm_id = px.id',
+        client.query('SELECT primary_cat FROM primaries ',
             function( err, results){
-
                 done();
                 console.log(results);
                 res.send(results);
