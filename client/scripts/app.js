@@ -3,11 +3,13 @@ var app = angular.module('ecotoneApp', ['ngRoute', 'ngMaterial', 'ngMessages']);
 app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpProvider', function($mdThemingProvider, $routeProvider, $locationProvider, $httpProvider){
     $locationProvider.html5Mode(true);
 
+    //set theme and color palette
     $mdThemingProvider.theme('default')
         .primaryPalette('green')
         .accentPalette('blue')
         .warnPalette ('orange');
 
+    //routes for views
     $routeProvider.when('/',
         {
             templateUrl: '/views/calculator.html',
@@ -51,7 +53,14 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     //$httpProvider.interceptors.push('authInterceptor');
 }]);
 
+// Calculator HTML - Kate + Madeline
 app.controller('calcCtrl', ['$scope', '$http', function($scope, $http){
+    //M
+    $scope.calculate = {};
+    $scope.list = {};
+    loadCategories();
+
+    //K
     $scope.major = [
         'Category 1',
         'Category 2',
@@ -67,8 +76,63 @@ app.controller('calcCtrl', ['$scope', '$http', function($scope, $http){
         'tons',
         'kg'
     ];
+
+    //M
+    //load categories list on page load
+// $http({
+//             method: 'Get',
+//             url: '/getList',
+//             data: response,
+//             dataType: 'json'
+//         }).then(function (response) {
+//             console.log(response);
+//             $scope.list = response;
+//         })
+
+    // Auto-complete functionality
+    $scope.querySearch=function(query) {
+        console.log($scope.list);
+        return query ? $scope.list.filter(createFilterFor(query)) : $scope.list;
+    };
+
+    function searchTextChange(text) {
+        $log.info('Text changed to ' + text);
+    }
+
+    function selectedItemChange(item) {
+        $log.info('Item changed to ' + JSON.stringify(item));
+    }
+
+    function loadCategories() {
+        var categories = [
+            {
+                category: "blinds",
+                subcategory: ["wood", "vinyl", "aluminum"]
+            },
+            {
+                category: "asphalt shingles",
+                subcategory: []
+            },
+            {
+                category: "cabinets",
+                subcategory: ["aluminum", "wood", "fiberglass", "glass",
+                    "plastic", "steel", "vinyl", "MDF"]
+            }];
+
+        $scope.list = categories;
+    }
+
+    // Create filter function for a query string
+    function createFilterFor(query) {
+        var lowercaseQuery = angular.lowercase(query);
+        return function filterFn(obj) {
+            console.log(obj);
+            return (obj.category.indexOf(lowercaseQuery) != -1);
+        };
+    }
 }]);
 
+// Login HTML - Madeline
 app.controller('createAccountCtrl', ['$scope', '$http', function($scope, $http) {
     $scope.user = {};
 
@@ -84,7 +148,23 @@ app.controller('createAccountCtrl', ['$scope', '$http', function($scope, $http) 
             alert("Your account has been created.")
         })
     };
+}]);
 
+// Project HTML - Dashboard HTML - Kim
+app.controller('projectsCtrl', ['$scope', '$http', function($scope, $http) {
+    $http({
+        method: 'POST',
+        url: 'http://www.w3schools.com/angular/customers.php'
+    }).then(function (response) {
+        $scope.names = response.records;
+    });
+
+    http({
+        method: 'GET',
+        url: 'http://www.w3schools.com/angular/customers.php'
+    }).then(function (response) {
+        $scope.names = response.records;
+    });
 }]);
 
 // Services for authentication

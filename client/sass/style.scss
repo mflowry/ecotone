@@ -24,3 +24,102 @@ h2 {
   padding-left: 20px;
   margin-top: 35px;
 }
+
+h2 {
+  margin-left: 50px;
+  margin-right: 50px;
+  font-size: inherit;
+  font-weight: inherit;
+}
+h3 {
+  margin-left: 50px;
+  margin-right: 50px;
+  font-size: inherit;
+  font-weight: inherit;
+}
+sup, sub {
+  line-height: 0;
+}
+.md-toolbar-tools h1 {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: inherit;
+}
+.md-primary{
+  background-color: #4CAF50 ;
+}
+.md-accent {
+  background-color: #03A9F4 ;
+}
+.md-warn {
+  color: #FF9800 ;
+}
+.md-toolbar-tools h1 {
+  font-size: inherit;
+  font-weight: inherit;
+  margin: inherit;
+}
+.md-subhead{
+  text-align: right;
+}
+.md-body-2{
+  margin-right: 50px;
+}
+p{
+  margin-right: 25%;
+}
+/*need to figure out how to use flex!!!! so the table items shrink down instead of go on another*/
+.flex-container {
+  -webkit-flex-wrap: nowrap; /* Safari */
+  flex-wrap:         nowrap;
+}
+li{
+  display: inline-block;
+  width: 20%;
+  float: none;
+  color: #333333;
+  text-align: center;
+  /* align-items: center;*/
+  font-size: 14px;
+  padding: 15px;
+  font-weight: normal;
+  padding: 15px;
+  margin-top: 5px;
+}
+.li_header {
+  display: inline-block;
+  width: 20%;
+  float: none;
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  /*align-items: center;*/
+  font-size: 16px;
+  font-weight: bold;
+  padding: 15px;
+  margin-top: 5px;
+}
+.heading {
+  display: inline-block;
+  /*  width: 20%;*/
+  float: none;
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  /*align-items: center;*/
+  font-size: 16px;
+  font-weight: bold;
+  padding: 5px;
+  margin-top: 5px;
+}
+table{
+  margin-left: 50px;
+}
+.md-datepicker {
+  margin-top: 18px; }
+.md-datepicker-button {
+  height: 36px;
+  width: 36px;
+  line-height: 36px; }
+.md-datepicker-input-container {
+  margin-left: 2px; }
