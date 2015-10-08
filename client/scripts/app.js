@@ -1,4 +1,4 @@
-var app = angular.module('ecotoneApp', ['ngRoute', 'ngMaterial', 'ngMessages']);
+var app = angular.module('ecotoneApp', ['ngRoute', 'ngMaterial', 'ngAnimate', 'ngAria', 'ngMessages']);
 
 app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpProvider', function($mdThemingProvider, $routeProvider, $locationProvider, $httpProvider){
     $locationProvider.html5Mode(true);
