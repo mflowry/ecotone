@@ -1,11 +1,55 @@
-var app = angular.module('calculatorApp', ['ngMaterial', 'ngMessages']);
+var app = angular.module('ecotoneApp', ['ngRoute', 'ngMaterial', 'ngMessages']);
 
-app.config(function($mdThemingProvider) {
+app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpProvider', function($mdThemingProvider, $routeProvider, $locationProvider, $httpProvider){
+    $locationProvider.html5Mode(true);
+
     $mdThemingProvider.theme('default')
         .primaryPalette('green')
         .accentPalette('blue')
         .warnPalette ('orange');
-});
+
+    $routeProvider.when('/',
+        {
+            templateUrl: 'client/views/calculator.html',
+            controller: 'calcCtrl'
+        }).when('/login',
+        {
+            templateUrl: 'client/views/login.html',
+            controller: 'loginCtrl'
+        }).when('/register',
+        {
+            templateUrl: 'client/views/register.html',
+            controller: 'createAccountCtrl'
+        }).when('/account',
+        {
+            templateUrl: 'client/views/account.html',
+            controller: ''
+        }).when('/dashboard',
+        {
+            templateUrl: 'client/views/dashboard.html',
+            controller: ''
+        }).when('/projects',
+        {
+            templateUrl: 'client/views/project.html',
+            controller: ''
+        }).when('/about',
+        {
+            templateUrl: 'client/views/about.html',
+            controller: ''
+        }).when('/contact',
+        {
+            templateUrl: 'client/views/contact.html',
+            controller: ''
+        }).when('/privacy',
+        {
+            templateUrl: 'client/views/privacy.html',
+            controller: ''
+        }).otherwise({
+            redirectTo: '/'
+        });
+
+    //$httpProvider.interceptors.push('authInterceptor');
+}]);
 
 app.controller('calcCtrl', ['$scope', '$http', function($scope, $http){
     $scope.major = [
@@ -23,7 +67,6 @@ app.controller('calcCtrl', ['$scope', '$http', function($scope, $http){
         'tons',
         'kg'
     ];
-
 }]);
 
 app.controller('createAccountCtrl', ['$scope', '$http', function($scope, $http) {
@@ -44,3 +87,74 @@ app.controller('createAccountCtrl', ['$scope', '$http', function($scope, $http) 
 
 }]);
 
+// Services for authentication
+app.service('authService', ['$window', function ($window){
+    this.parseJwt = function (token) {
+        if (token) {
+            var base64Url = token.split('.')[1];
+            var base64 = base64Url.replace('-', '+').replace('_', '/');
+            return JSON.parse($window.atob(base64));
+        } else return {};
+    };
+
+    this.saveToken = function (token) {
+        $window.localStorage.jwtToken = token;
+        console.log('Saved token:',$window.localStorage.jwtToken);
+    };
+
+    this.getToken = function () {
+        return $window.localStorage.jwtToken;
+    };
+
+    this.isAuthed = function () {
+        var token = this.getToken();
+        if (token) {
+            var params = this.parseJwt(token);
+            var notExpired = Math.round(new Date().getTime() / 1000) <= params.exp;
+            if (!notExpired) {
+                this.logout();
+            }
+            return notExpired;
+        } else {
+            return false;
+        }
+    };
+
+    this.logout = function () {
+        delete $window.localStorage.jwtToken;
+    };
+
+    // expose user as an object
+    this.getUser = function () {
+        return this.parseJwt(this.getToken())
+    };
+}]);
+
+app.factory('authInterceptor', ['$q', '$location', 'authService', function ($q, $location, authService) {
+    return {
+        request: function (config) {
+            config.headers = config.headers || {};
+            if (authService.isAuthed()) {
+                config.headers.Authorization = 'Bearer ' + authService.getToken();
+            }
+            return config;
+        },
+        response: function (response) {
+
+            if (response.status === 401) {
+
+                // handle the case where the user is not authenticated
+                $location.path("/login");
+            }
+            return response || $q.when(response);
+        }, responseError: function (response) {
+            if (response.status === 401) {
+                $location.path("/login");
+
+            } else {
+                console.log(response);
+            }
+            return $q.reject(response);
+        }
+    };
+}]);
