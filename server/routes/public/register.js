@@ -1,6 +1,6 @@
-const express = require('express'),
-router = express.Router(),
-pg = require('pg');
+const
+    express = require('express'),
+    router = express.Router();
 
 //var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/ecotone';
 
@@ -37,24 +37,41 @@ router.get('/',function(req,res,next){
     res.sendStatus(200);
 });
 
+
+
+
 router.post('/', function(req, res, next) {
   //var user = new Users(req.body);
-    var options = {
-        where: {
-            email: req.body.email
-        },
-        defaults: req.body
-    };
-    Users.sync().then(function(){
-        Users.findOrCreate(options)
-            .then(function (user) {
-                console.log(user);
-                res.sendStatus(200);
-            }).catch(function (err) {
-                console.log('there was an error', err);
-                res.send('error!',err);
+
+        var find = {
+            where: {
+                email: req.body.email
+            }
+        };
+
+        Users.sync().then(function () {
+            Users.find(find).then(function(user){
+                if(user === null ) {
+                    Users.create(req.body)
+                        .then(function (user) {
+                            console.log('asdfjasdfkhjdsahkljsdfdfljksdahjklsdfhlsldjf',user);
+                            res.send(user.dataValues);
+                        }).catch(function (err) {
+                            console.log('there was an error', err);
+                            res.send('error!', err);
+                        });
+                } else {
+                    res.sendStatus(409);
+                }
+            }).catch(function( err ){
+                res.sendStatus(500)
             });
-    });
+
+        })
+
+});
+
+
     //    Users.sync().then(function () {
     //
     //        Users.findOrCreate(options)
@@ -65,6 +82,6 @@ router.post('/', function(req, res, next) {
     //                console.log(err);
     //            });
     //});
-});
+
 
 module.exports = router;

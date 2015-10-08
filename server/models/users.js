@@ -1,6 +1,6 @@
 const
     bcrypt = require('bcrypt'),
-    SALT_WORK_FACTOR =  15,
+    SALT_WORK_FACTOR =  12,
     Sequelize = require('sequelize'),
     pg = require('pg'),
     jsonwebtoken = require('jsonwebtoken');
