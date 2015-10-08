@@ -48,7 +48,7 @@ router.post('/', function(req, res, next) {
     Users.sync().then(function(){
         Users.findOrCreate(options)
             .then(function (user) {
-                //console.log(user);
+                console.log(user);
                 res.sendStatus(200);
             }).catch(function (err) {
                 console.log('there was an error', err);
