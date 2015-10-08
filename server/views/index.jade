@@ -1,5 +1,20 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div(ng-app="myApp" ng-controller="ctrl")
+    table
+      tr(ng-repeat="x in materials")
+        td {{x.primary_cat}}
+        td {{x.secondary_cat}}
+        td {{x.warm_cat}}
+        td {{x.c02}}
+
+  script.
+    var app = angular.module('myApp', []);
+    app.controller('ctrl', function ($scope, $http) {
+      $http.get("http://127.0.0.1:3000/test")
+              .success(function (response) {
+                console.log(response);
+                $scope.materials = response.rows;
+              });
+    });
