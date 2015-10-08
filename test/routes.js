@@ -38,5 +38,5 @@ describe('A user', function(){
         api.post('/register')
             .send(newUser)
             .expect(409, done);
-    })
+    });
 });
