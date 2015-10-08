@@ -82,6 +82,7 @@ var userSchema = sequelize.define('user',
              bcrypt.compare(candidatePassword, this.password, function(err,isMatch){
 
                      if(err){
+                         console.log(err);
                          return cb(err);
                      }
 
@@ -93,15 +94,19 @@ var userSchema = sequelize.define('user',
         },
         classMethods: {
             getAuthenticated: function (user, callback) {
-                console.log('getAuthenticated', user);
-                user.find({username: user.username}, function (err, instance) {
-                    if (err) {
-                        console.log(err);
-                        return callback(err);
-                    }
+                var options = {
+                    where: {
+                        username: user.username
+                    }};
+                userSchema.findOne(options).then(function (instance) {
+                    //if (err) {
+                    //    console.log(err);
+                    //    console.log('ERROR');
+                    //    return callback(err);
+                    //}
 
                     // make sure the user exists
-                    else if (!instance) {
+                    if (!instance) {
                         console.log('No user found,');
                         return callback(new Error('Invalid username or password.', 401), null);
                     }
@@ -109,13 +114,12 @@ var userSchema = sequelize.define('user',
                         // test for a matching password
                         instance.comparePassword(user.password, function (err, isMatch) {
                             if (err) {
-                                console.log(err);
                                 return callback(err);
                             }
 
                             // check if the password was a match
                             if (isMatch) {
-                                var user = {
+                                var matchedUser = {
                                     username: instance.username,
                                     id: instance.id,
                                     firstName: instance.firstName,
@@ -123,10 +127,10 @@ var userSchema = sequelize.define('user',
                                 };
 
                                 // return the jwt
-                                var token = jsonwebtoken.sign(user, 'supersecret', {
-                                    expiresInMinutes: 1440 // expires in 24 hours
+                                var token = jsonwebtoken.sign(matchedUser, 'supersecret', {
+                                    expiresIn: 1440 // expires in 24 hours
                                 });
-                                return callback(null, token, user);
+                                return callback(null, token, matchedUser);
                             }
                             else {
                                 return callback(new Error('Invalid username or password.'), null);
@@ -134,6 +138,8 @@ var userSchema = sequelize.define('user',
                             }
                         });
                     }
+                }).catch(function (err) {
+                    callback(err);
                 });
             }
         }
@@ -146,7 +152,6 @@ userSchema.hook('beforeValidate',function(user,options,next){
             return new Date(stringValue,"-0600");
         });
         user.registerDate = new Date();
-        //console.log(user.registerDate);
 
     }
 
@@ -155,7 +160,6 @@ userSchema.hook('beforeValidate',function(user,options,next){
         console.log('not modified!');
         return next();
     }
-    console.log('in here!');
     //generate a salty snack
     bcrypt.genSalt(SALT_WORK_FACTOR,function(err,salt){
         if (err){
@@ -168,14 +172,12 @@ userSchema.hook('beforeValidate',function(user,options,next){
                 return next(err);
                 console.log(err);
             }
-            //console.log(user.password,hash);
             // override the cleartext password with the hashed one
             user.password = hash;
             next();
 
         });
     });
-    console.log(user.password);
 });
 
 //userSchema.instanceMethods.comparePassword = function(candidatePassword, cb){

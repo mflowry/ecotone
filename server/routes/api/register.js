@@ -45,14 +45,16 @@ router.post('/', function(req, res, next) {
         },
         defaults: req.body
     };
-  Users.findOrCreate(options)
-      .then(function(user){
-      //console.log(user);
-          res.sendStatus(200);
-  }).catch(function(err){
-          console.log('there was an error',err);
-      });
-
+    Users.sync().then(function(){
+        Users.findOrCreate(options)
+            .then(function (user) {
+                //console.log(user);
+                res.sendStatus(200);
+            }).catch(function (err) {
+                console.log('there was an error', err);
+                res.send('error!',err);
+            });
+    });
     //    Users.sync().then(function () {
     //
     //        Users.findOrCreate(options)
