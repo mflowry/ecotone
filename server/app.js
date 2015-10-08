@@ -9,9 +9,10 @@ const
 
 const
     routes = require('./routes/index'),
-    login = require('./routes/api/login'),
-    test = require('./routes/api/querytest'),
-    register = require('./routes/api/register');
+    login = require('./routes/public/login'),
+    test = require('./routes/public/querytest'),
+    register = require('./routes/public/register'),
+    modifyUser = require('./routes/private/modifyUser');
 
 var app = express();
 
@@ -31,6 +32,7 @@ app.use('/', routes);
 app.use('/login', login);
 app.use('/test', test);
 app.use('/register',register);
+app.use('/modifyUser',modifyUser);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
