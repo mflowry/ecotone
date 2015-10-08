@@ -1,0 +1,64 @@
+<div ng-controller="createAccountCtrl" layout="column" ng-cloak>
+    <h2>Create an Account</h2>
+    <!-- Account Information -->
+    <form name="createAccountForm">
+        <md-content layout-padding layout="row" layout-sm="column">
+            <md-input-container flex>
+                <label>First Name</label>
+                <input ng-model="user.fname" placeholder="First Name" required>
+            </md-input-container>
+            <md-input-container flex>
+                <label>Last Name</label>
+                <input ng-model="user.lname" placeholder="Last Name" required>
+            </md-input-container>
+        </md-content>
+        <md-content layout-padding layout="row" layout-sm="column">
+            <md-input-container flex>
+                <label>Title</label>
+                <input ng-model="user.title" placeholder="Title">
+            </md-input-container>
+        </md-content>
+        <md-content layout-padding layout="row" layout-sm="column">
+            <md-input-container flex>
+                <label>Company Name</label>
+                <input ng-model="user.company" placeholder="Company">
+            </md-input-container>
+        </md-content>
+        <md-content layout-padding layout="row" layout-sm="column">
+            <md-input-container flex>
+                <label>Zip Code</label>
+                <input ng-model="user.zip" placeholder="55444" ng-pattern="\d{5}?" required>
+            </md-input-container>
+        </md-content>
+        <md-content layout-padding layout="row" layout-sm="column">
+            <md-input-container flex>
+                <label>Email</label>
+                <input ng-model="user.email" placeholder="Email address" type="email" required>
+            </md-input-container>
+        </md-content>
+
+        <!-- User Login Credentials -->
+        <h2>Create a Username and Password</h2>
+        <md-content layout-padding layout="row" layout-sm="column">
+            <md-input-container flex>
+                <label>Username</label>
+                <input ng-model="user.username" placeholder="username" type="string" required>
+            </md-input-container>
+        </md-content>
+        <md-content layout-padding layout="row" layout-sm="column">
+            <md-input-container flex>
+                <label>Password (at least 8 characters with one number) </label>
+                <input ng-model="user.password" type="password" ng-minlength="8" ng-maxlength="20" ng-pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" required>
+            </md-input-container>
+        </md-content>
+        <md-content layout-padding layout="row" layout-sm="column">
+            <md-input-container flex>
+                <label>Confirm your password</label>
+                <input ng-model="user.password" type="password" required>
+            </md-input-container>
+        </md-content>
+        <md-content layout-padding layout="row" layout-sm="column">
+            <md-button class="md-primary md-raised" ng-click= "processForm(user)" type="submit" value="Save">Save</md-button>
+        </md-content>
+    </form>
+</div>

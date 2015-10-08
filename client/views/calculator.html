@@ -1,0 +1,44 @@
+<div ng-controller="calcCtrl">
+    <md-content>
+        <h1 class="md-title">Reuse Calculator</h1>
+        <form name="calcForm">
+            <div layout="row">
+                <h2 class="md-title">Choose Material: </h2>
+                <md-input-container>
+                    <label>Major Category</label>
+                    <md-select ng-model="major">
+                        <md-option ng-repeat="major in majors" value="{{major}}">{{major}}</md-option>
+                    </md-select>
+                </md-input-container>
+                <md-input-container>
+                    <label>Sub Category</label>
+                    <md-select ng-model="sub">
+                        <md-optgroup label="Optional Group 1">
+                            <md-option ng-repeat="sub in subs | filter: {group: 'group1'}" ng-value="sub.material">{{sub.material}}</md-option>
+                        </md-optgroup>
+                        <md-optgroup label="Optional Group 2">
+                            <md-option ng-repeat="sub in subs | filter: {group: 'group2'}" ng-value="sub.material">{{sub.material}}</md-option>
+                        </md-optgroup>
+                    </md-select>
+                </md-input-container>
+            </div>
+
+            <div layout="row">
+                <h2 class="md-title">Enter Weight: </h2>
+                <md-input-container>
+                    <label>Weight</label>
+                    <input ng-model="weight" type="text" required>
+                </md-input-container>
+                <md-input-container>
+                    <label>Unit</label>
+                    <md-select ng-model="unit">
+                        <md-option ng-repeat="unit in units" value="{{unit}}">{{unit}}</md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
+            <div>
+                <p ng-if="sub && weight">You saved {{calculation}} of CO2 emissions!</p>
+            </div>
+        </form>
+    </md-content>
+</div>
