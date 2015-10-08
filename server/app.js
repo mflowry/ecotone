@@ -10,7 +10,7 @@ const
 const
     routes = require('./routes/index'),
     login = require('./routes/public/login'),
-    test = require('./routes/public/querytest'),
+    test = require('./routes/public/materials'),
     register = require('./routes/public/register'),
     modifyUser = require('./routes/private/modifyUser');
 
