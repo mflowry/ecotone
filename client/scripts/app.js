@@ -13,7 +13,7 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     $routeProvider.when('/',
         {
             templateUrl: '/views/calculator.html',
-            controller: 'calcCtrl'
+            controller: 'calculateCtrl'
         }).when('/login',
         {
             templateUrl: '/views/login.html',
@@ -29,23 +29,21 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         }).when('/dashboard',
         {
             templateUrl: '/views/dashboard.html',
-            controller: ''
+            controller: 'projectsCtrl'
         }).when('/projects',
         {
             templateUrl: '/views/project.html',
-            controller: ''
+            controller: 'projectsCtrl'
         }).when('/about',
         {
-            templateUrl: '/views/about.html',
-            controller: ''
+            templateUrl: '/views/about.html'
         }).when('/contact',
         {
             templateUrl: '/views/contact.html',
             controller: ''
         }).when('/privacy',
         {
-            templateUrl: '/views/privacy.html',
-            controller: ''
+            templateUrl: '/views/privacy.html'
         }).otherwise({
             redirectTo: '/'
         });
@@ -54,7 +52,7 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
 }]);
 
 // Calculator HTML - Kate + Madeline
-app.controller('calcCtrl', ['$scope', '$http', function($scope, $http){
+app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http){
     //M
     $scope.calculate = {};
     $scope.list = {};
@@ -159,7 +157,7 @@ app.controller('projectsCtrl', ['$scope', '$http', function($scope, $http) {
         $scope.names = response.records;
     });
 
-    http({
+    $http({
         method: 'GET',
         url: 'http://www.w3schools.com/angular/customers.php'
     }).then(function (response) {

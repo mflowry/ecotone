@@ -24,13 +24,12 @@ html(lang="en" ng-app="ecotoneApp")
         div(class="md-primary md-toolbar-tools")
           span
             img(src="/images/ECOTONE_logo.gif" alt="ECOTONE")
-            h1 Upcycle Calculator
           span(flex)
           p Hello, {{user}}!
           md-button.md-primary.md-raised(href="/calculator") Calculator
           md-button.md-primary.md-raised(href="/dashboard") My Dashboard
-          md-button.md-primary.md-raised(href="/login" class="md-icon-button") Login
-          md-button.md-primary.md-raised(href="/calculator" ng-click="logOut()" class="md-icon-button") Logout
+          md-button.md-primary.md-raised(href="/login") Login
+          md-button.md-primary.md-raised(href="/calculator" ng-click="logOut()") Logout
 
     block content
 
