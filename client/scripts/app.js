@@ -100,27 +100,21 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
             return query ? $scope.list.filter(createFilterFor(query)) : $scope.list;
         };
 
-        function loadCategories() {
+//load Primary categories list on page load
+        $http({
+            method: 'Get',
+            url: '/materials/primaries',
+            data: response,
+            dataType: 'json'
+        }).then(function (response) {
+            console.log(response);
+            $scope.list = response;
+        });
+            $scope.list = data.primaries;
 
-            var categories = [
-                {
-                    category: "blinds",
-                    subcategory: ["wood", "vinyl", "aluminum"]
-                },
-                {
-                    category: "asphalt shingles",
-                    subcategory: []
-                },
-                {
-                    category: "cabinets",
-                    subcategory: ["aluminum", "wood", "fiberglass", "glass",
-                        "plastic", "steel", "vinyl", "MDF"]
-                }];
+        };
 
-            $scope.list = categories;
-        }
-
-        //Create filter function for a query string
+//Create filter function for a query string
         function createFilterFor(query) {
             var lowercaseQuery = angular.lowercase(query);
             return function filterFn(obj) {
@@ -130,7 +124,7 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         }
     }]);
 
-// Login HTML - Madeline
+// Login HTML - Madeleine
 app.controller('createAccountCtrl', ['$scope', '$http', function($scope, $http) {
     $scope.user = {};
 
