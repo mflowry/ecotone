@@ -46,7 +46,7 @@ router.get('/', function( req, res, next ){
                           }
                        });
                     });
-                    res.sendStatus(materials);
+                    res.send(materials);
                 });
             })
     });

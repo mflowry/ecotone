@@ -51,47 +51,12 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     //$httpProvider.interceptors.push('authInterceptor');
 }]);
 
-// Calculator HTML - Kate + Madeline
-//app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http){
-//    //M
-//    $scope.calculate = {};
-//    $scope.list = {};
-//    loadCategories();
-
-    //K
-    //$scope.major = [
-    //    'Category 1',
-    //    'Category 2',
-    //    'Category 3'
-    //];
-    //$scope.sub = [
-    //    'Sub-category 1',
-    //    'Sub-category 2',
-    //    'Sub-category 3'
-    //];
-    //$scope.unit = [
-    //    'lbs',
-    //    'tons',
-    //    'kg'
-    //];
-
     //M//designate controller
     app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
         $scope.calculate = {};
         $scope.list = {};
 
         loadCategories();
-
-//load categories list on page load
-// $http({
-//             method: 'Get',
-//             url: '/getList',
-//             data: response,
-//             dataType: 'json'
-//         }).then(function (response) {
-//             console.log(response);
-//             $scope.list = response;
-//         })
 
 
 //autocomplete functionality
@@ -101,23 +66,14 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         };
 
         function loadCategories() {
+            $http.get('/materials').then(function(response) {
+                var list = [];
+                response.data.forEach(function( item ){
+                    list.push( item.primary_cat )
+                });
+                $scope.list = list;
+            });
 
-            var categories = [
-                {
-                    category: "blinds",
-                    subcategory: ["wood", "vinyl", "aluminum"]
-                },
-                {
-                    category: "asphalt shingles",
-                    subcategory: []
-                },
-                {
-                    category: "cabinets",
-                    subcategory: ["aluminum", "wood", "fiberglass", "glass",
-                        "plastic", "steel", "vinyl", "MDF"]
-                }];
-
-            $scope.list = categories;
         }
 
         //Create filter function for a query string
@@ -157,12 +113,7 @@ app.controller('projectsCtrl', ['$scope', '$http', function($scope, $http) {
         $scope.names = response.records;
     });
 
-    $http({
-        method: 'GET',
-        url: 'http://www.w3schools.com/angular/customers.php'
-    }).then(function (response) {
-        $scope.names = response.records;
-    });
+
 }]);
 
 // Services for authentication
