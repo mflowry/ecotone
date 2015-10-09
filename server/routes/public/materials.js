@@ -38,7 +38,6 @@ router.get('/', function( req, res, next ){
                 done();
                 materials = results.rows;
                 client.query('select * from secondaries', function ( err, results ){
-
                     materials.forEach(function( item, index ){
                         item.secondaries = [];
                        results.rows.forEach(function( elem , i ){
@@ -47,8 +46,6 @@ router.get('/', function( req, res, next ){
                           }
                        });
                     });
-
-                    console.log(materials);
                     res.sendStatus(materials);
                 });
             })
