@@ -48,28 +48,35 @@
     <h2>Calculate Your CO2 Offset</h2>
     <!-- New Project Info -->
 
-        <md-content class="md-padding">
+        <md-content class="md-padding" layout-padding layout-fill layout="row" layout-sm="column">
             <form ng-submit="$event.preventDefault()">
-            <!--  <md-input-container flex> -->
+
             <!-- Autocomplete -->
-                <md-content class="md-padding" layout-padding layout="row" layout="column">
+                <!--<md-content class="md-padding" layout-padding layout="row" layout-sm="column" flex>-->
                     <md-autocomplete
                             md-selected-item="data.category"
                             md-search-text="searchText"
                             md-selected-item-change="selectedItemChange(item)"
                             md-items="item in querySearch(searchText)"
-                            md-item-text="item.category"
+                            md-item-text="item.primary_cat"
                             md-min-length="0"
                             placeholder="Select a material type">
                         <md-item-template>
-                            <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.category}}</span>
+                            <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.primary_cat}}</span>
                         </md-item-template>
                         <md-not-found>
                             No matches found for "{{searchText}}".
                         </md-not-found>
                     </md-autocomplete>
-                </md-content>
-
+                <!--</md-content>-->
+                <div>{{data.category.secondaries[0].secondary_cat}}</div>
+                <md-input-container>
+                    <md-select ng-model="calculate.subcategory">
+                        <md-optgroup>
+                            <md-option ng-value="subcategory.secondary_cat" ng-repeat="subcategory in data.category.secondaries ">{{subcategory.secondary_cat}}</md-option>
+                        </md-optgroup>
+                    </md-select>
+                </md-input-container>
             <md-input-container flex>
                 <label>Subcategory</label>
                 <input ng-model="calculate.subcategory" type="string">
@@ -77,12 +84,12 @@
 
             <md-input-container flex>
                 <label>Weight</label>
-                <input ng-model="calculate.description" type="string">
+                <input ng-model="calculate.weight" type="string">
             </md-input-container>
 
             <md-input-container flex>
                 <label>Units</label>
-                <input ng-model="calculate.description" type="string">
+                <input ng-model="calculate.units" type="string">
             </md-input-container>
 
             <md-button class="md-primary md-raised" ng-click= "newCalculation(calculate)" type="submit" value="Save">Submit</md-button>

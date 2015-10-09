@@ -80,46 +80,48 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         $scope.calculate = {};
         $scope.list = {};
 
-        loadCategories();
+       // loadCategories();
 
 //load categories list on page load
-// $http({
+//        $http({
 //             method: 'Get',
-//             url: '/getList',
+//             url: '/materials',
 //             data: response,
 //             dataType: 'json'
 //         }).then(function (response) {
 //             console.log(response);
 //             $scope.list = response;
-//         })
+//         });
 
 
 //autocomplete functionality
         $scope.querySearch=function(query) {
-            console.log($scope.list);
+            console.log($scope.list.filter(createFilterFor(query)));
             return query ? $scope.list.filter(createFilterFor(query)) : $scope.list;
         };
 
 //load Primary categories list on page load
-        $http({
-            method: 'Get',
-            url: '/materials/primaries',
-            data: response,
-            dataType: 'json'
-        }).then(function (response) {
+        $http.get('/materials').then(function(response) {
             console.log(response);
-            $scope.list = response;
+            $scope.list = response.data;
+            response.data.forEach(function(item){
+               item.primary_cat = item.primary_cat.toLowerCase();
+            });
         });
-            $scope.list = data.primaries;
 
-        };
+//grab the selected category and display the subcategories
+// var category = $scope.data.category;
+
+
+
 
 //Create filter function for a query string
         function createFilterFor(query) {
             var lowercaseQuery = angular.lowercase(query);
+            //console.log(query);
             return function filterFn(obj) {
-                console.log(obj);
-                return (obj.category.indexOf(lowercaseQuery) != -1);
+                //console.log(obj.primary_cat);
+                return (obj.primary_cat.indexOf(lowercaseQuery) != -1);
             };
         }
     }]);
