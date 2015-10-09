@@ -26,10 +26,10 @@ html(lang="en" ng-app="ecotoneApp")
             img(src="/images/ECOTONE_logo.gif" alt="ECOTONE")
           span(flex)
           p Hello, {{user}}!
-          md-button.md-primary.md-raised(href="/calculator") Calculator
-          md-button.md-primary.md-raised(href="/dashboard") My Dashboard
-          md-button.md-primary.md-raised(href="/login") Login
-          md-button.md-primary.md-raised(href="/calculator" ng-click="logOut()") Logout
+          md-button.md-primary(md-no-ink href="/calculator") Calculator
+          md-button.md-primary(md-no-ink href="/dashboard") My Dashboard
+          md-button.md-primary(md-no-ink href="/login") Login
+          md-button.md-primary(md-no-ink href="/calculator" ng-click="logOut()") Logout
 
     block content
 
@@ -39,6 +39,6 @@ html(lang="en" ng-app="ecotoneApp")
           span
             p(id="copyright") &copy; 2015 Ecotone-Partners
           span(flex)
-          md-button.md-primary.md-raised(href="/about") About
-          md-button.md-primary.md-raised(href="/contact") Contact
-          md-button.md-primary.md-raised(href="/privacy") Privacy
+          md-button.md-primary(md-no-ink href="/about") About
+          md-button.md-primary(md-no-ink href="/contact") Contact
+          md-button.md-primary(md-no-ink href="/privacy") Privacy
