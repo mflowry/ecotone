@@ -110,9 +110,13 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
             });
         });
 
-//grab the selected category and display the subcategories
-// var category = $scope.data.category;
-
+//load the units
+        $scope.unit = [
+            'lbs',
+            'kilos',
+            'tons',
+            'metric tons'
+        ];
 
 
 
