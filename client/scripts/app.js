@@ -53,15 +53,16 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
 
     //M//designate controller
     app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
-        $scope.calculate = {};
-        $scope.list = {};
 
-        loadCategories();
+        $scope.newCalculation = function(){
+            console.log($scope.selected);
+        };
+       // loadCategories();
 
 
 //autocomplete functionality
         $scope.querySearch=function(query) {
-            console.log($scope.list);
+            console.log($scope.list.filter(createFilterFor(query)));
             return query ? $scope.list.filter(createFilterFor(query)) : $scope.list;
         };
 
@@ -76,17 +77,32 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
 
         }
 
-        //Create filter function for a query string
+//Create filter function for a query string
         function createFilterFor(query) {
             var lowercaseQuery = angular.lowercase(query);
+            //console.log(query);
             return function filterFn(obj) {
-                console.log(obj);
-                return (obj.category.indexOf(lowercaseQuery) != -1);
+                //console.log(obj.primary_cat);
+                return (obj.primary_cat.indexOf(lowercaseQuery) != -1);
             };
         }
     }]);
 
-// Login HTML - Madeline
+
+// Login HTML - Kate
+app.controller('loginCtrl', ['$scope', '$http', 'authService', function($scope, $http, authService) {
+    $scope.login = function () {
+        $http({
+            method: 'POST',
+            url: '/login',
+            data: $scope.user
+        }).then(function(response){
+            authService.saveToken(response.data.token);
+        })
+    }
+}]);
+
+// Register HTML - Madeline
 app.controller('createAccountCtrl', ['$scope', '$http', function($scope, $http) {
     $scope.user = {};
 
@@ -94,7 +110,7 @@ app.controller('createAccountCtrl', ['$scope', '$http', function($scope, $http) 
         console.log("Posting...");
         $http({
             method: 'POST',
-            url: '/newUser',
+            url: '/register',
             data: $scope.user,
             dataType: 'json'
         }).then(function (response) {
