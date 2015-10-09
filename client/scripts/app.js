@@ -99,8 +99,6 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
             }
         ];
 
-
-
 //Create filter function for a query string
         function createFilterFor(query) {
             var lowercaseQuery = angular.lowercase(query);

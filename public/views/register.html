@@ -5,11 +5,11 @@
         <md-content layout-padding layout="row" layout-sm="column">
             <md-input-container flex>
                 <label>First Name</label>
-                <input ng-model="user.fname" placeholder="First Name" required>
+                <input ng-model="user.firstName" placeholder="First Name" required>
             </md-input-container>
             <md-input-container flex>
                 <label>Last Name</label>
-                <input ng-model="user.lname" placeholder="Last Name" required>
+                <input ng-model="user.lastName" placeholder="Last Name" required>
             </md-input-container>
         </md-content>
         <md-content layout-padding layout="row" layout-sm="column">
@@ -21,13 +21,13 @@
         <md-content layout-padding layout="row" layout-sm="column">
             <md-input-container flex>
                 <label>Company Name</label>
-                <input ng-model="user.company" placeholder="Company">
+                <input ng-model="user.companyName" placeholder="Company">
             </md-input-container>
         </md-content>
         <md-content layout-padding layout="row" layout-sm="column">
             <md-input-container flex>
                 <label>Zip Code</label>
-                <input ng-model="user.zip" placeholder="55444" ng-pattern="\d{5}?" required>
+                <input ng-model="user.zipCode" placeholder="55444" ng-pattern="\d{5}?" required>
             </md-input-container>
         </md-content>
         <md-content layout-padding layout="row" layout-sm="column">
@@ -54,7 +54,7 @@
         <md-content layout-padding layout="row" layout-sm="column">
             <md-input-container flex>
                 <label>Confirm your password</label>
-                <input ng-model="user.password" type="password" required>
+                <input ng-model="user.passwordConfirm" type="password" required>
             </md-input-container>
         </md-content>
         <md-content layout-padding layout="row" layout-sm="column">
