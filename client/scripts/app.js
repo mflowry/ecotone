@@ -77,9 +77,10 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
 
     //M//designate controller
     app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
-        $scope.calculate = {};
-        $scope.list = {};
 
+        $scope.newCalculation = function(){
+            console.log($scope.selected);
+        };
        // loadCategories();
 
 //load categories list on page load
