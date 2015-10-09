@@ -54,7 +54,7 @@
             <!-- Autocomplete -->
             <!--<md-content class="md-padding" layout-padding layout="row" layout-sm="column" flex>-->
             <md-autocomplete
-                    md-selected-item="selected.category"
+                    md-selected-item="category"
                     md-search-text="searchText"
                     md-items="item in querySearch(searchText)"
                     md-item-text="item.primary_cat"
@@ -67,10 +67,11 @@
                     No matches found for "{{searchText}}".
                 </md-not-found>
             </md-autocomplete>
+            <div>{{category}}</div>
             <!--</md-content>-->
             <md-input-container>
                 <md-select ng-model="selected.warmId" placeholder="subcategory">
-                    <md-option ng-repeat="subcategory in selected.category.secondaries" ng-value="selected.warm_id" >
+                    <md-option ng-repeat="subcategory in category.secondaries" ng-value="subcategory.warm_id" >
                         {{subcategory.secondary_cat}}
                     </md-option>
                 </md-select>
