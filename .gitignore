@@ -1,5 +1,5 @@
 **/.idea
-/public/scripts/**
+/public/scripts/app.min.js
 
 # Logs
 logs
