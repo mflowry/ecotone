@@ -179,22 +179,23 @@ userSchema.hook('beforeValidate',function(user,options,next){
     });
 });
 
-var projectSchema = sequelize.define('project',
-    {
-        projectId: {
-            type: Sequelize.INTEGER,
-            autoIncrement: true,
-            primaryKey: true
-        },
-        projectName: {
-            type: Sequelize.STRING,
-            validate:{
-                isAlpha: true
-            }
-        }
-    });
-
-projectSchema.hasOne(userSchema, {as: 'user_id', foreignKey: 'id' });
+//var projectSchema = sequelize.define('project',
+//    {
+//        projectId: {
+//            type: Sequelize.INTEGER,
+//            autoIncrement: true,
+//            primaryKey: true
+//        },
+//        projectName: {
+//            type: Sequelize.STRING,
+//            validate:{
+//                isAlpha: true
+//            }
+//        }
+//    });
+//
+//projectSchema.hasOne(userSchema, {as: 'user_id', foreignKey: 'id' });
 userSchema.hasMany(projectSchema,{as: 'user_id', foreignKey: 'id' });
 
-module.exports = {userSchema: userSchema,projectSchema: projectSchema};
+//module.exports = {userSchema: userSchema,projectSchema: projectSchema};
+module.exports = userSchema;

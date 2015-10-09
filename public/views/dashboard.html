@@ -1,12 +1,41 @@
-<!-- put madeleines stuff here to alter -->
 
+<div ng-app="myApp">
+         <h1>Edit Profile</h1>
+<h2>Click the in the field you wish you edit</h2>
+
+           <ul>
+               <label>First Name:</label><li contentEditable="true" ng-model="user.fName">John</li>
+               <label>Last Name :</label><li contentEditable="true" ng-model="user.lName">Smith</li>
+
+           </ul>
+        <ul>
+            <label>Title:</label><li contentEditable="true" ng-model="user.title">LEED Specialist</li>
+            <label>Company:</label><li contentEditable="true" ng-model="user.company">Prime Digital Academy</li>
+            </ul>
+
+        <ul>
+            <label>Zip:</label><li contentEditable="true" ng-model="user.zip">55431</li>
+            <label>Email:</label><li contentEditable="true" ng-model="user.email">person@example.com</li>
+        </ul>
+
+    <ul>
+        <label>Password:</label><li contentEditable="true" ng-model="user.password">Should be blank or *********</li>
+        <label>Re-enter Password:</label><li contentEditable="true" ng-model="user.password">Should be blank or *********</li>
+    </ul>
+
+    <md-button ng-href="{{modify.user}}" target="_blank">Save user changes</md-button>
+
+</div>
+
+
+<!--</div>-->
 <!-- Beginning dashboard -->
 <div layout="row">
-    <h3>Total C0<sub>2</sub> reduced:</h3>
+    <h1>Total Projects C0<sub>2</sub> reduced:</h1>
 </div>
 <div layout="row">
-    <h3>Projects:</h3>
-    <span flex=33></span>
+    <h2>Projects:</h2>
+    <span flex="66"></span>
     <md-button class="md-raised md-primary">Create New Project</md-button>
 </div>
 <div>
@@ -14,18 +43,31 @@
     <md-button ng-href="{{edit_Project}}" target="_blank">Edit</md-button>
 </div>
 
-<div ng-controller="projectsCtrl">
-    <table>
-        <tr>
-            <td class="heading">Project Name</td>
-            <td class="heading">Project Description</td>
-            <td class="heading">Edit</td>
-        </tr>
-        <tr>
-            <td>project.Name {{project_name}} </td>
-            <td>project.description {{project_desc}}</td>
-            <td><div><md-button ng-href="{{edit_Project}}">Edit</md-button></div></td>
-            <md-button ng-href="{{edit_Project}}" target="_blank">Edit</md-button>
-        </tr>
-    </table>
+
+<div ng-app="myApp" ng-controller="projectsCtrl">
+    <ul>
+        <ul>
+            <li class="li_header">Project</li>
+            <li class="li_header">Description</li>
+            <li class="li_header">Total Weight</li>
+            <li class="li_header">Total CO<sub>2</sub></li>
+            <li class="li_header">Delete</li>
+        </ul>
+        <ul ng-repeat="project in projects">
+            <li contentEditable="true" ng-model="???.pName">project.Name {{project.name}} }</li>
+            <li contentEditable="true" ng-model="???.pdesc">project.description {{project.desc}}</li>
+            <li contentEditable="true" ng-model="???.totWt">12,341 kg{{weight}}{{units}}</li>
+            <li contentEditable="true" ng-model="???.totC02">27.6{{CO2}}</li>
+            <li>Delete Project- need popup wind for conf{{project.delete}}</div></li>
+        </ul>
+
+       <!--this is the viewable stuff for example, delete when we got the above list working-->
+        <ul>
+            <li contentEditable="true" ng-model="???.pName">example Metal{category}</li>
+            <li contentEditable="true" ng-model="???.pdesc">Gutters{subcategory}</li>
+            <li contentEditable="true" ng-model="???.totWt">8 kg{weight}{units}</li>
+            <li contentEditable="true" ng-model="???.totC02">7.2{CO2}</li>
+            <li>Delete Project- need popup wind for conf{{delet}}</li>
+        </ul>
+
 </div>
