@@ -77,58 +77,56 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
 
     //M//designate controller
     app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
-        $scope.calculate = {};
-        $scope.list = {};
 
-        loadCategories();
+        $scope.newCalculation = function(){
+            console.log($scope.selected);
+        };
+       // loadCategories();
 
 //load categories list on page load
-// $http({
+//        $http({
 //             method: 'Get',
-//             url: '/getList',
+//             url: '/materials',
 //             data: response,
 //             dataType: 'json'
 //         }).then(function (response) {
 //             console.log(response);
 //             $scope.list = response;
-//         })
+//         });
 
 
 //autocomplete functionality
         $scope.querySearch=function(query) {
-            console.log($scope.list);
+            console.log($scope.list.filter(createFilterFor(query)));
             return query ? $scope.list.filter(createFilterFor(query)) : $scope.list;
         };
 
-        function loadCategories() {
+//load Primary categories list on page load
+        $http.get('/materials').then(function(response) {
+            console.log(response);
+            $scope.list = response.data;
+            response.data.forEach(function(item){
+               item.primary_cat = item.primary_cat.toLowerCase();
+            });
+        });
 
-            var categories = [
-                {
-                    category: "blinds",
-                    subcategory: ["wood", "vinyl", "aluminum"]
-                },
-                {
-                    category: "asphalt shingles",
-                    subcategory: []
-                },
-                {
-                    category: "cabinets",
-                    subcategory: ["aluminum", "wood", "fiberglass", "glass",
-                        "plastic", "steel", "vinyl", "MDF"]
-                }];
+//grab the selected category and display the subcategories
+// var category = $scope.data.category;
 
-            $scope.list = categories;
-        }
 
-        //Create filter function for a query string
+
+
+//Create filter function for a query string
         function createFilterFor(query) {
             var lowercaseQuery = angular.lowercase(query);
+            //console.log(query);
             return function filterFn(obj) {
-                console.log(obj);
-                return (obj.category.indexOf(lowercaseQuery) != -1);
+                //console.log(obj.primary_cat);
+                return (obj.primary_cat.indexOf(lowercaseQuery) != -1);
             };
         }
     }]);
+
 
 // Login HTML - Kate
 app.controller('loginCtrl', ['$scope', '$http', 'authService', function($scope, $http, authService) {
