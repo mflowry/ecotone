@@ -17,6 +17,8 @@ const
     project = require('./routes/private/project');
 
 
+
+
 var app = express();
 
 // view engine setup
@@ -38,6 +40,7 @@ app.use('/register',register);
 app.use('/modifyUser',modifyUser);
 app.use('/calculations',calculations);
 app.use('/project',project);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
