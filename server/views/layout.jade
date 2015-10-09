@@ -7,29 +7,29 @@ html(lang="en" ng-app="ecotoneApp")
     link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic")
     link(rel="stylesheet" href="/stylesheets/style.css")
 
-    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js")
-    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js")
-    script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js")
-    script(src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.js")
-    script(src="node_modules/angular-messages/angular-messages.min.js")
-    script(src="../scripts/app.js")
+    script(type="text/javascript" src="./scripts/angular/angular.min.js")
+    script(type="text/javascript" src="./scripts/angular/angular-route.min.js")
+    script(type="text/javascript" src="./scripts/angular/angular-material.min.js")
+    script(type="text/javascript" src="./scripts/angular/angular-animate.min.js")
+    script(type="text/javascript" src="./scripts/angular/angular-aria.min.js")
+    script(type="text/javascript" src="./scripts/angular/angular-messages.min.js")
+    script(type="text/javascript" src="./scripts/app.js")
 
     meta(name="viewport" content="initial-scale=1")
     base(href='/')
 
   body
-    header(layout="column" ng-controller="navCtrl" layout-fill)
+    header(layout="column" layout-fill)
       md-toolbar
         div(class="md-primary md-toolbar-tools")
           span
-            img(src="../images/ECOTONE_logo.gif" alt="ECOTONE")
-            h1 Upcycle Calculator
+            img(src="/images/ECOTONE_logo.gif" alt="ECOTONE")
           span(flex)
           p Hello, {{user}}!
-          md-button(href="/calculator" class="md-icon-button") Calculator
-          md-button(href="/dashboard" class="md-icon-button") My Dashboard
-          md-button(href="/login" class="md-icon-button") Login
-          md-button(href="/calculator" ng-click="logOut()" class="md-icon-button") Logout
+          md-button.md-primary.md-raised(href="/calculator") Calculator
+          md-button.md-primary.md-raised(href="/dashboard") My Dashboard
+          md-button.md-primary.md-raised(href="/login") Login
+          md-button.md-primary.md-raised(href="/calculator" ng-click="logOut()") Logout
 
     block content
 
@@ -39,6 +39,6 @@ html(lang="en" ng-app="ecotoneApp")
           span
             p(id="copyright") &copy; 2015 Ecotone-Partners
           span(flex)
-          md-button(href="/about") About
-          md-button(href="/contact") Contact
-          md-button(href="/privacy") Privacy
+          md-button.md-primary.md-raised(href="/about") About
+          md-button.md-primary.md-raised(href="/contact") Contact
+          md-button.md-primary.md-raised(href="/privacy") Privacy

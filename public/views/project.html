@@ -1,0 +1,51 @@
+<div layout="row">
+    <h2>Project Name:</h2>
+    <p>{{project_name}} 1600 Pennsylvania Ave</p>
+</div>
+<div layout="row">
+    <h2>Project Description:</h2>
+    <p>{{project_desc}}This home is undergoing some renovation after some storm damage and they want to make sure materials can be reused in another project.</p>
+</div>
+<!-- just trying out some layout here -->
+
+<div class="flex-container">
+    <ul>
+        <!--<li>-->
+        <ul>
+            <li class="li_header">Category</li>
+            <li class="li_header">Sub-Category</li>
+            <li class="li_header">Weight</li>
+            <li class="li_header">CO<sub>2</sub></li>
+
+        </ul>
+        <ul ng-repeat="project in projects">
+            <li>example Flooring{{category}}</li>
+            <li> Oak{{subcategory}}</li>
+            <li>12 kg{{weight}}{{units}}</li>
+            <li>27.6{{CO2}}</li>
+
+        </ul>
+        <ul>
+            <li>example Metal{category}</li>
+            <li>Gutters{subcategory}</li>
+            <li>8 kg{weight}{units}</li>
+            <li>7.2{CO2}</li>
+
+        </ul>
+        <ul>
+            <li>&nbsp;</li>
+            <li >&nbsp;</li>
+            <li>Total C0<sub>2</sub>: </li>
+            <li class="li_header">7.2 tons{{CO2_total}}</li>
+
+        </ul>
+        <!-- THE ANGULAR STUFFS
+             <ul ng-repeat="project in projects">
+<li class="li_header">Category</li>
+                 <li class="li_header">example{{category}}</li>
+                 <li>{{subcategory}}</li>
+                 <li>{{weight}}{{units}}</li>
+                 <li>{{CO2}}</li>
+              </ul> -->
+    </ul>
+</div>

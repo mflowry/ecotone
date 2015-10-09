@@ -3,47 +3,47 @@ var app = angular.module('ecotoneApp', ['ngRoute', 'ngMaterial', 'ngMessages']);
 app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpProvider', function($mdThemingProvider, $routeProvider, $locationProvider, $httpProvider){
     $locationProvider.html5Mode(true);
 
+    //set theme and color palette
     $mdThemingProvider.theme('default')
         .primaryPalette('green')
         .accentPalette('blue')
         .warnPalette ('orange');
 
+    //routes for views
     $routeProvider.when('/',
         {
-            templateUrl: 'client/views/calculator.html',
-            controller: 'calcCtrl'
+            templateUrl: '/views/calculator.html',
+            controller: 'calculateCtrl'
         }).when('/login',
         {
-            templateUrl: 'client/views/login.html',
-            controller: 'loginCtrl'
+            templateUrl: '/views/login.html',
+            controller: ''
         }).when('/register',
         {
-            templateUrl: 'client/views/register.html',
+            templateUrl: '/views/register.html',
             controller: 'createAccountCtrl'
         }).when('/account',
         {
-            templateUrl: 'client/views/account.html',
+            templateUrl: '/views/account.html',
             controller: ''
         }).when('/dashboard',
         {
-            templateUrl: 'client/views/dashboard.html',
-            controller: ''
+            templateUrl: '/views/dashboard.html',
+            controller: 'projectsCtrl'
         }).when('/projects',
         {
-            templateUrl: 'client/views/project.html',
-            controller: ''
+            templateUrl: '/views/project.html',
+            controller: 'projectsCtrl'
         }).when('/about',
         {
-            templateUrl: 'client/views/about.html',
-            controller: ''
+            templateUrl: '/views/about.html'
         }).when('/contact',
         {
-            templateUrl: 'client/views/contact.html',
+            templateUrl: '/views/contact.html',
             controller: ''
         }).when('/privacy',
         {
-            templateUrl: 'client/views/privacy.html',
-            controller: ''
+            templateUrl: '/views/privacy.html'
         }).otherwise({
             redirectTo: '/'
         });
@@ -51,7 +51,14 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     //$httpProvider.interceptors.push('authInterceptor');
 }]);
 
-app.controller('calcCtrl', ['$scope', '$http', function($scope, $http){
+// Calculator HTML - Kate + Madeline
+app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http){
+    //M
+    $scope.calculate = {};
+    $scope.list = {};
+    loadCategories();
+
+    //K
     $scope.major = [
         'Category 1',
         'Category 2',
@@ -67,8 +74,63 @@ app.controller('calcCtrl', ['$scope', '$http', function($scope, $http){
         'tons',
         'kg'
     ];
+
+    //M
+    //load categories list on page load
+// $http({
+//             method: 'Get',
+//             url: '/getList',
+//             data: response,
+//             dataType: 'json'
+//         }).then(function (response) {
+//             console.log(response);
+//             $scope.list = response;
+//         })
+
+    // Auto-complete functionality
+    $scope.querySearch=function(query) {
+        console.log($scope.list);
+        return query ? $scope.list.filter(createFilterFor(query)) : $scope.list;
+    };
+
+    function searchTextChange(text) {
+        $log.info('Text changed to ' + text);
+    }
+
+    function selectedItemChange(item) {
+        $log.info('Item changed to ' + JSON.stringify(item));
+    }
+
+    function loadCategories() {
+        var categories = [
+            {
+                category: "blinds",
+                subcategory: ["wood", "vinyl", "aluminum"]
+            },
+            {
+                category: "asphalt shingles",
+                subcategory: []
+            },
+            {
+                category: "cabinets",
+                subcategory: ["aluminum", "wood", "fiberglass", "glass",
+                    "plastic", "steel", "vinyl", "MDF"]
+            }];
+
+        $scope.list = categories;
+    }
+
+    // Create filter function for a query string
+    function createFilterFor(query) {
+        var lowercaseQuery = angular.lowercase(query);
+        return function filterFn(obj) {
+            console.log(obj);
+            return (obj.category.indexOf(lowercaseQuery) != -1);
+        };
+    }
 }]);
 
+// Login HTML - Madeline
 app.controller('createAccountCtrl', ['$scope', '$http', function($scope, $http) {
     $scope.user = {};
 
@@ -84,7 +146,23 @@ app.controller('createAccountCtrl', ['$scope', '$http', function($scope, $http) 
             alert("Your account has been created.")
         })
     };
+}]);
 
+// Project HTML - Dashboard HTML - Kim
+app.controller('projectsCtrl', ['$scope', '$http', function($scope, $http) {
+    $http({
+        method: 'POST',
+        url: 'http://www.w3schools.com/angular/customers.php'
+    }).then(function (response) {
+        $scope.names = response.records;
+    });
+
+    $http({
+        method: 'GET',
+        url: 'http://www.w3schools.com/angular/customers.php'
+    }).then(function (response) {
+        $scope.names = response.records;
+    });
 }]);
 
 // Services for authentication

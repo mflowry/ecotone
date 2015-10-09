@@ -1,0 +1,31 @@
+<!-- put madeleines stuff here to alter -->
+
+<!-- Beginning dashboard -->
+<div layout="row">
+    <h3>Total C0<sub>2</sub> reduced:</h3>
+</div>
+<div layout="row">
+    <h3>Projects:</h3>
+    <span flex=33></span>
+    <md-button class="md-raised md-primary">Create New Project</md-button>
+</div>
+<div>
+    <md-button ng-href="{{edit_Project}}" target="_blank">Edit</md-button>
+    <md-button ng-href="{{edit_Project}}" target="_blank">Edit</md-button>
+</div>
+
+<div ng-controller="projectsCtrl">
+    <table>
+        <tr>
+            <td class="heading">Project Name</td>
+            <td class="heading">Project Description</td>
+            <td class="heading">Edit</td>
+        </tr>
+        <tr>
+            <td>project.Name {{project_name}} </td>
+            <td>project.description {{project_desc}}</td>
+            <td><div><md-button ng-href="{{edit_Project}}">Edit</md-button></div></td>
+            <md-button ng-href="{{edit_Project}}" target="_blank">Edit</md-button>
+        </tr>
+    </table>
+</div>
