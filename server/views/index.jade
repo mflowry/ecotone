@@ -1,4 +1,8 @@
 extends layout
 
 block content
-  div(class="view-container" ng-view)
+  span(flex)
+  #main(layout="column" layout-align="center center" layout-padding)
+    <!-- ng-view will display injected content -->
+    div(ng-view)
+  span(flex)
