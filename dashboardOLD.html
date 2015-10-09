@@ -1,0 +1,139 @@
+<html lang="en" ng-app="calculatorApp">
+  <head>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+   
+    <link rel="stylesheet" href="style.css">
+  
+        
+    <meta name="viewport" content="initial-scale=1" />
+  </head>
+  <body layout="column" ng-controller="AppCtrl">
+    <md-toolbar layout="row">
+      <div class="md-toolbar-tools">
+      
+       <span><h1>Ecotone Calculator Project Page</h1></span>
+ <!-- fill up the space between left and right area -->
+      <span flex></span>
+      <p class="md-body-2">
+    Hello {User}! | Calculator | My Dashboard | Logout
+     
+  </p>
+    </div>
+  </md-toolbar>
+
+         </div>
+</md-toolbar>
+     
+
+
+
+<!-- put madeleines stuff here to alter -->
+<div>
+
+<table ng-app="myApp">
+    <thead>
+        <tr>
+            <th><h3>Edit Profile</h3></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><div contentEditable="true" ng-model="user.fName">John</div></td>
+            <td><i class="icon-edit"></i></td>
+            <td>
+                <div contentEditable="true" ng-model="user.lName">Smith</div>
+            </td>
+            <td><i class="icon-edit"></i></td>
+        <tr>
+            <td>
+                <div contentEditable="true" ng-model="user.title">LEED Specialist</div>
+            </td>
+            <td><i class="icon-edit"></i></td>
+            <td>
+                <div contentEditable="true" ng-model="user.company">Prime Digital Academy</div>
+            </td>
+            <td><i class="icon-edit"></i></td>
+        </tr>
+        <tr>
+            <td>
+                <div contentEditable="true" ng-model="user.zip">55431</div>
+            </td>
+            <td><i class="icon-edit"></i></td>
+            <td>
+                <div contentEditable="true" ng-model="user.email">person@example.com</div>
+            </td>
+            <td><i class="icon-edit"></i></td>
+        </tr>
+        <tr>
+            <td>
+                <div contentEditable="true" ng-model="user.username">Aesop</div>
+            </td>
+            <td><i class="icon-edit"></i></td>
+            <td>
+                <div contentEditable="true" ng-model="user.password">Should be blank or *********</div>
+            </td>
+            <td><i class="icon-edit"></i></td>
+        </tr>
+    </tbody>
+</table>
+            
+<label>Click the text you wish you edit</label>
+</div>
+
+
+
+<!-- Beginning dashboard -->
+<div layout="row">
+<h3>Total C0<sub>2</sub> reduced:</h3>
+</div>
+<div layout="row">
+
+<h3>Projects:</h3>
+  <span flex=33></span>
+<md-button class="md-raised md-primary">Create New Project</md-button>
+</div>
+<div>
+<md-button ng-href="{{edit_Project}}" target="_blank">Edit</md-button>
+<md-button ng-href="{{edit_Project}}" target="_blank">Edit</md-button>
+</div>
+
+<div ng-app="myApp" ng-controller="projectsCtrl"> 
+
+<table>
+ 
+  <tr>
+    <td class="heading">Project Name</td>
+    <td class="heading">Project Description</td>
+    <td class="heading">Edit</td>
+  </tr>
+  <tr>
+    <td>project.Name {{project_name}} </td>
+    <td>project.description {{project_desc}}</td>
+     <td><div><md-button ng-href="{{edit_Project}}">Edit</md-button></div></td>
+
+    <md-button ng-href="{{edit_Project}}" target="_blank">Edit</md-button>
+  </tr>
+</table>
+
+
+
+       <!-- Angular Material Dependencies -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.js"></script>
+      <script src="node_modules/angular-messages/angular-messages.min.js"></script>
+ <!--  // <script src="dashboard.js" type="text/javascript"></script> -->
+      <!-- Do not delete this script.js -->
+    <script src="script.js" type="text/javascript"></script>
+    <script src="dashboard.js" type="text/javascript"></script>
+  
+  
+  
+  </body>
+</html>
+   
+
+    
