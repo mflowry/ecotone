@@ -18,8 +18,8 @@
         <md-input-container flex>
             <label for="title">Title</label>
             <input id="title" type="text" contentEditable="true" ng-model="user.title" />
-            </md-input-container>
-        <md-input-container>
+        </md-input-container>
+        <md-input-container flex>
             <label for="company">Company</label>
             <input id="company" type="text" contentEditable="true" ng-model="user.company" />
         </md-input-container>
@@ -29,8 +29,10 @@
             <md-input-container flex>
             <label for="zip">Zip:</label>
             <input id="zip" type="text" contentEditable="true" ng-model="user.zip" />
+            </md-input-container>
+            <md-input-container flex>
             <label for="email">Email:</label>
-            <input id="email" type="text" contentEditable="true" ng-model="user.email" />person@example.com
+            <input id="email" type="text" contentEditable="true" ng-model="user.email" />
             </md-input-container>
         </div>
 
@@ -38,13 +40,15 @@
             <md-input-container flex>
             <label for="password">Password:</label>
             <input id="password" type="text" contentEditable="true" ng-model="user.password" />
-            <label for="re-password">Re-enter Password:</label>
-            <input id="re-password" type="text" contentEditable="true" ng-model="user.password" />
+            </md-input-container>
+            <md-input-container flex>
+            <label for="re_password">Re-enter Password:</label>
+            <input id="re_password" type="text" contentEditable="true" ng-model="user.re_password" />
             </md-input-container>
         </div>
 
         <div layout layout-sm="column">
-            <md-input-container flex>
+            <md-input-container>
             <md-button class="md-raised md-primary" ng-href="{{modify.user}}" target="_blank">Save user changes
             </md-button>
             </md-input-container>
@@ -55,10 +59,10 @@
 
 <!-- Beginning dashboard -->
 <md-content>
-<div layout="row">
+<div>
     <h1>Total Projects C0<sub>2</sub> reduced:</h1>
 </div>
-<div layout="row">
+<div>
     <h2>Edit/Delete Projects</h2>
     <!--<span flex="33"></span>-->
     <md-button class="md-raised md-primary">Create New Project</md-button>
@@ -68,31 +72,51 @@
 </div>
 
 
-< ng-app="myApp" ng-controller="projectsCtrl">
-<ul>
-    <li class="li_header">Project</li>
-    <li class="li_header">Description</li>
-    <li class="li_header">Total Weight</li>
-    <li class="li_header">Total CO<sub>2</sub></li>
-    <li class="li_header">Save/Delete</li>
-</ul>
-<ul ng-repeat="project in projects">
-    <li contentEditable="true" ng-model="placeholder.pName">project.Name {{project.name}} }</li>
-    <li contentEditable="true" ng-model="placeholder.pdesc">project.description {{project.desc}}</li>
-    <li contentEditable="true" ng-model="placeholder.totWt">12,341 kg{{weight}}{{units}}</li>
-    <li contentEditable="true" ng-model="placeholder.totC02">27.6{{CO2}}</li>
-    <li>Delete Project- need popup wind for conf{{project.delete}}</li>
-</ul>
+<div ng-controller="projectsCtrl">
+    <md-content>
+ <table>
+
+     <tr>
+        <th>Project</th>
+        <th width="25%">Description</th>
+        <th>Total Weight</th>
+        <th>Total CO<sub>2</sub></th>
+        <th>Save | Delete</th>
+    </tr>
+
+<tr ng-repeat="project in projects">
+    <td contentEditable="true" ng-model="placeholder.pName">project.Name {{project.name}} }</td>
+    <td contentEditable="true" ng-model="placeholder.pdesc">project.description {{project.desc}}</td>
+    <td contentEditable="true" ng-model="placeholder.totWt">12,341 kg{{weight}}{{units}}</td>
+    <td contentEditable="true" ng-model="placeholder.totC02">27.6{{CO2}}</td>
+    <td><i class="material-icons">save</i>{{project.save}} | Delete Project{{project.delete}}</td>
+</tr>
+
 
 <!--this is the viewable stuff for example, delete when we got the above list working-->
-<ul>
-    <li contentEditable="true" ng-model="placeholder.pName">example Metal{category}</li>
-    <li contentEditable="true" ng-model="placeholder.pdesc">This project is awesome and it really helped save a lot of
+<tr>
+    <td contentEditable="true" ng-model="placeholder.pName">example Metal{category}</td>
+    <td contentEditable="true" ng-model="placeholder.pdesc">This project is awesome and it really helped save a lot of
         energy{subcategory}
-    </li>
-    <li contentEditable="true" ng-model="placeholder.totWt">4289 kg{weight}{units}</li>
-    <li contentEditable="true" ng-model="placeholder.totC02">7.2{CO2}</li>
-    <li>Delete Project- need popup wind for conf{{delete}}</li>
-</ul>
+    </td>
+    <td contentEditable="true" ng-model="placeholder.totWt">4289 kg{weight}{units}</td>
+    <td contentEditable="true" ng-model="placeholder.totC02">7.2{CO2}</td>
+    <td><i class="material-icons">save</i>{{project.save}} | Delete Project{{project.delete}}</td>
+</tr>
+     <tr>
+         <td contentEditable="true" ng-model="placeholder.pName">example Metal{category}</td>
+         <td contentEditable="true" ng-model="placeholder.pdesc">This project is awesome and it really helped save a lot of
+             energy{subcategory}
+         </td>
+         <td contentEditable="true" ng-model="placeholder.totWt">4289 kg{weight}{units}</td>
+         <td contentEditable="true" ng-model="placeholder.totC02">7.2{CO2}</td>
+         <td><i class="material-icons">save</i>{{project.save}} | Delete Project{{project.delete}}</td>
+     </tr>
 
+ </table>
+        </md-content>
+
+    <i class="material-icons">save</i>
+
+    </div>
     </md-content>
