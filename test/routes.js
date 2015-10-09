@@ -26,7 +26,6 @@ describe('The user API', function(){
     };
 
     it('should create a new user', function( done ){
-        this.timeout(5000);
 
         api.post('/register')
             .send(newUser)
@@ -48,14 +47,11 @@ describe('The user API', function(){
 
     it('should authorize a user', function( done ){
 
-
-        var loginUser = {
-            username: newUser.username,
-            password: newUser.password
-        };
-
         api.post('/login')
-            .send(loginUser)
+            .send({
+                username: newUser.username,
+                password: newUser.password
+            })
             .end(function( err, res ){
                 res.body.should.have.property('user');
                 res.body.should.have.property('token');
@@ -68,6 +64,7 @@ describe('The user API', function(){
     it('should update a user', function( done ){
 
         var newName = chance.last();
+
         api.put('/modifyUser')
             .set('Authorization', 'Bearer ' + token)
             .send({firstName: newName})
