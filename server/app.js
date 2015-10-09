@@ -15,6 +15,8 @@ const
     modifyUser = require('./routes/private/modifyUser');
 
 
+
+
 var app = express();
 
 // view engine setup
@@ -34,6 +36,7 @@ app.use('/login', login);
 app.use('/materials', materials);
 app.use('/register',register);
 app.use('/modifyUser',modifyUser);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
