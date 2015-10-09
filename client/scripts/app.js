@@ -51,30 +51,6 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     //$httpProvider.interceptors.push('authInterceptor');
 }]);
 
-// Calculator HTML - Kate + Madeline
-//app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http){
-//    //M
-//    $scope.calculate = {};
-//    $scope.list = {};
-//    loadCategories();
-
-    //K
-    //$scope.major = [
-    //    'Category 1',
-    //    'Category 2',
-    //    'Category 3'
-    //];
-    //$scope.sub = [
-    //    'Sub-category 1',
-    //    'Sub-category 2',
-    //    'Sub-category 3'
-    //];
-    //$scope.unit = [
-    //    'lbs',
-    //    'tons',
-    //    'kg'
-    //];
-
     //M//designate controller
     app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
 
@@ -85,17 +61,6 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         };
        // loadCategories();
 
-//load categories list on page load
-//        $http({
-//             method: 'Get',
-//             url: '/materials',
-//             data: response,
-//             dataType: 'json'
-//         }).then(function (response) {
-//             console.log(response);
-//             $scope.list = response;
-//         });
-
 
 //autocomplete functionality
         $scope.querySearch=function(query) {
@@ -103,14 +68,16 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
             return query ? $scope.list.filter(createFilterFor(query)) : $scope.list;
         };
 
-//load Primary categories list on page load
-        $http.get('/materials').then(function(response) {
-            console.log(response);
-            $scope.list = response.data;
-            response.data.forEach(function(item){
-               item.primary_cat = item.primary_cat.toLowerCase();
+        function loadCategories() {
+            $http.get('/materials').then(function(response) {
+                var list = [];
+                response.data.forEach(function( item ){
+                    list.push( item.primary_cat )
+                });
+                $scope.list = list;
             });
-        });
+
+        };
 
 //load the units
         $scope.units = [
@@ -145,7 +112,21 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         }
     }]);
 
-// Login HTML - Madeleine
+
+// Login HTML - Kate
+app.controller('loginCtrl', ['$scope', '$http', 'authService', function($scope, $http, authService) {
+    $scope.login = function () {
+        $http({
+            method: 'POST',
+            url: '/login',
+            data: $scope.user
+        }).then(function(response){
+            authService.saveToken(response.data.token);
+        })
+    }
+}]);
+
+// Register HTML - Madeline
 app.controller('createAccountCtrl', ['$scope', '$http', function($scope, $http) {
     $scope.user = {};
 
@@ -153,7 +134,7 @@ app.controller('createAccountCtrl', ['$scope', '$http', function($scope, $http) 
         console.log("Posting...");
         $http({
             method: 'POST',
-            url: '/newUser',
+            url: '/register',
             data: $scope.user,
             dataType: 'json'
         }).then(function (response) {
@@ -172,12 +153,7 @@ app.controller('projectsCtrl', ['$scope', '$http', function($scope, $http) {
         $scope.names = response.records;
     });
 
-    $http({
-        method: 'GET',
-        url: 'http://www.w3schools.com/angular/customers.php'
-    }).then(function (response) {
-        $scope.names = response.records;
-    });
+
 }]);
 
 // Services for authentication

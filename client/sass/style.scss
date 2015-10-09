@@ -1,12 +1,4 @@
-.md-primary{
-  background-color: #4CAF50 ;
-}
-.md-accent {
-  background-color: #03A9F4 ;
-}
-.md-warn {
-  color: #FF9800 ;
-}
+
 header md-toolbar {
   height: 100px;
 }
@@ -15,15 +7,6 @@ header md-toolbar {
   font-weight: inherit;
   margin: inherit;
 }
-.md-datepicker {
-  margin-top: 18px; }
-.md-datepicker-button {
-  height: 36px;
-  width: 36px;
-  line-height: 36px; }
-
-.md-datepicker-input-container {
-  margin-left: 2px; }
 h2 {
   padding-left: 20px;
   margin-top: 35px;
