@@ -130,7 +130,20 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         }
     }]);
 
-// Login HTML - Madeline
+// Login HTML - Kate
+app.controller('loginCtrl', ['$scope', '$http', 'authService', function($scope, $http, authService) {
+    $scope.login = function () {
+        $http({
+            method: 'POST',
+            url: '/login',
+            data: $scope.user
+        }).then(function(response){
+            authService.saveToken(response.data);
+        })
+    }
+}]);
+
+// Register HTML - Madeline
 app.controller('createAccountCtrl', ['$scope', '$http', function($scope, $http) {
     $scope.user = {};
 
@@ -138,7 +151,7 @@ app.controller('createAccountCtrl', ['$scope', '$http', function($scope, $http) 
         console.log("Posting...");
         $http({
             method: 'POST',
-            url: '/newUser',
+            url: '/register',
             data: $scope.user,
             dataType: 'json'
         }).then(function (response) {
