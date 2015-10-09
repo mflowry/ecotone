@@ -26,17 +26,31 @@ router.post('/createProxy', function(req, res, next){
     createProxy(req, res, next);
 });
 
-router.get('/primaries', function( req, res, next ){
+router.get('/', function( req, res, next ){
+
+    var materials = [];
+
     pg.connect( connectionString , function( err, client, done ) {
         if (err) console.log(err);
 
-        client.query('SELECT primary_cat FROM primaries ',
+        client.query('select * from primaries',
             function( err, results){
                 done();
-                console.log(results);
-                res.send(results);
+                materials = results.rows;
+                client.query('select * from secondaries', function ( err, results ){
+                    materials.forEach(function( item, index ){
+                        item.secondaries = [];
+                       results.rows.forEach(function( elem , i ){
+                          if(item.id == elem.primary_id){
+                              item.secondaries.push(elem)
+                          }
+                       });
+                    });
+                    res.sendStatus(materials);
+                });
             })
     });
+
 });
 
 router.get('/secondary/:id', function( req, res, next ){
