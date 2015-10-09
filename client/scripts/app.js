@@ -52,31 +52,37 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
 }]);
 
 // Calculator HTML - Kate + Madeline
-app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http){
-    //M
-    $scope.calculate = {};
-    $scope.list = {};
-    loadCategories();
+//app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http){
+//    //M
+//    $scope.calculate = {};
+//    $scope.list = {};
+//    loadCategories();
 
     //K
-    $scope.major = [
-        'Category 1',
-        'Category 2',
-        'Category 3'
-    ];
-    $scope.sub = [
-        'Sub-category 1',
-        'Sub-category 2',
-        'Sub-category 3'
-    ];
-    $scope.unit = [
-        'lbs',
-        'tons',
-        'kg'
-    ];
+    //$scope.major = [
+    //    'Category 1',
+    //    'Category 2',
+    //    'Category 3'
+    //];
+    //$scope.sub = [
+    //    'Sub-category 1',
+    //    'Sub-category 2',
+    //    'Sub-category 3'
+    //];
+    //$scope.unit = [
+    //    'lbs',
+    //    'tons',
+    //    'kg'
+    //];
 
-    //M
-    //load categories list on page load
+    //M//designate controller
+    app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
+        $scope.calculate = {};
+        $scope.list = {};
+
+        loadCategories();
+
+//load categories list on page load
 // $http({
 //             method: 'Get',
 //             url: '/getList',
@@ -87,48 +93,42 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http){
 //             $scope.list = response;
 //         })
 
-    // Auto-complete functionality
-    $scope.querySearch=function(query) {
-        console.log($scope.list);
-        return query ? $scope.list.filter(createFilterFor(query)) : $scope.list;
-    };
 
-    function searchTextChange(text) {
-        $log.info('Text changed to ' + text);
-    }
-
-    function selectedItemChange(item) {
-        $log.info('Item changed to ' + JSON.stringify(item));
-    }
-
-    function loadCategories() {
-        var categories = [
-            {
-                category: "blinds",
-                subcategory: ["wood", "vinyl", "aluminum"]
-            },
-            {
-                category: "asphalt shingles",
-                subcategory: []
-            },
-            {
-                category: "cabinets",
-                subcategory: ["aluminum", "wood", "fiberglass", "glass",
-                    "plastic", "steel", "vinyl", "MDF"]
-            }];
-
-        $scope.list = categories;
-    }
-
-    // Create filter function for a query string
-    function createFilterFor(query) {
-        var lowercaseQuery = angular.lowercase(query);
-        return function filterFn(obj) {
-            console.log(obj);
-            return (obj.category.indexOf(lowercaseQuery) != -1);
+//autocomplete functionality
+        $scope.querySearch=function(query) {
+            console.log($scope.list);
+            return query ? $scope.list.filter(createFilterFor(query)) : $scope.list;
         };
-    }
-}]);
+
+        function loadCategories() {
+
+            var categories = [
+                {
+                    category: "blinds",
+                    subcategory: ["wood", "vinyl", "aluminum"]
+                },
+                {
+                    category: "asphalt shingles",
+                    subcategory: []
+                },
+                {
+                    category: "cabinets",
+                    subcategory: ["aluminum", "wood", "fiberglass", "glass",
+                        "plastic", "steel", "vinyl", "MDF"]
+                }];
+
+            $scope.list = categories;
+        }
+
+        //Create filter function for a query string
+        function createFilterFor(query) {
+            var lowercaseQuery = angular.lowercase(query);
+            return function filterFn(obj) {
+                console.log(obj);
+                return (obj.category.indexOf(lowercaseQuery) != -1);
+            };
+        }
+    }]);
 
 // Login HTML - Madeline
 app.controller('createAccountCtrl', ['$scope', '$http', function($scope, $http) {

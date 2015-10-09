@@ -2,9 +2,8 @@ doctype html
 html(lang="en" ng-app="ecotoneApp")
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css")
     link(rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic")
+    link(rel="stylesheet" href="/stylesheets/angular/angular-material.min.css")
     link(rel="stylesheet" href="/stylesheets/style.css")
 
     script(type="text/javascript" src="./scripts/angular/angular.min.js")
@@ -19,8 +18,8 @@ html(lang="en" ng-app="ecotoneApp")
     base(href='/')
 
   body
-    header(layout="column" layout-fill)
-      md-toolbar
+    header
+      md-toolbar(layout="row")
         div(class="md-primary md-toolbar-tools")
           span
             img(src="/images/ECOTONE_logo.gif" alt="ECOTONE")
