@@ -75,17 +75,17 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http){
         'kg'
     ];
 
-    //M
-    //load categories list on page load
-// $http({
-//             method: 'Get',
-//             url: '/getList',
-//             data: response,
-//             dataType: 'json'
-//         }).then(function (response) {
-//             console.log(response);
-//             $scope.list = response;
-//         })
+
+//load categories list on page load
+        $http({
+             method: 'Get',
+             url: '/materials',
+             data: response,
+             dataType: 'json'
+         }).then(function (response) {
+             console.log(response);
+             $scope.list = response;
+         });
 
     // Auto-complete functionality
     $scope.querySearch=function(query) {
@@ -101,26 +101,26 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http){
         $log.info('Item changed to ' + JSON.stringify(item));
     }
 
-    function loadCategories() {
-        var categories = [
-            {
-                category: "blinds",
-                subcategory: ["wood", "vinyl", "aluminum"]
-            },
-            {
-                category: "asphalt shingles",
-                subcategory: []
-            },
-            {
-                category: "cabinets",
-                subcategory: ["aluminum", "wood", "fiberglass", "glass",
-                    "plastic", "steel", "vinyl", "MDF"]
-            }];
+    //function loadCategories() {
+    //    var categories = [
+    //        {
+    //            category: "blinds",
+    //            subcategory: ["wood", "vinyl", "aluminum"]
+    //        },
+    //        {
+    //            category: "asphalt shingles",
+    //            subcategory: []
+    //        },
+    //        {
+    //            category: "cabinets",
+    //            subcategory: ["aluminum", "wood", "fiberglass", "glass",
+    //                "plastic", "steel", "vinyl", "MDF"]
+    //        }];
+    //
+    //    $scope.list = categories;
+    //}
 
-        $scope.list = categories;
-    }
-
-    // Create filter function for a query string
+// Create filter function for a query string
     function createFilterFor(query) {
         var lowercaseQuery = angular.lowercase(query);
         return function filterFn(obj) {
