@@ -12,7 +12,7 @@ const
  * USER
  */
 
-describe('A user', function(){
+describe('The user API', function(){
 
     var newUser = {
        username: chance.last(),
@@ -24,6 +24,7 @@ describe('A user', function(){
        companyName: chance.last(),
        zipCode: '55101'
     };
+
     it('should create a new user', function( done ){
         this.timeout(5000);
 
@@ -31,6 +32,7 @@ describe('A user', function(){
             .send(newUser)
             .end(function( err, res ){
                 res.body.should.have.property('email', newUser.email);
+                res.body.should.have.property('password', null);
                 done();
             });
     });
