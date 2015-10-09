@@ -136,7 +136,7 @@ app.controller('loginCtrl', ['$scope', '$http', 'authService', function($scope, 
             url: '/login',
             data: $scope.user
         }).then(function(response){
-            authService.saveToken(response.data);
+            authService.saveToken(response.data.token);
         })
     }
 }]);

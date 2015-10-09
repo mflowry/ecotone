@@ -2,6 +2,7 @@ const
     bcrypt = require('bcrypt'),
     SALT_WORK_FACTOR =  12,
     Sequelize = require('sequelize'),
+    pg = require('pg'),
     jsonwebtoken = require('jsonwebtoken');
 
 var sequelize = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost:5432/ecotone');
