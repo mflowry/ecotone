@@ -2,7 +2,6 @@ const
     bcrypt = require('bcrypt'),
     SALT_WORK_FACTOR =  12,
     Sequelize = require('sequelize'),
-    pg = require('pg'),
     jsonwebtoken = require('jsonwebtoken');
 
 var sequelize = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost:5432/ecotone');
@@ -180,13 +179,22 @@ userSchema.hook('beforeValidate',function(user,options,next){
     });
 });
 
-//userSchema.instanceMethods.comparePassword = function(candidatePassword, cb){
-//    bcrypt.compare(candidatePassword, this.password, function(err,isMatch){
-//        if(err){
-//            return cb(err);
-//        }
-//        cb(null,isMatch);
-//    });
-//};
+var projectSchema = sequelize.define('project',
+    {
+        projectId: {
+            type: Sequelize.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
+        },
+        projectName: {
+            type: Sequelize.STRING,
+            validate:{
+                isAlpha: true
+            }
+        }
+    });
 
-module.exports = userSchema;
+projectSchema.hasOne(userSchema, {as: 'user_id', foreignKey: 'id' });
+userSchema.hasMany(projectSchema,{as: 'user_id', foreignKey: 'id' });
+
+module.exports = {userSchema: userSchema,projectSchema: projectSchema};

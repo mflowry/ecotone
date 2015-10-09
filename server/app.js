@@ -12,7 +12,9 @@ const
     login = require('./routes/public/login'),
     materials = require('./routes/public/materials'),
     register = require('./routes/public/register'),
-    modifyUser = require('./routes/private/modifyUser');
+    modifyUser = require('./routes/private/modifyUser'),
+    calculations = require('./routes/public/calculations'),
+    project = require('./routes/private/project');
 
 
 var app = express();
@@ -34,6 +36,8 @@ app.use('/login', login);
 app.use('/materials', materials);
 app.use('/register',register);
 app.use('/modifyUser',modifyUser);
+app.use('/calculations',calculations);
+app.use('/project',project);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

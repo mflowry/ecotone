@@ -77,3 +77,23 @@ describe('The user API', function(){
             .expect(200, done);
     })
 });
+
+describe('A Calculation', function(){
+    var newCalculation = {
+        proxyID: chance.integer({min:1, max:36}),
+        weight: chance.floating()
+    };
+
+    console.log(newCalculation.weight);
+
+    it('should return a floating point number', function( done ){
+
+        api.post('/calculations')
+            .send(newCalculation)
+            .end(function( err, res ){
+                var a = parseFloat(res.body);
+                a.should.be.a.float;
+                done();
+            });
+    });
+});
