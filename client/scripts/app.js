@@ -79,7 +79,9 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
 
         $scope.newCalculation = function(){
+            var weight = parseFloat($scope.calculate.weight)*$scope.conversion;
             console.log($scope.selected);
+            console.log(weight);
         };
        // loadCategories();
 
@@ -111,11 +113,23 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         });
 
 //load the units
-        $scope.unit = [
-            'lbs',
-            'kilos',
-            'tons',
-            'metric tons'
+        $scope.units = [
+            {
+            name: 'lbs',
+            conversion: 0.0005
+            },
+            {
+            name: 'kilos',
+            conversion: 0.00110231
+            },
+            {
+            name: 'tons',
+            conversion: 1
+            },
+            {
+            name: 'metric tons',
+            conversion: 1.10231
+            }
         ];
 
 

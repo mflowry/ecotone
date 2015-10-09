@@ -67,9 +67,9 @@
                     No matches found for "{{searchText}}".
                 </md-not-found>
             </md-autocomplete>
-            <div>{{category}}</div>
             <!--</md-content>-->
             <md-input-container>
+                <md-select-label>Select a subcategory</md-select-label>
                 <md-select ng-model="selected.warmId" placeholder="subcategory">
                     <md-option ng-repeat="subcategory in category.secondaries" ng-value="subcategory.warm_id" >
                         {{subcategory.secondary_cat}}
@@ -80,11 +80,11 @@
                 <label>Weight</label>
                 <input ng-model="calculate.weight" type="text">
             </md-input-container>
+                <md-select ng-model="conversion" placeholder="Select units">
+                    <md-option ng-repeat="unit in units" ng-value="unit.conversion" >{{unit.name}}
+                    </md-option>
+                </md-select>
 
-            <md-input-container flex>
-                <label>Units</label>
-                <input ng-model="calculate.units" type="text">
-            </md-input-container>
 
             <md-button class="md-primary md-raised" ng-click="newCalculation()" type="submit" value="Save">Submit</md-button>
 
