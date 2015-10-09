@@ -195,7 +195,7 @@ userSchema.hook('beforeValidate',function(user,options,next){
 //    });
 //
 //projectSchema.hasOne(userSchema, {as: 'user_id', foreignKey: 'id' });
-userSchema.hasMany(projectSchema,{as: 'user_id', foreignKey: 'id' });
+//userSchema.hasMany(projectSchema,{as: 'user_id', foreignKey: 'id' });
 
 //module.exports = {userSchema: userSchema,projectSchema: projectSchema};
 module.exports = userSchema;
