@@ -89,7 +89,7 @@ var projectSchema = sequelize.define('project',
         }
     });
 
-projectSchema.hasOne(Users, {as: 'user_id', foreignKey: 'id' });
+//projectSchema.hasOne(Users, {as: 'user_id', foreignKey: 'id' });
 
 //userSchema.hook('beforeValidate',function(user,options,next){
 //    //var user = this;

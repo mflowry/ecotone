@@ -61,7 +61,7 @@ p {
 /*Used in project.html and dashboard.html*/
 .li {
   display: inline-block;
-  width: 16%;
+  width: 20%;
   float: none;
   color: #333333;
   /*text-align: center;*/
@@ -74,7 +74,7 @@ p {
 /*Used in project.html and dashboard.html*/
 .li_header {
   display: inline-block;
-  width: 16%;
+  width: 20%;
   float: none;
   background-color: #4CAF50;
   color: white;
