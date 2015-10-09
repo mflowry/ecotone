@@ -10,7 +10,7 @@ const
 const
     routes = require('./routes/index'),
     login = require('./routes/public/login'),
-    test = require('./routes/public/materials'),
+    materials = require('./routes/public/materials'),
     register = require('./routes/public/register'),
     modifyUser = require('./routes/private/modifyUser');
 
@@ -31,7 +31,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/', routes);
 app.use('/login', login);
-app.use('/test', test);
+app.use('/materials', materials);
 app.use('/register',register);
 app.use('/modifyUser',modifyUser);
 

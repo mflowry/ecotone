@@ -26,7 +26,7 @@ router.post('/createProxy', function(req, res, next){
     createProxy(req, res, next);
 });
 
-router.get('/', function( req, res, next ){
+router.get('/primaries', function( req, res, next ){
     pg.connect( connectionString , function( err, client, done ) {
         if (err) console.log(err);
 
@@ -37,6 +37,17 @@ router.get('/', function( req, res, next ){
                 res.send(results);
             })
     });
+});
+
+router.get('/secondary/:id', function( req, res, next ){
+   pg.connect( connectionString, function( err, client, done ){
+       if( err) console.log( err );
+
+       client.query('select secondary_cat from secondaries where secondaries.primary_id = ' + req.params.id, function( err, results ){
+           console.log(results);
+           res.sendStatus(200);
+       })
+   })
 });
 
 module.exports = router;
