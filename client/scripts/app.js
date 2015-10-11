@@ -13,7 +13,6 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     $routeProvider.when('/',
         {
             templateUrl: '/views/calculator.html',
-            controller: 'calculateCtrl'
         }).when('/login',
         {
             templateUrl: '/views/login.html',
@@ -56,46 +55,18 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
 *   CALCULATOR
 **/
 
-app.controller('calculateCtrl', ['$timeout', '$q', '$log', '$scope', '$http', function($timeout, $q, $log, $scope, $http) {
-
-  loadCategories = (function () {
-      $http.get('/materials').then(function(response) {
-          var list = [];
-          response.data.forEach(function( item ){
-              list.push( item.primary_cat.toLowerCase() )
-          });
-          console.log(list.join(', '));
-          $scope.list = list.join(', ');
-      });
-
-  })();
+app.controller('calcCtrl', ['$timeout', '$q', '$log', function($timeout, $q, $log) {
 
   var self = this;
 
-  // list of `state` value/display objects
-  self.states        = loadAll();
+  self.materials        = loadAll();
   self.querySearch   = querySearch;
   self.selectedItemChange = selectedItemChange;
   self.searchTextChange   = searchTextChange;
 
-  self.newState = newState;
 
-  function newState(state) {
-    alert("Sorry! You'll need to create a Constituion for " + state + " first!");
-  }
-
-
-
-  // ******************************
-  // Internal methods
-  // ******************************
-
-  /**
-   * Search for states... use $timeout to simulate
-   * remote dataservice call.
-   */
   function querySearch (query) {
-    var results = query ? self.states.filter(     createFilterFor(query) ) : self.states,
+    var results = query ? self.materials.filter(     createFilterFor(query) ) : self.materials,
         deferred;
     if (self.simulateQuery) {
       deferred = $q.defer();
@@ -115,15 +86,15 @@ app.controller('calculateCtrl', ['$timeout', '$q', '$log', '$scope', '$http', fu
   }
 
   /**
-   * Build `states` list of key/value pairs
+   * Build `materials` list of key/value pairs
    */
   function loadAll() {
-    var allStates = 'air conditioner, aluminum cans, asphalt shingles, balusters, bench, blinds, books, cabinet, carpet, cds/compact discs, clay bricks, ceiling fan, chair, copper wire, corrugated containers, counter top, cutting board, desk, dimensional lumber, diswasher, door, dresser, dryer, drywall, fan, fiberglass insulation, fireplace, flooring, freezer, furnace, garage door, garage door opener, garbage disposal, glass, gutters, heater, ladder, lawn mower, light fixture, lumber, mailbox, mantel, magazines / third-class mail, mdf (medium-density fiberboard), mircrowave, mirror, nails, newspaper, office paper, oven, paneling, pavers, personal computers, phonebooks, plastic, plywood, radiator cover, radiator, railing, refrigerator, screen, screen door, screws, shelves, shutters, siding, sink, speakers, steel cans, stovetop, table, textbooks, tires, towel bar, trim/moulding/millwork, vinyl flooring, window, wood flooring, wood pallets'
-
-    return allStates.split(/, +/g).map( function (state) {
+    var allMaterials = $scope.materials;
+    
+    return allMaterials.split(/, +/g).map( function (material) {
       return {
-        value: state,
-        display: state
+        value: material.toLowerCase(),
+        display: material
       };
     });
   }
@@ -134,8 +105,8 @@ app.controller('calculateCtrl', ['$timeout', '$q', '$log', '$scope', '$http', fu
   function createFilterFor(query) {
     var lowercaseQuery = angular.lowercase(query);
 
-    return function filterFn(state) {
-      return (state.value.indexOf(lowercaseQuery) === 0);
+    return function filterFn(material) {
+      return (material.value.indexOf(lowercaseQuery) != -1);
     };
 
   }
