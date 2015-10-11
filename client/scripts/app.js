@@ -58,7 +58,17 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
 
 app.controller('calculateCtrl', ['$timeout', '$q', '$log', '$scope', '$http', function($timeout, $q, $log, $scope, $http) {
 
-  getMaterials();
+  loadCategories = (function () {
+      $http.get('/materials').then(function(response) {
+          var list = [];
+          response.data.forEach(function( item ){
+              list.push( item.primary_cat.toLowerCase() )
+          });
+          console.log(list.join(', '));
+          $scope.list = list.join(', ');
+      });
+
+  })();
 
   var self = this;
 
@@ -108,17 +118,11 @@ app.controller('calculateCtrl', ['$timeout', '$q', '$log', '$scope', '$http', fu
    * Build `states` list of key/value pairs
    */
   function loadAll() {
-    var allStates = 'Alabama, Alaska, Arizona, Arkansas, California, Colorado, Connecticut, Delaware,\
-            Florida, Georgia, Hawaii, Idaho, Illinois, Indiana, Iowa, Kansas, Kentucky, Louisiana,\
-            Maine, Maryland, Massachusetts, Michigan, Minnesota, Mississippi, Missouri, Montana,\
-            Nebraska, Nevada, New Hampshire, New Jersey, New Mexico, New York, North Carolina,\
-            North Dakota, Ohio, Oklahoma, Oregon, Pennsylvania, Rhode Island, South Carolina,\
-            South Dakota, Tennessee, Texas, Utah, Vermont, Virginia, Washington, West Virginia,\
-            Wisconsin, Wyoming';
+    var allStates = 'air conditioner, aluminum cans, asphalt shingles, balusters, bench, blinds, books, cabinet, carpet, cds/compact discs, clay bricks, ceiling fan, chair, copper wire, corrugated containers, counter top, cutting board, desk, dimensional lumber, diswasher, door, dresser, dryer, drywall, fan, fiberglass insulation, fireplace, flooring, freezer, furnace, garage door, garage door opener, garbage disposal, glass, gutters, heater, ladder, lawn mower, light fixture, lumber, mailbox, mantel, magazines / third-class mail, mdf (medium-density fiberboard), mircrowave, mirror, nails, newspaper, office paper, oven, paneling, pavers, personal computers, phonebooks, plastic, plywood, radiator cover, radiator, railing, refrigerator, screen, screen door, screws, shelves, shutters, siding, sink, speakers, steel cans, stovetop, table, textbooks, tires, towel bar, trim/moulding/millwork, vinyl flooring, window, wood flooring, wood pallets'
 
     return allStates.split(/, +/g).map( function (state) {
       return {
-        value: state.toLowerCase(),
+        value: state,
         display: state
       };
     });
