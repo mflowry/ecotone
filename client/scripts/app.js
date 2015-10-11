@@ -61,7 +61,8 @@ app.controller('calcCtrl', ['$timeout', '$q', '$log', '$http', function($timeout
 
   // init
   self.materials = [{value: '', display: ''}]
-
+  self.secondaries = undefined;
+  
   self.querySearch   = querySearch;
   self.selectedItemChange = selectedItemChange;
   self.searchTextChange   = searchTextChange;
