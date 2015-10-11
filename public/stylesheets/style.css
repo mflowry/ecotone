@@ -3,3 +3,9 @@
 
 #main {
   height: 60vh; }
+
+#secondaries {
+  width: 50vh;
+  list-style: none; }
+  #secondaries li {
+    display: inline-block; }

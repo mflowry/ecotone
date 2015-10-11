@@ -9,5 +9,13 @@
           No material matching "{{ctrl.searchText}}" were found.
         </md-not-found>
       </md-autocomplete>
+      <div>
+        <h2>Type:</h2>
+        <ul id="secondaries">
+          <li data-ng-repeat="x in secondaries">
+              <md-button class="md-raised" ng-click='ctrl.secondarySelected'>{{ x.secondary_cat }}</md-button>
+          </li>
+        </ul>
+      </div>
   </md-content>
 </div>

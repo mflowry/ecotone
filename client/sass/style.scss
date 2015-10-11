@@ -5,3 +5,11 @@
 #main {
   height: 60vh;
 }
+
+#secondaries {
+  width: 50vh;
+  list-style: none;
+  li{
+  display: inline-block;
+}
+}

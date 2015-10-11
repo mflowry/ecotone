@@ -55,18 +55,22 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
 *   CALCULATOR
 **/
 
-app.controller('calcCtrl', ['$timeout', '$q', '$log', '$http', function($timeout, $q, $log, $http) {
+app.controller('calcCtrl', ['$timeout', '$q', '$log', '$http', '$scope', function($timeout, $q, $log, $http, $scope) {
   loadCategories();
   var self = this;
 
   // init
+  $scope.secondaries = '';
+  self.response;
   self.materials = [{value: '', display: ''}]
-  self.secondaries = undefined;
-  
+
   self.querySearch   = querySearch;
   self.selectedItemChange = selectedItemChange;
   self.searchTextChange   = searchTextChange;
 
+  function secondarySelected(secondary){
+      $log.info('hello!');
+  }
 
   function querySearch (query) {
     var results = query ? self.materials.filter(     createFilterFor(query) ) : self.materials,
@@ -77,10 +81,17 @@ app.controller('calcCtrl', ['$timeout', '$q', '$log', '$http', function($timeout
 
   function searchTextChange(text) {
     $log.info('Text changed to ' + text);
+    if( text == ''){
+      $scope.secondaries = '';
+    }
   }
 
   function selectedItemChange(item) {
-    $log.info('Item changed to ' + JSON.stringify(item));
+    var secondaries = self.response[self.materials.indexOf(item)].secondaries;
+    if(secondaries != undefined ){
+        $scope.secondaries = self.response[self.materials.indexOf(item)].secondaries;
+        console.log($scope.secondaries);
+    }
   }
 
   /**
@@ -100,9 +111,11 @@ app.controller('calcCtrl', ['$timeout', '$q', '$log', '$http', function($timeout
   function loadCategories() {
       $http.get('/materials').then(function(response) {
           var materials = [];
+          self.response = response.data;
           response.data.forEach(function( item ){
-              materials.push( item.primary_cat )
+              materials.push( item.primary_cat.toLowerCase() )
           });
+
           self.materials = loadAll( materials );
 
       });
@@ -111,11 +124,10 @@ app.controller('calcCtrl', ['$timeout', '$q', '$log', '$http', function($timeout
 
   function loadAll( array ) {
     var allMaterials = array
-
     return allMaterials.map( function (material) {
       return {
         value: material.toLowerCase(),
-        display: material
+        display: material.charAt(0).toUpperCase() + material.slice(1)
       };
     });
   }
