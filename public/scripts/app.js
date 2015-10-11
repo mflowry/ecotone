@@ -61,6 +61,8 @@ app.controller('calcCtrl', ['$timeout', '$q', '$log', '$http', '$scope', functio
 
   // init
   $scope.secondaries = '';
+  $scope.secondary_selected = '';
+  $scope.weight = '';
   self.response;
   self.materials = [{value: '', display: ''}]
 
@@ -130,6 +132,10 @@ app.controller('calcCtrl', ['$timeout', '$q', '$log', '$http', '$scope', functio
         display: material.charAt(0).toUpperCase() + material.slice(1)
       };
     });
+  }
+
+  function newCalculation(){
+    $http.post(/)
   }
 }]);
 

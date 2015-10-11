@@ -16,6 +16,8 @@
         </md-select>
         <md-input-container ng-show="secondary_selected" flex>
             <label>Weight</label>
-            <input ng-model="calculate.weight" type="text">
-        </md-input-container>  </md-content>
+            <input ng-model="weight" type="text">
+        </md-input-container>
+        <md-button ng-show="weight" class="md-primary md-raised" ng-click="newCalculation()" type="submit" value="Save">Submit</md-button>
+    </md-content>
 </div>
