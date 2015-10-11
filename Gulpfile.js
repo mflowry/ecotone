@@ -19,7 +19,7 @@ var config = {
     }
 };
 
-gulp.task('default', ['sass', 'javascript'],
+gulp.task('default', ['sass', 'javascript', 'watch', 'sass:watch'],
     function(){
         gutil.log('Gulped!');
     });
@@ -37,6 +37,15 @@ gulp.task('javascript', function(){
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(config.paths.public))
 });
+
+gulp.task('watch', function() {
+    gulp.watch(config.paths.js, ['javascript'])
+});
+
+gulp.task('sass:watch', function() {
+   gulp.watch(config.paths.sass, ['sass'])
+})
+
 
 //gulp.task('sass:watch', function() {
 //   gulp.watch(config.paths.sass, ['sass'])

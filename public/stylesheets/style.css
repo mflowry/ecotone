@@ -38,24 +38,23 @@ p {
   /* Safari */
   flex-wrap: nowrap; }
 
-/*Used in project.html and dashboard.html*/
-.li {
+li {
   display: inline-block;
-  width: 80%;
-  /*float: none;*/
+  width: 20%;
+  float: none;
   color: #333333;
-  /*text-align: center;*/
+  text-align: center;
   /* align-items: center;*/
   font-size: 14px;
   padding: 15px;
   font-weight: normal;
+  padding: 15px;
   margin-top: 5px; }
 
-/*Used in project.html and dashboard.html*/
 .li_header {
   display: inline-block;
-  width: 100%;
-  /*float: none;*/
+  width: 20%;
+  float: none;
   background-color: #4CAF50;
   color: white;
   text-align: center;
@@ -65,64 +64,18 @@ p {
   padding: 15px;
   margin-top: 5px; }
 
-/*.heading {*/
-  /*display: inline-block;*/
-  /*/!*  width: 20%;*!/*/
-  /*float: none;*/
-  /*background-color: #4CAF50;*/
-  /*color: white;*/
-  /*text-align: center;*/
-  /*/!*align-items: center;*!/*/
-  /*font-size: 16px;*/
-  /*font-weight: bold;*/
-  /*padding: 5px;*/
-  /*margin-top: 5px; }*/
-
-/*Used in project.html and dashboard.html*/
-table {
-  margin-left: 50px;
-  border-collapse: collapse;
-}
-/*Used in project.html and dashboard.html*/
-th{
-
+.heading {
+  display: inline-block;
+  /*  width: 20%;*/
+  float: none;
   background-color: #4CAF50;
   color: white;
-  text-align: left;
+  text-align: center;
   /*align-items: center;*/
   font-size: 16px;
   font-weight: bold;
   padding: 5px;
   margin-top: 5px; }
-/*Used in project.html and dashboard.html*/
-td{
-  border-bottom: thin solid #cccccc;
-  padding: 5px;
-}
 
-.material-icons {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;  /* Preferred icon size */
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  line-height: 1;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
-
-  /* Support for all WebKit browsers. */
-  -webkit-font-smoothing: antialiased;
-  /* Support for Safari and Chrome. */
-  text-rendering: optimizeLegibility;
-
-  /* Support for Firefox. */
-  -moz-osx-font-smoothing: grayscale;
-
-  /* Support for IE. */
-  font-feature-settings: 'liga';
-}
+table {
+  margin-left: 50px; }
