@@ -55,11 +55,13 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
 *   CALCULATOR
 **/
 
-app.controller('calcCtrl', ['$timeout', '$q', '$log', function($timeout, $q, $log) {
-
+app.controller('calcCtrl', ['$timeout', '$q', '$log', '$http', function($timeout, $q, $log, $http) {
+  loadCategories();
   var self = this;
 
-  self.materials        = loadAll();
+  // init
+  self.materials = [{value: '', display: ''}]
+
   self.querySearch   = querySearch;
   self.selectedItemChange = selectedItemChange;
   self.searchTextChange   = searchTextChange;
@@ -68,13 +70,8 @@ app.controller('calcCtrl', ['$timeout', '$q', '$log', function($timeout, $q, $lo
   function querySearch (query) {
     var results = query ? self.materials.filter(     createFilterFor(query) ) : self.materials,
         deferred;
-    if (self.simulateQuery) {
-      deferred = $q.defer();
-      $timeout(function () { deferred.resolve( results ); }, Math.random() * 1000, false);
-      return deferred.promise;
-    } else {
-      return results;
-    }
+
+    return results;
   }
 
   function searchTextChange(text) {
@@ -88,20 +85,8 @@ app.controller('calcCtrl', ['$timeout', '$q', '$log', function($timeout, $q, $lo
   /**
    * Build `materials` list of key/value pairs
    */
-  function loadAll() {
-    var allMaterials = $scope.materials;
-    
-    return allMaterials.split(/, +/g).map( function (material) {
-      return {
-        value: material.toLowerCase(),
-        display: material
-      };
-    });
-  }
 
-  /**
-   * Create filter function for a query string
-   */
+
   function createFilterFor(query) {
     var lowercaseQuery = angular.lowercase(query);
 
@@ -109,6 +94,29 @@ app.controller('calcCtrl', ['$timeout', '$q', '$log', function($timeout, $q, $lo
       return (material.value.indexOf(lowercaseQuery) != -1);
     };
 
+  }
+
+  function loadCategories() {
+      $http.get('/materials').then(function(response) {
+          var materials = [];
+          response.data.forEach(function( item ){
+              materials.push( item.primary_cat )
+          });
+          self.materials = loadAll( materials );
+
+      });
+
+  };
+
+  function loadAll( array ) {
+    var allMaterials = array
+
+    return allMaterials.map( function (material) {
+      return {
+        value: material.toLowerCase(),
+        display: material
+      };
+    });
   }
 }]);
 
