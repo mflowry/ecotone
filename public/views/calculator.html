@@ -9,13 +9,11 @@
           No material matching "{{ctrl.searchText}}" were found.
         </md-not-found>
       </md-autocomplete>
-      <div>
-        <h2>Type:</h2>
-        <ul id="secondaries">
-          <li data-ng-repeat="x in secondaries">
-              <md-button class="md-raised" ng-click='ctrl.secondarySelected'>{{ x.secondary_cat }}</md-button>
-          </li>
-        </ul>
-      </div>
+      <md-select ng-show="secondaries" ng-model="secondary_selected" placeholder="Pick a secondary category" class="ng-pristine ng-valid md-default-theme ng-touched" aria-label="subcategory" tabindex="0" aria-disabled="false" role="combobox" aria-expanded="false" id="select_4" aria-invalid="false" style="">
+          <md-option ng-value="secondary" ng-repeat="secondary in secondaries">
+            {{ secondary.secondary_cat}}
+          </md-option>
+        </md-select>
+        
   </md-content>
 </div>

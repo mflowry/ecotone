@@ -61,6 +61,7 @@ app.controller('calcCtrl', ['$timeout', '$q', '$log', '$http', '$scope', functio
 
   // init
   $scope.secondaries = '';
+  $scope.secondary_selected = '';
   self.response;
   self.materials = [{value: '', display: ''}]
 
