@@ -57,10 +57,10 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
 **/
 
 app.controller('calculateCtrl', ['$timeout', '$q', '$log', '$scope', '$http', function($timeout, $q, $log, $scope, $http) {
-  var self = this;
 
-  self.simulateQuery = false;
-  self.isDisabled    = false;
+  getMaterials();
+
+  var self = this;
 
   // list of `state` value/display objects
   self.states        = loadAll();
