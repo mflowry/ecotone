@@ -63,7 +63,7 @@ app.controller('calcCtrl', ['$timeout', '$q', '$log', '$http', '$scope', functio
   $scope.secondaries = '';
   $scope.secondary_selected = '';
   $scope.secondary_proxy_id = '';
- $scope.calculation = '';
+  $scope.calculation = '';
   $scope.weight = '';
   self.response;
   self.materials = [{value: '', display: ''}]
@@ -89,7 +89,15 @@ app.controller('calcCtrl', ['$timeout', '$q', '$log', '$http', '$scope', functio
   function selectedItemChange(item) {
     var secondaries = self.response[self.materials.indexOf(item)].secondaries;
     if(secondaries != undefined ){
-        $scope.secondaries = self.response[self.materials.indexOf(item)].secondaries;
+
+        $scope.secondaries = secondaries;
+        if( $scope.secondaries[0].secondary_cat == null ){
+            console.log('null');
+            console.log($scope.secondaries[0].warm_id);
+            $scope.secondary_selected = $scope.secondaries[0]
+            $scope.secondaries = false;
+        }
+
     }
   }
 
