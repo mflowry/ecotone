@@ -83,7 +83,23 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
         });
     };
 
+<<<<<<< HEAD
 //autocomplete functionality
+=======
+
+//load categories list on page load
+        $http({
+             method: 'Get',
+             url: '/materials',
+             data: response,
+             dataType: 'json'
+         }).then(function (response) {
+             console.log(response);
+             $scope.list = response;
+         });
+
+    // Auto-complete functionality
+>>>>>>> 1bdb4cf2ca275e5a675a9e578a2376f6255abf05
     $scope.querySearch=function(query) {
         // console.log($scope.list.filter(createFilterFor(query)));
         return query ? $scope.list.filter(createFilterFor(query)) : $scope.list;
@@ -96,6 +112,7 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
         list.forEach(function(item){
             //item.primary_cat = item.primary_cat.toLowerCase();
 
+<<<<<<< HEAD
             // causing bugs right now
             item.primary_cat = item.primary_cat.charAt(0).toUpperCase() + item.primary_cat.slice(1).toLowerCase();
 
@@ -126,6 +143,28 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
 //
 
 //Create filter function for a query string
+=======
+    //function loadCategories() {
+    //    var categories = [
+    //        {
+    //            category: "blinds",
+    //            subcategory: ["wood", "vinyl", "aluminum"]
+    //        },
+    //        {
+    //            category: "asphalt shingles",
+    //            subcategory: []
+    //        },
+    //        {
+    //            category: "cabinets",
+    //            subcategory: ["aluminum", "wood", "fiberglass", "glass",
+    //                "plastic", "steel", "vinyl", "MDF"]
+    //        }];
+    //
+    //    $scope.list = categories;
+    //}
+
+// Create filter function for a query string
+>>>>>>> 1bdb4cf2ca275e5a675a9e578a2376f6255abf05
     function createFilterFor(query) {
         var lowercaseQuery = query.charAt(0).toUpperCase() + query.slice(1);
         //console.log(query);
