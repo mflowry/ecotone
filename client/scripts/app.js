@@ -6,7 +6,7 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     //set theme and color palette
     $mdThemingProvider.theme('default')
         .primaryPalette('green')
-        .accentPalette('blue')
+        .accentPalette('blue-grey', {'default':'600'})
         .warnPalette ('orange');
 
     //routes for views

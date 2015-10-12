@@ -48,7 +48,7 @@
     <h2>Calculate Your CO2 Offset</h2>
     <!-- New Project Info -->
 
-    <md-content class="md-padding" layout-padding layout-fill layout="row" layout-sm="column">
+    <md-content id="calculator-page" class="md-padding" layout-padding layout-fill layout="row" layout-sm="column">
         <div>
 
             <!-- Autocomplete -->
@@ -76,6 +76,7 @@
                     </md-option>
                 </md-select>
             </md-input-container>
+
             <md-input-container flex>
                 <label>Weight</label>
                 <input ng-model="weight" type="text">
@@ -84,10 +85,10 @@
                     <md-option ng-repeat="unit in units" ng-value="unit.conversion" >{{unit.name}}
                     </md-option>
                 </md-select>
+            </div>
 
 
-
-            <md-button class="md-primary md-raised" ng-click="newCalculation()" type="submit" value="Save">Submit</md-button>
+            <md-button class="md-accent md-raised" ng-click="newCalculation()" type="submit" value="Save">Submit</md-button>
 
 
             <p ng-show="result">Your Estimated CO2 Offset is {{result}} tons.</p>
