@@ -13,6 +13,7 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     $routeProvider.when('/',
         {
             templateUrl: '/views/calculator.html',
+            controller: 'calculateCtrl'
         }).when('/login',
         {
             templateUrl: '/views/login.html',
@@ -50,103 +51,7 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     //$httpProvider.interceptors.push('authInterceptor');
 }]);
 
-<<<<<<< HEAD
-
-/**
-*   CALCULATOR
-**/
-
-app.controller('calcCtrl', ['$timeout', '$q', '$log', '$http', '$scope', function($timeout, $q, $log, $http, $scope) {
-  loadCategories();
-  var self = this;
-
-  // init
-  $scope.secondaries = '';
-  $scope.secondary_selected = '';
-  $scope.secondary_proxy_id = '';
-  $scope.calculation = '';
-  $scope.weight = '';
-  self.response;
-  self.materials = [{value: '', display: ''}]
-
-  self.querySearch   = querySearch;
-  self.selectedItemChange = selectedItemChange;
-  self.searchTextChange   = searchTextChange;
-
-  function querySearch (query) {
-    var results = query ? self.materials.filter(     createFilterFor(query) ) : self.materials,
-        deferred;
-
-    return results;
-  }
-
-  function searchTextChange(text) {
-    $log.info('Text changed to ' + text);
-    if( text == ''){
-      $scope.secondaries = '';
-    }
-  }
-
-  function selectedItemChange(item) {
-    var secondaries = self.response[self.materials.indexOf(item)].secondaries;
-    if(secondaries != undefined ){
-
-        $scope.secondaries = secondaries;
-        if( $scope.secondaries[0].secondary_cat == null ){
-            console.log('null');
-            console.log($scope.secondaries[0].warm_id);
-            $scope.secondary_selected = $scope.secondaries[0]
-            $scope.secondaries = false;
-        }
-
-    }
-  }
-
-  /**o
-   * Build `materials` list of key/value pairs
-   */
-
-
-  function createFilterFor(query) {
-    var lowercaseQuery = angular.lowercase(query);
-
-    return function filterFn(material) {
-      return (material.value.indexOf(lowercaseQuery) != -1);
-    };
-
-  }
-
-  function loadCategories() {
-      $http.get('/materials').then(function(response) {
-          var materials = [];
-          self.response = response.data;
-          response.data.forEach(function( item ){
-              materials.push( item.primary_cat.toLowerCase() )
-          });
-
-          self.materials = loadAll( materials );
-
-      });
-  };
-
-  function loadAll( array ) {
-    var allMaterials = array
-    return allMaterials.map( function (material) {
-      return {
-        value: material.toLowerCase(),
-        display: material.charAt(0).toUpperCase() + material.slice(1)
-      };
-    });
-  }
-
-  $scope.newCalculation = function(){
-     $http.post('/calculations', {proxyID: $scope.secondary_selected.warm_id, weight: $scope.weight})
-       .then(function(response){
-         $scope.calculation = response.data;
-       })
-     }
-=======
-    //M//designate controller
+//M//designate controller
 app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
 // create object to send to backend for calculation
 
@@ -161,8 +66,8 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
         console.log(lineItem);
         $http.post('/addToProject').then(function(response) {
             console.log(response);
-            });
-        };
+        });
+    };
 
     $scope.newCalculation = function(){
         console.log("Calculating...", $scope.weight);
@@ -229,7 +134,6 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
             return (obj.primary_cat.indexOf(lowercaseQuery) != -1);
         };
     }
->>>>>>> demo
 }]);
 
 
