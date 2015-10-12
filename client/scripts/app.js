@@ -105,6 +105,7 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
             self.warmId = '';
             self.weight = '';
             self.conversion = '';
+            self.result = '';
         }
     }
 
