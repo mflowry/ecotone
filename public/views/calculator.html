@@ -23,16 +23,15 @@
                 </md-not-found>
             </md-autocomplete>
             <!--</md-content>-->
+                <span flex></span>
             <md-input-container ng-show="category.secondaries[0].secondary_cat != null">
-                <md-select ng-model="warmId" placeholder="Subcategory">
+                <md-select id="secondary-margin" ng-model="warmId" placeholder="Subcategory">
                     <md-option ng-repeat="subcategory in category.secondaries" ng-value="subcategory.warm_id" >
                         {{subcategory.secondary_cat}}
                     </md-option>
                 </md-select>
             </md-input-container>
-
-
-            <div layout layout-sm="column">
+                <div layout layout-sm="column">
                 <md-input-container flex>
                     <label>Weight</label>
                     <input ng-model="weight" type="text">
