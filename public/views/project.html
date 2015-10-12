@@ -2,24 +2,24 @@
 <!-- just trying out some layout here -->
 <!--<md-content>-->
 
-    <div layout layout-sm="column">
-        <md-content flex layout-padding>
+
+    <md-content flex>
+        <div>
+            <h1>View a Project:</h1>
+        </div>
             <h2>Project Name:</h2>
-            <input id="pName" type="text"  ng-model="project.name" />
-        </md-input-container>
-    </div>
-    <div>
-        <md-input-container flex>
-            <label for="lName">Project Description</label>
-            <input id="lName"  ng-model="project.desc" />
-        </md-input-container>
-    </div>
+            <!--<input id="pName" type="text"  ng-model="project.name" />-->
+        </md-content>
+        <div>
+                <h2>Project Description:</h2>
+                <!--<input id="lName"  ng-model="project.desc" />-->
+        </div>
     </md-content>
 
-    <div ng-controller="projectsCtrl">
-        <md-content flex>
-            <table>
 
+    <div ng-controller="projectsCtrl">
+        <md-content>
+            <table>
                 <tr>
                     <th>Category</th>
                     <th >Sub-Category</th>
