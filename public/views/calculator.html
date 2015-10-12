@@ -19,5 +19,6 @@
             <input ng-model="weight" type="text">
         </md-input-container>
         <md-button ng-show="weight" class="md-primary md-raised" ng-click="newCalculation()" type="submit" value="Save">Submit</md-button>
+        <p ng-show="calculation" ng-model=calculation>You saved: {{calculation}}</p>
     </md-content>
 </div>

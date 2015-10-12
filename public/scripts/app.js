@@ -62,6 +62,8 @@ app.controller('calcCtrl', ['$timeout', '$q', '$log', '$http', '$scope', functio
   // init
   $scope.secondaries = '';
   $scope.secondary_selected = '';
+  $scope.secondary_proxy_id = '';
+ $scope.calculation = '';
   $scope.weight = '';
   self.response;
   self.materials = [{value: '', display: ''}]
@@ -69,10 +71,6 @@ app.controller('calcCtrl', ['$timeout', '$q', '$log', '$http', '$scope', functio
   self.querySearch   = querySearch;
   self.selectedItemChange = selectedItemChange;
   self.searchTextChange   = searchTextChange;
-
-  function secondarySelected(secondary){
-      $log.info('hello!');
-  }
 
   function querySearch (query) {
     var results = query ? self.materials.filter(     createFilterFor(query) ) : self.materials,
@@ -92,7 +90,6 @@ app.controller('calcCtrl', ['$timeout', '$q', '$log', '$http', '$scope', functio
     var secondaries = self.response[self.materials.indexOf(item)].secondaries;
     if(secondaries != undefined ){
         $scope.secondaries = self.response[self.materials.indexOf(item)].secondaries;
-        console.log($scope.secondaries);
     }
   }
 
@@ -121,7 +118,6 @@ app.controller('calcCtrl', ['$timeout', '$q', '$log', '$http', '$scope', functio
           self.materials = loadAll( materials );
 
       });
-
   };
 
   function loadAll( array ) {
@@ -134,9 +130,12 @@ app.controller('calcCtrl', ['$timeout', '$q', '$log', '$http', '$scope', functio
     });
   }
 
-  function newCalculation(){
-    $http.post(/)
-  }
+  $scope.newCalculation = function(){
+     $http.post('/calculations', {proxyID: $scope.secondary_selected.warm_id, weight: $scope.weight})
+       .then(function(response){
+         $scope.calculation = response.data;
+       })
+     }
 }]);
 
 

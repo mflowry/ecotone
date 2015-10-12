@@ -29,6 +29,7 @@ function warmCalculation(warmID,weight,res){
 }
 
 router.post('/', function(req, res, next){
+  console.log(req.body)
     var warmID = req.body.proxyID;
     var weight = parseFloat(req.body.weight);
     warmCalculation(warmID, weight, res);
