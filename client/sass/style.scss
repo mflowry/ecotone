@@ -7,6 +7,14 @@ header md-toolbar {
   font-weight: inherit;
   margin: inherit;
 }
+
+
+button.md-primary span {
+  color: white;
+}
+
+
+#dashboard-page #project-page {
 h2 {
   padding-left: 20px;
   margin-top: 35px;
@@ -84,3 +92,4 @@ table{
   margin-left: 50px;
 }
 
+}
