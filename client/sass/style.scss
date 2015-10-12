@@ -9,6 +9,8 @@
 header md-toolbar {
   height: 100px;
 }
+
+
 .md-toolbar-tools h1 {
   font-size: inherit;
   font-weight: inherit;
@@ -17,6 +19,9 @@ header md-toolbar {
 
 button.md-primary span {
   color: white;
+}
+.md-button.md-primary.md-raised{
+  color:white
 }
 
 md-autocomplete{
@@ -99,4 +104,8 @@ md-autocomplete{
   table {
     margin-left: 50px;
   }
+}
+
+#secondary-margin{
+  margin-top: 32px;
 }

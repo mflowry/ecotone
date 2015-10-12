@@ -1,6 +1,6 @@
 <div id="calculator-page">
     <div ng-controller="calculateCtrl" layout="column" ng-cloak>
-        <h2>Calculate Your CO2 Offset</h2>
+        <h2>Calculate Your CO<sub>2</sub> Offset</h2>
         <!-- New Project Info -->
 
         <md-content layout="row" layout-sm="column">
@@ -23,16 +23,15 @@
                 </md-not-found>
             </md-autocomplete>
             <!--</md-content>-->
+                <span flex></span>
             <md-input-container ng-show="category.secondaries[0].secondary_cat != null">
-                <md-select ng-model="warmId" placeholder="Subcategory">
+                <md-select id="secondary-margin" ng-model="warmId" placeholder="Subcategory">
                     <md-option ng-repeat="subcategory in category.secondaries" ng-value="subcategory.warm_id" >
                         {{subcategory.secondary_cat}}
                     </md-option>
                 </md-select>
             </md-input-container>
-
-
-            <div layout layout-sm="column">
+                <div layout layout-sm="column">
                 <md-input-container flex>
                     <label>Weight</label>
                     <input ng-model="weight" type="text">
@@ -46,7 +45,7 @@
 
             <md-button class="md-accent md-raised" ng-click="newCalculation()" type="submit" value="Save">Submit</md-button>
 
-            <p ng-show="result">Your Estimated CO2 Offset is {{result}} tons.</p>
+            <p ng-show="result">Your Estimated CO<sub>2</sub> Offset is {{result}} Metric Tons.</p>
 
             </div>
         </md-content>
