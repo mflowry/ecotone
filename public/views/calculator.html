@@ -6,25 +6,26 @@
         <md-content layout="column" layout-align="space-between center">
             <!-- Autocomplete -->
             <md-autocomplete
-                    md-selected-item="category"
-                    md-search-text="searchText"
-                    md-items="item in querySearch(searchText)"
+                    md-selected-item="ctrl.category"
+                    md-selected-item-change="ctrl.selectedItemChange(item)"
+                    md-search-text="ctrl.searchText"
+                    md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                    md-items="item in ctrl.querySearch(ctrl.searchText)"
                     md-item-text="item.primary_cat"
                     md-min-length="0"
-                    md-floating-label="Material type"
-                    layout-fill>
+                    placeholder="Material type">
                 <md-item-template>
-                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.primary_cat}}</span>
+                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.primary_cat}}</span>
                 </md-item-template>
                 <md-not-found>
-                    No matches found for "{{searchText}}".
+                    No matches found for "{{ctrl.searchText}}".
                 </md-not-found>
             </md-autocomplete>
 
-            <md-input-container ng-show="category.secondaries[0].secondary_cat != null" layout="column" layout-align="end center" layout-fill flex>
+            <md-input-container ng-show="ctrl.category.secondaries[0].secondary_cat != null" layout="column" layout-align="end center" layout-fill flex>
                 <md-select ng-model="warmId" placeholder="Subcategory" layout-fill layout-align="center">
-                    <md-option ng-repeat="subcategory in category.secondaries" ng-value="subcategory.warm_id">
-                        {{subcategory.secondary_cat}}
+                    <md-option ng-repeat="subcategory in ctrl.category.secondaries" ng-value="ctrl.subcategory.warm_id">
+                        {{ctrl.subcategory.secondary_cat}}
                     </md-option>
                 </md-select>
             </md-input-container>
@@ -35,14 +36,14 @@
                     <input ng-model="weight" type="text">
                 </md-input-container>
                 <md-select ng-model="conversion" placeholder="Select units" flex>
-                    <md-option ng-repeat="unit in units" ng-value="unit.conversion" >{{unit.name}}
+                    <md-option ng-repeat="unit in ctrl.units" ng-value="ctrl.unit.conversion" >{{unit.name}}
                     </md-option>
                 </md-select>
             </div>
 
-            <md-button class="md-accent md-raised" ng-click="newCalculation()" type="submit" value="Save">Submit</md-button>
+            <md-button class="md-accent md-raised" ng-click="ctr.newCalculation()" type="submit" value="Save">Submit</md-button>
 
-            <p ng-show="result">Your Estimated CO<sub>2</sub> Offset is {{result}} Metric Tons.</p>
+            <p ng-show="ctrl.result">Your Estimated CO<sub>2</sub> Offset is {{ctr.result}} Metric Tons.</p>
 
         </md-content>
     </div>
