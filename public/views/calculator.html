@@ -3,8 +3,8 @@
         <h2>Calculate Your CO2 Offset</h2>
         <!-- New Project Info -->
 
-        <md-content layout="row" layout-sm="column">
-            <div>
+ <md-content layout="column" layout-align="space-between center">
+
 
                 <!-- Autocomplete -->
                 <!--<md-content class="md-padding" layout-padding layout="row" layout-sm="column" flex>-->
@@ -16,7 +16,8 @@
                         md-items="item in ctrl.querySearch(ctrl.searchText)"
                         md-item-text="item.primary_cat"
                         md-min-length="0"
-                        placeholder="Material type">
+                        md-floating-label="Material type"
+                        layout-fill>
                     <md-item-template>
                         <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.primary_cat}}</span>
                     </md-item-template>
@@ -25,15 +26,13 @@
                     </md-not-found>
                 </md-autocomplete>
                 <!--</md-content>-->
-                <span flex></span>
-                <md-input-container ng-show="ctrl.category.secondaries[0].secondary_cat != null">
-                    <md-select id="secondary-margin" ng-model="ctrl.warmId" placeholder="Subcategory">
-                        <md-option ng-repeat="subcategory in ctrl.category.secondaries" ng-value="subcategory.warm_id" >
-                            {{subcategory.secondary_cat}}
+     <md-input-container ng-show="ctrl.category.secondaries[0].secondary_cat != null" layout="column" layout-align="end center" layout-fill flex>
+         <md-select ng-model="ctrl.warmId" placeholder="Subcategory" layout-fill layout-align="center">
+             <md-option ng-repeat="subcategory in ctrl.category.secondaries" ng-value="subcategory.warm_id">                                   {{subcategory.secondary_cat}}
                         </md-option>
                     </md-select>
                 </md-input-container>
-                <div layout layout-sm="column">
+                <div layout layout-sm="column" layout-align="space-between end" layout-fill>
                     <md-input-container flex>
                         <label>Weight</label>
                         <input ng-model="ctrl.weight" type="text">
@@ -49,7 +48,6 @@
 
                 <p ng-show="ctrl.result">Your Estimated CO2 Offset is {{ctrl.result}} metric tons.</p>
 
-            </div>
         </md-content>
     </div>
 </div>
