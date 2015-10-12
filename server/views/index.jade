@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  div(layout="row" layout-align="space-between center")
+  div(layout="row")
     md-sidenav(id="sidenav" class="md-sidenav-left md-primary md-whiteframe-z2 md-closed ng-isolate-scope md-locked-open" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" flex)
       header.sidenav-header
         img(src="/images/ECOTONE_logo.gif" alt="ECOTONE")
@@ -35,7 +35,8 @@ block content
       span(flex)
       //#main(layout="column" layout-align="center center" layout-padding)
       <!-- ng-view will display injected content -->
-      div(ng-view="")
+      div(ng-view)
+      span(flex)
 
   //footer
   //  md-toolbar
