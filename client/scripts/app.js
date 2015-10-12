@@ -94,6 +94,7 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
         $scope.list = response.data;
         response.data.forEach(function(item){
             item.primary_cat = item.primary_cat.toLowerCase();
+            item.primary_cat = item.primary_cat.charAt(0).toUpperCase() + item.primary_cat.slice(1);
         });
     });
 
