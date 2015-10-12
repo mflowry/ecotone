@@ -85,7 +85,7 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
 
 //autocomplete functionality
     $scope.querySearch=function(query) {
-        console.log($scope.list.filter(createFilterFor(query)));
+        // console.log($scope.list.filter(createFilterFor(query)));
         return query ? $scope.list.filter(createFilterFor(query)) : $scope.list;
     };
 
