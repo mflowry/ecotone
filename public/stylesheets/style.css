@@ -44,6 +44,8 @@ md-autocomplete {
     -webkit-flex-wrap: nowrap;
     /* Safari */
     flex-wrap: nowrap; }
+  #dashboard-page #project-page li {
+    color: white; }
   #dashboard-page #project-page .li_header {
     display: inline-block;
     width: 20%;
