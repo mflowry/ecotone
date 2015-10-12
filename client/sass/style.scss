@@ -40,12 +40,13 @@ sup, sub {
 p{
   margin-right: 25%;
 }
-/*need to figure out how to use flex!!!! so the table items shrink down instead of go on another*/
-.flex-container {
-  -webkit-flex-wrap: nowrap; /* Safari */
-  flex-wrap:         nowrap;
-}
-.project-page .dashboard-page {
+
+#project-page #dashboard-page {
+  /*need to figure out how to use flex!!!! so the table items shrink down instead of go on another*/
+  .flex-container {
+    -webkit-flex-wrap: nowrap; /* Safari */
+    flex-wrap:         nowrap;
+  }
   li {
     display: inline-block;
     width: 20%;
@@ -88,4 +89,36 @@ p{
   table {
     margin-left: 50px;
   }
+}
+
+#calculator-page {
+
+}
+
+#account-page {
+
+}
+
+#login-page {
+
+}
+
+#register-page {
+
+}
+
+#admin-page {
+
+}
+
+#about-page {
+
+}
+
+#contact-page {
+
+}
+
+#privacy-page {
+
 }
