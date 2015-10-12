@@ -48,7 +48,7 @@
     <h2>Calculate Your CO2 Offset</h2>
     <!-- New Project Info -->
 
-    <md-content class="md-padding" layout-padding layout-fill layout="row" layout-sm="column">
+    <md-content id="calculator-page" class="md-padding" layout-padding layout-fill layout="row" layout-sm="column">
         <div>
 
             <!-- Autocomplete -->
@@ -68,29 +68,30 @@
                 </md-not-found>
             </md-autocomplete>
             <!--</md-content>-->
-            <md-input-container>
+            <md-input-container ng-show="category.secondaries[0].secondary_cat != null">
                 <md-select-label>Select a subcategory</md-select-label>
-                <md-select ng-model="selected.warmId" placeholder="subcategory">
+                <md-select ng-model="warmId" placeholder="subcategory">
                     <md-option ng-repeat="subcategory in category.secondaries" ng-value="subcategory.warm_id" >
                         {{subcategory.secondary_cat}}
                     </md-option>
                 </md-select>
             </md-input-container>
+
             <md-input-container flex>
                 <label>Weight</label>
-                <input ng-model="calculate.weight" type="text">
+                <input ng-model="weight" type="text">
             </md-input-container>
                 <md-select ng-model="conversion" placeholder="Select units">
                     <md-option ng-repeat="unit in units" ng-value="unit.conversion" >{{unit.name}}
                     </md-option>
                 </md-select>
+            </div>
 
 
+            <md-button class="md-accent md-raised" ng-click="newCalculation()" type="submit" value="Save">Submit</md-button>
 
-            <md-button class="md-primary md-raised" ng-click="newCalculation()" type="submit" value="Save">Submit</md-button>
 
-
-            <p>Your Estimated CO2 Savings are (123) (units)</p>
+            <p ng-show="result">Your Estimated CO2 Offset is {{result}} tons.</p>
 
         </div>
     </md-content>

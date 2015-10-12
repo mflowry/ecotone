@@ -1,4 +1,4 @@
-
+<div id="project-page">
 <!-- just trying out some layout here -->
 <!--<md-content>-->
 
@@ -16,46 +16,45 @@
     </div>
     </md-content>
 
-<div ng-controller="projectsCtrl">
-    <md-content>
-        <table>
+    <div ng-controller="projectsCtrl">
+        <md-content>
+            <table>
 
-            <tr>
-                <th>Category</th>
-                <th >Sub-Category</th>
-                <th>Weight</th>
-                <th>CO<sub>2</sub></th>
+                <tr>
+                    <th>Category</th>
+                    <th >Sub-Category</th>
+                    <th>Weight</th>
+                    <th>CO<sub>2</sub></th>
 
-            </tr>
+                </tr>
 
-            <tr ng-repeat="project in projects">
-                <td>example Flooring{{category}}</td>
-                <td>Oak{{subcategory}}</td>
-                <td>24 kg{{weight}}{{units}}</td>
-                <td>27.6{{CO2}}{{units}}</td>
-               
-            </tr>
+                <tr ng-repeat="project in projects">
+                    <td>example Flooring{{category}}</td>
+                    <td>Oak{{subcategory}}</td>
+                    <td>24 kg{{weight}}{{units}}</td>
+                    <td>27.6{{CO2}}{{units}}</td>
+
+                </tr>
 
 
-            <!--this is the viewable stuff for example, delete when we got the above list working-->
+                <!--this is the viewable stuff for example, delete when we got the above list working-->
 
-            <tr>
-                <td>example Metal{category}</td>
-                <td>Gutters{subcategory}</td>
-                <td>8 kg{weight}{units}</td>
-                <td>7.2{CO2}</td>
+                <tr>
+                    <td>example Metal{category}</td>
+                    <td>Gutters{subcategory}</td>
+                    <td>8 kg{weight}{units}</td>
+                    <td>7.2{CO2}</td>
 
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td >&nbsp;</td>
-                <td>Total C0<sub>2</sub>: </td>
-                <td class="td_header">7.2 tons{{CO2_total}}</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td >&nbsp;</td>
+                    <td>Total C0<sub>2</sub>: </td>
+                    <td class="td_header">7.2 tons{{CO2_total}}</td>
 
-            </tr>
-        </table>
-    </md-content>
+                </tr>
+            </table>
+        </md-content>
 
-   
-
+    </div>
 </div>
