@@ -77,8 +77,9 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
         };
         console.log(calculate);
         $http.post('/calculations', calculate).then(function(response) {
-            console.log(response);
-            $scope.result = Math.abs(response.data);
+            $scope.result = Math.floor(Math.abs(response.data) * 1000) / 1000;
+            console.log($scope.result);
+
         });
     };
 
@@ -90,12 +91,17 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
 
 //load Primary categories list on page load
     $http.get('/materials').then(function(response) {
-        console.log(response);
-        $scope.list = response.data;
-        response.data.forEach(function(item){
-            item.primary_cat = item.primary_cat.toLowerCase();
-            item.primary_cat = item.primary_cat.charAt(0).toUpperCase() + item.primary_cat.slice(1);
+        var list = response.data;
+
+        list.forEach(function(item){
+            //item.primary_cat = item.primary_cat.toLowerCase();
+
+            // causing bugs right now
+            item.primary_cat = item.primary_cat.charAt(0).toUpperCase() + item.primary_cat.slice(1).toLowerCase();
+
         });
+        $scope.list = list;
+
     });
 
 //load the units
@@ -121,7 +127,7 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
 
 //Create filter function for a query string
     function createFilterFor(query) {
-        var lowercaseQuery = angular.lowercase(query);
+        var lowercaseQuery = query.charAt(0).toUpperCase() + query.slice(1);
         //console.log(query);
         return function filterFn(obj) {
             //console.log(obj.primary_cat);
