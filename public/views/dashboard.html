@@ -63,8 +63,7 @@
     <h1>Total Projects C0<sub>2</sub> reduced:</h1>
 </div>
 <div>
-    <h2>Edit/Delete Projects</h2>
-    <!--<span flex="33"></span>-->
+
     <md-button class="md-raised md-primary">Create New Project</md-button>
 </div>
 <div>
@@ -89,7 +88,7 @@
     <td contentEditable="true" ng-model="placeholder.pdesc">project.description {{project.desc}}</td>
     <td contentEditable="true" ng-model="placeholder.totWt">12,341 kg{{weight}}{{units}}</td>
     <td contentEditable="true" ng-model="placeholder.totC02">27.6{{CO2}}</td>
-    <td><i class="material-icons">save</i>{{project.save}} | Delete Project{{project.delete}}</td>
+    <td><i class="material-icons">save</i>{{project.save}} | <md-icon md-svg-src=“images/icons/ic_delete_24px.svg”> </md-icon>Delete Project{{project.delete}}</td>
 </tr>
 
 
