@@ -6,6 +6,71 @@ header md-toolbar {
   font-weight: inherit;
   margin: inherit; }
 
+<<<<<<< HEAD
+h2 {
+  padding-left: 20px;
+  margin-top: 35px;
+  margin-left: 50px;
+  margin-right: 50px;
+  font-size: inherit;
+  font-weight: inherit; }
+
+h3 {
+  margin-left: 50px;
+  margin-right: 50px;
+  font-size: inherit;
+  font-weight: inherit; }
+
+sup, sub {
+  line-height: 0; }
+
+.md-subhead {
+  text-align: right; }
+
+.md-body-2 {
+  margin-right: 50px; }
+
+p {
+  margin-right: 25%; }
+
+/*need to figure out how to use flex!!!! so the table items shrink down instead of go on another*/
+.flex-container {
+  -webkit-flex-wrap: nowrap;
+  /* Safari */
+  flex-wrap: nowrap; }
+
+.li_header {
+  display: inline-block;
+  width: 20%;
+  float: none;
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  /*align-items: center;*/
+  font-size: 16px;
+  font-weight: bold;
+  padding: 15px;
+  margin-top: 5px; }
+
+.heading {
+  display: inline-block;
+  /*  width: 20%;*/
+  float: none;
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  /*align-items: center;*/
+  font-size: 16px;
+  font-weight: bold;
+  padding: 5px;
+  margin-top: 5px; }
+
+table {
+  margin-left: 50px; }
+
+md-autocomplete {
+  background-color: white; }
+=======
 button.md-primary span {
   color: white; }
 
@@ -61,3 +126,4 @@ button.md-primary span {
     margin-top: 5px; }
   #dashboard-page #project-page table {
     margin-left: 50px; }
+>>>>>>> f53764162141e2643c276d8ad840fda882f7f492
