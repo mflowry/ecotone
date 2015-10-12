@@ -101,7 +101,7 @@ app.controller('calcCtrl', ['$timeout', '$q', '$log', '$http', '$scope', functio
     }
   }
 
-  /**
+  /**o
    * Build `materials` list of key/value pairs
    */
 
