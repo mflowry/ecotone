@@ -57,7 +57,8 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
         var list = response.data;
 
         list.forEach(function(item){
-            item.primary_cat = item.primary_cat.charAt(0).toUpperCase() + item.primary_cat.slice(1).toLowerCase();
+            item.primary_cat = item.primary_cat.toLowerCase();
+            // /item.primary_cat = item.primary_cat.charAt(0).toUpperCase() + item.primary_cat.slice(1).toLowerCase();
 
         });
         self.list = list;
@@ -141,7 +142,7 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
     };
 
     function createFilterFor(query) {
-        var lowercaseQuery = query.charAt(0).toUpperCase() + query.slice(1);
+        var lowercaseQuery = query.toLowerCase() //query.charAt(0).toUpperCase() + query.slice(1);
         return function filterFn(obj) {
             return (obj.primary_cat.indexOf(lowercaseQuery) != -1);
         };
