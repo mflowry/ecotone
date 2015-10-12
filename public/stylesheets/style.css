@@ -1,3 +1,7 @@
+#sidenav {
+  position: absolute;
+  height: 100%; }
+
 .sidenav-header {
   margin: 10px auto; }
 
