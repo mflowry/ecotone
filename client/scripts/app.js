@@ -53,11 +53,33 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
 
     //M//designate controller
 app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
+// create object to send to backend for calculation
+
+    $scope.saveToProject = function(){
+        var lineItem = {
+            category: $scope.category,
+            subcategory: $scope.subcategory,
+            warm_Id: $scope.warmId,
+            weight: parseFloat($scope.weight)*$scope.conversion,
+            units: $scope.unit.name
+        };
+        console.log(lineItem);
+        $http.post('/addToProject').then(function(response) {
+            console.log(response);
+            });
+        };
 
     $scope.newCalculation = function(){
-        var weight = parseFloat($scope.calculate.weight)*$scope.conversion;
-        console.log($scope.selected);
-        console.log(weight);
+        console.log("Calculating...", $scope.weight);
+        var calculate = {
+            warmId: $scope.warmId,
+            weight: parseFloat($scope.weight)*$scope.conversion
+        };
+        console.log(calculate);
+        $http.post('/calculations', calculate).then(function(response) {
+            console.log(response);
+            $scope.result = Math.abs(response.data);
+        });
     };
 
 //autocomplete functionality
@@ -94,6 +116,7 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
             conversion: 1.10231
         }
     ];
+//
 
 //Create filter function for a query string
     function createFilterFor(query) {
