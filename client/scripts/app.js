@@ -72,7 +72,7 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
     $scope.newCalculation = function(){
         console.log("Calculating...", $scope.weight);
         var calculate = {
-            warmId: $scope.warmId,
+            warmId: $scope.warmId || $scope.category.secondaries[0].warm_id,
             weight: parseFloat($scope.weight)*$scope.conversion
         };
         console.log(calculate);
