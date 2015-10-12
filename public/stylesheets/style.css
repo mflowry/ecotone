@@ -1,5 +1,6 @@
-md-sidenav, .body {
-  display: inline-block; }
+#sidenav {
+  position: absolute;
+  height: 100%; }
 
 .sidenav-header {
   margin: 10px auto; }
@@ -35,50 +36,47 @@ sup, sub {
 p {
   margin-right: 25%; }
 
-/*need to figure out how to use flex!!!! so the table items shrink down instead of go on another*/
-.flex-container {
-  -webkit-flex-wrap: nowrap;
-  /* Safari */
-  flex-wrap: nowrap; }
-
-.project-page .dashboard-page li {
-  display: inline-block;
-  width: 20%;
-  float: none;
-  color: #333333;
-  text-align: center;
-  /* align-items: center;*/
-  font-size: 14px;
-  padding: 15px;
-  font-weight: normal;
-  padding: 15px;
-  margin-top: 5px; }
-
-.project-page .dashboard-page .li_header {
-  display: inline-block;
-  width: 20%;
-  float: none;
-  background-color: #4CAF50;
-  color: white;
-  text-align: center;
-  /*align-items: center;*/
-  font-size: 16px;
-  font-weight: bold;
-  padding: 15px;
-  margin-top: 5px; }
-
-.project-page .dashboard-page .heading {
-  display: inline-block;
-  /*  width: 20%;*/
-  float: none;
-  background-color: #4CAF50;
-  color: white;
-  text-align: center;
-  /*align-items: center;*/
-  font-size: 16px;
-  font-weight: bold;
-  padding: 5px;
-  margin-top: 5px; }
-
-.project-page .dashboard-page table {
-  margin-left: 50px; }
+#project-page #dashboard-page {
+  /*need to figure out how to use flex!!!! so the table items shrink down instead of go on another*/ }
+  #project-page #dashboard-page .flex-container {
+    -webkit-flex-wrap: nowrap;
+    /* Safari */
+    flex-wrap: nowrap; }
+  #project-page #dashboard-page li {
+    display: inline-block;
+    width: 20%;
+    float: none;
+    color: #333333;
+    text-align: center;
+    /* align-items: center;*/
+    font-size: 14px;
+    padding: 15px;
+    font-weight: normal;
+    padding: 15px;
+    margin-top: 5px; }
+  #project-page #dashboard-page .li_header {
+    display: inline-block;
+    width: 20%;
+    float: none;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    /*align-items: center;*/
+    font-size: 16px;
+    font-weight: bold;
+    padding: 15px;
+    margin-top: 5px; }
+  #project-page #dashboard-page .heading {
+    display: inline-block;
+    /*  width: 20%;*/
+    float: none;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    /*align-items: center;*/
+    font-size: 16px;
+    font-weight: bold;
+    padding: 5px;
+    margin-top: 5px; }
+  #project-page #dashboard-page table {
+    margin-left: 50px; }

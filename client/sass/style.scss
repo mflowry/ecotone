@@ -1,5 +1,6 @@
-md-sidenav, .body {
-  display: inline-block;
+#sidenav{
+  position: absolute;
+  height: 100%;
 }
 
 .sidenav-header {
