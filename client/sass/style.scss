@@ -1,15 +1,11 @@
-//#sidenav {
-//  position: absolute;
-//  height: 100%;
-//}
-
-.sidenav-header {
-  margin: 10px auto; }
-
-header md-toolbar {
-  height: 100px;
+#sidenav .ng-scope {
+  float: left;
+  color: white;
 }
 
+.sidenav-header {
+  margin: 10px auto;
+}
 
 .md-toolbar-tools h1 {
   font-size: inherit;
