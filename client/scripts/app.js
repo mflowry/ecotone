@@ -6,7 +6,7 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     //set theme and color palette
     $mdThemingProvider.theme('default')
         .primaryPalette('green')
-        .accentPalette('blue')
+        .accentPalette('blue-grey', {'default':'600'})
         .warnPalette ('orange');
 
     //routes for views
@@ -50,6 +50,7 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     //$httpProvider.interceptors.push('authInterceptor');
 }]);
 
+<<<<<<< HEAD
 
 /**
 *   CALCULATOR
@@ -144,6 +145,91 @@ app.controller('calcCtrl', ['$timeout', '$q', '$log', '$http', '$scope', functio
          $scope.calculation = response.data;
        })
      }
+=======
+    //M//designate controller
+app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
+// create object to send to backend for calculation
+
+    $scope.saveToProject = function(){
+        var lineItem = {
+            category: $scope.category,
+            subcategory: $scope.subcategory,
+            warm_Id: $scope.warmId,
+            weight: parseFloat($scope.weight)*$scope.conversion,
+            units: $scope.unit.name
+        };
+        console.log(lineItem);
+        $http.post('/addToProject').then(function(response) {
+            console.log(response);
+            });
+        };
+
+    $scope.newCalculation = function(){
+        console.log("Calculating...", $scope.weight);
+        var calculate = {
+            warmId: $scope.warmId || $scope.category.secondaries[0].warm_id,
+            weight: parseFloat($scope.weight)*$scope.conversion
+        };
+        console.log(calculate);
+        $http.post('/calculations', calculate).then(function(response) {
+            $scope.result = Math.floor(Math.abs(response.data) * 1000) / 1000;
+            console.log($scope.result);
+
+        });
+    };
+
+//autocomplete functionality
+    $scope.querySearch=function(query) {
+        // console.log($scope.list.filter(createFilterFor(query)));
+        return query ? $scope.list.filter(createFilterFor(query)) : $scope.list;
+    };
+
+//load Primary categories list on page load
+    $http.get('/materials').then(function(response) {
+        var list = response.data;
+
+        list.forEach(function(item){
+            //item.primary_cat = item.primary_cat.toLowerCase();
+
+            // causing bugs right now
+            item.primary_cat = item.primary_cat.charAt(0).toUpperCase() + item.primary_cat.slice(1).toLowerCase();
+
+        });
+        $scope.list = list;
+
+    });
+
+//load the units
+    $scope.units = [
+        {
+            name: 'lbs',
+            conversion: 0.0005
+        },
+        {
+            name: 'kilos',
+            conversion: 0.00110231
+        },
+        {
+            name: 'tons',
+            conversion: 1
+        },
+        {
+            name: 'metric tons',
+            conversion: 1.10231
+        }
+    ];
+//
+
+//Create filter function for a query string
+    function createFilterFor(query) {
+        var lowercaseQuery = query.charAt(0).toUpperCase() + query.slice(1);
+        //console.log(query);
+        return function filterFn(obj) {
+            //console.log(obj.primary_cat);
+            return (obj.primary_cat.indexOf(lowercaseQuery) != -1);
+        };
+    }
+>>>>>>> demo
 }]);
 
 

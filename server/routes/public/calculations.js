@@ -14,8 +14,9 @@ function warmCalculation(warmID,weight,res){
         if( err ){
             console.log(err);
         } else {
+            console.log(warmID);
             client.query('select co2 from proxies where id=$1', [warmID], function(err, results){
-
+                console.log(results);
                 if(results){
                     calculation = parseFloat(results.rows[0].co2)*weight;
                     res.json(calculation);
@@ -29,8 +30,8 @@ function warmCalculation(warmID,weight,res){
 }
 
 router.post('/', function(req, res, next){
-  console.log(req.body)
-    var warmID = req.body.proxyID;
+
+    var warmID = req.body.warmId;
     var weight = parseFloat(req.body.weight);
     warmCalculation(warmID, weight, res);
 });
