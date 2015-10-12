@@ -52,63 +52,59 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
 }]);
 
     //M//designate controller
-    app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
+app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
 
-        $scope.newCalculation = function(){
-            var weight = parseFloat($scope.calculate.weight)*$scope.conversion;
-            console.log($scope.selected);
-            console.log(weight);
-        };
-       // loadCategories();
-
+    $scope.newCalculation = function(){
+        var weight = parseFloat($scope.calculate.weight)*$scope.conversion;
+        console.log($scope.selected);
+        console.log(weight);
+    };
 
 //autocomplete functionality
-        $scope.querySearch=function(query) {
-            console.log($scope.list.filter(createFilterFor(query)));
-            return query ? $scope.list.filter(createFilterFor(query)) : $scope.list;
-        };
+    $scope.querySearch=function(query) {
+        console.log($scope.list.filter(createFilterFor(query)));
+        return query ? $scope.list.filter(createFilterFor(query)) : $scope.list;
+    };
 
-        function loadCategories() {
-            $http.get('/materials').then(function(response) {
-                var list = [];
-                response.data.forEach(function( item ){
-                    list.push( item.primary_cat )
-                });
-                $scope.list = list;
-            });
-
-        };
+//load Primary categories list on page load
+    $http.get('/materials').then(function(response) {
+        console.log(response);
+        $scope.list = response.data;
+        response.data.forEach(function(item){
+            item.primary_cat = item.primary_cat.toLowerCase();
+        });
+    });
 
 //load the units
-        $scope.units = [
-            {
+    $scope.units = [
+        {
             name: 'lbs',
             conversion: 0.0005
-            },
-            {
+        },
+        {
             name: 'kilos',
             conversion: 0.00110231
-            },
-            {
+        },
+        {
             name: 'tons',
             conversion: 1
-            },
-            {
+        },
+        {
             name: 'metric tons',
             conversion: 1.10231
-            }
-        ];
+        }
+    ];
 
 //Create filter function for a query string
-        function createFilterFor(query) {
-            var lowercaseQuery = angular.lowercase(query);
-            //console.log(query);
-            return function filterFn(obj) {
-                //console.log(obj.primary_cat);
-                return (obj.primary_cat.indexOf(lowercaseQuery) != -1);
-            };
-        }
-    }]);
+    function createFilterFor(query) {
+        var lowercaseQuery = angular.lowercase(query);
+        //console.log(query);
+        return function filterFn(obj) {
+            //console.log(obj.primary_cat);
+            return (obj.primary_cat.indexOf(lowercaseQuery) != -1);
+        };
+    }
+}]);
 
 
 // Login HTML - Kate
