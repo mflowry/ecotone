@@ -46,7 +46,8 @@
                     <td flex="12">50</td>
                     <td flex="12">lbs</td>
                     <td flex="12">0.005 metric tons</td>
-                    <md-button flex="15" class="md-accent md-raised" ng-click="ctrl.deleteProjectItem()"         selected-item="ctrl.projectList.lineID" style="background-color: #0288d1; display: inline; position: relative;">Delete</md-button>
+                    <td align="center"><ng-click="ctrl.deleteProjectItem()"a href="/projects"><img src="images/icons/ic_create_black_24px.svg" alt="Edit Project" /></a> | <img src="images/icons/ic_save_black_24px.svg" alt="Save Changes"/> | <img src="images/icons/ic_delete_black_24px.svg" alt="Delete Project"/> </td>
+                    <md-button flex="15" class="md-accent md-raised"          selected-item="ctrl.projectList.lineID" style="background-color: #0288d1; display: inline; position: relative;">Delete</md-button>
                 </tr>
 
                 <tr layout="row" layout-wrap ng-repeat="project in projects">
@@ -54,9 +55,10 @@
                     <td flex="15">{{ctrl.projectList.subcategory}}</td>
                     <td flex="15">{{ctrl.projectList.weight}}</td>
                     <td flex="15">{{projectList.units}}</td>
-                    <td flex="15">{{ctrl.projectList.co2_offset}}metric tons</td>
+                    <td flex="15">{{ctrl.projectList.co2_offset}} metric tons</td>
                     <md-button flex="15" class="md-accent md-raised" ng-click="ctrl.deleteProjectItem()"         selected-item="ctrl.projectList.lineID" style="background-color: #0288d1; display: inline;">Delete</md-button>
                 </tr>
+
             </table>
             <br>
             <md-divider ng-if="!$last"></md-divider>
