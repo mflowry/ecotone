@@ -5,7 +5,8 @@ const
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
-    jsonwebtoken = require('jsonwebtoken');
+    jsonwebtoken = require('jsonwebtoken'),
+    models = require('./models/models');
 
 const
     routes = require('./routes/index'),
@@ -21,6 +22,12 @@ const
 
 
 var app = express();
+
+models.Users.sync().then(function(){
+    models.Projects.sync().then(function(){
+        models.Calculations.sync();
+    });
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

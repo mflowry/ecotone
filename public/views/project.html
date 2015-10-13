@@ -1,71 +1,68 @@
 <div id="project-page">
-<!-- just trying out some layout here -->
-<!--<md-content>-->
-    <md-content flex layout-padding>
-        <div layout layout-sm="column">
+
+
+    <md-content ng-controller="projectsCtrl as ctrl">
+        <br layout="column">
             <!-- Autocomplete -->
-            <h2>Project Name</h2>
+            <h3>Project Name</h3>
             <md-autocomplete
-                    md-selected-item="projectName"
-                    md-search-text="searchText"
-                    md-items="item in querySearch(searchText)"
+                    md-selected-item="ctrl.projectName"
+                    md-selected-item-change="ctrl.selectedItemChange(item)"
+                    md-search-text="ctrl.searchText"
+                    md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                    md-items="item in ctrl.querySearch(ctrl.searchText)"
                     md-item-text="item.project_name"
                     md-min-length="0"
-                    placeholder="Project Name">
+                    placeholder="Select Project Name">
                 <md-item-template>
-                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{projectList.project_name}}</span>
+                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{projectList.project_name}}</span>
                 </md-item-template>
                 <md-not-found>
                     No matches found for "{{searchText}}".
                 </md-not-found>
             </md-autocomplete>
-            <!--<input id="pName" type="text"  ng-model="project.name" />-->
-        </div>
-        <div>
-            <md-input-container flex>
-                <label for="projectDescription">Project Description: {{projectList.project_description}}</label>
-                <input id="projectDescription"  ng-model="projectDescription" />
-            </md-input-container>
+            <md-content>
+                <h3>Project Description </h3>
+                <p>{{projectList.project_description}}</p>
+            </md-content>
+        <md-divider ng-if="!$last"></md-divider>
         </div>
     </md-content>
-    <div ng-controller="projectsCtrl">
+    <div>
         <md-content>
-            <table>
-                <tr>
-                    <th>Category</th>
-                    <th >Sub-Category</th>
-                    <th>Weight</th>
-                    <th>CO<sub>2</sub></th>
-
+            <br>
+            <table style="min-width: 1200px; text-align: left;">
+                <tr layout="row" layout-fill layout-wrap >
+                    <th flex="12">Category</th>
+                    <th flex="12">Sub-Category</th>
+                    <th flex="12">Weight</th>
+                    <th flex="12">Units</th>
+                    <th flex="12">CO<sub>2</sub>Offset</th>
                 </tr>
 
-                <tr ng-repeat="project in projects">
-                    <td>{{projectList.category}}</td>
-                    <td>{{projectList.subcategory}}</td>
-                    <td>{{projectList.weight}}{{projectList.units}}</td>
-                    <td>{{projectList.co2_offset}}metric tons</td>
-
+                <tr layout="row" layout-fill layout-wrap>
+                    <td flex="12">Blinds</td>
+                    <td flex="12">Wood</td>
+                    <td flex="12">50</td>
+                    <td flex="12">lbs</td>
+                    <td flex="12">0.005 metric tons</td>
+                    <td align="center"><ng-click="ctrl.deleteProjectItem()"a href="/projects"><img src="images/icons/ic_create_black_24px.svg" alt="Edit Project" /></a> | <img src="images/icons/ic_save_black_24px.svg" alt="Save Changes"/> | <img src="images/icons/ic_delete_black_24px.svg" alt="Delete Project"/> </td>
+                    <md-button flex="15" class="md-accent md-raised"          selected-item="ctrl.projectList.lineID" style="background-color: #0288d1; display: inline; position: relative;">Delete</md-button>
                 </tr>
 
-
-                <!--this is the viewable stuff for example, delete when we got the above list working-->
-
-                <!--<tr>-->
-                    <!--<td>example Metal{category}</td>-->
-                    <!--<td>Gutters{subcategory}</td>-->
-                    <!--<td>8 kg{weight}{units}</td>-->
-                    <!--<td>7.2{CO2}</td>-->
-
-                <!--</tr>-->
-                <!--<tr>-->
-                    <!--<td>&nbsp;</td>-->
-                    <!--<td >&nbsp;</td>-->
-                    <!--<td>Total C0<sub>2</sub>: </td>-->
-                    <!--<td class="td_header">7.2 tons{{CO2_total}}</td>-->
-
+                <tr layout="row" layout-wrap ng-repeat="project in projects">
+                    <td flex="15">{{ctrl.projectList.category}}</td>
+                    <td flex="15">{{ctrl.projectList.subcategory}}</td>
+                    <td flex="15">{{ctrl.projectList.weight}}</td>
+                    <td flex="15">{{projectList.units}}</td>
+                    <td flex="15">{{ctrl.projectList.co2_offset}} metric tons</td>
+                    <md-button flex="15" class="md-accent md-raised" ng-click="ctrl.deleteProjectItem()"         selected-item="ctrl.projectList.lineID" style="background-color: #0288d1; display: inline;">Delete</md-button>
                 </tr>
+
             </table>
+            <br>
+            <md-divider ng-if="!$last"></md-divider>
+            <md-button class="md-accent md-raised" ng-click="ctrl.calculateProjectTotal()" value="save" style="background-color: #0288d1;">Calculate Total</md-button>
+            <p ng-show="ctrl.projectTotal">Your Total Estimated CO<sub>2</sub> Offset is {{ctrl.projectTotal}} metric tons</p>
         </md-content>
-
-    </div>
 </div>

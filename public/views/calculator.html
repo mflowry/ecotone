@@ -1,6 +1,5 @@
 <div id="calculator-page">
     <h2>Calculate Your CO<sub>2</sub> Offset</h2>
-
     <md-content layout="column" layout-align="space-between center">
         <div id="material-choice">
             <md-autocomplete
@@ -21,7 +20,10 @@
                 </md-item-template>
 
                 <md-not-found>
-                   <div ng-click="ctrl.newSuggestion( ctrl.searchText )"> No matches found for "{{ctrl.searchText}}" Suggest a new material! </div>
+                    <div ng-click="ctrl.newSuggestion()">
+                        No material matches {{ ctrl.searchText }}
+                    Create a new one!
+                    </div>
                 </md-not-found>
             </md-autocomplete>
 

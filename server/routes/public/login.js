@@ -2,7 +2,7 @@ const
     express = require('express'),
     router = express.Router();
 
-var Users = require('../../models/users').Users;
+var Users = require('../../models/models').Users;
 
 router.post('/', function(req, res, next) {
   Users.getAuthenticated(req.body, function (err, token, user) {
