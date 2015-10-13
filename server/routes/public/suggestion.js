@@ -27,7 +27,7 @@ router.get('/', function( req, res, next){
     pg.connect( connectionString , function( err, client, done ) {
         if (err) console.log(err);
 
-        client.query('select * from suggestions',
+        client.query('select * from suggestions where complete = false',
             function( err, results){
                 done();
                 suggestions = results.rows;
@@ -35,6 +35,22 @@ router.get('/', function( req, res, next){
                     res.send(suggestions);
                 });
             })
-    });});
+    });
+});
+
+router.put('/complete/:id', function( req, res, next ){
+
+    var id = req.params.id;
+    console.log(id);
+
+    pg.connect( connectionString, function( err, client, done ){
+        if (err) console.log(err);
+
+        client.query('UPDATE suggestions SET complete = TRUE where suggestions.id = $1', [id]);
+        done();
+        res.sendStatus(200);
+    })
+
+});
 
 module.exports = router;

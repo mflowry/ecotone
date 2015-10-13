@@ -168,6 +168,13 @@ app.controller('adminCtrl', ['$http', function( $http ){
 
     var self = this;
     self.suggestions = '';
+    self.markComplete = markComplete;
+
+    function markComplete( suggestion ) {
+        var id = suggestion.id;
+        console.log(id);
+        $http.put('/suggestions/complete/' + id).then(function( res ) { console.log(res) })
+    }
 
 
 }]);
