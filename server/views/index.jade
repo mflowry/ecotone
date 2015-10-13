@@ -19,34 +19,26 @@ block content
             md-button.md-primary(md-no-ink href="/login") Login
           li
             md-button.md-primary(md-no-ink href="/calculator" ng-click="logout()") Logout
+          li
+            md-button.md-primary(md-no-ink href="/about") About
+          li
+            md-button.md-primary(md-no-ink href="/contact") Contact
 
+    div(layout="column")
+      md-content(layout-padding layout-align="center center")
+        span(flex)
+        //#main(layout="column" layout-align="center center" layout-padding)
+        <!-- ng-view will display injected content -->
+        div(ng-view)
 
-      //old front-end
-        div(class="md-primary md-toolbar-tools")
-          span
-            img(src="/images/ECOTONE_logo.gif" alt="ECOTONE")
-          span(flex)
-          p Hello, {{user}}!
-          md-button.md-primary(md-no-ink href="/calculator") Calculator
-          md-button.md-primary(md-no-ink href="/dashboard") My Dashboard
-          md-button.md-primary(md-no-ink href="/projects") My Projects
-          md-button.md-primary(md-no-ink href="/login") Login
-          md-button.md-primary(md-no-ink href="/calculator" ng-click="logout()") Logout
-
-    md-content(layout-padding layout-align="center center")
-      span(flex)
-      //#main(layout="column" layout-align="center center" layout-padding)
-      <!-- ng-view will display injected content -->
-      div(ng-view)
-
-  //footer
-  //  md-toolbar
-  //    div(class="md-toolbar-tools")
-  //      span
-  //        p(id="copyright") &copy; 2015 Ecotone-Partners
-  //      span(flex)
-  //      md-button.md-primary(md-no-ink href="/about") About
-  //      md-button.md-primary(md-no-ink href="/contact") Contact
-  //      md-button.md-primary(md-no-ink href="/privacy") Privacy
-
+      md-content(class="footer" layout-fill layout-align="end end")
+          ul
+            li
+              span(flex)
+            li
+              md-button(md-no-ink href="/sources") Sources
+            li
+              md-button(md-no-ink href="/privacy") Privacy
+            li
+              p(id="copyright") &copy; 2015 Ecotone-Partners
 
