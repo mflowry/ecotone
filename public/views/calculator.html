@@ -18,10 +18,10 @@
                 </span>
             </md-item-template>
             
-            <md-not-found >
-                <div >
+            <md-not-found>
+                <div ng-click="ctrl.newSuggestion()">
                     No material matches {{ ctrl.searchText }}
-                    <button ng-click="ctrl.newSuggestion()">Create a new one!</button>
+                Create a new one!
                 </div>
             </md-not-found>
         </md-autocomplete>
