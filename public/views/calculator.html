@@ -21,7 +21,9 @@
             </md-item-template>
             
             <md-not-found>
-               <div ng-click="ctrl.newSuggestion( ctrl.searchText )"> No matches found for "{{ctrl.searchText}}" Suggest a new material! </div>
+                <div ng-click="ctrl.newSuggestion( ctrl.searchText )">
+                   <a> No matches found for "{{ctrl.searchText}}" Suggest a new material! </a>
+                </div>
             </md-not-found>
         </md-autocomplete>
         
