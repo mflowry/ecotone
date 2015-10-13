@@ -59,7 +59,15 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     //$httpProvider.interceptors.push('authInterceptor');
 }]);
 
-app.controller('calculateCtrl', ['$http', '$mdDialog', function( $http, $mdDialog ) {
+app.controller('calculateCtrl', ['$http', '$mdDialog', '$rootScope', 'authService', '$location', function( $http, $mdDialog, $rootScope, authService, $location ) {
+
+    // Check user
+    $rootScope.user = authService.getUser();
+
+    if($rootScope.user && $rootScope.user.username){
+        $location.path('/');
+    }
+
     // INIT
     $http.get('/materials').then(function(response) {
         var list = response.data;
