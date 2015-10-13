@@ -183,8 +183,16 @@ app.controller('createAccountCtrl', ['$scope', '$http', function($scope, $http) 
 
 // Project HTML - Dashboard HTML - Kim
 app.controller('projectsCtrl', ['$scope', '$http', function($scope, $http) {
+    //load project list on page load
+    $http.get('/project').then(function(response) {
+        console.log(response);
+        $scope.projectList = response.data;
+        //response.data.forEach(function(item){
+        //    item.project_name = item.primary_cat.toLowerCase();
+        });
+    });
     $http({
-        method: 'POST',
+        method: 'GET',
         url: 'http://www.w3schools.com/angular/customers.php'
     }).then(function (response) {
         $scope.names = response.records;
