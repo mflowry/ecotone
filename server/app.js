@@ -41,7 +41,7 @@ app.use('/register',register);
 app.use('/modifyUser',modifyUser);
 app.use('/calculations',calculations);
 app.use('/project',project);
-app.use('/suggestions', suggestion);
+app.use('/suggestion', suggestion);
 app.use('*', routes);
 
 // catch 404 and forward to error handler

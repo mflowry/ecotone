@@ -59,7 +59,7 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     //$httpProvider.interceptors.push('authInterceptor');
 }]);
 
-app.controller('calculateCtrl', ['$http', 'submitSuggestion', function( $http, submitSuggestion ) {
+app.controller('calculateCtrl', ['$http', '$mdDialog', function( $http, $mdDialog ) {
     // INIT
     $http.get('/materials').then(function(response) {
         var list = response.data;
@@ -82,6 +82,7 @@ app.controller('calculateCtrl', ['$http', 'submitSuggestion', function( $http, s
     self.selectedItemChange = selectedItemChange;
     self.searchTextChange   = searchTextChange;
     self.newSuggestion = newSuggestion;
+    self.submitSuggestion = submitSuggestion;
     self.units = [
         {
             name: 'lbs',
@@ -100,6 +101,11 @@ app.controller('calculateCtrl', ['$http', 'submitSuggestion', function( $http, s
             conversion: 1.10231
         }
     ];
+    self.submission = {
+        email: '',
+        material: '',
+        notes: ''
+    };
     self.newCalculation = newCalculation;
 
 
@@ -155,10 +161,28 @@ app.controller('calculateCtrl', ['$http', 'submitSuggestion', function( $http, s
         };
     }
 
+    function submitSuggestion(){
+        console.log('SUBMIT!');
+        console.log(self.submission);
+        $http.post('/suggestion', self.submission).then(function( res ){
+           $mdDialog.hide();
+        });
+    }
+
     function newSuggestion( suggestion ){
-        console.log(suggestion);
-        submitSuggestion( suggestion )
-    };
+        console.log('NEW SUGGESTION!', self.searchText);
+
+        $mdDialog.show({
+            templateUrl: '/views/submit-modal.html',
+            clickOutsideToClose: true,
+            controller: 'calculateCtrl',
+            controllerAs: 'ctrl',
+            locals: {material: self.searchText}
+        })
+
+    }
+
+
 }]);
 
 /**
@@ -175,13 +199,13 @@ app.controller('adminCtrl', ['$http', function( $http ){
     function markComplete( suggestion ) {
         var id = suggestion.id;
         console.log(id);
-        $http.put('/suggestions/complete/' + id).then(function( res ) {
+        $http.put('/suggestion/complete/' + id).then(function( res ) {
             init();
         });
     }
 
     function init() {
-        $http.get('/suggestions').then(function (res) {
+        $http.get('/suggestion').then(function (res) {
             var suggestions = res.data;
             console.log(suggestions);
             self.suggestions = suggestions;
@@ -242,12 +266,9 @@ app.controller('navCtrl', ['authService', '$scope', '$rootScope', '$location', '
 
 // Project HTML - Dashboard HTML - Kim
 app.controller('projectsCtrl', ['$scope', '$http', function($scope, $http) {
-    //load project list on page load
     $http.get('/project').then(function(response) {
         console.log(response);
         $scope.projectList = response.data;
-        //response.data.forEach(function(item){
-        //    item.project_name = item.primary_cat.toLowerCase();
     });
 
     $http({
@@ -329,19 +350,4 @@ app.factory('authInterceptor', ['$q', '$location', 'authService', function ($q, 
             return $q.reject(response);
         }
     };
-}]);
-
-app.factory('submitSuggestion', ['$mdDialog', function($mdDialog) {
-    //Include a reference to the user object we're deleting
-    return function( suggestion ) {
-        console.log( suggestion );
-        //Call the confirm() function to configure the confirmation dialog
-        var confirm = $mdDialog.confirm()
-            .title('Submit New Material')
-            .content('Are you sure you want to submit ' + suggestion )
-            .ariaLabel('Submit Material')
-            .ok('Submit')
-            .cancel('Cancel');
-        return $mdDialog.show(confirm);
-    }
 }]);
