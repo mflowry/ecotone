@@ -1,6 +1,6 @@
 <div id="calculator-page">
     <div ng-controller="calculateCtrl as ctrl" layout="column" ng-cloak>
-    <h2>Calculate Your CO2 Offset</h2>
+    <h2>Calculate Your CO<sub>2</sub> Offset</h2>
 
         <md-content layout="column" layout-align="space-between center">
 
@@ -49,7 +49,7 @@
 
         <md-button class="md-accent md-raised" ng-click="ctrl.newCalculation()" type="submit" value="Save">Submit</md-button>
 
-        <p ng-show="ctrl.result">Your Estimated CO2 Offset is {{ctrl.result}} metric tons.</p>
+        <p ng-show="ctrl.result">Your Estimated CO<sub>2</sub> Offset is {{ctrl.result}} metric tons.</p>
 
         </md-content>
     </div>
