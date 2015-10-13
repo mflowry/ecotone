@@ -54,7 +54,7 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     //$httpProvider.interceptors.push('authInterceptor');
 }]);
 
-app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
+app.controller('calculateCtrl', ['$http', function( $http ) {
     // INIT
     $http.get('/materials').then(function(response) {
         var list = response.data;
@@ -149,6 +149,12 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
         };
     }
 }]);
+
+app.controller('admin', ['$http'], function( $http ){
+   var self = this;
+
+
+});
 
 // Login HTML - Kate
 app.controller('loginCtrl', ['$scope', '$http', 'authService', function($scope, $http, authService) {
