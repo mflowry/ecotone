@@ -192,7 +192,7 @@ projectSchema = sequelize.define('project',
         projectName: {
             type: Sequelize.STRING,
             validate: {
-                isAlpha: true
+                isAlphanumeric: true
             }
         }
     }

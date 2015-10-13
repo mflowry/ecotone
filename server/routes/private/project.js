@@ -17,13 +17,13 @@ router.post('/', function (req, res, next) {
 
         var existingProjectId = {
             where: {
-                projectId: req.body.projectId
-                //projectName: req.body.projectName
+                projectName: req.body.projectName,
+                userId: req.body.user_id
             }
         };
         //Projects.sync().then(function () {
             Projects.find(existingProjectId).then(function (project) {
-
+                console.log(project);
                 // if returned project is null (does not exist)
                 if (project === null) {
 
