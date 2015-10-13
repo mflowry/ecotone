@@ -1,37 +1,38 @@
 extends layout
 
 block content
-  div(layout="row" ng-controller="navCtrl")
-    md-sidenav(id="sidenav" class="md-sidenav-left md-primary md-whiteframe-z2 md-closed md-locked-open" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" flex)
-      header.sidenav-header
-        img(src="/images/ECOTONE_logo.gif" alt="ECOTONE")
-      md-toolbar.md-primary(layout="column" style="height:600px" flex)
-        ul
-          li
-            md-button.md-primary(md-no-ink href="/about") About
-          li
-            md-button.md-primary(md-no-ink href="/calculator") Calculator
-          li
-            md-button.md-primary(md-no-ink href="/dashboard" ng-show="user.username") My Dashboard
-          li
-            md-button.md-primary(md-no-ink href="/projects" ng-show="user.username") My Projects
-          li
-            md-button.md-primary(md-no-ink href="/account" ng-show="user.username") My Account
-          li
-            md-button.md-primary(md-no-ink href="/login" ng-hide="user.username") Login
-          li
-            md-button.md-primary(md-no-ink href="/calculator" ng-click="logout()" ng-show="user.username") Logout
-          li
-            md-button.md-primary(md-no-ink href="/admin") ADMIN
+  div(layout="column" ng-controller="navCtrl" ng-cloak)
+    section(layout="row" flex)
+      md-sidenav(id="sidenav" class="md-sidenav-left md-primary md-whiteframe-z2 md-closed md-locked-open" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" layout-fill flex)
+        header.sidenav-header
+          img(src="/images/ECOTONE_logo.gif" alt="ECOTONE")
+        md-toolbar.md-primary(layout="column" style="height:600px" flex)
+          ul
+            li
+              md-button.md-primary(md-no-ink href="/about") About
+            li
+              md-button.md-primary(md-no-ink href="/calculator") Calculator
+            li
+              md-button.md-primary(md-no-ink href="/dashboard" ng-show="user.username") My Dashboard
+            li
+              md-button.md-primary(md-no-ink href="/projects" ng-show="user.username") My Projects
+            li
+              md-button.md-primary(md-no-ink href="/account" ng-show="user.username") My Account
+            li
+              md-button.md-primary(md-no-ink href="/login" ng-hide="user.username") Login
+            li
+              md-button.md-primary(md-no-ink href="/calculator" ng-click="logout()" ng-show="user.username") Logout
+            li
+              md-button.md-primary(md-no-ink href="/admin") ADMIN
 
 
-    div(layout="column")
-      md-content(layout-padding)
-        h1(ng-show="user.username") Hello, {{user.firstName}}!
-        <!-- ng-view will display injected content -->
-        div(ng-view)
+      div(id="content" layout="column" layout-fill layout-align="space-between center" flex)
+        md-content(layout-fill)
+          h1(ng-show="user.username") Hello, {{user.firstName}}!
+          <!-- ng-view will display injected content -->
+          div(ng-view)
 
-      md-content(class="footer" layout-fill layout-align="end end")
+        md-content(class="footer" layout-fill layout-align="end end")
           ul
             li
               span(flex)
