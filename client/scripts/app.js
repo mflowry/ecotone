@@ -13,7 +13,7 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     $routeProvider.when('/',
         {
             templateUrl: '/views/calculator.html',
-            controller: 'calculateCtrl'
+            controller: 'calculateCtrl as ctrl'
         }).when('/login',
         {
             templateUrl: '/views/login.html',
@@ -25,7 +25,7 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         }).when('/admin',
         {
             templateUrl: '/views/admin.html',
-            controller: 'adminCtrl'
+            controller: 'adminCtrl as ctrl'
 
         }).when('/account',
         {
@@ -160,14 +160,14 @@ app.controller('calculateCtrl', ['$http', function( $http ) {
  */
 app.controller('adminCtrl', ['$http', function( $http ){
     // INIT
-    //$http.get('/suggestions').then(function( res ) {
-    //    var suggestions = res.data;
-    //    console.log(suggestions);
-    //    self.suggestions = suggestions;
-    //});
-    //
-    //var self = this;
-    //self.suggestions = '';
+    $http.get('/suggestions').then(function( res ) {
+        var suggestions = res.data;
+        console.log(suggestions);
+        self.suggestions = suggestions;
+    });
+
+    var self = this;
+    self.suggestions = '';
 
 
 }]);
