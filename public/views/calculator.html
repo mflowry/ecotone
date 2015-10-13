@@ -22,7 +22,7 @@
             </md-item-template>
             
             <md-not-found>
-                No matches found for "{{searchText}}".
+                No matches found for "{{ctrl.searchText}}"
                 <a ng-click="ctrl.newSuggestion( ctrl.searchText )">Suggest a new material!</a>
             </md-not-found>
         </md-autocomplete>
