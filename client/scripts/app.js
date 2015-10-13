@@ -22,6 +22,11 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         {
             templateUrl: '/views/register.html',
             controller: 'createAccountCtrl'
+        }).when('/admin',
+        {
+            templateUrl: '/views/admin.html',
+            controller: 'adminCtrl'
+
         }).when('/account',
         {
             templateUrl: '/views/account.html',
@@ -150,11 +155,22 @@ app.controller('calculateCtrl', ['$http', function( $http ) {
     }
 }]);
 
-app.controller('admin', ['$http'], function( $http ){
-   var self = this;
+/**
+ * ADMIN
+ */
+app.controller('adminCtrl', ['$http', function( $http ){
+    // INIT
+    //$http.get('/suggestions').then(function( res ) {
+    //    var suggestions = res.data;
+    //    console.log(suggestions);
+    //    self.suggestions = suggestions;
+    //});
+    //
+    //var self = this;
+    //self.suggestions = '';
 
 
-});
+}]);
 
 // Login HTML - Kate
 app.controller('loginCtrl', ['$scope', '$http', 'authService', function($scope, $http, authService) {
@@ -195,15 +211,7 @@ app.controller('projectsCtrl', ['$scope', '$http', function($scope, $http) {
         $scope.projectList = response.data;
         //response.data.forEach(function(item){
         //    item.project_name = item.primary_cat.toLowerCase();
-        });
     });
-    $http({
-        method: 'GET',
-        url: 'http://www.w3schools.com/angular/customers.php'
-    }).then(function (response) {
-        $scope.names = response.records;
-    });
-
 
 }]);
 

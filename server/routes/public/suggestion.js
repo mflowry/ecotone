@@ -10,7 +10,6 @@ client.connect();
 
 router.post('/', function( req, res, next ){
     var data = req.body;
-    console.log(data);
     pg.connect( connectionString , function( err, client , done){
         if( err ){
             console.log(err);
@@ -21,5 +20,21 @@ router.post('/', function( req, res, next ){
         }
     });
 });
+
+router.get('/', function( req, res, next){
+    var suggestions = [];
+
+    pg.connect( connectionString , function( err, client, done ) {
+        if (err) console.log(err);
+
+        client.query('select * from suggestions',
+            function( err, results){
+                done();
+                suggestions = results.rows;
+                client.query('select * from secondaries', function ( err, results ){
+                    res.send(suggestions);
+                });
+            })
+    });});
 
 module.exports = router;
