@@ -198,12 +198,55 @@ projectSchema = sequelize.define('project',
     }
 );
 
+calculationSchema = sequelize.define('calculation',
+    {
+        calculationId: {
+            type: Sequelize.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
+        },
+        category: {
+            type: Sequelize.STRING,
+            validate: {
+                isAlphanumeric: true
+            }
+        },
+        subCategory: {
+            type: Sequelize.STRING,
+            validate: {
+                isAlphanumeric: true
+            }
+        },
+        units: {
+            type: Sequelize.STRING,
+            validate: {
+                isAlphanumeric: true
+            }
+        },
+        weight: {
+            type: Sequelize.FLOAT,
+            validate: {
+                isFloat: true
+            }
+        },
+        co2Offset: {
+            type: Sequelize.FLOAT,
+            validate: {
+                isFloat: true
+            }
+        }
+    }
+);
+
 userSchema.hasMany(projectSchema);
 projectSchema.belongsTo(userSchema);
+projectSchema.hasMany(calculationSchema);
+calculationSchema.belongsTo(projectSchema);
 
 var models = {
     Users: userSchema,
-    Projects: projectSchema
+    Projects: projectSchema,
+    Calculations: calculationSchema
 };
 
 module.exports = models;

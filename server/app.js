@@ -23,7 +23,9 @@ const
 var app = express();
 
 models.Users.sync().then(function(){
-    models.Projects.sync();
+    models.Projects.sync().then(function(){
+        models.Calculations.sync();
+    });
 });
 
 // view engine setup
