@@ -1,5 +1,14 @@
 <div>
-    <div ng-repeat="suggestoin in ctrl.suggestions">
-        {{suggestion.material}}
-    </div>
+    <table>
+        <tr>
+            <th>Material</th>
+            <th>Email</th>
+            <th>Notesg</th>
+        </tr>
+        <tr ng-repeat="suggestion in ctrl.suggestions">
+            <td>{{suggestion.material}}</td>
+            <td>{{suggestion.email}}</td>
+            <td>{{suggestion.notes}}</td>
+        </tr>
+    </table>
 </div>
