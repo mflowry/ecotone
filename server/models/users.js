@@ -1,11 +1,12 @@
 const
     bcrypt = require('bcrypt'),
-    SALT_WORK_FACTOR =  12,
+    SALT_WORK_FACTOR = 12,
     Sequelize = require('sequelize'),
     pg = require('pg'),
     jsonwebtoken = require('jsonwebtoken');
 
 var sequelize = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost:5432/ecotone');
+
 
 var userSchema = sequelize.define('user',
     {
@@ -37,14 +38,14 @@ var userSchema = sequelize.define('user',
         firstName: {
             type: Sequelize.STRING,
             field: 'firstName',
-            validate:{
+            validate: {
                 isAlpha: true
             }
         },
         lastName: {
             type: Sequelize.STRING,
             field: 'last_name',
-            validate:{
+            validate: {
                 isAlpha: true
             }
         },
@@ -78,17 +79,17 @@ var userSchema = sequelize.define('user',
     {
         instanceMethods: {
 
-         comparePassword: function(candidatePassword, cb){
-             bcrypt.compare(candidatePassword, this.password, function(err,isMatch){
+            comparePassword: function (candidatePassword, cb) {
+                bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
 
-                     if(err){
-                         console.log(err);
-                         return cb(err);
-                     }
+                    if (err) {
+                        console.log(err);
+                        return cb(err);
+                    }
 
-                     cb(null,isMatch);
+                    cb(null, isMatch);
 
-                 });
+                });
             }
 
         },
@@ -97,7 +98,8 @@ var userSchema = sequelize.define('user',
                 var options = {
                     where: {
                         username: user.username
-                    }};
+                    }
+                };
                 userSchema.findOne(options).then(function (instance) {
                     //if (err) {
                     //    console.log(err);
@@ -145,32 +147,32 @@ var userSchema = sequelize.define('user',
         }
     });
 
-userSchema.hook('beforeValidate',function(user,options,next){
+userSchema.hook('beforeValidate', function (user, options, next) {
     //var user = this;
-    if (!user.registerDate){
-        user.registerDate = pg.types.setTypeParser(1114, function(stringValue){
-            return new Date(stringValue,"-0600");
+    if (!user.registerDate) {
+        user.registerDate = pg.types.setTypeParser(1114, function (stringValue) {
+            return new Date(stringValue, "-0600");
         });
         user.registerDate = new Date();
 
     }
 
     //only hash the password if it has been modified (or is new)
-    if (!user.changed('password')){
+    if (!user.changed('password')) {
         console.log('not modified!');
         return next();
     }
     //generate a salty snack
-    bcrypt.genSalt(SALT_WORK_FACTOR,function(err,salt){
-        if (err){
+    bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
+        if (err) {
             return next(err);
         }
 
         // hash the password along with our new salty snack
-        bcrypt.hash(user.password, salt, function(err, hash){
+        bcrypt.hash(user.password, salt, function (err, hash) {
             if (err) {
-                return next(err);
                 console.log(err);
+                return next(err);
             }
             // override the cleartext password with the hashed one
             user.password = hash;
@@ -180,23 +182,28 @@ userSchema.hook('beforeValidate',function(user,options,next){
     });
 });
 
-//var projectSchema = sequelize.define('project',
-//    {
-//        projectId: {
-//            type: Sequelize.INTEGER,
-//            autoIncrement: true,
-//            primaryKey: true
-//        },
-//        projectName: {
-//            type: Sequelize.STRING,
-//            validate:{
-//                isAlpha: true
-//            }
-//        }
-//    });
-//
-//projectSchema.hasOne(userSchema, {as: 'user_id', foreignKey: 'id' });
-//userSchema.hasMany(projectSchema,{as: 'user_id', foreignKey: 'id' });
+projectSchema = sequelize.define('project',
+    {
+        projectId: {
+            type: Sequelize.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
+        },
+        projectName: {
+            type: Sequelize.STRING,
+            validate: {
+                isAlpha: true
+            }
+        }
+    }
+);
 
-//module.exports = {userSchema: userSchema,projectSchema: projectSchema};
-module.exports = userSchema;
+userSchema.hasMany(projectSchema);
+projectSchema.belongsTo(userSchema);
+
+var models = {
+    Users: userSchema,
+    Projects: projectSchema
+};
+
+module.exports = models;

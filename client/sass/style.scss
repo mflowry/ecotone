@@ -1,14 +1,12 @@
-#sidenav {
-  position: absolute;
-  height: 100%;
+#sidenav .ng-scope {
+  float: left;
+  color: white;
 }
 
 .sidenav-header {
-  margin: 10px auto; }
-
-header md-toolbar {
-  height: 100px;
+  margin: 10px auto;
 }
+
 .md-toolbar-tools h1 {
   font-size: inherit;
   font-weight: inherit;
@@ -17,6 +15,9 @@ header md-toolbar {
 
 button.md-primary span {
   color: white;
+}
+.md-button.md-primary.md-raised{
+  color:white
 }
 
 md-autocomplete{
@@ -57,11 +58,11 @@ md-autocomplete{
     -webkit-flex-wrap: nowrap; /* Safari */
     flex-wrap: nowrap;
   }
-  li {
+  ul li {
     ////display: inline-block;
     ////width: 20%;
     //float: none;
-    //color: #333333;
+    color: white;
     //text-align: center;
     ///* align-items: center;*/
     //font-size: 14px;

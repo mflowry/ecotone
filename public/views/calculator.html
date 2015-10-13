@@ -1,53 +1,56 @@
 <div id="calculator-page">
-    <div ng-controller="calculateCtrl" layout="column" ng-cloak>
-        <h2>Calculate Your CO2 Offset</h2>
-        <!-- New Project Info -->
+    <div ng-controller="calculateCtrl as ctrl" layout="column" ng-cloak>
+    <h2>Calculate Your CO2 Offset</h2>
 
-        <md-content layout="row" layout-sm="column">
-            <div>
+        <md-content layout="column" layout-align="space-between center">
 
-            <!-- Autocomplete -->
-            <!--<md-content class="md-padding" layout-padding layout="row" layout-sm="column" flex>-->
-            <md-autocomplete
-                    md-selected-item="category"
-                    md-search-text="searchText"
-                    md-items="item in querySearch(searchText)"
-                    md-item-text="item.primary_cat"
-                    md-min-length="0"
-                    placeholder="Material type">
-                <md-item-template>
-                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.primary_cat}}</span>
-                </md-item-template>
-                <md-not-found>
-                    No matches found for "{{searchText}}".
-                </md-not-found>
-            </md-autocomplete>
-            <!--</md-content>-->
-                <span flex></span>
-            <md-input-container ng-show="category.secondaries[0].secondary_cat != null">
-                <md-select id="secondary-margin" ng-model="warmId" placeholder="Subcategory">
-                    <md-option ng-repeat="subcategory in category.secondaries" ng-value="subcategory.warm_id" >
-                        {{subcategory.secondary_cat}}
-                    </md-option>
-                </md-select>
+        <md-autocomplete
+            md-selected-item="ctrl.category"
+            md-selected-item-change="ctrl.selectedItemChange(item)"
+            md-search-text="ctrl.searchText"
+            md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+            md-items="item in ctrl.querySearch(ctrl.searchText)"
+            md-item-text="item.primary_cat"
+            md-min-length="0"
+            md-floating-label="Material type"
+            layout-fill>
+           
+            <md-item-template>
+                <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">
+                    {{item.primary_cat}}
+                </span>
+            </md-item-template>
+            
+            <md-not-found>
+                No matches found for "{{searchText}}".
+            </md-not-found>
+        </md-autocomplete>
+        
+        <md-input-container ng-show="ctrl.category.secondaries[0].secondary_cat != null" layout="column" layout-align="end center" layout-fill flex>
+            <md-select ng-model="ctrl.warmId" placeholder="Subcategory" layout-fill layout-align="center">
+                <md-option ng-repeat="subcategory in ctrl.category.secondaries" ng-value="subcategory.warm_id">
+                    {{subcategory.secondary_cat}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+        
+        <div layout layout-sm="column" layout-align="space-between end" layout-fill>
+            <md-input-container flex>
+                <label>Weight</label>
+                <input ng-model="ctrl.weight" type="text">
             </md-input-container>
-                <div layout layout-sm="column">
-                <md-input-container flex>
-                    <label>Weight</label>
-                    <input ng-model="weight" type="text">
-                </md-input-container>
-                <md-select ng-model="conversion" placeholder="Select units" flex>
-                    <md-option ng-repeat="unit in units" ng-value="unit.conversion" >{{unit.name}}
-                    </md-option>
-                </md-select>
-            </div>
+        <md-select ng-model="ctrl.conversion" placeholder="Select units" flex>
+            <md-option ng-repeat="unit in ctrl.units" ng-value="unit.conversion" > 
+                {{ unit.name }}
+            </md-option>
+        </md-select>
+        </div>
 
 
-            <md-button class="md-accent md-raised" ng-click="newCalculation()" type="submit" value="Save">Submit</md-button>
+        <md-button class="md-accent md-raised" ng-click="ctrl.newCalculation()" type="submit" value="Save">Submit</md-button>
 
-            <p ng-show="result">Your Estimated CO2 Offset is {{result}} metric tons.</p>
+        <p ng-show="ctrl.result">Your Estimated CO2 Offset is {{ctrl.result}} metric tons.</p>
 
-            </div>
         </md-content>
     </div>
 </div>

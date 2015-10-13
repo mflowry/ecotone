@@ -1,4 +1,4 @@
-var app = angular.module('ecotoneApp', ['ngRoute', 'ngMaterial', 'ngMessages']);
+var app = angular.module('ecotoneApp', ['ngRoute', 'ngMaterial', 'ngMessages', 'validation.match']);
 
 app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpProvider', function($mdThemingProvider, $routeProvider, $locationProvider, $httpProvider){
     $locationProvider.html5Mode(true);
@@ -13,7 +13,7 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     $routeProvider.when('/',
         {
             templateUrl: '/views/calculator.html',
-            controller: 'calculateCtrl'
+            controller: 'calculateCtrl as ctrl'
         }).when('/login',
         {
             templateUrl: '/views/login.html',
@@ -22,6 +22,11 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         {
             templateUrl: '/views/register.html',
             controller: 'createAccountCtrl'
+        }).when('/admin',
+        {
+            templateUrl: '/views/admin.html',
+            controller: 'adminCtrl as ctrl'
+
         }).when('/account',
         {
             templateUrl: '/views/account.html',
@@ -44,6 +49,9 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         }).when('/privacy',
         {
             templateUrl: '/views/privacy.html'
+        }).when('/sources',
+        {
+            templateUrl: '/views/sources.html'
         }).otherwise({
             redirectTo: '/'
         });
@@ -51,78 +59,29 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     //$httpProvider.interceptors.push('authInterceptor');
 }]);
 
-    //M//designate controller
-app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
-// create object to send to backend for calculation
-
-    $scope.saveToProject = function(){
-        var lineItem = {
-            category: $scope.category,
-            subcategory: $scope.subcategory,
-            warm_Id: $scope.warmId,
-            weight: parseFloat($scope.weight)*$scope.conversion,
-            units: $scope.unit.name
-        };
-        console.log(lineItem);
-        $http.post('/addToProject').then(function(response) {
-            console.log(response);
-            });
-        };
-
-    $scope.newCalculation = function(){
-        console.log("Calculating...", $scope.weight);
-        var calculate = {
-            warmId: $scope.warmId || $scope.category.secondaries[0].warm_id,
-            weight: parseFloat($scope.weight)*$scope.conversion
-        };
-        console.log(calculate);
-        $http.post('/calculations', calculate).then(function(response) {
-            $scope.result = Math.floor(Math.abs(response.data) * 1000) / 1000;
-            console.log($scope.result);
-
-        });
-    };
-
-<<<<<<< HEAD
-//autocomplete functionality
-=======
-
-//load categories list on page load
-        $http({
-             method: 'Get',
-             url: '/materials',
-             data: response,
-             dataType: 'json'
-         }).then(function (response) {
-             console.log(response);
-             $scope.list = response;
-         });
-
-    // Auto-complete functionality
->>>>>>> 1bdb4cf2ca275e5a675a9e578a2376f6255abf05
-    $scope.querySearch=function(query) {
-        // console.log($scope.list.filter(createFilterFor(query)));
-        return query ? $scope.list.filter(createFilterFor(query)) : $scope.list;
-    };
-
-//load Primary categories list on page load
+app.controller('calculateCtrl', ['$http', function( $http ) {
+    // INIT
     $http.get('/materials').then(function(response) {
         var list = response.data;
 
         list.forEach(function(item){
-            //item.primary_cat = item.primary_cat.toLowerCase();
-
-<<<<<<< HEAD
-            // causing bugs right now
-            item.primary_cat = item.primary_cat.charAt(0).toUpperCase() + item.primary_cat.slice(1).toLowerCase();
+            item.primary_cat = item.primary_cat.toLowerCase();
+            // /item.primary_cat = item.primary_cat.charAt(0).toUpperCase() + item.primary_cat.slice(1).toLowerCase();
 
         });
-        $scope.list = list;
+        self.list = list;
 
     });
 
-//load the units
-    $scope.units = [
+    // Self dec
+    var self = this;
+
+    self.list = '';
+    self.result = '';
+    self.querySearch = querySearch;
+    self.selectedItemChange = selectedItemChange;
+    self.searchTextChange   = searchTextChange;
+    self.units = [
         {
             name: 'lbs',
             conversion: 0.0005
@@ -140,41 +99,91 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
             conversion: 1.10231
         }
     ];
-//
+    self.newCalculation = newCalculation;
 
-//Create filter function for a query string
-=======
-    //function loadCategories() {
-    //    var categories = [
-    //        {
-    //            category: "blinds",
-    //            subcategory: ["wood", "vinyl", "aluminum"]
-    //        },
-    //        {
-    //            category: "asphalt shingles",
-    //            subcategory: []
-    //        },
-    //        {
-    //            category: "cabinets",
-    //            subcategory: ["aluminum", "wood", "fiberglass", "glass",
-    //                "plastic", "steel", "vinyl", "MDF"]
-    //        }];
-    //
-    //    $scope.list = categories;
-    //}
 
-// Create filter function for a query string
->>>>>>> 1bdb4cf2ca275e5a675a9e578a2376f6255abf05
+    function searchTextChange(text) {
+        console.log('Text changed to ', text);
+    }
+
+    function selectedItemChange(item) {
+        if ( item == undefined ) {
+            self.category = '';
+            self.subcategory = '';
+            self.warmId = '';
+            self.weight = '';
+            self.conversion = '';
+            self.result = '';
+        }
+    }
+
+    function newCalculation() {
+
+        var calculate = {
+            warmId: self.warmId || self.category.secondaries[0].warm_id,
+            weight: parseFloat(self.weight) * self.conversion
+        };
+
+        $http.post('/calculations', calculate).then(function(response) {
+            self.result = Math.floor(Math.abs(response.data) * 1000) / 1000;
+        });
+    }
+
+    function saveToProject(){
+        var lineItem = {
+            category: self.category,
+            subcategory: self.subcategory,
+            warm_Id: self.warmId,
+            weight: parseFloat(self.weight)*self.conversion,
+            units: self.unit.name
+        };
+        console.log(lineItem);
+        $http.post('/addToProject').then(function(response) {
+            console.log(response);
+        });
+    }
+
+    function querySearch(query) {
+        return query ? self.list.filter(createFilterFor(query)) : self.list;
+    }
+
     function createFilterFor(query) {
-        var lowercaseQuery = query.charAt(0).toUpperCase() + query.slice(1);
-        //console.log(query);
+        var lowercaseQuery = query.toLowerCase() //query.charAt(0).toUpperCase() + query.slice(1);
         return function filterFn(obj) {
-            //console.log(obj.primary_cat);
             return (obj.primary_cat.indexOf(lowercaseQuery) != -1);
         };
     }
 }]);
 
+/**
+ * ADMIN
+ */
+app.controller('adminCtrl', ['$http', function( $http ){
+    // INIT
+    init();
+
+    var self = this;
+    self.suggestions = '';
+    self.markComplete = markComplete;
+
+    function markComplete( suggestion ) {
+        var id = suggestion.id;
+        console.log(id);
+        $http.put('/suggestions/complete/' + id).then(function( res ) {
+            init();
+        });
+    }
+
+    function init() {
+        $http.get('/suggestions').then(function (res) {
+            var suggestions = res.data;
+            console.log(suggestions);
+            self.suggestions = suggestions;
+        });
+    }
+
+
+}]);
 
 // Login HTML - Kate
 app.controller('loginCtrl', ['$scope', '$http', 'authService', function($scope, $http, authService) {
@@ -209,13 +218,20 @@ app.controller('createAccountCtrl', ['$scope', '$http', function($scope, $http) 
 
 // Project HTML - Dashboard HTML - Kim
 app.controller('projectsCtrl', ['$scope', '$http', function($scope, $http) {
+    //load project list on page load
+    $http.get('/project').then(function(response) {
+        console.log(response);
+        $scope.projectList = response.data;
+        //response.data.forEach(function(item){
+        //    item.project_name = item.primary_cat.toLowerCase();
+    });
+
     $http({
-        method: 'POST',
+        method: 'GET',
         url: 'http://www.w3schools.com/angular/customers.php'
     }).then(function (response) {
         $scope.names = response.records;
     });
-
 
 }]);
 
