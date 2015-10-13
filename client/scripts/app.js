@@ -216,7 +216,7 @@ app.controller('adminCtrl', ['$http', function( $http ){
 }]);
 
 // Login HTML - Kate
-app.controller('loginCtrl', ['$scope', '$http', 'authService', function($scope, $http, authService) {
+app.controller('loginCtrl', ['$scope', '$http', 'authService', '$location', function($scope, $http, authService, $location) {
     $scope.login = function () {
         $http({
             method: 'POST',
@@ -224,12 +224,13 @@ app.controller('loginCtrl', ['$scope', '$http', 'authService', function($scope, 
             data: $scope.user
         }).then(function(response){
             authService.saveToken(response.data.token);
+            $location.path('/');
         })
     }
 }]);
 
 // Register HTML - Madeline
-app.controller('createAccountCtrl', ['$scope', '$http', function($scope, $http) {
+app.controller('createAccountCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
     $scope.user = {};
 
     $scope.processForm = function (user) {
@@ -241,6 +242,7 @@ app.controller('createAccountCtrl', ['$scope', '$http', function($scope, $http) 
             dataType: 'json'
         }).then(function (response) {
             console.log(response);
+            $location.path('/login');
             alert("Your account has been created.")
         })
     };
