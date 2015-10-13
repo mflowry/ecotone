@@ -15,6 +15,9 @@
 button.md-primary span {
   color: white; }
 
+button.md-raised.md-accent {
+  color: white; }
+
 md-autocomplete {
   background-color: white; }
 
@@ -85,6 +88,9 @@ th {
 
 td {
   border-bottom: solid 1px darkgray; }
+
+img {
+  vertical-align: middle; }
 
 #secondary-margin {
   margin-top: 32px; }
