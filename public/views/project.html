@@ -1,19 +1,32 @@
 <div id="project-page">
 <!-- just trying out some layout here -->
 <!--<md-content>-->
-
-    <div layout layout-sm="column">
-        <md-content flex layout-padding>
-            <h2>Project Name:</h2>
-            <input id="pName" type="text"  ng-model="project.name" />
-        </md-input-container>
-    </div>
-    <div>
-        <md-input-container flex>
-            <label for="lName">Project Description</label>
-            <input id="lName"  ng-model="project.desc" />
-        </md-input-container>
-    </div>
+    <md-content flex layout-padding>
+        <div layout layout-sm="column">
+            <!-- Autocomplete -->
+            <h2>Project Name</h2>
+            <md-autocomplete
+                    md-selected-item="projectName"
+                    md-search-text="searchText"
+                    md-items="item in querySearch(searchText)"
+                    md-item-text="item.project_name"
+                    md-min-length="0"
+                    placeholder="Project Name">
+                <md-item-template>
+                    <span md-highlight-text="searchText" md-highlight-flags="^i">{{projectList.project_name}}</span>
+                </md-item-template>
+                <md-not-found>
+                    No matches found for "{{searchText}}".
+                </md-not-found>
+            </md-autocomplete>
+            <!--<input id="pName" type="text"  ng-model="project.name" />-->
+        </div>
+        <div>
+            <md-input-container flex>
+                <label for="projectDescription">Project Description: {{projectList.project_description}}</label>
+                <input id="projectDescription"  ng-model="projectDescription" />
+            </md-input-container>
+        </div>
     </md-content>
 
     <div ng-controller="projectsCtrl">
@@ -29,28 +42,28 @@
                 </tr>
 
                 <tr ng-repeat="project in projects">
-                    <td>example Flooring{{category}}</td>
-                    <td>Oak{{subcategory}}</td>
-                    <td>24 kg{{weight}}{{units}}</td>
-                    <td>27.6{{CO2}}{{units}}</td>
+                    <td>{{projectList.category}}</td>
+                    <td>{{projectList.subcategory}}</td>
+                    <td>{{projectList.weight}}{{projectList.units}}</td>
+                    <td>{{projectList.co2_offset}}metric tons</td>
 
                 </tr>
 
 
                 <!--this is the viewable stuff for example, delete when we got the above list working-->
 
-                <tr>
-                    <td>example Metal{category}</td>
-                    <td>Gutters{subcategory}</td>
-                    <td>8 kg{weight}{units}</td>
-                    <td>7.2{CO2}</td>
+                <!--<tr>-->
+                    <!--<td>example Metal{category}</td>-->
+                    <!--<td>Gutters{subcategory}</td>-->
+                    <!--<td>8 kg{weight}{units}</td>-->
+                    <!--<td>7.2{CO2}</td>-->
 
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                    <td >&nbsp;</td>
-                    <td>Total C0<sub>2</sub>: </td>
-                    <td class="td_header">7.2 tons{{CO2_total}}</td>
+                <!--</tr>-->
+                <!--<tr>-->
+                    <!--<td>&nbsp;</td>-->
+                    <!--<td >&nbsp;</td>-->
+                    <!--<td>Total C0<sub>2</sub>: </td>-->
+                    <!--<td class="td_header">7.2 tons{{CO2_total}}</td>-->
 
                 </tr>
             </table>
