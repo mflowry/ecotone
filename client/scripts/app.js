@@ -22,6 +22,11 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         {
             templateUrl: '/views/register.html',
             controller: 'createAccountCtrl'
+        }).when('/admin',
+        {
+            templateUrl: '/views/admin.html',
+            controller: 'adminCtrl'
+
         }).when('/account',
         {
             templateUrl: '/views/account.html',
@@ -54,7 +59,7 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     //$httpProvider.interceptors.push('authInterceptor');
 }]);
 
-app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
+app.controller('calculateCtrl', ['$http', function( $http ) {
     // INIT
     $http.get('/materials').then(function(response) {
         var list = response.data;
@@ -150,6 +155,23 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
     }
 }]);
 
+/**
+ * ADMIN
+ */
+app.controller('adminCtrl', ['$http', function( $http ){
+    // INIT
+    //$http.get('/suggestions').then(function( res ) {
+    //    var suggestions = res.data;
+    //    console.log(suggestions);
+    //    self.suggestions = suggestions;
+    //});
+    //
+    //var self = this;
+    //self.suggestions = '';
+
+
+}]);
+
 // Login HTML - Kate
 app.controller('loginCtrl', ['$scope', '$http', 'authService', function($scope, $http, authService) {
     $scope.login = function () {
@@ -197,7 +219,6 @@ app.controller('projectsCtrl', ['$scope', '$http', function($scope, $http) {
     }).then(function (response) {
         $scope.names = response.records;
     });
-
 
 }]);
 
