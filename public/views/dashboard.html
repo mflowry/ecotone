@@ -15,7 +15,7 @@
                     <th width="25%">Description</th>
                     <th align="center">Total Weight</th>
                     <th align="center">Total CO<sub>2</sub></th>
-                    <th align="center">Save | Delete</th>
+                    <th align="center">Edit | Save | Delete</th>
                 </tr>
 
                 <tr ng-repeat="project in projects">
@@ -23,7 +23,7 @@
                     <td contentEditable="true" ng-model="placeholder.pdesc">project.description {{project.desc}}</td>
                     <td align="center" ng-model="placeholder.totWt">12,341 kg{{weight}}{{units}}</td>
                     <td align="center" ng-model="placeholder.totC02">27.6{{CO2}}</td>
-                    <td align="center"><img src="images/icons/ic_save_black_24px.svg" alt="Save Changes"/> | <img src="images/icons/ic_delete_black_24px.svg" alt="Save Changes"/> </td>
+                    <td align="center"><a href="/projects"><img src="images/icons/ic_create_black_24px.svg" alt="Edit Project" /></a>| <img src="images/icons/ic_save_black_24px.svg" alt="Save Changes"/> | <img src="images/icons/ic_delete_black_24px.svg" alt="Delete Project"/> </td>
                 </tr>
 
 
@@ -35,15 +35,15 @@
                     </td>
                     <td align="center" ng-model="placeholder.totWt">4289 kg</td>
                     <td align="center" ng-model="placeholder.totC02">7.2</td>
-                    <td align="center"><img src="images/icons/ic_save_black_24px.svg" alt="Save Changes"/> | <img src="images/icons/ic_delete_black_24px.svg" alt="Save Changes"/> </td>
+                    <td align="center"><a href="/projects"><img src="images/icons/ic_create_black_24px.svg" alt="Edit Project" /></a> | <img src="images/icons/ic_save_black_24px.svg" alt="Save Changes"/> | <img src="images/icons/ic_delete_black_24px.svg" alt="Delete Project"/> </td>
                 </tr>
                  <tr>
-                     <td contentEditable="true" ng-model="placeholder.pName">My house renovation{proj.desc}</td>
+                     <td contentEditable="true" ng-model="placeholder.pName">My house renovation{proj.name}</td>
                      <td contentEditable="true" ng-model="placeholder.pdesc">This project is awesome and it really helped save a lot of energy {proj.desc}
                      </td>
                      <td align="center" ng-model="placeholder.totWt">4289 kg</td>
                      <td align="center" ng-model="placeholder.totC02">7.2</td>
-                     <td align="center"><img src="images/icons/ic_save_black_24px.svg" alt="Save Changes"/> | <img src="images/icons/ic_delete_black_24px.svg" alt="Save Changes"/> </td>
+                     <td align="center"><a href="/projects"><img src="images/icons/ic_create_black_24px.svg" alt="Edit Project" /></a> | <img src="images/icons/ic_save_black_24px.svg" alt="Save Changes"/> | <img src="images/icons/ic_delete_black_24px.svg" alt="Delete Project"/> </td>
                  </tr>
 
             </table>
