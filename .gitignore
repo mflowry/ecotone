@@ -1,6 +1,6 @@
 **/.idea
-/public/scripts/app.min.js
-/public/scripts/app.js
+public/scripts/app.min.js
+public/scripts/app.js
 
 # Logs
 logs

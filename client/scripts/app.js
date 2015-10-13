@@ -59,7 +59,15 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     //$httpProvider.interceptors.push('authInterceptor');
 }]);
 
-app.controller('calculateCtrl', ['$http', '$mdDialog', function( $http, $mdDialog ) {
+app.controller('calculateCtrl', ['$http', '$mdDialog', '$rootScope', 'authService', '$location', function( $http, $mdDialog, $rootScope, authService, $location ) {
+
+    // Check user
+    $rootScope.user = authService.getUser();
+
+    if($rootScope.user && $rootScope.user.username){
+        $location.path('/');
+    }
+
     // INIT
     $http.get('/materials').then(function(response) {
         var list = response.data;
@@ -77,6 +85,7 @@ app.controller('calculateCtrl', ['$http', '$mdDialog', function( $http, $mdDialo
     var self = this;
 
     self.list = '';
+    self.isDisabled = false;
     self.result = '';
     self.querySearch = querySearch;
     self.selectedItemChange = selectedItemChange;
@@ -163,15 +172,13 @@ app.controller('calculateCtrl', ['$http', '$mdDialog', function( $http, $mdDialo
     }
 
     function submitSuggestion(){
-        console.log('SUBMIT!');
-        console.log(self.submission);
-        $http.post('/suggestion', self.submission).then(function( res ){
+               $http.post('/suggestion', self.submission).then(function( res ){
            $mdDialog.hide();
         });
     }
 
     function newSuggestion( suggestion ){
-        console.log('NEW SUGGESTION!', self.searchText);
+        document.getElementById('sidenav').focus();
 
         $mdDialog.show({
             templateUrl: '/views/submit-modal.html',
@@ -288,9 +295,9 @@ app.controller('projectsCtrl', ['$scope', '$http', function($scope, $http) {
             console.log(response);
             var projectList = response.data;
             projectList.forEach(function (item) {
-                item.project_name = item.project_name.toLowerCase();
-                item.project_description = item.project_description;
-                item.id = item.id;
+                project_name = item.project_name.toLowerCase();
+                project_description = item.project_description;
+                id = item.id;
             });
             self.projectList = projectList;
         });
