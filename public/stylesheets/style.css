@@ -75,10 +75,6 @@ md-autocomplete {
   margin-top: 5px; }
 
 table {
-<<<<<<< HEAD
-  margin-left: 50px;
-  text-align: left; }
-=======
   border-collapse: collapse;
   text-align: left; }
 
@@ -89,7 +85,6 @@ th {
 
 td {
   border-bottom: solid 1px darkgray; }
->>>>>>> a5f53a5aab77e224e101ce819c49fe34a62f6c60
 
 #secondary-margin {
   margin-top: 32px; }
