@@ -19,9 +19,9 @@
             </md-item-template>
             
             <md-not-found >
-                <div ng-click="ctrl.newSuggestion()">
+                <div >
                     No material matches {{ ctrl.searchText }}
-                    <a >Create a new one!</a>
+                    <button ng-click="ctrl.newSuggestion()">Create a new one!</button>
                 </div>
             </md-not-found>
         </md-autocomplete>
