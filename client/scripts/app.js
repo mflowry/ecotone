@@ -1,4 +1,4 @@
-var app = angular.module('ecotoneApp', ['ngRoute', 'ngMaterial', 'ngMessages']);
+var app = angular.module('ecotoneApp', ['ngRoute', 'ngMaterial', 'ngMessages', 'validation.match']);
 
 app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpProvider', function($mdThemingProvider, $routeProvider, $locationProvider, $httpProvider){
     $locationProvider.html5Mode(true);
@@ -13,15 +13,20 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     $routeProvider.when('/',
         {
             templateUrl: '/views/calculator.html',
-            controller: 'calculateCtrl'
+            controller: 'calculateCtrl as ctrl'
         }).when('/login',
         {
             templateUrl: '/views/login.html',
-            controller: ''
+            controller: 'loginCtrl'
         }).when('/register',
         {
             templateUrl: '/views/register.html',
             controller: 'createAccountCtrl'
+        }).when('/admin',
+        {
+            templateUrl: '/views/admin.html',
+            controller: 'adminCtrl as ctrl'
+
         }).when('/account',
         {
             templateUrl: '/views/account.html',
@@ -44,6 +49,9 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         }).when('/privacy',
         {
             templateUrl: '/views/privacy.html'
+        }).when('/sources',
+        {
+            templateUrl: '/views/sources.html'
         }).otherwise({
             redirectTo: '/'
         });
@@ -51,7 +59,7 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     //$httpProvider.interceptors.push('authInterceptor');
 }]);
 
-app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
+app.controller('calculateCtrl', ['$http', '$mdDialog', function( $http, $mdDialog ) {
     // INIT
     $http.get('/materials').then(function(response) {
         var list = response.data;
@@ -73,6 +81,8 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
     self.querySearch = querySearch;
     self.selectedItemChange = selectedItemChange;
     self.searchTextChange   = searchTextChange;
+    self.newSuggestion = newSuggestion;
+    self.submitSuggestion = submitSuggestion;
     self.units = [
         {
             name: 'lbs',
@@ -91,6 +101,11 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
             conversion: 1.10231
         }
     ];
+    self.submission = {
+        email: '',
+        material: '',
+        notes: ''
+    };
     self.newCalculation = newCalculation;
 
 
@@ -146,23 +161,63 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
             return (obj.primary_cat.indexOf(lowercaseQuery) != -1);
         };
     }
+
+    function submitSuggestion(){
+        console.log('SUBMIT!');
+        console.log(self.submission);
+        $http.post('/suggestion', self.submission).then(function( res ){
+           $mdDialog.hide();
+        });
+    }
+
+    function newSuggestion( suggestion ){
+        console.log('NEW SUGGESTION!', self.searchText);
+
+        $mdDialog.show({
+            templateUrl: '/views/submit-modal.html',
+            clickOutsideToClose: true,
+            controller: 'calculateCtrl',
+            controllerAs: 'ctrl',
+            locals: {material: self.searchText}
+        })
+
+    }
+
+
 }]);
 
-// Login HTML - Kate
-app.controller('loginCtrl', ['$scope', '$http', 'authService', function($scope, $http, authService) {
-    $scope.login = function () {
-        $http({
-            method: 'POST',
-            url: '/login',
-            data: $scope.user
-        }).then(function(response){
-            authService.saveToken(response.data.token);
-        })
+/**
+ * ADMIN
+ */
+app.controller('adminCtrl', ['$http', function( $http ){
+    // INIT
+    init();
+
+    var self = this;
+    self.suggestions = '';
+    self.markComplete = markComplete;
+
+    function markComplete( suggestion ) {
+        var id = suggestion.id;
+        console.log(id);
+        $http.put('/suggestion/complete/' + id).then(function( res ) {
+            init();
+        });
     }
+
+    function init() {
+        $http.get('/suggestion').then(function (res) {
+            var suggestions = res.data;
+            console.log(suggestions);
+            self.suggestions = suggestions;
+        });
+    }
+
+
 }]);
 
 // Register HTML - Madeline
-app.controller('createAccountCtrl', ['$scope', '$http', function($scope, $http) {
+app.controller('createAccountCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
     $scope.user = {};
 
     $scope.processForm = function (user) {
@@ -174,14 +229,45 @@ app.controller('createAccountCtrl', ['$scope', '$http', function($scope, $http) 
             dataType: 'json'
         }).then(function (response) {
             console.log(response);
+            $location.path('/login');
             alert("Your account has been created.")
         })
     };
 }]);
 
-// Project Page -  Kim/Madeleine
+
+// Login HTML - Kate
+app.controller('loginCtrl', ['$scope', '$http', 'authService', '$location', '$rootScope', function($scope, $http, authService, $location, $rootScope) {
+    $scope.login = function () {
+        $http({
+            method: 'POST',
+            url: '/login',
+            data: $scope.form
+        }).then(function(response){
+            authService.saveToken(response.data.token);
+            $rootScope.user = authService.getUser();
+            $location.path('/');
+        })
+    }
+}]);
+
+// Change Navigation Options with Login
+app.controller('navCtrl', ['authService', '$scope', '$rootScope', '$location', '$http', function(authService, $scope, $rootScope, $location, $http){
+    $rootScope.user = authService.getUser();
+
+    if($rootScope.user && $rootScope.user.username){
+        $location.path('/');
+    }
+
+    $scope.logout = function(){
+        authService.logout();
+        $rootScope.user = authService.getUser();
+        $location.path('/');
+    }
+}]);
+
+// Project HTML - Dashboard HTML - Kim
 app.controller('projectsCtrl', ['$scope', '$http', function($scope, $http) {
-    //load project list on page load
     $http.get('/project').then(function(response) {
         console.log(response);
         $scope.projectList = response.data;
@@ -195,12 +281,12 @@ app.controller('projectsCtrl', ['$scope', '$http', function($scope, $http) {
             //findOne and delete by ID using projectlist.lineID
             console.log("Item was deleted.", response);
     });
-        $scope.calculateProjectTotal(){
-        //forEach project
-            var projectTotal+=projectList.co2_offset;
-            return projectTotal;
-        //save to project? or just recalc each time?
-        }
+        //$scope.calculateProjectTotal(){
+        ////forEach project
+        //    var projectTotal+=projectList.co2_offset;
+        //    return projectTotal;
+        ////save to project? or just recalc each time?
+        //}
     }
 };
 

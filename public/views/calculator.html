@@ -1,5 +1,4 @@
 <div id="calculator-page">
-    <div ng-controller="calculateCtrl as ctrl" layout="column" ng-cloak>
     <h2>Calculate Your CO<sub>2</sub> Offset</h2>
 
         <md-content layout="column" layout-align="space-between center">
@@ -13,7 +12,7 @@
             md-item-text="item.primary_cat"
             md-min-length="0"
             md-floating-label="Material type"
-            layout-fill>
+            layout-fill >
            
             <md-item-template>
                 <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">
@@ -22,7 +21,7 @@
             </md-item-template>
             
             <md-not-found>
-                No matches found for "{{searchText}}".
+               <div ng-click="ctrl.newSuggestion( ctrl.searchText )"> No matches found for "{{ctrl.searchText}}" Suggest a new material! </div>
             </md-not-found>
         </md-autocomplete>
         

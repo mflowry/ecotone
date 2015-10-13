@@ -2,9 +2,6 @@
   float: left;
   color: white; }
 
-#sidenav {
-  height: 100vh; }
-
 .sidenav-header {
   margin: 10px auto; }
 
@@ -18,11 +15,11 @@
 button.md-primary span {
   color: white; }
 
-.md-button.md-primary.md-raised {
-  color: white; }
-
 md-autocomplete {
   background-color: white; }
+
+#login-page #submit-buttons a {
+  vertical-align: middle; }
 
 #dashboard-page #project-page {
   /*need to figure out how to use flex!!!! so the table items shrink down instead of go on another*/ }
@@ -50,34 +47,44 @@ md-autocomplete {
     -webkit-flex-wrap: nowrap;
     /* Safari */
     flex-wrap: nowrap; }
-  #dashboard-page #project-page ul li {
-    color: white; }
-  #dashboard-page #project-page .li_header {
-    display: inline-block;
-    width: 20%;
-    float: none;
-    background-color: #4CAF50;
-    color: white;
-    text-align: center;
-    /*align-items: center;*/
-    font-size: 16px;
-    font-weight: bold;
-    padding: 15px;
-    margin-top: 5px; }
-  #dashboard-page #project-page .heading {
-    display: inline-block;
-    /*  width: 20%;*/
-    float: none;
-    background-color: #4CAF50;
-    color: white;
-    text-align: center;
-    /*align-items: center;*/
-    font-size: 16px;
-    font-weight: bold;
-    padding: 5px;
-    margin-top: 5px; }
-  #dashboard-page #project-page table {
-    margin-left: 50px; }
+
+.li_header {
+  display: inline-block;
+  width: 20%;
+  float: none;
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  /*align-items: center;*/
+  font-size: 16px;
+  font-weight: bold;
+  padding: 15px;
+  margin-top: 5px; }
+
+.heading {
+  display: inline-block;
+  /*  width: 20%;*/
+  float: none;
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  /*align-items: center;*/
+  font-size: 16px;
+  font-weight: bold;
+  padding: 5px;
+  margin-top: 5px; }
+
+table {
+  border-collapse: collapse;
+  text-align: left; }
+
+th {
+  border-top: solid 1px darkgray;
+  border-bottom: solid 1px darkgray;
+  background-color: lightgray; }
+
+td {
+  border-bottom: solid 1px darkgray; }
 
 #secondary-margin {
   margin-top: 32px; }

@@ -2,10 +2,6 @@
   float: left;
   color: white; }
 
-#sidenav{
-  height: 100vh;
-}
-
 .sidenav-header {
   margin: 10px auto; }
 
@@ -21,15 +17,23 @@
 button.md-primary span {
   color: white;
 }
-.md-button.md-primary.md-raised{
-  color:white
-}
+//.md-button.md-primary.md-raised{
+//  color:white
+//}
 
 md-autocomplete{
   background-color: white;
 }
 
+#login-page{
+  #submit-buttons a {
+    vertical-align: middle;
+  }
+}
+
 #dashboard-page #project-page {
+
+
   h2 {
     padding-left: 20px;
     margin-top: 35px;
@@ -63,18 +67,18 @@ md-autocomplete{
     -webkit-flex-wrap: nowrap; /* Safari */
     flex-wrap: nowrap;
   }
-  ul li {
-    ////display: inline-block;
-    ////width: 20%;
-    //float: none;
-    color: white;
-    //text-align: center;
-    ///* align-items: center;*/
-    //font-size: 14px;
-    //padding: 15px;
-    //font-weight: normal;
-    //padding: 15px;
-    //margin-top: 5px;
+  //ul li {
+  //  ////display: inline-block;
+  //  ////width: 20%;
+  //  //float: none;
+  //  color: white;
+  //  //text-align: center;
+  //  ///* align-items: center;*/
+  //  //font-size: 14px;
+  //  //padding: 15px;
+  //  //font-weight: normal;
+  //  //padding: 15px;
+  //  //margin-top: 5px;
   }
   .li_header {
     display: inline-block;
@@ -103,9 +107,22 @@ md-autocomplete{
     margin-top: 5px;
   }
   table {
-    margin-left: 50px;
+    border-collapse: collapse;
+    text-align: left;
   }
-}
+ th{
+   border-top: solid 1px darkgray;
+   border-bottom: solid 1px darkgray;
+   background-color: lightgray;
+
+
+ }
+
+ td{
+   border-bottom: solid 1px darkgray;
+
+ }
+
 
 #secondary-margin{
   margin-top: 32px;

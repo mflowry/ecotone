@@ -14,7 +14,8 @@ const
     register = require('./routes/public/register'),
     modifyUser = require('./routes/private/modifyUser'),
     calculations = require('./routes/public/calculations'),
-    project = require('./routes/private/project');
+    project = require('./routes/private/project'),
+    suggestion = require('./routes/public/suggestion');
 
 
 
@@ -40,7 +41,8 @@ app.use('/register',register);
 app.use('/modifyUser',modifyUser);
 app.use('/calculations',calculations);
 app.use('/project',project);
-
+app.use('/suggestion', suggestion);
+app.use('*', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
