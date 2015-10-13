@@ -32,6 +32,8 @@ md-autocomplete{
 }
 
 #dashboard-page #project-page {
+
+
   h2 {
     padding-left: 20px;
     margin-top: 35px;
@@ -65,18 +67,18 @@ md-autocomplete{
     -webkit-flex-wrap: nowrap; /* Safari */
     flex-wrap: nowrap;
   }
-  ul li {
-    ////display: inline-block;
-    ////width: 20%;
-    //float: none;
-    color: white;
-    //text-align: center;
-    ///* align-items: center;*/
-    //font-size: 14px;
-    //padding: 15px;
-    //font-weight: normal;
-    //padding: 15px;
-    //margin-top: 5px;
+  //ul li {
+  //  ////display: inline-block;
+  //  ////width: 20%;
+  //  //float: none;
+  //  color: white;
+  //  //text-align: center;
+  //  ///* align-items: center;*/
+  //  //font-size: 14px;
+  //  //padding: 15px;
+  //  //font-weight: normal;
+  //  //padding: 15px;
+  //  //margin-top: 5px;
   }
   .li_header {
     display: inline-block;
@@ -106,8 +108,10 @@ md-autocomplete{
   }
   table {
     margin-left: 50px;
+    text-align: left;
   }
-}
+
+
 
 #secondary-margin{
   margin-top: 32px;
