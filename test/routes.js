@@ -30,6 +30,7 @@ describe('The user API', function(){
         api.post('/register')
             .send(newUser)
             .end(function( err, res ){
+                console.log(res);
                 res.body.should.have.property('email', newUser.email);
                 res.body.should.have.property('password', null);
                 done();
@@ -80,7 +81,7 @@ describe('The user API', function(){
 
 describe('A Calculation', function(){
     var newCalculation = {
-        proxyID: chance.integer({min:1, max:36}),
+        warmId: chance.integer({min:1, max:36}),
         weight: chance.floating()
     };
 

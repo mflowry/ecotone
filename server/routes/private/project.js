@@ -3,8 +3,8 @@ const
     router = express.Router(),
     expressJwt = require('express-jwt');
 
-var Projects = require('../../models/users').Projects;
-var Users = require('../../models/users').Users;
+var Projects = require('../../models/models').Projects;
+var Users = require('../../models/models').Users;
 
 //router.use(expressJwt({secret: 'supersecret'}));
 
@@ -21,7 +21,7 @@ router.post('/', function (req, res, next) {
                 //projectName: req.body.projectName
             }
         };
-        Projects.sync().then(function () {
+        //Projects.sync().then(function () {
             Projects.find(existingProjectId).then(function (project) {
 
                 // if returned project is null (does not exist)
@@ -57,7 +57,7 @@ router.post('/', function (req, res, next) {
                 // status should only occur if there is an error internal to the database
                 res.sendStatus(500)
             });
-        })
+        //})
     })
 
 
