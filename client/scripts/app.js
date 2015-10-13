@@ -170,7 +170,7 @@ app.controller('adminCtrl', ['$http', function( $http ){
         var id = suggestion.id;
         console.log(id);
         $http.put('/suggestions/complete/' + id).then(function( res ) {
-           init();
+            init();
         });
     }
 
@@ -224,7 +224,7 @@ app.controller('projectsCtrl', ['$scope', '$http', function($scope, $http) {
         $scope.projectList = response.data;
         //response.data.forEach(function(item){
         //    item.project_name = item.primary_cat.toLowerCase();
-        });
+    });
 
     $http({
         method: 'GET',
