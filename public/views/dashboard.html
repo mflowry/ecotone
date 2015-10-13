@@ -2,16 +2,10 @@
 <!-- Beginning dashboard -->
     <md-content>
         <div>
-            <h1>Total Projects C0<sub>2</sub> reduced:</h1>
-        </div>
-        <div>
-            <md-button class="md-raised md-primary">Create New Project</md-button>
-        </div>
-        <div>
-            <md-button ng-href="{{edit_Project}}" target="_blank">Edit why do buttons not show in list???</md-button>
+            <h1 class="md-title" style="display: inline;">Your projects have prevented XXXXXX metric tons of CO<sub>2</sub> from being released:</h1><img src="images/Co2-Badge-96.png" style="display: inline; vertical-align:middle;" alt="badge">
         </div>
 
-
+            <h3 class="md-body-2">Manage Projects here. Click on Project or Description field to edit. Projects can also be deleted. Be careful, this is not reversible. </h3>
         <div ng-controller="projectsCtrl">
         <md-content>
             <table>
@@ -19,44 +13,45 @@
                  <tr>
                     <th>Project</th>
                     <th width="25%">Description</th>
-                    <th>Total Weight</th>
-                    <th>Total CO<sub>2</sub></th>
-                    <th>Save | Delete</th>
+                    <th align="center">Total Weight</th>
+                    <th align="center">Total CO<sub>2</sub></th>
+                    <th align="center">Save | Delete</th>
                 </tr>
 
                 <tr ng-repeat="project in projects">
                     <td contentEditable="true" ng-model="placeholder.pName">project.Name {{project.name}} }</td>
                     <td contentEditable="true" ng-model="placeholder.pdesc">project.description {{project.desc}}</td>
-                    <td contentEditable="true" ng-model="placeholder.totWt">12,341 kg{{weight}}{{units}}</td>
-                    <td contentEditable="true" ng-model="placeholder.totC02">27.6{{CO2}}</td>
-                    <td><i class="material-icons">save</i>{{project.save}} | <md-icon md-svg-src=“images/icons/ic_delete_24px.svg”> </md-icon>Delete Project{{project.delete}}</td>
+                    <td align="center" ng-model="placeholder.totWt">12,341 kg{{weight}}{{units}}</td>
+                    <td align="center" ng-model="placeholder.totC02">27.6{{CO2}}</td>
+                    <td align="center"><img src="images/icons/ic_save_black_24px.svg" alt="Save Changes"/> | <img src="images/icons/ic_delete_black_24px.svg" alt="Save Changes"/> </td>
                 </tr>
 
 
 <!--this is the viewable stuff for example, delete when we got the above list working-->
                 <tr>
-                    <td contentEditable="true" ng-model="placeholder.pName">example Metal{category}</td>
+                    <td contentEditable="true" ng-model="placeholder.pName">1600 Penn. Ave{proj.name}</td>
                     <td contentEditable="true" ng-model="placeholder.pdesc">This project is awesome and it really helped save a lot of
-                        energy{subcategory}
+                        energy{proj.desc}
                     </td>
-                    <td contentEditable="false" ng-model="placeholder.totWt">4289 kg{weight}{units}</td>
-                    <td contentEditable="false" ng-model="placeholder.totC02">7.2{CO2}</td>
-                    <td><i class="material-icons">save</i>{{project.save}} | Delete Project{{project.delete}}</td>
+                    <td align="center" ng-model="placeholder.totWt">4289 kg</td>
+                    <td align="center" ng-model="placeholder.totC02">7.2</td>
+                    <td align="center"><img src="images/icons/ic_save_black_24px.svg" alt="Save Changes"/> | <img src="images/icons/ic_delete_black_24px.svg" alt="Save Changes"/> </td>
                 </tr>
                  <tr>
-                     <td contentEditable="true" ng-model="placeholder.pName">example Metal{category}</td>
-                     <td contentEditable="true" ng-model="placeholder.pdesc">This project is awesome and it really helped save a lot of
-                         energy{subcategory}
+                     <td contentEditable="true" ng-model="placeholder.pName">My house renovation{proj.desc}</td>
+                     <td contentEditable="true" ng-model="placeholder.pdesc">This project is awesome and it really helped save a lot of energy {proj.desc}
                      </td>
-                     <td contentEditable="true" ng-model="placeholder.totWt">4289 kg{weight}{units}</td>
-                     <td contentEditable="true" ng-model="placeholder.totC02">7.2{CO2}</td>
-                     <td><i class="material-icons">save</i>{{project.save}} | Delete Project{{project.delete}}</td>
+                     <td align="center" ng-model="placeholder.totWt">4289 kg</td>
+                     <td align="center" ng-model="placeholder.totC02">7.2</td>
+                     <td align="center"><img src="images/icons/ic_save_black_24px.svg" alt="Save Changes"/> | <img src="images/icons/ic_delete_black_24px.svg" alt="Save Changes"/> </td>
                  </tr>
 
             </table>
         </md-content>
 
-    <i class="material-icons">save</i>
+            <div>
+                <md-button class="md-raised md-accent">Create New Project</md-button>
+            </div>
 
         </div>
     </md-content>

@@ -59,7 +59,7 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     //$httpProvider.interceptors.push('authInterceptor');
 }]);
 
-app.controller('calculateCtrl', ['$http', function( $http ) {
+app.controller('calculateCtrl', ['$http', 'submitSuggestion', function( $http, submitSuggestion ) {
     // INIT
     $http.get('/materials').then(function(response) {
         var list = response.data;
@@ -81,6 +81,7 @@ app.controller('calculateCtrl', ['$http', function( $http ) {
     self.querySearch = querySearch;
     self.selectedItemChange = selectedItemChange;
     self.searchTextChange   = searchTextChange;
+    self.newSuggestion = newSuggestion;
     self.units = [
         {
             name: 'lbs',
@@ -153,6 +154,11 @@ app.controller('calculateCtrl', ['$http', function( $http ) {
             return (obj.primary_cat.indexOf(lowercaseQuery) != -1);
         };
     }
+
+    function newSuggestion( suggestion ){
+        console.log(suggestion);
+        submitSuggestion( suggestion )
+    };
 }]);
 
 /**
@@ -160,14 +166,27 @@ app.controller('calculateCtrl', ['$http', function( $http ) {
  */
 app.controller('adminCtrl', ['$http', function( $http ){
     // INIT
-    $http.get('/suggestions').then(function( res ) {
-        var suggestions = res.data;
-        console.log(suggestions);
-        self.suggestions = suggestions;
-    });
+    init();
 
     var self = this;
     self.suggestions = '';
+    self.markComplete = markComplete;
+
+    function markComplete( suggestion ) {
+        var id = suggestion.id;
+        console.log(id);
+        $http.put('/suggestions/complete/' + id).then(function( res ) {
+            init();
+        });
+    }
+
+    function init() {
+        $http.get('/suggestions').then(function (res) {
+            var suggestions = res.data;
+            console.log(suggestions);
+            self.suggestions = suggestions;
+        });
+    }
 
 
 }]);
@@ -211,7 +230,7 @@ app.controller('projectsCtrl', ['$scope', '$http', function($scope, $http) {
         $scope.projectList = response.data;
         //response.data.forEach(function(item){
         //    item.project_name = item.primary_cat.toLowerCase();
-        });
+    });
 
     $http({
         method: 'GET',
@@ -292,4 +311,19 @@ app.factory('authInterceptor', ['$q', '$location', 'authService', function ($q, 
             return $q.reject(response);
         }
     };
+}]);
+
+app.factory('submitSuggestion', ['$mdDialog', function($mdDialog) {
+    //Include a reference to the user object we're deleting
+    return function( suggestion ) {
+        console.log( suggestion );
+        //Call the confirm() function to configure the confirmation dialog
+        var confirm = $mdDialog.confirm()
+            .title('Submit New Material')
+            .content('Are you sure you want to submit ' + suggestion )
+            .ariaLabel('Submit Material')
+            .ok('Submit')
+            .cancel('Cancel');
+        return $mdDialog.show(confirm);
+    }
 }]);

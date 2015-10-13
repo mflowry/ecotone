@@ -3,53 +3,67 @@ const
     router = express.Router(),
     expressJwt = require('express-jwt');
 
-var Projects = require('../../models/projects');
+var Projects = require('../../models/users').Projects;
+var Users = require('../../models/users').Users;
 
 //router.use(expressJwt({secret: 'supersecret'}));
 
-router.post('/',function(req,res,next){
-
-    var existingProjectId = {
-        where: {
-            //projectId: req.body.projectId,
-            projectName: req.body.projectName
-        }
-    };
-
-    Projects.sync().then(function () {
+router.post('/', function (req, res, next) {
 
 
-        Projects.find(existingProjectId).then(function(project){
+    Users.findById(req.body.user_id).then(function (user) {
+        //console.log('Found user:', user);
 
-            // if returned project is null (does not exist)
-            if( project === null ) {
 
-                // create a new project using the values in the request body
-                Projects.create(req.body)
-                    .then(function (project) {
-
-                        // send the relevant part of the project object to client
-                        res.send(project.dataValues);
-
-                    }).catch(function (err) {
-                        console.log('there was an error', err);
-                        res.send('error: ', err);
-                    });
-            } else {
-
-                // if project already exists, send status 409
-                res.sendStatus(409);
+        var existingProjectId = {
+            where: {
+                projectId: req.body.projectId
+                //projectName: req.body.projectName
             }
-        }).catch(function( err ){
+        };
+        Projects.sync().then(function () {
+            Projects.find(existingProjectId).then(function (project) {
 
-            // status should only occur if there is an error internal to the database
-            res.sendStatus(500)
-        });
+                // if returned project is null (does not exist)
+                if (project === null) {
+
+                    console.log('No project found. Creating...');
+                    // create a new project using the values in the request body
+                    Projects.create({
+                        projectName: req.body.projectName})
+                        .then(function (project) {
+
+                            // add the project to the user
+                            user.addProject(project).then(function(){
+
+
+                                project.dataValues.userId = user.id;
+                                // send the relevant part of the project object to client
+                                res.send(project);
+
+                            });
+
+                        }).catch(function (err) {
+                            console.log('there was an error', err);
+                            res.send('error: ', err);
+                        });
+                } else {
+
+                    // if project already exists, send status 409
+                    res.sendStatus(409);
+                }
+            }).catch(function (err) {
+                console.log(err);
+                // status should only occur if there is an error internal to the database
+                res.sendStatus(500)
+            });
+        })
     })
+
 
 });
 
-router.put('/', function(req, res, next) {
+router.put('/', function (req, res, next) {
 
     var existingUserByUsername = {
         where: {
@@ -63,11 +77,11 @@ router.put('/', function(req, res, next) {
             res.sendStatus(200);
         }).catch(function (err) {
             console.log('there was an error', err);
-            res.send('error!',err);
+            res.send('error!', err);
         });
 });
 
-router.delete('/:id', function(req, res, next) {
+router.delete('/:id', function (req, res, next) {
 
     // set query data to find project by id
     var existingUserById = {
@@ -86,7 +100,7 @@ router.delete('/:id', function(req, res, next) {
             res.sendStatus(200);
         }).catch(function (err) {
             console.log('there was an error', err);
-            res.send('error: ',err);
+            res.send('error: ', err);
         });
 });
 
