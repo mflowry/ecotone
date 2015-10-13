@@ -160,11 +160,7 @@ app.controller('calculateCtrl', ['$http', function( $http ) {
  */
 app.controller('adminCtrl', ['$http', function( $http ){
     // INIT
-    $http.get('/suggestions').then(function( res ) {
-        var suggestions = res.data;
-        console.log(suggestions);
-        self.suggestions = suggestions;
-    });
+    init();
 
     var self = this;
     self.suggestions = '';
@@ -173,7 +169,17 @@ app.controller('adminCtrl', ['$http', function( $http ){
     function markComplete( suggestion ) {
         var id = suggestion.id;
         console.log(id);
-        $http.put('/suggestions/complete/' + id).then(function( res ) { console.log(res) })
+        $http.put('/suggestions/complete/' + id).then(function( res ) {
+           init();
+        });
+    }
+
+    function init() {
+        $http.get('/suggestions').then(function (res) {
+            var suggestions = res.data;
+            console.log(suggestions);
+            self.suggestions = suggestions;
+        });
     }
 
 
