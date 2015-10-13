@@ -30,7 +30,6 @@ describe('The user API', function(){
         api.post('/register')
             .send(newUser)
             .end(function( err, res ){
-                console.log(res);
                 res.body.should.have.property('email', newUser.email);
                 res.body.should.have.property('password', null);
                 done();
@@ -117,7 +116,6 @@ describe('The project API', function(){
         api.post('/register')
             .send(newUser)
             .end(function( err, res ){
-                console.log(res);
                 res.body.should.have.property('email', newUser.email);
                 res.body.should.have.property('password', null);
                 done();

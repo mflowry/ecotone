@@ -3,6 +3,7 @@
     <md-content layout="column" layout-align="space-between center">
         <div id="material-choice">
             <md-autocomplete
+                ng-disabled="ctrl.isDisabled"
                 md-selected-item="ctrl.category"
                 md-selected-item-change="ctrl.selectedItemChange(item)"
                 md-search-text="ctrl.searchText"
@@ -20,9 +21,9 @@
                 </md-item-template>
 
                 <md-not-found>
-                    <div ng-click="ctrl.newSuggestion()">
+                    <div>
                         No material matches {{ ctrl.searchText }}
-                    Create a new one!
+                    <span ng-click="ctrl.newSuggestion()">Create a new one!</span>
                     </div>
                 </md-not-found>
             </md-autocomplete>
