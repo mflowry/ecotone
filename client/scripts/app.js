@@ -17,7 +17,7 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         }).when('/login',
         {
             templateUrl: '/views/login.html',
-            controller: ''
+            controller: 'loginCtrl'
         }).when('/register',
         {
             templateUrl: '/views/register.html',
@@ -215,20 +215,6 @@ app.controller('adminCtrl', ['$http', function( $http ){
 
 }]);
 
-// Login HTML - Kate
-app.controller('loginCtrl', ['$scope', '$http', 'authService', '$location', function($scope, $http, authService, $location) {
-    $scope.login = function () {
-        $http({
-            method: 'POST',
-            url: '/login',
-            data: $scope.user
-        }).then(function(response){
-            authService.saveToken(response.data.token);
-            $location.path('/');
-        })
-    }
-}]);
-
 // Register HTML - Madeline
 app.controller('createAccountCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
     $scope.user = {};
@@ -246,6 +232,36 @@ app.controller('createAccountCtrl', ['$scope', '$http', '$location', function($s
             alert("Your account has been created.")
         })
     };
+}]);
+
+// Login HTML - Kate
+app.controller('loginCtrl', ['$scope', '$http', 'authService', '$location', '$rootScope', function($scope, $http, authService, $location, $rootScope) {
+    $scope.login = function () {
+        $http({
+            method: 'POST',
+            url: '/login',
+            data: $scope.form
+        }).then(function(response){
+            authService.saveToken(response.data.token);
+            $rootScope.user = authService.getUser();
+            $location.path('/');
+        })
+    }
+}]);
+
+// Change Navigation Options with Login
+app.controller('navCtrl', ['authService', '$scope', '$rootScope', '$location', '$http', function(authService, $scope, $rootScope, $location, $http){
+    $rootScope.user = authService.getUser();
+
+    if($rootScope.user && $rootScope.user.username){
+        $location.path('/');
+    }
+
+    $scope.logout = function(){
+        authService.logout();
+        $rootScope.user = authService.getUser();
+        $location.path('/');
+    }
 }]);
 
 // Project HTML - Dashboard HTML - Kim
