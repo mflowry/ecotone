@@ -85,6 +85,7 @@ app.controller('calculateCtrl', ['$http', '$mdDialog', '$rootScope', 'authServic
     var self = this;
 
     self.list = '';
+    self.isDisabled = false;
     self.result = '';
     self.querySearch = querySearch;
     self.selectedItemChange = selectedItemChange;
@@ -171,15 +172,13 @@ app.controller('calculateCtrl', ['$http', '$mdDialog', '$rootScope', 'authServic
     }
 
     function submitSuggestion(){
-        console.log('SUBMIT!');
-        console.log(self.submission);
-        $http.post('/suggestion', self.submission).then(function( res ){
+               $http.post('/suggestion', self.submission).then(function( res ){
            $mdDialog.hide();
         });
     }
 
     function newSuggestion( suggestion ){
-        console.log('NEW SUGGESTION!', self.searchText);
+        document.getElementById('sidenav').focus();
 
         $mdDialog.show({
             templateUrl: '/views/submit-modal.html',
