@@ -59,7 +59,7 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     //$httpProvider.interceptors.push('authInterceptor');
 }]);
 
-app.controller('calculateCtrl', ['$http', function( $http ) {
+app.controller('calculateCtrl', ['$http', 'submitSuggestion', function( $http, submitSuggestion ) {
     // INIT
     $http.get('/materials').then(function(response) {
         var list = response.data;
@@ -81,6 +81,7 @@ app.controller('calculateCtrl', ['$http', function( $http ) {
     self.querySearch = querySearch;
     self.selectedItemChange = selectedItemChange;
     self.searchTextChange   = searchTextChange;
+    self.newSuggestion = newSuggestion;
     self.units = [
         {
             name: 'lbs',
@@ -153,6 +154,11 @@ app.controller('calculateCtrl', ['$http', function( $http ) {
             return (obj.primary_cat.indexOf(lowercaseQuery) != -1);
         };
     }
+
+    function newSuggestion( suggestion ){
+        console.log(suggestion);
+        submitSuggestion( suggestion )
+    };
 }]);
 
 /**
@@ -305,4 +311,19 @@ app.factory('authInterceptor', ['$q', '$location', 'authService', function ($q, 
             return $q.reject(response);
         }
     };
+}]);
+
+app.factory('submitSuggestion', ['$mdDialog', function($mdDialog) {
+    //Include a reference to the user object we're deleting
+    return function( suggestion ) {
+        console.log( suggestion );
+        //Call the confirm() function to configure the confirmation dialog
+        var confirm = $mdDialog.confirm()
+            .title('Submit New Material')
+            .content('Are you sure you want to submit ' + suggestion )
+            .ariaLabel('Submit Material')
+            .ok('Submit')
+            .cancel('Cancel');
+        return $mdDialog.show(confirm);
+    }
 }]);
