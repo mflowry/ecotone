@@ -1,7 +1,7 @@
 const
     express = require('express'),
     router = express.Router(),
-    Users = require('../../models/users');
+    Users = require('../../models/users').Users;
 
 router.post('/', function(req, res, next) {
         console.log("THIS IS THE REQUEST FOR THE REQUEST SHDAFDS", req.body)

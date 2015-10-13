@@ -1,4 +1,4 @@
-var app = angular.module('ecotoneApp', ['ngRoute', 'ngMaterial', 'ngMessages']);
+var app = angular.module('ecotoneApp', ['ngRoute', 'ngMaterial', 'ngMessages', 'validation.match']);
 
 app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpProvider', function($mdThemingProvider, $routeProvider, $locationProvider, $httpProvider){
     $locationProvider.html5Mode(true);
@@ -160,14 +160,27 @@ app.controller('calculateCtrl', ['$http', function( $http ) {
  */
 app.controller('adminCtrl', ['$http', function( $http ){
     // INIT
-    $http.get('/suggestions').then(function( res ) {
-        var suggestions = res.data;
-        console.log(suggestions);
-        self.suggestions = suggestions;
-    });
+    init();
 
     var self = this;
     self.suggestions = '';
+    self.markComplete = markComplete;
+
+    function markComplete( suggestion ) {
+        var id = suggestion.id;
+        console.log(id);
+        $http.put('/suggestions/complete/' + id).then(function( res ) {
+            init();
+        });
+    }
+
+    function init() {
+        $http.get('/suggestions').then(function (res) {
+            var suggestions = res.data;
+            console.log(suggestions);
+            self.suggestions = suggestions;
+        });
+    }
 
 
 }]);
@@ -211,7 +224,7 @@ app.controller('projectsCtrl', ['$scope', '$http', function($scope, $http) {
         $scope.projectList = response.data;
         //response.data.forEach(function(item){
         //    item.project_name = item.primary_cat.toLowerCase();
-        });
+    });
 
     $http({
         method: 'GET',
