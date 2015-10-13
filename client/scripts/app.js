@@ -44,6 +44,9 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         }).when('/privacy',
         {
             templateUrl: '/views/privacy.html'
+        }).when('/sources',
+        {
+            templateUrl: '/views/sources.html'
         }).otherwise({
             redirectTo: '/'
         });
