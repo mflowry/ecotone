@@ -2,9 +2,6 @@
   float: left;
   color: white; }
 
-#sidenav {
-  height: 100vh; }
-
 .sidenav-header {
   margin: 10px auto; }
 
@@ -18,11 +15,14 @@
 button.md-primary span {
   color: white; }
 
-.md-button.md-primary.md-raised {
-  color: white; }
-
 md-autocomplete {
   background-color: white; }
+
+.content-layout {
+  margin: 20px auto; }
+
+#login-page #submit-buttons a {
+  vertical-align: middle; }
 
 #dashboard-page #project-page {
   /*need to figure out how to use flex!!!! so the table items shrink down instead of go on another*/ }

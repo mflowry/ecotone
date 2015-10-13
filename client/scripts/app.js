@@ -190,7 +190,7 @@ app.controller('projectsCtrl', ['$scope', '$http', function($scope, $http) {
         //response.data.forEach(function(item){
         //    item.project_name = item.primary_cat.toLowerCase();
         });
-    });
+
     $http({
         method: 'GET',
         url: 'http://www.w3schools.com/angular/customers.php'
