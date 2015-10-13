@@ -6,7 +6,7 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     //set theme and color palette
     $mdThemingProvider.theme('default')
         .primaryPalette('green')
-        .accentPalette('blue')
+        .accentPalette('blue-grey', {'default':'600'})
         .warnPalette ('orange');
 
     //routes for views
@@ -51,30 +51,49 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
     //$httpProvider.interceptors.push('authInterceptor');
 }]);
 
-// Calculator HTML - Kate + Madeline
-app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http){
-    //M
-    $scope.calculate = {};
-    $scope.list = {};
-    loadCategories();
+app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
+    // INIT
+    $http.get('/materials').then(function(response) {
+        var list = response.data;
 
-    //K
-    $scope.major = [
-        'Category 1',
-        'Category 2',
-        'Category 3'
-    ];
-    $scope.sub = [
-        'Sub-category 1',
-        'Sub-category 2',
-        'Sub-category 3'
-    ];
-    $scope.unit = [
-        'lbs',
-        'tons',
-        'kg'
-    ];
+        list.forEach(function(item){
+            item.primary_cat = item.primary_cat.toLowerCase();
+            // /item.primary_cat = item.primary_cat.charAt(0).toUpperCase() + item.primary_cat.slice(1).toLowerCase();
 
+        });
+        self.list = list;
+
+    });
+
+    // Self dec
+    var self = this;
+
+    self.list = '';
+    self.result = '';
+    self.querySearch = querySearch;
+    self.selectedItemChange = selectedItemChange;
+    self.searchTextChange   = searchTextChange;
+    self.units = [
+        {
+            name: 'lbs',
+            conversion: 0.0005
+        },
+        {
+            name: 'kilos',
+            conversion: 0.00110231
+        },
+        {
+            name: 'tons',
+            conversion: 1
+        },
+        {
+            name: 'metric tons',
+            conversion: 1.10231
+        }
+    ];
+    self.newCalculation = newCalculation;
+
+<<<<<<< HEAD
 
 //load categories list on page load
         $http({
@@ -92,45 +111,76 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http){
         console.log($scope.list);
         return query ? $scope.list.filter(createFilterFor(query)) : $scope.list;
     };
+=======
+>>>>>>> f6d7a59603f99ba6833945ccb31db1e403a0c663
 
     function searchTextChange(text) {
-        $log.info('Text changed to ' + text);
+        console.log('Text changed to ', text);
     }
 
     function selectedItemChange(item) {
-        $log.info('Item changed to ' + JSON.stringify(item));
+        if ( item == undefined ) {
+            self.category = '';
+            self.subcategory = '';
+            self.warmId = '';
+            self.weight = '';
+            self.conversion = '';
+            self.result = '';
+        }
     }
 
-    //function loadCategories() {
-    //    var categories = [
-    //        {
-    //            category: "blinds",
-    //            subcategory: ["wood", "vinyl", "aluminum"]
-    //        },
-    //        {
-    //            category: "asphalt shingles",
-    //            subcategory: []
-    //        },
-    //        {
-    //            category: "cabinets",
-    //            subcategory: ["aluminum", "wood", "fiberglass", "glass",
-    //                "plastic", "steel", "vinyl", "MDF"]
-    //        }];
-    //
-    //    $scope.list = categories;
-    //}
+    function newCalculation() {
 
-// Create filter function for a query string
+        var calculate = {
+            warmId: self.warmId || self.category.secondaries[0].warm_id,
+            weight: parseFloat(self.weight) * self.conversion
+        };
+
+        $http.post('/calculations', calculate).then(function(response) {
+            self.result = Math.floor(Math.abs(response.data) * 1000) / 1000;
+        });
+    }
+
+    function saveToProject(){
+        var lineItem = {
+            category: self.category,
+            subcategory: self.subcategory,
+            warm_Id: self.warmId,
+            weight: parseFloat(self.weight)*self.conversion,
+            units: self.unit.name
+        };
+        console.log(lineItem);
+        $http.post('/addToProject').then(function(response) {
+            console.log(response);
+        });
+    }
+
+    function querySearch(query) {
+        return query ? self.list.filter(createFilterFor(query)) : self.list;
+    }
+
     function createFilterFor(query) {
-        var lowercaseQuery = angular.lowercase(query);
+        var lowercaseQuery = query.toLowerCase() //query.charAt(0).toUpperCase() + query.slice(1);
         return function filterFn(obj) {
-            console.log(obj);
-            return (obj.category.indexOf(lowercaseQuery) != -1);
+            return (obj.primary_cat.indexOf(lowercaseQuery) != -1);
         };
     }
 }]);
 
-// Login HTML - Madeline
+// Login HTML - Kate
+app.controller('loginCtrl', ['$scope', '$http', 'authService', function($scope, $http, authService) {
+    $scope.login = function () {
+        $http({
+            method: 'POST',
+            url: '/login',
+            data: $scope.user
+        }).then(function(response){
+            authService.saveToken(response.data.token);
+        })
+    }
+}]);
+
+// Register HTML - Madeline
 app.controller('createAccountCtrl', ['$scope', '$http', function($scope, $http) {
     $scope.user = {};
 
@@ -138,7 +188,7 @@ app.controller('createAccountCtrl', ['$scope', '$http', function($scope, $http) 
         console.log("Posting...");
         $http({
             method: 'POST',
-            url: '/newUser',
+            url: '/register',
             data: $scope.user,
             dataType: 'json'
         }).then(function (response) {
@@ -157,12 +207,7 @@ app.controller('projectsCtrl', ['$scope', '$http', function($scope, $http) {
         $scope.names = response.records;
     });
 
-    $http({
-        method: 'GET',
-        url: 'http://www.w3schools.com/angular/customers.php'
-    }).then(function (response) {
-        $scope.names = response.records;
-    });
+
 }]);
 
 // Services for authentication

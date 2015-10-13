@@ -1,0 +1,84 @@
+<html lang="en" ng-app="calculatorApp">
+  <head>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=RobotoDraft:300,400,500,700,400italic">
+    <link rel="stylesheet" href="public/scripts/style.css">
+    <meta name="viewport" content="initial-scale=1" />
+  </head>
+  <body layout="column" ng-controller="AppCtrl">
+    <md-toolbar layout="row">
+      <div class="md-toolbar-tools">
+      
+       <span><h1>Ecotone Calculator Project Page</h1></span>
+ <!-- fill up the space between left and right area -->
+      <span flex></span>
+      <p class="md-body-2">
+    Hello {User}{{user_name}}! | Calculator | My Dashboard | Logout
+     
+  </p>
+    </div>
+  </md-toolbar>
+
+         </div>
+</md-toolbar>
+     
+    
+   
+     <div layout="row">
+
+   <h2>Project Name:</h2>
+   <p>{{project_name}} 1600 Pennsylvania Ave</p>
+</div>
+    <div layout="row">
+   <h2>Project Description:</h2>
+   <p>{{project_desc}}This home is undergoing some renovation after some storm damage and they want to make sure materials can be reused in another project.</p>
+    </div>
+<!-- just trying out some layout here -->
+   
+<div class="flex-container">
+        <ul>
+          <!--<li>-->
+            <ul>
+                <li class="li_header">Category</li>
+                 <li class="li_header">Sub-Category</li>
+                 <li class="li_header">Weight</li>
+                  <li class="li_header">CO<sub>2</sub></li>
+                  
+            </ul>
+
+            <ul ng-repeat="project in projects">
+                <li>example Flooring{{category}}</li>
+                 <li> Oak{{subcategory}}</li>
+                 <li>12 kg{{weight}}{{units}}</li>
+                  <li>27.6{{CO2}}</li>
+                  
+            </ul>
+
+             <ul>
+                 <li>example Metal{category}</li>
+                 <li>Gutters{subcategory}</li>
+                 <li>8 kg{weight}{units}</li>
+                 <li>7.2{CO2}</li>
+                  
+            </ul>
+
+            <ul>
+                 <li>&nbsp;</li>
+                 <li >&nbsp;</li>
+                 <li>Total C0<sub>2</sub>: </li>
+                  <li class="li_header">7.2 tons{{CO2_total}}</li>
+                 
+            </ul>
+        
+          </ul>
+
+      </div>
+    <!-- Angular Material Dependencies -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.js"></script>
+    <script src="script.js" type="text/javascript"></script>
+  </body>
+</html>

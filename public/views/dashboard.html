@@ -1,31 +1,63 @@
-<!-- put madeleines stuff here to alter -->
-
+<div id="dashboard-page" layout="column" >
 <!-- Beginning dashboard -->
-<div layout="row">
-    <h3>Total C0<sub>2</sub> reduced:</h3>
-</div>
-<div layout="row">
-    <h3>Projects:</h3>
-    <span flex=33></span>
-    <md-button class="md-raised md-primary">Create New Project</md-button>
-</div>
-<div>
-    <md-button ng-href="{{edit_Project}}" target="_blank">Edit</md-button>
-    <md-button ng-href="{{edit_Project}}" target="_blank">Edit</md-button>
-</div>
+    <md-content>
+        <div>
+            <h1>Total Projects C0<sub>2</sub> reduced:</h1>
+        </div>
+        <div>
+            <md-button class="md-raised md-primary">Create New Project</md-button>
+        </div>
+        <div>
+            <md-button ng-href="{{edit_Project}}" target="_blank">Edit why do buttons not show in list???</md-button>
+        </div>
 
-<div ng-controller="projectsCtrl">
-    <table>
-        <tr>
-            <td class="heading">Project Name</td>
-            <td class="heading">Project Description</td>
-            <td class="heading">Edit</td>
-        </tr>
-        <tr>
-            <td>project.Name {{project_name}} </td>
-            <td>project.description {{project_desc}}</td>
-            <td><div><md-button ng-href="{{edit_Project}}">Edit</md-button></div></td>
-            <md-button ng-href="{{edit_Project}}" target="_blank">Edit</md-button>
-        </tr>
-    </table>
-</div>
+
+        <div ng-controller="projectsCtrl">
+        <md-content>
+            <table>
+
+                 <tr>
+                    <th>Project</th>
+                    <th width="25%">Description</th>
+                    <th>Total Weight</th>
+                    <th>Total CO<sub>2</sub></th>
+                    <th>Save | Delete</th>
+                </tr>
+
+                <tr ng-repeat="project in projects">
+                    <td contentEditable="true" ng-model="placeholder.pName">project.Name {{project.name}} }</td>
+                    <td contentEditable="true" ng-model="placeholder.pdesc">project.description {{project.desc}}</td>
+                    <td contentEditable="true" ng-model="placeholder.totWt">12,341 kg{{weight}}{{units}}</td>
+                    <td contentEditable="true" ng-model="placeholder.totC02">27.6{{CO2}}</td>
+                    <td><i class="material-icons">save</i>{{project.save}} | <md-icon md-svg-src=“images/icons/ic_delete_24px.svg”> </md-icon>Delete Project{{project.delete}}</td>
+                </tr>
+
+
+<!--this is the viewable stuff for example, delete when we got the above list working-->
+                <tr>
+                    <td contentEditable="true" ng-model="placeholder.pName">example Metal{category}</td>
+                    <td contentEditable="true" ng-model="placeholder.pdesc">This project is awesome and it really helped save a lot of
+                        energy{subcategory}
+                    </td>
+                    <td contentEditable="false" ng-model="placeholder.totWt">4289 kg{weight}{units}</td>
+                    <td contentEditable="false" ng-model="placeholder.totC02">7.2{CO2}</td>
+                    <td><i class="material-icons">save</i>{{project.save}} | Delete Project{{project.delete}}</td>
+                </tr>
+                 <tr>
+                     <td contentEditable="true" ng-model="placeholder.pName">example Metal{category}</td>
+                     <td contentEditable="true" ng-model="placeholder.pdesc">This project is awesome and it really helped save a lot of
+                         energy{subcategory}
+                     </td>
+                     <td contentEditable="true" ng-model="placeholder.totWt">4289 kg{weight}{units}</td>
+                     <td contentEditable="true" ng-model="placeholder.totC02">7.2{CO2}</td>
+                     <td><i class="material-icons">save</i>{{project.save}} | Delete Project{{project.delete}}</td>
+                 </tr>
+
+            </table>
+        </md-content>
+
+    <i class="material-icons">save</i>
+
+        </div>
+    </md-content>
+ </div>

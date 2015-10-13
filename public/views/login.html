@@ -1,1 +1,16 @@
-<p>LOGIN PAGE!</p>
+<div ng-controller="loginCtrl">
+    <form ng-submit="login()" name="loginForm">
+        <md-content>
+            <md-input-container>
+                <label>Username</label>
+                <input ng-model="user.username" type="string">
+            </md-input-container>
+            <md-input-container>
+                <label>Password</label>
+                <input ng-model="user.password" type="password">
+            </md-input-container>
+            <md-button class="md-accent md-raised" type="submit" value="Submit">Submit</md-button>
+            <md-button href="/register">Register</md-button>
+        </md-content>
+    </form>
+</div>
