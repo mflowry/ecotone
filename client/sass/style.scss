@@ -2,10 +2,6 @@
   float: left;
   color: white; }
 
-#sidenav{
-  height: 100vh;
-}
-
 .sidenav-header {
   margin: 10px auto; }
 
@@ -21,12 +17,18 @@
 button.md-primary span {
   color: white;
 }
-.md-button.md-primary.md-raised{
-  color:white
-}
+//.md-button.md-primary.md-raised{
+//  color:white
+//}
 
 md-autocomplete{
   background-color: white;
+}
+
+#login-page{
+  #submit-buttons a {
+    vertical-align: middle;
+  }
 }
 
 #dashboard-page #project-page {
