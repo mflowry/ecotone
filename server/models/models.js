@@ -7,7 +7,7 @@ const
 
 var sequelize = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost:5432/ecotone');
 
-
+//user model
 var userSchema = sequelize.define('user',
     {
         id: {
@@ -147,6 +147,7 @@ var userSchema = sequelize.define('user',
         }
     });
 
+//methods to be run before validation
 userSchema.hook('beforeValidate', function (user, options, next) {
     //var user = this;
     if (!user.registerDate) {
@@ -182,6 +183,7 @@ userSchema.hook('beforeValidate', function (user, options, next) {
     });
 });
 
+//projects model
 projectSchema = sequelize.define('project',
     {
         projectId: {
@@ -192,18 +194,64 @@ projectSchema = sequelize.define('project',
         projectName: {
             type: Sequelize.STRING,
             validate: {
-                isAlpha: true
+                isAlphanumeric: true
             }
         }
     }
 );
 
+//calculations model
+calculationSchema = sequelize.define('calculation',
+    {
+        calculationId: {
+            type: Sequelize.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
+        },
+        category: {
+            type: Sequelize.STRING,
+            validate: {
+                isAlphanumeric: true
+            }
+        },
+        subCategory: {
+            type: Sequelize.STRING,
+            validate: {
+                isAlphanumeric: true
+            }
+        },
+        units: {
+            type: Sequelize.STRING,
+            validate: {
+                isAlphanumeric: true
+            }
+        },
+        weight: {
+            type: Sequelize.FLOAT,
+            validate: {
+                isFloat: true
+            }
+        },
+        co2Offset: {
+            type: Sequelize.FLOAT,
+            validate: {
+                isFloat: true
+            }
+        }
+    }
+);
+
+//set up assocations
 userSchema.hasMany(projectSchema);
 projectSchema.belongsTo(userSchema);
+projectSchema.hasMany(calculationSchema);
+calculationSchema.belongsTo(projectSchema);
 
+//export models
 var models = {
     Users: userSchema,
-    Projects: projectSchema
+    Projects: projectSchema,
+    Calculations: calculationSchema
 };
 
 module.exports = models;
