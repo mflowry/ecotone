@@ -1,13 +1,48 @@
 const
     express = require('express'),
     router = express.Router(),
-    expressJwt = require('express-jwt');
+    expressJwt = require('express-jwt'),
+    pg = require('pg');
 
 var Projects = require('../../models/models').Projects;
 var Users = require('../../models/models').Users;
 var Calculations = require('../../models/models').Calculations;
 
 //router.use(expressJwt({secret: 'supersecret'}));
+
+var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/ecotone';
+
+const client = new pg.Client(connectionString);
+client.connect();
+
+function getProjects(req, res, next){
+    var userId = req.params.id;
+    console.log(userId);
+    pg.connect( connectionString , function( err, client , done){
+        if( err ){
+            console.log(err);
+        } else {
+            client.query('select * from projects inner join calculations on (projects.id = calculations."projectId") where "userId"=$1', [userId],function(err,results){
+                done();
+                if(err){
+                    console.log(err);
+                } else{
+                    console.log(results);
+                }
+                //var projects = results.rows;
+                res.send(results.rows);
+            });
+
+
+        }
+    });
+}
+
+router.get('/?:id', function(req,res,next){
+
+        getProjects(req,res,next);
+
+});
 
 router.post('/', function (req, res, next) {
 
@@ -29,8 +64,7 @@ router.post('/', function (req, res, next) {
 
                     console.log('No project found. Creating...');
                     // create a new project using the values in the request body
-                    Projects.create({
-                        projectName: req.body.projectName})
+                    Projects.create(req.body)
                         .then(function (project) {
 
                             // add the project to the user
