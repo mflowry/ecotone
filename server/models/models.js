@@ -53,7 +53,7 @@ var userSchema = sequelize.define('user',
             type: Sequelize.STRING,
             field: 'title',
             validate: {
-                isAlpha: true
+                isAlphanumeric: true
             }
         },
         companyName: {
@@ -195,6 +195,12 @@ projectSchema = sequelize.define('project',
             type: Sequelize.STRING,
             validate: {
                 isAlphanumeric: true
+            }
+        },
+        projectDescription: {
+            type: Sequelize.STRING,
+            validate: {
+                isAlphanumeric: true,
             }
         }
     }
