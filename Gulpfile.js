@@ -32,9 +32,9 @@ gulp.task('sass', function () {
 
 gulp.task('javascript', function(){
     gulp.src(config.paths.js)
-        .pipe(sourcemaps.init())
-        .pipe(uglify())
-        .pipe(sourcemaps.write())
+        //.pipe(sourcemaps.init())
+        //.pipe(uglify())
+        //.pipe(sourcemaps.write())
         .pipe(gulp.dest(config.paths.public))
 });
 
