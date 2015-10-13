@@ -93,8 +93,6 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
     ];
     self.newCalculation = newCalculation;
 
-<<<<<<< HEAD
-
 //load categories list on page load
         $http({
              method: 'Get',
@@ -111,8 +109,6 @@ app.controller('calculateCtrl', ['$scope', '$http', function($scope, $http) {
         console.log($scope.list);
         return query ? $scope.list.filter(createFilterFor(query)) : $scope.list;
     };
-=======
->>>>>>> f6d7a59603f99ba6833945ccb31db1e403a0c663
 
     function searchTextChange(text) {
         console.log('Text changed to ', text);
