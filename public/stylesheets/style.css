@@ -1,12 +1,24 @@
-header md-toolbar {
-  height: 100px; }
+#sidenav .ng-scope {
+  float: left;
+  color: white; }
 
-.md-toolbar-tools h1 {
-  font-size: inherit;
-  font-weight: inherit;
-  margin: inherit; }
+#sidenav {
+  height: 100vh; }
+
+.sidenav-header {
+  margin: 10px auto; }
+
+.footer {
+  margin: auto 0 0 auto; }
+
+.footer li {
+  display: inline-block;
+  vertical-align: bottom; }
 
 button.md-primary span {
+  color: white; }
+
+.md-button.md-primary.md-raised {
   color: white; }
 
 md-autocomplete {
@@ -38,6 +50,8 @@ md-autocomplete {
     -webkit-flex-wrap: nowrap;
     /* Safari */
     flex-wrap: nowrap; }
+  #dashboard-page #project-page ul li {
+    color: white; }
   #dashboard-page #project-page .li_header {
     display: inline-block;
     width: 20%;
@@ -64,3 +78,6 @@ md-autocomplete {
     margin-top: 5px; }
   #dashboard-page #project-page table {
     margin-left: 50px; }
+
+#secondary-margin {
+  margin-top: 32px; }
