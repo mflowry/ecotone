@@ -155,7 +155,8 @@ app.controller('calculateCtrl', ['$http', '$mdDialog', function( $http, $mdDialo
     }
 
     function createFilterFor(query) {
-        var lowercaseQuery = query.toLowerCase() //query.charAt(0).toUpperCase() + query.slice(1);
+        var lowercaseQuery = query.toLowerCase();
+        //query.charAt(0).toUpperCase() + query.slice(1);
         return function filterFn(obj) {
             return (obj.primary_cat.indexOf(lowercaseQuery) != -1);
         };
@@ -234,6 +235,7 @@ app.controller('createAccountCtrl', ['$scope', '$http', '$location', function($s
     };
 }]);
 
+
 // Login HTML - Kate
 app.controller('loginCtrl', ['$scope', '$http', 'authService', '$location', '$rootScope', function($scope, $http, authService, $location, $rootScope) {
     $scope.login = function () {
@@ -269,16 +271,37 @@ app.controller('projectsCtrl', ['$scope', '$http', function($scope, $http) {
     $http.get('/project').then(function(response) {
         console.log(response);
         $scope.projectList = response.data;
-    });
+        //response.data.forEach(function(item){
+        //    item.project_name = item.primary_cat.toLowerCase();
+        });
 
-    $http({
-        method: 'GET',
-        url: 'http://www.w3schools.com/angular/customers.php'
-    }).then(function (response) {
-        $scope.names = response.records;
+    $scope.deleteProjectItem = function (lineID) {
+        console.log("Deleting..." , $scope.projectlist.lineID);
+        $http.update('/project').then(function(response) {
+            //findOne and delete by ID using projectlist.lineID
+            console.log("Item was deleted.", response);
     });
+        //$scope.calculateProjectTotal(){
+        ////forEach project
+        //    var projectTotal+=projectList.co2_offset;
+        //    return projectTotal;
+        ////save to project? or just recalc each time?
+        //}
+    }
+};
 
+
+//Dashboard Page - Kim/Madeleine
+app.controller('dashboardCtrl', ['$scope', '$http', function($scope, $http) {
+    //load project list on page load
+    $http.get('/project').then(function(response) {
+        console.log(response);
+        $scope.projectList = response.data;
+        //response.data.forEach(function(item){
+        //    item.project_name = item.primary_cat.toLowerCase();
+    });
 }]);
+
 
 // Services for authentication
 app.service('authService', ['$window', function ($window){

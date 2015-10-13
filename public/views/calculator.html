@@ -1,6 +1,5 @@
-<div id="calculator-page">
-    <h2>Calculate Your CO<sub>2</sub> Offset</h2>
-
+<h2>Calculate Your CO<sub>2</sub> Offset</h2>
+    <form ng-submit="$event.preventDefault()">
         <md-content layout="column" layout-align="space-between center">
 
         <md-autocomplete
@@ -20,8 +19,11 @@
                 </span>
             </md-item-template>
             
-            <md-not-found>
-               <div ng-click="ctrl.newSuggestion( ctrl.searchText )"> No matches found for "{{ctrl.searchText}}" Suggest a new material! </div>
+            <md-not-found >
+                <div ng-click="ctrl.newSuggestion()">
+                    No material matches {{ ctrl.searchText }}
+                    <a >Create a new one!</a>
+                </div>
             </md-not-found>
         </md-autocomplete>
         
@@ -51,5 +53,4 @@
         <p ng-show="ctrl.result">Your Estimated CO<sub>2</sub> Offset is {{ctrl.result}} metric tons.</p>
 
         </md-content>
-    </div>
-</div>
+    </form>
