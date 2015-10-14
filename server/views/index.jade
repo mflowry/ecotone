@@ -2,11 +2,11 @@ extends layout
 
 block content
   div(layout="column" ng-cloak)
-    section(layout="row" style="height: 100vh" ng-controller="navCtrl" flex)
+    section(layout="row" style="height: 100vh" ng-controller="navCtrl")
       md-sidenav(id="sidenav" class="md-sidenav-left md-primary md-whiteframe-z2 md-closed" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" flex)
         header.sidenav-header
           img(src="/images/ECOTONE_logo.gif" alt="ECOTONE")
-        md-toolbar.md-primary(flex)
+        md-toolbar.md-primary(layout-fill flex)
           ul
             li
               md-button.md-primary(md-no-ink href="/about") About
