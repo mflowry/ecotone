@@ -13,9 +13,9 @@ router.get('/',function(req,res,next){
 
 router.put('/', function(req, res, next) {
 
-    var existingUserByUsername = {
+    var existingUserById = {
         where: {
-            username: req.body.username
+            id: req.body.id
         }
     };
 

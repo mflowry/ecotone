@@ -101,7 +101,7 @@ describe('A Calculation', function(){
 
 describe('The project API', function(){
 
-    var newProject = {
+    var newUser = {
         username: chance.last(),
         password: 'test',
         email: chance.email(),
@@ -110,6 +110,11 @@ describe('The project API', function(){
         title: 'Dr',
         company_name: chance.last(),
         zip_code: '55101'
+    };
+
+    var newProject = {
+        project_name: chance.last(),
+        project_description: 'test this string 1'
     };
 
     it('should create a new user', function( done ){
@@ -124,44 +129,56 @@ describe('The project API', function(){
             });
     });
 
-    it('should prevent duplicate user from being created', function( done ){
-        api.post('/register')
-            .send(newUser)
-            .expect(409, done);
-    });
+    it('should create a new project', function( done ){
 
-    var token;
-    var user;
-
-    it('should authorize a user', function( done ){
-
-        api.post('/login')
-            .send({
-                username: newUser.username,
-                password: newUser.password
-            })
+        api.post('/project')
+            .send(newProject)
             .end(function( err, res ){
-                res.body.should.have.property('user');
-                res.body.should.have.property('token');
-                token = res.body.token;
-                user = res.body.user;
+                console.log(res);
+                res.body.should.have.property('project_name', newProject.project_name);
+                res.body.should.have.property('project_descritption', project_description);
                 done();
-            })
+            });
     });
 
-    it('should update a user', function( done ){
-
-        var newName = chance.last();
-
-        api.put('/modifyUser')
-            .set('Authorization', 'Bearer ' + token)
-            .send({first_name: newName})
-            .expect(200, done);
-    });
-
-    it('should delete a user', function( done ){
-        api.delete('/modifyUser/' + user.id)
-            .set('Authorization', 'Bearer ' + token)
-            .expect(200, done);
-    })
+    //it('should prevent duplicate user from being created', function( done ){
+    //    api.post('/register')
+    //        .send(newUser)
+    //        .expect(409, done);
+    //});
+    //
+    //var token;
+    //var user;
+    //
+    //it('should authorize a user', function( done ){
+    //
+    //    api.post('/login')
+    //        .send({
+    //            username: newUser.username,
+    //            password: newUser.password
+    //        })
+    //        .end(function( err, res ){
+    //            res.body.should.have.property('user');
+    //            res.body.should.have.property('token');
+    //            token = res.body.token;
+    //            user = res.body.user;
+    //            done();
+    //        })
+    //});
+    //
+    //it('should update a user', function( done ){
+    //
+    //    var newName = chance.last();
+    //
+    //    api.put('/modifyUser')
+    //        .set('Authorization', 'Bearer ' + token)
+    //        .send({first_name: newName})
+    //        .expect(200, done);
+    //});
+    //
+    //it('should delete a user', function( done ){
+    //    api.delete('/modifyUser/' + user.id)
+    //        .set('Authorization', 'Bearer ' + token)
+    //        .expect(200, done);
+    //})
 });
