@@ -21,7 +21,7 @@ app.controller('dashboardCtrl', ['$mdDialog', '$scope', '$http', function($mdDia
         $mdDialog.show(confirm).then(function() {
             $scope.alert = 'Your project has been deleted.';
         }, function() {
-            $scope.alert = 'You project has not been deleted.';
+            $scope.alert = 'Your project has not been deleted.';
         });
     };
 //    function DialogController($scope, $mdDialog) {
