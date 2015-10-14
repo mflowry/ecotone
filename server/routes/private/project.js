@@ -22,7 +22,7 @@ function getProjects(req, res, next){
         if( err ){
             console.log(err);
         } else {
-            client.query('select * from projects inner join calculations on (projects.id = calculations."projectId") where "userId"=$1', [userId],function(err,results){
+            client.query('select * from projects inner join calculations on (projects.id = calculations.project_id) where "user_id"=$1', [userId],function(err,results){
                 done();
                 if(err){
                     console.log(err);
@@ -52,8 +52,8 @@ router.post('/', function (req, res, next) {
 
         var existingProjectId = {
             where: {
-                projectName: req.body.projectName,
-                userId: req.body.user_id
+                project_name: req.body.project_name,
+                user_id: req.body.user_id
             }
         };
         //Projects.sync().then(function () {
@@ -71,7 +71,7 @@ router.post('/', function (req, res, next) {
                             user.addProject(project).then(function(){
 
 
-                                project.dataValues.userId = user.id;
+                                project.dataValues.user_id = user.id;
                                 // send the relevant part of the project object to client
                                 res.send(project);
 
@@ -140,7 +140,7 @@ router.delete('/:id', function (req, res, next) {
 
 router.post('/calculation', function (req, res, next) {
 
-    Projects.findById(req.body.projectId).then(function (project) {
+    Projects.findById(req.body.project_id).then(function (project) {
         //console.log('Found user:', user);
 
 
@@ -166,7 +166,7 @@ router.post('/calculation', function (req, res, next) {
                         project.addCalculation(calculation).then(function(){
 
 
-                            calculation.dataValues.projectId = project.projectId;
+                            calculation.dataValues.project_id = project.project_id;
                             // send the relevant part of the project object to client
                             res.send(project);
 

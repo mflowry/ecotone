@@ -76,8 +76,8 @@ var userSchema = sequelize.define('user',
             field: 'register_date'
         }
     },
-    {underscored: true},
     {
+        underscored: true,
         instanceMethods: {
 
             comparePassword: function (candidatePassword, cb) {

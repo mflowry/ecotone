@@ -18,11 +18,11 @@ describe('The user API', function(){
        username: chance.last(),
        password: 'test',
        email: chance.email(),
-       firstName: chance.last(),
-       lastName: chance.last(),
+       first_name: chance.last(),
+       last_name: chance.last(),
        title: 'Dr',
-       companyName: chance.last(),
-       zipCode: '55101'
+       company_name: chance.last(),
+       zip_code: '55101'
     };
 
     it('should create a new user', function( done ){
@@ -105,11 +105,11 @@ describe('The project API', function(){
         username: chance.last(),
         password: 'test',
         email: chance.email(),
-        firstName: chance.last(),
-        lastName: chance.last(),
+        first_name: chance.last(),
+        last_name: chance.last(),
         title: 'Dr',
-        companyName: chance.last(),
-        zipCode: '55101'
+        company_name: chance.last(),
+        zip_code: '55101'
     };
 
     it('should create a new user', function( done ){
@@ -155,7 +155,7 @@ describe('The project API', function(){
 
         api.put('/modifyUser')
             .set('Authorization', 'Bearer ' + token)
-            .send({firstName: newName})
+            .send({first_name: newName})
             .expect(200, done);
     });
 
