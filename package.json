@@ -9,7 +9,11 @@
     "angular": "^1.4.7",
     "angular-animate": "^1.4.7",
     "angular-aria": "^1.4.7",
+<<<<<<< HEAD
+    "angular-material": "0.11.3",
+=======
     "angular-material": "^0.11.4",
+>>>>>>> 1d703f5464485e18ee2e3c8f9dfe25d9e28fa50a
     "angular-messages": "^1.4.7",
     "angular-route": "^1.4.7",
     "angular-validation-match": "^1.5.2",
