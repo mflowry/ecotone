@@ -8,6 +8,12 @@ $warn: orange;
 .sidenav-header {
   margin: 10px auto; }
 
+#hello {
+  padding: 60px;
+  background-color: white;
+  box-shadow: none;
+}
+
 #footer {
   margin: auto 0 0 auto;
 }
@@ -20,6 +26,11 @@ $warn: orange;
 button.md-primary span {
   color: white;
 }
+
+.md-primary.md-button.md-default-theme.md-ink-ripple.ng-transclude.ng-click{
+  background-color: #546E7A;
+}
+
 
 button.md-accent span{
   color:white
