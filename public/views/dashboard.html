@@ -2,17 +2,21 @@
 <!-- Beginning dashboard -->
     <md-content>
         <div>
-            <h1 class="md-title" style="display: inline;">Your projects have prevented XXXXXX metric tons of CO<sub>2</sub> from being released:</h1><img src="images/Co2-Badge-96.png" alt="badge" style="display: inline; />
+            <h1 class="md-title" style="display: inline;">Your projects have prevented XXXXXX metric tons of CO<sub>2</sub> from being released:</h1><img src="images/Co2-Badge-96.png" alt="badge" />
         </div>
-        <div ng-controller="dashboardCtrl">
+
+        <div>
             <h3 class="md-body-2">Manage Projects here. Click on Project or Description field to edit. Projects can also be deleted. Be careful, this is not reversible. </h3>
+
         <md-content>
-            <table>
+
+            <table class="dialog-demo-content">
 
                  <tr>
                     <th>Project</th>
                     <th width="25%">Description</th>
                     <th align="center">Total Weight</th>
+
                     <th align="center">Total CO<sub>2</sub></th>
                     <th align="center">Edit | Save | Delete</th>
                 </tr>
@@ -42,11 +46,13 @@
                      </td>
                      <td align="center" ng-model="placeholder.totWt">4289 kg</td>
                      <td align="center" ng-model="placeholder.totC02">7.2</td>
-                     <td align="center"><a href="/projects"><img src="images/icons/ic_create_black_24px.svg" alt="Edit Project" /></a> | <img src="images/icons/ic_save_black_24px.svg" alt="Save Changes"/> | <img src="images/icons/ic_delete_black_24px.svg" alt="Delete Project"/> </td>
+                     <td align="center"><a href="/projects"><img src="images/icons/ic_create_black_24px.svg" alt="Edit Project" /></a> | <img src="images/icons/ic_save_black_24px.svg" alt="Save Changes"/> | <img src="images/icons/ic_delete_black_24px.svg" alt="Delete Project" ng-click="showDelete($event)"/> </td>
                  </tr>
 
             </table>
+
         </md-content>
+
 
             <div>
                 <md-button class="md-raised md-accent">Create New Project</md-button>
@@ -54,4 +60,5 @@
 
         </div>
     </md-content>
+
  </div>
