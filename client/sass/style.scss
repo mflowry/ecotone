@@ -1,3 +1,6 @@
+$accent: #546E7A;
+$warn: orange;
+
 #sidenav .ng-scope {
   float: left;
   color: white; }
@@ -22,8 +25,14 @@ button.md-accent span{
   color:white
 }
 
-.md-primary.md-button.md-default-theme.md-ink-ripple{
-  background-color: #546E7A;
+.md-actions {
+  .md-button.md-default-theme.md-ink-ripple:first-child {
+    background-color: $accent;
+
+  }
+  .md-button.md-default-theme.md-ink-ripple {
+    background-color: $warn;
+  }
 }
 md-autocomplete{
   background-color: white;

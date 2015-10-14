@@ -18,8 +18,11 @@ button.md-primary span {
 button.md-accent span {
   color: white; }
 
-.md-primary.md-button.md-default-theme.md-ink-ripple {
+.md-actions .md-button.md-default-theme.md-ink-ripple:first-child {
   background-color: #546E7A; }
+
+.md-actions .md-button.md-default-theme.md-ink-ripple {
+  background-color: orange; }
 
 md-autocomplete {
   background-color: white; }
