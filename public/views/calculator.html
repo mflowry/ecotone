@@ -36,7 +36,7 @@
                 </md-select>
             </md-input-container>
 
-            <div layout layout-sm="column" layout-align="space-between end" layout-fill>
+            <div layout layout-sm="row" layout-align="space-between" layout-fill>
                 <md-input-container flex>
                     <label>Weight</label>
                     <input ng-model="ctrl.weight" type="text">
@@ -48,11 +48,15 @@
                 </md-select>
             </div>
 
-            <div ng-show="user.username">
-                <md-button ng-click="">+ Add additional material</md-button>
-            </div>
+            <md-input-container ng-show="user.username" flex>
+                <label>Material description (optional)</label>
+                <textarea ng-model="ctrl.description" md-maxlength="255" name="description"></textarea>
+            </md-input-container>
         </div>
 
+        <div ng-show="user.username">
+            <md-button ng-click="">+ Add additional material</md-button>
+        </div>
 
         <md-button class="md-accent md-raised" ng-click="ctrl.newCalculation()" type="submit" value="Save">Submit</md-button>
 
