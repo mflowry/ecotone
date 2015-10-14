@@ -21,17 +21,14 @@
 button.md-primary span {
   color: white;
 }
-<<<<<<< HEAD
-.md-primary.md-button.md-default-theme.md-ink-ripple.ng-transclude.ng-click{
-  background-color: #546E7A;
-}
-=======
->>>>>>> 1d703f5464485e18ee2e3c8f9dfe25d9e28fa50a
 
 button.md-accent span{
   color:white
 }
 
+.md-primary.md-button.md-default-theme.md-ink-ripple{
+  background-color: #546E7A;
+}
 md-autocomplete{
   background-color: white;
 }
@@ -43,6 +40,7 @@ md-autocomplete{
 }
 
 #dashboard-page #project-page {
+
 
 
   h2 {
