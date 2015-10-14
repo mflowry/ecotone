@@ -85,7 +85,8 @@ md-autocomplete {
 
 table {
   border-collapse: collapse;
-  text-align: left; }
+  text-align: left;
+  margin-bottom: 50px; }
 
 th {
   border-top: solid 1px darkgray;
