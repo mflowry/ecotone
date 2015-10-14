@@ -5,20 +5,27 @@
 .sidenav-header {
   margin: 10px auto; }
 
-.footer {
+#content {
+  margin-top: 100px; }
+
+#footer {
   margin: auto 0 0 auto; }
 
-.footer li {
+#footer li {
   display: inline-block;
   vertical-align: bottom; }
 
 button.md-primary span {
   color: white; }
 
+<<<<<<< HEAD
 .md-primary.md-button.md-default-theme.md-ink-ripple.ng-transclude.ng-click {
   background-color: #546E7A; }
 
 button.md-raised.md-accent {
+=======
+button.md-accent span {
+>>>>>>> 1d703f5464485e18ee2e3c8f9dfe25d9e28fa50a
   color: white; }
 
 md-autocomplete {

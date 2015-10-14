@@ -23,7 +23,7 @@
             </md-autocomplete>
             <md-content>
                 <h3>Project Description </h3>
-                <p>{{projectList.project_description}}</p>
+                <p>{{ctrl.project_description}}</p>
             </md-content>
         <md-divider ng-if="!$last"></md-divider>
         </div>
@@ -31,7 +31,7 @@
     <div>
         <md-content>
             <br>
-            <table style="min-width: 1200px; text-align: left;">
+            <table class="dialog-demo-content" style="min-width: 1200px; text-align: left;">
                 <tr layout="row" layout-fill layout-wrap >
                     <th flex="12">Category</th>
                     <th flex="12">Sub-Category</th>
@@ -47,19 +47,19 @@
                     <td flex="12">50</td>
                     <td flex="12">lbs</td>
                     <td flex="12">0.005 metric tons</td>
-                    <td flex="12" style="text-align: left;" type="submit" value="Save" ng-click="ctrl.deleteProjectItem()"><img src="../images/icons/ic_delete_black_24px.svg" alt="Delete Project"/> </td>
+                    <td flex="12" style="text-align: left;" type="submit" value="Save"><a href="/calculator"><img src="images/icons/ic_create_black_24px.svg" alt="Edit Project" /></a> | <img ng-click="showDelete($event)" src="../images/icons/ic_delete_black_24px.svg" alt="Delete Project"/> </td>
+                    <!--&lt;!&ndash;<td align="center"><a href="/projects"><img src="images/icons/ic_create_black_24px.svg" alt="Edit Project" /></a> | <img src="images/icons/ic_save_black_24px.svg" alt="Save Changes"/> | <img src="images/icons/ic_delete_black_24px.svg" alt="Delete Project"/> </td>&ndash;&gt;ng-click="ctrl.deleteProjectItem()"-->
                     <!--<md-button flex="15" class="md-accent md-raised" selected-item="ctrl.projectList.lineID" style="background-color: #0288d1; display: inline; position: relative;">Delete</md-button>-->
                 </tr>
 
                 <tr layout="row" layout-wrap ng-repeat="project in projects">
-                    <td flex="15">{{ctrl.projectList.category}}</td>
+                    <td flex="15">{{ctrl.category}}</td>
                     <td flex="15">{{ctrl.projectList.subcategory}}</td>
-                    <td flex="15">{{ctrl.projectList.weight}}</td>
-                    <td flex="15">{{projectList.units}}</td>
-                    <td flex="15">{{ctrl.projectList.co2_offset}} metric tons</td>
+                    <td flex="15">{{ctrl.weight}}</td>
+                    <td flex="15">{{ctrl.units}}</td>
+                    <td flex="15">{{ctrl.co2_offset}} metric tons</td>
                     <td flex="12" style="text-align: left;" type="submit" ng-value="id" ng-click="ctrl.deleteProjectItem()"><img src="../images/icons/ic_delete_black_24px.svg" alt="Delete Project"/> </td>                    <!--<md-button flex="15" class="md-accent md-raised" ng-click="ctrl.deleteProjectItem()"         selected-item="ctrl.projectList.lineID" style="background-color: #0288d1; display: inline;">Delete</md-button>-->
                 </tr>
-
             </table>
             <br>
             <md-divider ng-if="!$last"></md-divider>

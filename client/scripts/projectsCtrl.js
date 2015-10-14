@@ -20,9 +20,10 @@ app.controller('projectsCtrl', ['$scope', '$http', function($scope, $http) {
             console.log(response);
             var projectList = response.data;
             projectList.forEach(function (item) {
-                project_name = item.project_name.toLowerCase();
-                project_description = item.project_description;
-                id = item.id;
+                item.project_name = item.project_name.toLowerCase();
+                //item.project_description = item.project_description;
+                //item.itemId = item.id;
+                //item.co2_offset = item.co2_offset;
             });
             self.projectList = projectList;
         });
@@ -50,6 +51,33 @@ app.controller('projectsCtrl', ['$scope', '$http', function($scope, $http) {
             self.project_description = '';
         }
     }
+
+    $scope.showDelete = function(ev) {
+        console.log('CLICK');
+        var confirm = $mdDialog.confirm()
+            .title('Are you sure you want to delete this item?')
+            .content('This will be permanent.')
+            .ariaLabel('Delete item permanently')
+            .ok('Delete')
+            .cancel('Cancel')
+            .targetEvent(ev);
+        $mdDialog.show(confirm).then(function() {
+            $scope.alert = 'Your item has been deleted.';
+        }, function() {
+            $scope.alert = 'Your item has not been deleted.';
+        });
+    };
+//    function DialogController($scope, $mdDialog) {
+//    $scope.hide = function() {
+//        $mdDialog.hide();
+//    };
+//    $scope.cancel = function() {
+//        $mdDialog.cancel();
+//    };
+//    $scope.answer = function(answer) {
+//        $mdDialog.hide(answer);
+//    };
+//}
 
     function deleteProjectItem() {
         console.log("Deleting...", self.projectList.ID);

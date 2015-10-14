@@ -1,12 +1,12 @@
 extends layout
 
 block content
-  div(layout="column" ng-controller="navCtrl" ng-cloak)
-    section(layout="row" flex)
-      md-sidenav(id="sidenav" class="md-sidenav-left md-primary md-whiteframe-z2 md-closed md-locked-open" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" layout-fill flex)
+  div(layout="column" ng-cloak)
+    section(layout="row" style="height: 100vh" ng-controller="navCtrl" flex)
+      md-sidenav(id="sidenav" class="md-sidenav-left md-primary md-whiteframe-z2 md-closed" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" flex)
         header.sidenav-header
           img(src="/images/ECOTONE_logo.gif" alt="ECOTONE")
-        md-toolbar.md-primary(layout="column" style="height:600px" flex)
+        md-toolbar.md-primary(flex)
           ul
             li
               md-button.md-primary(md-no-ink href="/about") About
@@ -25,21 +25,19 @@ block content
             li
               md-button.md-primary(md-no-ink href="/admin") ADMIN
 
-
-      div(id="content" layout="column" layout-fill layout-align="space-between center" flex)
-        md-content(layout-fill)
-          h1(ng-show="user.username") Hello, {{user.firstName}}!
+      section(layout="column" layout-padding layout-margin layout-fill)
+        h1(ng-show="user.username") Hello, {{user.firstName}}!
+        md-content(id="content" layout="column" layout-fill layout-align="start center" flex)
           <!-- ng-view will display injected content -->
           div(ng-view)
 
-        md-content(class="footer" layout-fill layout-align="end end")
-          ul
-            li
-              span(flex)
-            li
-              md-button(md-no-ink href="/sources") Sources
-            li
-              md-button(md-no-ink href="/privacy") Privacy
-            li
-              p(id="copyright") &copy; 2015 Ecotone-Partners
-
+          div(id="footer" layout="row" layout-fill layout-align="end end")
+            ul
+              li
+                span(flex)
+              li
+                md-button(md-no-ink href="/sources") Sources
+              li
+                md-button(md-no-ink href="/privacy") Privacy
+              li
+                p(id="copyright") &copy; 2015 Ecotone-Partners
