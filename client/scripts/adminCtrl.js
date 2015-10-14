@@ -33,7 +33,7 @@ app.controller('adminCtrl', ['$http', '$scope','$parse', function( $http, $scope
         separatorVisible: true,
         result: null,
         encoding: 'ISO-8859-1',
-        encodingVisible: true
+        encodingVisible: true,
     };
 
     var _lastGoodResult = '';
