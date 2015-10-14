@@ -1,7 +1,3 @@
-/*! angular-csv-import - v0.0.18 - 2015-09-04
- * Copyright (c) 2015 ; Licensed  */
-'use strict';
-
 app.directive('ngCsvImport', function() {
     return {
         restrict: 'E',
@@ -99,5 +95,4 @@ app.directive('ngCsvImport', function() {
                 return result;
             };
         }
-    };
-});
+    }});

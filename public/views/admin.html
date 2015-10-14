@@ -31,8 +31,9 @@
     </div>
 </div>
 
-<div ng-show="csv.result">{{toPrettyJSON(csv.result,2)}}</div>
-
-<div class="block row"  ng-if="csv.result">
+<div class="block row">
+    <h1>RESULT</h1>
+<p>{{ csv.result }}</p>
     <div class="content" hljs source="toPrettyJSON(csv.result, 2)"></div>
 </div>
+

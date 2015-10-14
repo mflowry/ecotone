@@ -1,6 +1,9 @@
-app.controller('dashboardCtrl', ['$mdDialog', '$scope', '$http', function($mdDialog, $scope, $http) {
+app.controller('dashboardCtrl', ['$mdDialog', '$rootScope', '$scope', '$http', function($mdDialog, $rootScope, $scope, $http) {
+    var user=$rootScope.user;
+
+
     //load project list on page load
-    $http.get('/project').then(function(response) {
+    $http.get('/project/' + user.id).then(function(response) {
         console.log(response);
         $scope.projectList = response.data;
         //response.data.forEach(function(item){
@@ -24,6 +27,8 @@ app.controller('dashboardCtrl', ['$mdDialog', '$scope', '$http', function($mdDia
             $scope.alert = 'Your project has not been deleted.';
         });
     };
+
+    //need to check if we need this!
 //    function DialogController($scope, $mdDialog) {
 //    $scope.hide = function() {
 //        $mdDialog.hide();
