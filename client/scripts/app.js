@@ -354,7 +354,6 @@ app.controller('dashboardCtrl', ['$scope', '$http', function($scope, $http) {
     });
 }]);
 
-
 // Services for authentication
 app.service('authService', ['$window', function ($window){
     this.parseJwt = function (token) {
