@@ -15,6 +15,9 @@
 button.md-primary span {
   color: white; }
 
+.md-primary.md-button.md-default-theme.md-ink-ripple.ng-transclude.ng-click {
+  background-color: #546E7A; }
+
 button.md-raised.md-accent {
   color: white; }
 
