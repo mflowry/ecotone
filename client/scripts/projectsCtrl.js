@@ -1,35 +1,139 @@
 // Project Page -  Kim/Madeleine
-app.controller('projectsCtrl', ['$scope', '$http', function($scope, $http) {
+app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', function($mdDialog, $scope, $rootScope, $http) {
 
     // Self dec
     var self = this;
-    self.projectList = '';
+    self.projectList = [
+                {
+                    id: 21,
+                    project_name: "Ben's House",
+                    project_description: "Remodel",
+                    created_at: "2015-10-14T16:42:40.896Z",
+                    updated_at: "2015-10-14T16:42:40.901Z",
+                    user_id: 4,
+                    category: "wood",
+                    sub_category: "oak",
+                    units: "lbs",
+                    weight: 10,
+                    co2_offset: 0.03,
+                    project_id: 6,
+                    item_description: "porch spindles"
+                },
+                {
+                    id: 202,
+                    project_name: "James' House",
+                    project_description: "Teardown",
+                    created_at: "2014-10-14T16:42:40.896Z",
+                    updated_at: "2014-10-14T16:42:40.901Z",
+                    user_id: 24,
+                    category: "asphalt shingles",
+                    sub_category: "null",
+                    units: "lbs",
+                    weight: 100,
+                    co2_offset: 0.303,
+                    project_id: 6,
+                    item_description: "roof shingles"
+                },
+                {
+                    id: 2112,
+                    project_name: "Kim's Barn",
+                    project_description: "Remodel",
+                    created_at: "2013-10-14T16:42:40.896Z",
+                    updated_at: "2013-10-14T16:42:40.901Z",
+                    user_id: 14,
+                    category: "wood flooring",
+                    sub_category: "pine",
+                    units: "lbs",
+                    weight: 500,
+                    co2_offset: 3.03,
+                    project_id: 6,
+                    item_description: "barn wood"
+                }];
     self.result = '';
     self.querySearch = querySearch;
     self.selectedItemChange = selectedItemChange;
     self.searchTextChange = searchTextChange;
-    self.projectTotal= 0;
+    self.projectTotal = 0;
     self.deleteProjectItem = deleteProjectItem;
     self.id = 0;
+console.log(self.projectList);
 
+    //refresh project list
+    //function getProjectList() {
+    //    $http.get('/project', $rootScope.user.id).then(function (response) {
+    //        console.log(response);
+    //        console.log("user id: ", $rootScope.user.id);
+    //        var projectList = response.data;
+    //        projectList.forEach(function (item) {
+    //            item.project_name = item.project_name.toLowerCase();
+    //            //item.project_description = item.project_description;
+    //            //item.itemId = item.id;
+    //            //item.co2_offset = item.co2_offset;
+    //        });
+    //        self.projectList = projectList;
+    //    });
+    //}
 
     //load project list on page load
-    self.getProjectList = function() {
-        //need to figure out how to pass the userid from the login page--use the same controller?
-        $http.get('/project', userid).then(function (response) {
-            console.log(response);
-            var projectList = response.data;
-            projectList.forEach(function (item) {
-                item.project_name = item.project_name.toLowerCase();
-                //item.project_description = item.project_description;
-                //item.itemId = item.id;
-                //item.co2_offset = item.co2_offset;
-            });
-            self.projectList = projectList;
-        });
-    };
+    //getProjectList();
+
+    //function getProjectList(){
+    //    console.log("Project list loaded: ", self.projectList);
+    //    projectList = [
+    //        {
+    //            id: 21,
+    //            project_name: "Ben's House",
+    //            project_description: "Remodel",
+    //            created_at: "2015-10-14T16:42:40.896Z",
+    //            updated_at: "2015-10-14T16:42:40.901Z",
+    //            user_id: 4,
+    //            category: "wood",
+    //            sub_category: "oak",
+    //            units: "lbs",
+    //            weight: 10,
+    //            co2_offset: 0.03,
+    //            project_id: 6,
+    //            item_description: "porch spindles"
+    //        },
+    //        {
+    //            id: 202,
+    //            project_name: "James' House",
+    //            project_description: "Teardown",
+    //            created_at: "2014-10-14T16:42:40.896Z",
+    //            updated_at: "2014-10-14T16:42:40.901Z",
+    //            user_id: 24,
+    //            category: "asphalt shingles",
+    //            sub_category: "null",
+    //            units: "lbs",
+    //            weight: 100,
+    //            co2_offset: 0.303,
+    //            project_id: 6,
+    //            item_description: "roof shingles"
+    //        },
+    //        {
+    //            id: 2112,
+    //            project_name: "Kim's Barn",
+    //            project_description: "Remodel",
+    //            created_at: "2013-10-14T16:42:40.896Z",
+    //            updated_at: "2013-10-14T16:42:40.901Z",
+    //            user_id: 14,
+    //            category: "wood flooring",
+    //            sub_category: "pine",
+    //            units: "lbs",
+    //            weight: 500,
+    //            co2_offset: 3.03,
+    //            project_id: 6,
+    //            item_description: "barn wood"
+    //        }
+    //    ];
+    //}
+
+
+
 
     function querySearch(query) {
+        console.log("This is the project list:");
+        console.log(self.projectList);
         return query ? self.projectList.filter(createFilterFor(query)) : self.projectList;
     }
 
@@ -37,7 +141,7 @@ app.controller('projectsCtrl', ['$scope', '$http', function($scope, $http) {
         var lowercaseQuery = query.toLowerCase();
         //query.charAt(0).toUpperCase() + query.slice(1);
         return function filterFn(obj) {
-            return (obj.primary_cat.indexOf(lowercaseQuery) != -1);
+            return (obj.project_name.indexOf(lowercaseQuery) != -1);
         };
     }
 
@@ -80,17 +184,22 @@ app.controller('projectsCtrl', ['$scope', '$http', function($scope, $http) {
 //}
 
     function deleteProjectItem() {
-        console.log("Deleting...", self.projectList.ID);
-        //$http.update('/project').then(function (response) {
+        console.log("Deleting...", self.project_id);
+        //$http.update('/project', self.project_id).then(function (response) {
         //findOne and delete by id using projectlist.id
         //    console.log("Item was deleted.", response);
         //    self.getProjectList();
-    };
+    }
 
-    //self.calculateProjectTotal(){
-    ////forEach project
-    //    var projectTotal+=projectList.co2_offset;
-    //    return projectTotal;
-    //}
-    //};
+    function calculateProjectTotal() {
+        projectList.forEach(function (item) {
+            projectTotal += item.co2_offset;
+            console.log(projectTotal);
+        return projectTotal;
+
+    })
+    }
+
+
+
 }]);
