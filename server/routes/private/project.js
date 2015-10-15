@@ -167,8 +167,7 @@ router.delete('/:id', function (req, res, next) {
 
 router.post('/calculation', function (req, res, next) {
 
-    Projects.findById(req.body.project_id).then(function (project) {
-
+    Projects.findById(req.body[0].project_id).then(function (project) {
         var returnedCalculations = [];
         req.body.forEach(function(item){
 
@@ -182,7 +181,7 @@ router.post('/calculation', function (req, res, next) {
 
                         calculation.dataValues.project_id = project.project_id;
                         // send the relevant part of the project object to client
-                        returnedCalculations.push(item);
+                        returnedCalculations.push(calculation);
                     });
 
                 }).catch(function (err) {
@@ -190,7 +189,7 @@ router.post('/calculation', function (req, res, next) {
                     res.send('error: ', err);
                 });
         });
-
+        console.log(returnedCalculations);
         res.send(returnedCalculations);
 
     })

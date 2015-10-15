@@ -204,10 +204,13 @@ describe('The project/calculation API', function(){
 
     it('should create a single project calculation', function(done){
 
-        var calcToSend = newCalculation;
-        calcToSend.project_id = project.id;
+        var calcToSend = [];
+        newCalculation.project_id = project.id;
+        calcToSend.push(newCalculation);
 
-       api.post('/project/calculation')
+        console.log(calcToSend);
+
+        api.post('/project/calculation')
            .set('Authorization', 'Bearer ' + token)
            .send(calcToSend)
            .end(function( err, res ){
