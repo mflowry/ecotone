@@ -12,7 +12,10 @@
             </md-select>
         </md-input-container>
         <div id="material-choice">
-            <md-autocomplete ng-disabled="ctrl.isDisabled" md-selected-item="ctrl.category" md-selected-item-change="ctrl.selectedItemChange(item)" md-search-text="ctrl.searchText"
+            <md-autocomplete ng-disabled="ctrl.isDisabled"
+                md-selected-item="ctrl.category"
+                md-selected-item-change="ctrl.selectedItemChange(item)"
+                md-search-text="ctrl.searchText"
                 md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
                 md-items="item in ctrl.querySearch(ctrl.searchText)"
                 md-item-text="item.primary_cat"
