@@ -37,19 +37,31 @@ var userSchema = sequelize.define('user',
         first_name: {
             type: Sequelize.STRING,
             validate: {
-                isAlpha: true
+                isAlphanumericWithSpaces: function(value) {
+                    if(!value.match('^[0-9a-zA-Z .-]+$')) {
+                        throw new Error('Only alphanumeric,spaces, periods, and dashes allowed!')
+                    }
+                }
             }
         },
         last_name: {
             type: Sequelize.STRING,
             validate: {
-                isAlpha: true
+                isAlphanumericWithSpaces: function(value) {
+                    if(!value.match('^[0-9a-zA-Z .-]+$')) {
+                        throw new Error('Only alphanumeric,spaces, periods, and dashes allowed!')
+                    }
+                }
             }
         },
         title: {
             type: Sequelize.STRING,
             validate: {
-                isAlphanumeric: true
+                isAlphanumericWithSpaces: function(value) {
+                    if(!value.match('^[0-9a-zA-Z .-]+$')) {
+                        throw new Error('Only alphanumeric,spaces, periods, and dashes allowed!')
+                    }
+                }
             }
         },
         company_name: {
@@ -70,7 +82,7 @@ var userSchema = sequelize.define('user',
             }
         },
         register_date: {
-            type: Sequelize.DATE,
+            type: Sequelize.DATE
         }
     },
     {
