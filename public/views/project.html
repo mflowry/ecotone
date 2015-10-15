@@ -2,23 +2,29 @@
 
 
     <md-content>
-        <br layout="column">
+        <div layout="column">
+        <br>
             <!-- Autocomplete -->
             <h3>Project Name</h3>
             <md-autocomplete
-                    md-selected-item="ctrl.projectName"
+                    ng-disabled="ctrl.isDisabled"
+                    md-selected-item="ctrl.project_name"
                     md-selected-item-change="ctrl.selectedItemChange(item)"
                     md-search-text="ctrl.searchText"
                     md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
                     md-items="item in ctrl.querySearch(ctrl.searchText)"
                     md-item-text="item.project_name"
                     md-min-length="0"
-                    placeholder="Select Project Name">
+                    md-floating-label="Select Project Name"                           layout-fill >
                 <md-item-template>
-                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{projectList.project_name}}</span>
+                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">
+                        {{item.project_name}}
+                    </span>
                 </md-item-template>
                 <md-not-found>
-                    No matches found for "{{searchText}}".
+                    <div>
+                    No matches found for {{ctrl.searchText}}
+                    </div>
                 </md-not-found>
             </md-autocomplete>
             <md-content>
@@ -28,42 +34,44 @@
         <md-divider ng-if="!$last"></md-divider>
         </div>
     </md-content>
-    <div>
-        <md-content>
+    <md-content>
             <br>
             <table class="dialog-demo-content" style="min-width: 1200px; text-align: left;">
                 <tr layout="row" layout-fill layout-wrap >
-                    <th flex="12">Category</th>
-                    <th flex="12">Sub-Category</th>
-                    <th flex="12">Weight</th>
-                    <th flex="12">Units</th>
-                    <th flex="12">CO<sub>2</sub> Offset</th>
-                    <th flex="12">&nbsp;</th>
+                    <!--<th flex="15">Item Description</th>-->
+                    <th flex="15">Category</th>
+                    <th flex="15">Sub-Category</th>
+                    <th flex="10">Weight</th>
+                    <th flex="10">Units</th>
+                    <th flex="15">CO<sub>2</sub> Offset</th>
+                    <th flex="15">Edit/Delete</th>
                 </tr>
 
                 <tr layout="row" layout-fill layout-wrap>
-                    <td flex="12">Blinds</td>
-                    <td flex="12">Wood</td>
-                    <td flex="12">50</td>
-                    <td flex="12">lbs</td>
-                    <td flex="12">0.005 metric tons</td>
-                    <td flex="12" style="text-align: left;" type="submit" value="Save"><a href="/calculator"><img src="images/icons/ic_create_black_24px.svg" alt="Edit Project" /></a> | <img ng-click="showDelete($event)" src="../images/icons/ic_delete_black_24px.svg" alt="Delete Project"/> </td>
-                    <!--&lt;!&ndash;<td align="center"><a href="/projects"><img src="images/icons/ic_create_black_24px.svg" alt="Edit Project" /></a> | <img src="images/icons/ic_save_black_24px.svg" alt="Save Changes"/> | <img src="images/icons/ic_delete_black_24px.svg" alt="Delete Project"/> </td>&ndash;&gt;ng-click="ctrl.deleteProjectItem()"-->
-                    <!--<md-button flex="15" class="md-accent md-raised" selected-item="ctrl.projectList.lineID" style="background-color: #0288d1; display: inline; position: relative;">Delete</md-button>-->
+                    <!--<td contentEditable="true" flex="15">Southeast bedroom wood blinds-5</td>-->
+                    <td contentEditable="true" flex="15">Blinds</td>
+                    <td contentEditable="true" flex="15">Wood</td>
+                    <td contentEditable="true" flex="10">50</td>
+                    <td contentEditable="true" flex="10">lbs</td>
+                    <td contentEditable="true" flex="15">0.005 metric tons</td>
+                    <td flex="15" style="text-align: left;" type="submit" value="Save"><a href="/calculator"><img src="images/icons/ic_create_black_24px.svg" alt="Edit Project" /></a> | <img ng-click="showDelete($event)" src="../images/icons/ic_delete_black_24px.svg" alt="Delete Project"/> </td>
                 </tr>
 
                 <tr layout="row" layout-wrap ng-repeat="project in projects">
-                    <td flex="15">{{ctrl.category}}</td>
-                    <td flex="15">{{ctrl.projectList.subcategory}}</td>
-                    <td flex="15">{{ctrl.weight}}</td>
-                    <td flex="15">{{ctrl.units}}</td>
-                    <td flex="15">{{ctrl.co2_offset}} metric tons</td>
-                    <td flex="12" style="text-align: left;" type="submit" ng-value="id" ng-click="ctrl.deleteProjectItem()"><img src="../images/icons/ic_delete_black_24px.svg" alt="Delete Project"/> </td>                    <!--<md-button flex="15" class="md-accent md-raised" ng-click="ctrl.deleteProjectItem()"         selected-item="ctrl.projectList.lineID" style="background-color: #0288d1; display: inline;">Delete</md-button>-->
+                    <!--<td contentEditable="true" flex="15">{{ctrl.item_description}}</td>-->
+                    <td contentEditable="true" flex="15">{{ctrl.category}}</td>
+                    <td contentEditable="true" flex="15">{{ctrl.subcategory}}</td>
+                    <td contentEditable="true" flex="10">{{ctrl.weight}}</td>
+                    <td contentEditable="true" flex="10">{{ctrl.units}}</td>
+                    <td contentEditable="true" flex="15">{{ctrl.co2_offset}} metric tons</td>
+                    <td flex="15" style="text-align: left;" type="submit" ng-value="user_id" ng-click="ctrl.deleteProjectItem()"><img src="../images/icons/ic_delete_black_24px.svg" alt="Delete Project"/> </td>
                 </tr>
             </table>
+        <div>
             <br>
             <md-divider ng-if="!$last"></md-divider>
-            <md-button class="md-accent md-raised" ng-click="ctrl.calculateProjectTotal()" style="background-color: #0288d1;">Calculate Total</md-button>
+            <div><md-button class="md-accent md-raised" ng-click="ctrl.calculateProjectTotal()" >Calculate Total</md-button></div>
             <p ng-show="ctrl.projectTotal">Your Total Estimated CO<sub>2</sub> Offset is {{ctrl.projectTotal}} metric tons</p>
-        </md-content>
+        </div>
+    </md-content>
 </div>

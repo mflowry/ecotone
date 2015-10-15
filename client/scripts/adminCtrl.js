@@ -8,6 +8,16 @@ app.controller('adminCtrl', ['$http', '$scope','$parse', function( $http, $scope
     var self = this;
     self.suggestions = '';
     self.markComplete = markComplete;
+    self.submitCSV = submitCSV;
+
+    function submitCSV( ){
+        var csvObject = $scope.csv.result;
+        console.log(csvObject);
+
+        $http.post('/bulk', csvObject).then(function( res ){
+            console.log(res);
+        })
+    }
 
     function markComplete( suggestion ) {
         var id = suggestion.id;
