@@ -1,3 +1,4 @@
+// APPLICATION DEPENDENCIES
 const
     express = require('express'),
     path = require('path'),
@@ -8,6 +9,7 @@ const
     jsonwebtoken = require('jsonwebtoken'),
     models = require('./models/models');
 
+// ROUTING PATHS
 const
     routes = require('./routes/index'),
     login = require('./routes/public/login'),
@@ -16,7 +18,8 @@ const
     modifyUser = require('./routes/private/modifyUser'),
     calculations = require('./routes/public/calculations'),
     project = require('./routes/private/project'),
-    suggestion = require('./routes/public/suggestion');
+    suggestion = require('./routes/public/suggestion'),
+    bulk = require('./routes/public/bulkUpload');
 
 
 
@@ -49,6 +52,7 @@ app.use('/modifyUser',modifyUser);
 app.use('/calculations',calculations);
 app.use('/project',project);
 app.use('/suggestion', suggestion);
+app.use('/bulk', bulk);
 app.use('*', routes);
 
 // catch 404 and forward to error handler
