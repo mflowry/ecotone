@@ -1,9 +1,18 @@
 <div id="calculator-page">
     <h2>Calculate Your CO<sub>2</sub> Offset</h2>
     <md-content layout="column" layout-align="space-between center">
+        <md-input-container layout-fill flex>
+            <md-select ng-show="user.username" ng-model="ctrl.projectName" placeholder="Select project" layout-fill flex>
+                <md-option ng-repeat="project in ctrl.projects">
+                    {{ project.name }}
+                </md-option>
+                <md-option ng-click="ctrl.newProject()">
+                    Create new project...
+                </md-option>
+            </md-select>
+        </md-input-container>
         <div id="material-choice">
-            <md-autocomplete
-                ng-disabled="ctrl.isDisabled"
+            <md-autocomplete ng-disabled="ctrl.isDisabled"
                 md-selected-item="ctrl.category"
                 md-selected-item-change="ctrl.selectedItemChange(item)"
                 md-search-text="ctrl.searchText"
@@ -12,7 +21,7 @@
                 md-item-text="item.primary_cat"
                 md-min-length="0"
                 md-floating-label="Material type"
-                layout-fill >
+                layout-fill>
 
                 <md-item-template>
                     <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">
@@ -23,7 +32,6 @@
                 <md-not-found>
                     <div>
                         No material matches {{ ctrl.searchText }}
-                    <span ng-click="ctrl.newSuggestion()">Create a new one!</span>
                     </div>
                 </md-not-found>
             </md-autocomplete>
@@ -36,31 +44,34 @@
                 </md-select>
             </md-input-container>
 
-            <div layout layout-sm="column" layout-align="space-between end" layout-fill>
-                <md-input-container flex>
+            <div layout layout-sm="row" layout-align="space-between" layout-fill>
+                <md-input-container>
                     <label>Weight</label>
                     <input ng-model="ctrl.weight" type="text">
                 </md-input-container>
+
                 <md-select ng-model="ctrl.conversion" placeholder="Select units" flex>
-                    <md-option ng-repeat="unit in ctrl.units" ng-value="unit.conversion" >
+                    <md-option ng-repeat="unit in ctrl.units" ng-value="unit.conversion">
                         {{ unit.name }}
                     </md-option>
                 </md-select>
             </div>
 
-            <div ng-show="user.username">
-                <md-button ng-click="">+ Add additional material</md-button>
-            </div>
+            <md-input-container ng-show="user.username" flex>
+                <label>Material description (optional)</label>
+                <textarea ng-model="ctrl.description" md-maxlength="255" name="description"></textarea>
+            </md-input-container>
         </div>
 
-
-        <md-button class="md-accent md-raised" ng-click="ctrl.newCalculation()" type="submit" value="Save">Submit</md-button>
+        <md-button class="md-accent md-raised" ng-click="ctrl.newCalculation()">Calculate</md-button>
 
         <p ng-show="ctrl.result">Your Estimated CO<sub>2</sub> Offset is {{ctrl.result}} metric tons.</p>
 
+        <md-button class="md-primary md-raised" ng-show="user.username && project.name" ng-click="ctrl.saveToProject()">Save to project</md-button>
+
         <div ng-show="user.username">
-            <md-button class="md-primary md-raised" ng-click="">Add to Project</md-button>
-            <md-button class="md-primary md-raised" ng-click="">Create New Project</md-button>
+            <md-button ng-click="ctrl.newSuggestion()">+ Suggest a new material</md-button>
         </div>
+
     </md-content>
 </div>

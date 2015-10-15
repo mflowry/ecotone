@@ -1,3 +1,6 @@
+$accent: #546E7A;
+$warn: orange;
+
 #sidenav .ng-scope {
   float: left;
   color: white; }
@@ -5,8 +8,10 @@
 .sidenav-header {
   margin: 10px auto; }
 
-#content {
-  margin-top: 100px;
+#hello {
+  padding: 60px;
+  background-color: white;
+  box-shadow: none;
 }
 
 #footer {
@@ -22,10 +27,24 @@ button.md-primary span {
   color: white;
 }
 
+.md-primary.md-button.md-default-theme.md-ink-ripple.ng-transclude.ng-click{
+  background-color: #546E7A;
+}
+
+
 button.md-accent span{
   color:white
 }
 
+.md-actions {
+  .md-button.md-default-theme.md-ink-ripple:first-child {
+    background-color: $accent;
+
+  }
+  .md-button.md-default-theme.md-ink-ripple {
+    background-color: $warn;
+  }
+}
 md-autocomplete{
   background-color: white;
 }
@@ -37,6 +56,7 @@ md-autocomplete{
 }
 
 #dashboard-page #project-page {
+
 
 
   h2 {
@@ -114,6 +134,7 @@ md-autocomplete{
   table {
     border-collapse: collapse;
     text-align: left;
+    margin-bottom: 50px;
   }
  th{
    border-top: solid 1px darkgray;

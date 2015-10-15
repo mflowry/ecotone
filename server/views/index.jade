@@ -2,11 +2,11 @@ extends layout
 
 block content
   div(layout="column" ng-cloak)
-    section(layout="row" style="height: 100vh" ng-controller="navCtrl" flex)
+    section(layout="row" style="height: 100vh" ng-controller="navCtrl")
       md-sidenav(id="sidenav" class="md-sidenav-left md-primary md-whiteframe-z2 md-closed" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" flex)
         header.sidenav-header
           img(src="/images/ECOTONE_logo.gif" alt="ECOTONE")
-        md-toolbar.md-primary(flex)
+        md-toolbar.md-primary(layout-fill flex)
           ul
             li
               md-button.md-primary(md-no-ink href="/about") About
@@ -25,9 +25,11 @@ block content
             li
               md-button.md-primary(md-no-ink href="/admin") ADMIN
 
-      section(layout="column" layout-padding layout-margin layout-fill)
-        h1(ng-show="user.username") Hello, {{user.firstName}}!
-        md-content(id="content" layout="column" layout-fill layout-align="start center" flex)
+      md-content(layout="column" layout-fill)
+        md-toolbar(id="hello" md-scroll-shrink ng-if="true")
+          div.md-toolbar-tools(style="background-color: white")
+            h1(ng-show="user.username") Hello, {{user.firstName}}!
+        md-content(id="content" layout="column" layout-fill layout-padding layout-margin layout-align="start center" flex)
           <!-- ng-view will display injected content -->
           div(ng-view)
 
@@ -38,6 +40,6 @@ block content
               li
                 md-button(md-no-ink href="/sources") Sources
               li
-                md-button(md-no-ink href="/privacy") Privacy
+                md-button(md-no-ink href="//www.iubenda.com/privacy-policy/759345" title="Privacy Policy") Privacy Policy
               li
                 p(id="copyright") &copy; 2015 Ecotone-Partners

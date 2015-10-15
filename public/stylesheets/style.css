@@ -5,8 +5,10 @@
 .sidenav-header {
   margin: 10px auto; }
 
-#content {
-  margin-top: 100px; }
+#hello {
+  padding: 60px;
+  background-color: white;
+  box-shadow: none; }
 
 #footer {
   margin: auto 0 0 auto; }
@@ -18,8 +20,17 @@
 button.md-primary span {
   color: white; }
 
+.md-primary.md-button.md-default-theme.md-ink-ripple.ng-transclude.ng-click {
+  background-color: #546E7A; }
+
 button.md-accent span {
   color: white; }
+
+.md-actions .md-button.md-default-theme.md-ink-ripple:first-child {
+  background-color: #546E7A; }
+
+.md-actions .md-button.md-default-theme.md-ink-ripple {
+  background-color: orange; }
 
 md-autocomplete {
   background-color: white; }
@@ -82,7 +93,8 @@ md-autocomplete {
 
 table {
   border-collapse: collapse;
-  text-align: left; }
+  text-align: left;
+  margin-bottom: 50px; }
 
 th {
   border-top: solid 1px darkgray;
