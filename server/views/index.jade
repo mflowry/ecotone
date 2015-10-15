@@ -9,17 +9,17 @@ block content
         md-toolbar.md-primary(layout-fill flex)
           ul
             li
-              md-button.md-primary(md-no-ink href="/about") About
+              md-button.md-primary(md-no-ink href="http://ecotone-partners.com/") Learn About Ecotone
             li
               md-button.md-primary(md-no-ink href="/calculator") Calculator
+            li
+              md-button.md-primary(md-no-ink href="/login" ng-hide="user.username") Login
             li
               md-button.md-primary(md-no-ink href="/dashboard" ng-show="user.username") My Dashboard
             li
               md-button.md-primary(md-no-ink href="/projects" ng-show="user.username") My Projects
             li
               md-button.md-primary(md-no-ink href="/account" ng-show="user.username") My Account
-            li
-              md-button.md-primary(md-no-ink href="/login" ng-hide="user.username") Login
             li
               md-button.md-primary(md-no-ink href="/calculator" ng-click="logout()" ng-show="user.username") Logout
             li
