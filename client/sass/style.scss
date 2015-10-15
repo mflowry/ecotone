@@ -92,19 +92,7 @@ md-autocomplete{
     -webkit-flex-wrap: nowrap; /* Safari */
     flex-wrap: nowrap;
   }
-  //ul li {
-  //  ////display: inline-block;
-  //  ////width: 20%;
-  //  //float: none;
-  //  color: white;
-  //  //text-align: center;
-  //  ///* align-items: center;*/
-  //  //font-size: 14px;
-  //  //padding: 15px;
-  //  //font-weight: normal;
-  //  //padding: 15px;
-  //  //margin-top: 5px;
-  }
+
   .li_header {
     display: inline-block;
     width: 20%;
@@ -112,25 +100,24 @@ md-autocomplete{
     background-color: #4CAF50;
     color: white;
     text-align: center;
-    /*align-items: center;*/
     font-size: 16px;
     font-weight: bold;
     padding: 15px;
     margin-top: 5px;
   }
-  .heading {
-    display: inline-block;
-    /*  width: 20%;*/
-    float: none;
-    background-color: #4CAF50;
-    color: white;
-    text-align: center;
-    /*align-items: center;*/
-    font-size: 16px;
-    font-weight: bold;
-    padding: 5px;
-    margin-top: 5px;
-  }
+  //.heading {
+  ////  display: inline-block;
+  ////  /*  width: 20%;*/
+  ////  float: none;
+  ////  background-color: #4CAF50;
+  ////  color: white;
+  ////  text-align: center;
+  ////  /*align-items: center;*/
+  ////  font-size: 16px;
+  ////  font-weight: bold;
+  ////  padding: 5px;
+  ////  margin-top: 5px;
+  ////}
   table {
     border-collapse: collapse;
     text-align: left;
@@ -156,9 +143,14 @@ md-autocomplete{
 }
 
 .dialogdemoBasicUsage .dialogDemo1 {
-  height: 500px; }
-.dialogdemoBasicUsage .dialog-demo-content div {
-  text-align: center; }
-.dialogdemoBasicUsage .md-subheader {
+  height: 500px;
+}
+
+  .dialogdemoBasicUsage .dialog-demo-content div {
+  text-align: center;
+  }
+
+  .dialogdemoBasicUsage .md-subheader {
   background-color: #dcedc8;
-  margin: 0; }
+  margin: 0;
+}
