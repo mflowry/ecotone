@@ -122,8 +122,12 @@ var userSchema = sequelize.define('user',
                                 var matchedUser = {
                                     username: instance.username,
                                     id: instance.id,
-                                    firstName: instance.first_name,
-                                    lastName: instance.last_name
+                                    first_name: instance.first_name,
+                                    last_name: instance.last_name,
+                                    email: instance.email,
+                                    title: instance.title,
+                                    company_name: instance.company_name,
+                                    zip_code: instance.zip_code
                                 };
 
                                 // return the jwt

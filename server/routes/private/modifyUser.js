@@ -15,11 +15,11 @@ router.put('/', function(req, res, next) {
 
     var existingUserById = {
         where: {
-            id: req.body.id
+            id: req.body.user_id
         }
     };
-
-    Users.update(req.body, existingUserByUsername)
+    console.log(req.body);
+    Users.update(req.body, existingUserById)
         .then(function (user) {
             //console.log(user);
             res.sendStatus(200);

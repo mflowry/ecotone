@@ -8,7 +8,7 @@ var Projects = require('../../models/models').Projects;
 var Users = require('../../models/models').Users;
 var Calculations = require('../../models/models').Calculations;
 
-//router.use(expressJwt({secret: 'supersecret'}));
+router.use(expressJwt({secret: 'supersecret'}));
 
 var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/ecotone';
 
@@ -84,12 +84,13 @@ router.post('/', function (req, res, next) {
             }
         };
 
+        console.log(req.body);
+
             Projects.find(existingProjectId).then(function (project) {
 
                 // if returned project is null (does not exist)
                 if (project === null) {
 
-                    console.log('No project found. Creating...');
                     // create a new project using the values in the request body
                     Projects.create(req.body)
                         .then(function (project) {
@@ -105,7 +106,6 @@ router.post('/', function (req, res, next) {
                             });
 
                         }).catch(function (err) {
-                            console.log('there was an error', err);
                             res.send('error: ', err);
                         });
                 } else {
@@ -170,7 +170,7 @@ router.post('/calculation', function (req, res, next) {
     Projects.findById(req.body.project_id).then(function (project) {
 
         var returnedCalculations = [];
-        req.body.calculationsArray.forEach(function(item){
+        req.body.forEach(function(item){
 
             Calculations.create(
                 item)
