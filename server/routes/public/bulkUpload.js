@@ -13,6 +13,25 @@ var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/ec
     //            AND upper(secondaries.secondary_cat) = upper('wood')
 
 
+var units = [
+    {
+        name: 'lbs',
+        conversion: 0.0005
+    },
+    {
+        name: 'kilos',
+        conversion: 0.00110231
+    },
+    {
+        name: 'tons',
+        conversion: 1
+    },
+    {
+        name: 'metric tons',
+        conversion: 1.10231
+    }
+];
+
 function findCO2( primary_cat, secondary_cat, arr){
     var primary = primary_cat.toLowerCase();
     if( secondary_cat != null ){
@@ -46,11 +65,13 @@ router.post('/', function(req, res){
                 if(results){
                     var bulkArr = req.body;
                     bulkArr.forEach(function(item){
-                        item.co2 = findCO2( item.category, item.subcategory, results.rows);
-                        console.log(item.co2);
+                        var co2Coef = parseFloat(findCO2( item.category, item.subcategory, results.rows));
+                        var unit = units.filter(function( unit ){ return unit.name == item.units });
+                        var unitCoef = unit[0].conversion;
+                        item.co2_offset =  Math.abs(unitCoef * parseFloat(item.weight) * co2Coef);
                     });
 
-                    res.sendStatus(200);
+                    res.send(bulkArr);
                 } else{
                     res.send("Cannot find that proxy");
                 }
