@@ -39,16 +39,6 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         {
             templateUrl: '/views/project.html',
             controller: 'projectsCtrl as ctrl'
-        }).when('/about',
-        {
-            templateUrl: '/views/about.html'
-        }).when('/contact',
-        {
-            templateUrl: '/views/contact.html',
-            controller: ''
-        }).when('/privacy',
-        {
-            templateUrl: '/views/privacy.html'
         }).when('/sources',
         {
             templateUrl: '/views/sources.html'

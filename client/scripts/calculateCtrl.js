@@ -55,6 +55,9 @@ app.controller('calculateCtrl', ['$http', '$mdDialog', '$rootScope', 'authServic
         notes: ''
     };
     self.newCalculation = newCalculation;
+    self.saveToProject = saveToProject;
+    self.newProject = newProject;
+    self.createProject = createProject;
 
 
     function searchTextChange(text) {
@@ -67,6 +70,7 @@ app.controller('calculateCtrl', ['$http', '$mdDialog', '$rootScope', 'authServic
             self.subcategory = '';
             self.warmId = '';
             self.weight = '';
+            self.item_description = '';
             self.conversion = '';
             self.result = '';
         }
@@ -90,7 +94,8 @@ app.controller('calculateCtrl', ['$http', '$mdDialog', '$rootScope', 'authServic
             subcategory: self.subcategory,
             warm_Id: self.warmId,
             weight: parseFloat(self.weight)*self.conversion,
-            units: self.unit.name
+            units: self.unit.name,
+            item_description: self.item_description
         };
         console.log(lineItem);
         $http.post('/addToProject').then(function(response) {
@@ -111,16 +116,15 @@ app.controller('calculateCtrl', ['$http', '$mdDialog', '$rootScope', 'authServic
     }
 
     function submitSuggestion(){
-        $http.post('/suggestion', self.submission).then(function( res ){
+        $http.post('/suggestion', self.suggestSubmission).then(function( res ){
             $mdDialog.hide();
         });
     }
 
     function newSuggestion( suggestion ){
-        document.getElementById('sidenav').focus();
 
         $mdDialog.show({
-            templateUrl: '/views/submit-modal.html',
+            templateUrl: '/views/suggest-modal.html',
             clickOutsideToClose: true,
             controller: 'calculateCtrl',
             controllerAs: 'ctrl',
@@ -129,5 +133,21 @@ app.controller('calculateCtrl', ['$http', '$mdDialog', '$rootScope', 'authServic
 
     }
 
+    function createProject() {
+        $http.post('/project', self.projectSubmission).then(function(res){
+            $mdDialog.hide();
+        })
+    }
+
+    function newProject( newProject ){
+
+        $mdDialog.show({
+            templateUrl: 'views/project-modal.html',
+            clickOutsideToClose: true,
+            controller: 'calculateCtrl',
+            controllerAs: 'ctrl'
+        })
+
+    }
 
 }]);
