@@ -4,7 +4,6 @@ const
     Users = require('../../models/models').Users;
 
 router.post('/', function(req, res, next) {
-        console.log("THIS IS THE REQUEST FOR THE REQUEST SHDAFDS", req.body)
         var existingUserByEmail = {
             where: {
                 email: req.body.email
