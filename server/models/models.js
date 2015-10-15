@@ -17,7 +17,6 @@ var userSchema = sequelize.define('user',
         },
         username: {
             type: Sequelize.STRING,
-            field: 'user_name',
             unique: true,
             validate: {
                 isAlphanumeric: true
@@ -35,48 +34,47 @@ var userSchema = sequelize.define('user',
                 isEmail: true
             }
         },
-        firstName: {
+        first_name: {
             type: Sequelize.STRING,
-            field: 'firstName',
             validate: {
                 isAlpha: true
             }
         },
-        lastName: {
+        last_name: {
             type: Sequelize.STRING,
-            field: 'last_name',
             validate: {
                 isAlpha: true
             }
         },
         title: {
             type: Sequelize.STRING,
-            field: 'title',
             validate: {
-                isAlpha: true
+                isAlphanumeric: true
             }
         },
-        companyName: {
+        company_name: {
             type: Sequelize.STRING,
-            field: 'company_name',
             unique: true,
             validate: {
-                isAlpha: true
+                isAlphanumericWithSpaces: function(value) {
+                    if(!value.match('^[0-9a-zA-Z .-]+$')) {
+                        throw new Error('Only alphanumeric,spaces, periods, and dashes allowed!')
+                    }
+                }
             }
         },
-        zipCode: {
+        zip_code: {
             type: Sequelize.STRING,
-            field: 'zip_code',
             validate: {
                 isInt: true
             }
         },
-        registerDate: {
+        register_date: {
             type: Sequelize.DATE,
-            field: 'register_date'
         }
     },
     {
+        underscored: true,
         instanceMethods: {
 
             comparePassword: function (candidatePassword, cb) {
@@ -124,8 +122,12 @@ var userSchema = sequelize.define('user',
                                 var matchedUser = {
                                     username: instance.username,
                                     id: instance.id,
-                                    firstName: instance.firstName,
-                                    lastName: instance.lastName
+                                    first_name: instance.first_name,
+                                    last_name: instance.last_name,
+                                    email: instance.email,
+                                    title: instance.title,
+                                    company_name: instance.company_name,
+                                    zip_code: instance.zip_code
                                 };
 
                                 // return the jwt
@@ -150,8 +152,8 @@ var userSchema = sequelize.define('user',
 //methods to be run before validation
 userSchema.hook('beforeValidate', function (user, options, next) {
     //var user = this;
-    if (!user.registerDate) {
-        user.registerDate = pg.types.setTypeParser(1114, function (stringValue) {
+    if (!user.register_date) {
+        user.register_date = pg.types.setTypeParser(1114, function (stringValue) {
             return new Date(stringValue, "-0600");
         });
         user.registerDate = new Date();
@@ -186,24 +188,35 @@ userSchema.hook('beforeValidate', function (user, options, next) {
 //projects model
 projectSchema = sequelize.define('project',
     {
-        projectId: {
+        id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true
         },
-        projectName: {
+        project_name: {
             type: Sequelize.STRING,
             validate: {
                 isAlphanumeric: true
             }
+        },
+        project_description: {
+            type: Sequelize.STRING,
+            validate: {
+                isAlphanumericWithSpaces: function(value) {
+                    if(!value.match('^[0-9a-zA-Z .-]+$')) {
+                        throw new Error('Only alphanumeric,spaces, periods, and dashes allowed!')
+                    }
+                }
+            }
         }
-    }
+    },
+    {underscored: true}
 );
 
 //calculations model
 calculationSchema = sequelize.define('calculation',
     {
-        calculationId: {
+        id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true
@@ -214,7 +227,7 @@ calculationSchema = sequelize.define('calculation',
                 isAlphanumeric: true
             }
         },
-        subCategory: {
+        sub_category: {
             type: Sequelize.STRING,
             validate: {
                 isAlphanumeric: true
@@ -232,16 +245,28 @@ calculationSchema = sequelize.define('calculation',
                 isFloat: true
             }
         },
-        co2Offset: {
+        co2_offset: {
             type: Sequelize.FLOAT,
             validate: {
                 isFloat: true
             }
+        },
+        item_description: {
+            type: Sequelize.STRING,
+            validate: {
+                isAlphanumericWithSpaces: function(value) {
+                    console.log(value.match('^[0-9a-zA-Z .]+$') || false);
+                    if(!value.match('^[0-9a-zA-Z .-]+$')) {
+                        throw new Error('Only alphanumeric,spaces, periods, and dashes allowed!')
+                    }
+                }
+            }
         }
-    }
+    },
+    {underscored: true}
 );
 
-//set up assocations
+//set up associations
 userSchema.hasMany(projectSchema);
 projectSchema.belongsTo(userSchema);
 projectSchema.hasMany(calculationSchema);

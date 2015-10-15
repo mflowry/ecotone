@@ -55,6 +55,7 @@ app.controller('calculateCtrl', ['$http', '$mdDialog', '$rootScope', 'authServic
         notes: ''
     };
     self.newCalculation = newCalculation;
+    self.saveToProject = saveToProject;
 
 
     function searchTextChange(text) {
@@ -67,6 +68,7 @@ app.controller('calculateCtrl', ['$http', '$mdDialog', '$rootScope', 'authServic
             self.subcategory = '';
             self.warmId = '';
             self.weight = '';
+            self.item_description = '';
             self.conversion = '';
             self.result = '';
         }
@@ -90,7 +92,8 @@ app.controller('calculateCtrl', ['$http', '$mdDialog', '$rootScope', 'authServic
             subcategory: self.subcategory,
             warm_Id: self.warmId,
             weight: parseFloat(self.weight)*self.conversion,
-            units: self.unit.name
+            units: self.unit.name,
+            item_description: self.item_description
         };
         console.log(lineItem);
         $http.post('/addToProject').then(function(response) {

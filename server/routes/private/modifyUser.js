@@ -13,13 +13,13 @@ router.get('/',function(req,res,next){
 
 router.put('/', function(req, res, next) {
 
-    var existingUserByUsername = {
+    var existingUserById = {
         where: {
-            username: req.body.username
+            id: req.body.user_id
         }
     };
-
-    Users.update(req.body, existingUserByUsername)
+    console.log(req.body);
+    Users.update(req.body, existingUserById)
         .then(function (user) {
             //console.log(user);
             res.sendStatus(200);
