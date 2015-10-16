@@ -48,12 +48,27 @@ button.md-accent span{
 md-autocomplete{
   background-color: white;
 }
+table{
+  border-collapse: collapse;
+  text-align: left;
+  margin-bottom: 50px;
+}
+th{
+  border-top: solid 1px darkgray;
+  border-bottom: solid 1px darkgray;
+  background-color: lightgray;
+}
+
+td{
+  border-bottom: solid 1px darkgray;
+}
 
 #login-page{
   #submit-buttons a {
     vertical-align: middle;
   }
 }
+
 
 #dashboard-page #project-page {
 
@@ -116,20 +131,7 @@ md-autocomplete{
   ////  padding: 5px;
   ////  margin-top: 5px;
   ////}
-  table {
-    border-collapse: collapse;
-    text-align: left;
-    margin-bottom: 50px;
-  }
-  th {
-    border-top: solid 1px darkgray;
-    border-bottom: solid 1px darkgray;
-    background-color: lightgray;
-  }
 
-  td {
-    border-bottom: solid 1px darkgray;
-  }
 
   img {
     vertical-align: middle;
