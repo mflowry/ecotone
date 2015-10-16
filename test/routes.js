@@ -77,7 +77,7 @@ describe('The user API', function(){
         api.delete('/modifyUser/' + user.id)
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
-    })
+    });
 });
 
 describe('A Calculation', function(){
@@ -302,6 +302,12 @@ describe('The project/calculation API', function(){
 
     it('should delete a calc', function( done ){
         api.delete('/project/calculation/' + calculation.id)
+            .set('Authorization', 'Bearer ' + token)
+            .expect(200, done);
+    });
+
+    it('should delete a user', function( done ){
+        api.delete('/modifyUser/' + user.id)
             .set('Authorization', 'Bearer ' + token)
             .expect(200, done);
     });
