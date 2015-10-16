@@ -51,10 +51,9 @@ function getProjectsByProjectId(req, res, next){
                 if(err){
                     console.log(err);
                 } else{
-                    console.log(results);
+                    res.send(results.rows);
                 }
-                //var projects = results.rows;
-                res.send(results.rows);
+
             });
 
 
@@ -75,54 +74,72 @@ router.get('/', function(req,res,next){
 
 router.post('/', function (req, res, next) {
 
-    Users.findById(req.body.user_id).then(function (user) {
+    Users.findById(req.body.user_id)
+        .then(function (user) {
 
-        var existingProjectId = {
-            where: {
-                project_name: req.body.project_name,
-                user_id: req.body.user_id
-            }
-        };
-
-        console.log(req.body);
-
-            Projects.find(existingProjectId).then(function (project) {
-
-                // if returned project is null (does not exist)
-                if (project === null) {
-
-                    // create a new project using the values in the request body
-                    Projects.create(req.body)
-                        .then(function (project) {
-
-                            // add the project to the user
-                            user.addProject(project).then(function(){
-
-
+            var existingProjectId = {
+                where: {
+                    project_name: req.body.project_name,
+                    user_id: req.body.user_id
+                },
+                defaults: req.body
+            };
+            return Projects.findOrCreate(existingProjectId)
+                .spread(function (project, created){
+                    if(created){
+                        return user.addProject(project)
+                            .then(function(){
                                 project.dataValues.user_id = user.id;
-                                // send the relevant part of the project object to client
-                                res.send(project);
-
-                            });
-
-                        }).catch(function (err) {
-                            res.send('error: ', err);
-                        });
-                } else {
-
-                    // if project already exists, send status 409
-                    res.sendStatus(409).send({message: "Duplicate project name"});
-                }
+                                res.send(project.dataValues);
+                            })
+                    } else {
+                        throw new Error('Duplicate Project Name');
+                    }
+                });
+        //
+        //
+        ////console.log(req.body);
+        //
+        //    Projects.findOrCreate(existingProjectId)
+        //        .spread(function (project, created) {
+        //
+        //        // if returned project is null (does not exist)
+        //        if (project === null) {
+        //
+        //            // create a new project using the values in the request body
+        //            return Projects.create(req.body)
+        //                .then(function (project) {
+        //
+        //                    // add the project to the user
+        //                    user.addProject(project).then(function(){
+        //
+        //
+        //                        project.dataValues.user_id = user.id;
+        //                        // send the relevant part of the project object to client
+        //                        res.send(project);
+        //
+        //                    });
+        //
+        //                }).catch(function (err) {
+        //                    res.send('error: ', err);
+        //                });
+        //        } else {
+        //
+        //            // if project already exists, send status 409
+        //            res.sendStatus(409).send({message: "Duplicate project name"});
+        //        }
             }).catch(function (err) {
-                console.log(err);
+
+                if (err.message === 'Duplicate Project Name'){
+                    res.sendStatus(409).send({message:err.message});
+                }
+                res.send(err);
                 // status should only occur if there is an error internal to the database
-                res.sendStatus(500)
+                //res.sendStatus(409).send({message: "Duplicate project name"});
+
             });
         //})
-    })
-
-
-});
+    });
 
 router.put('/', function (req, res, next) {
 
@@ -181,7 +198,8 @@ router.post('/calculation', function (req, res, next) {
 
                         calculation.dataValues.project_id = project.project_id;
                         // send the relevant part of the project object to client
-                        returnedCalculations.push(calculation);
+                        returnedCalculations.push(calculation.dataValues);
+                        //console.log(calculation);
                     });
 
                 }).catch(function (err) {

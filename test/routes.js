@@ -214,11 +214,12 @@ describe('The project/calculation API', function(){
            .set('Authorization', 'Bearer ' + token)
            .send(calcToSend)
            .end(function( err, res ){
-               res.body.should.have.length(1);
-               res.body[0].should.have.property('category', newCalculation.category);
-               res.body[0].should.have.property('sub_category', newCalculation.sub_category);
-               calculations = res.body;
-               done();
+                console.log(res.body);
+                res.body.should.have.length(1);
+                res.body[0].should.have.property('category', newCalculation.category);
+                res.body[0].should.have.property('sub_category', newCalculation.sub_category);
+                calculations = res.body;
+                done();
            });
     });
 
