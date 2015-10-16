@@ -8,7 +8,7 @@
             <h3>Project Name</h3>
             <md-autocomplete
                     ng-disabled="ctrl.isDisabled"
-                    md-selected-item="ctrl.project_name"
+                    md-selected-item="ctrl.selected_project"
                     md-selected-item-change="ctrl.selectedItemChange(item)"
                     md-search-text="ctrl.searchText"
                     md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
@@ -46,31 +46,31 @@
                     <th flex="15">Sub-Category</th>
                     <th flex="5">Weight</th>
                     <th flex="5">Units</th>
-                    <th flex="10">CO<sub>2</sub> Offset</th>
-                    <th flex="5"></th>
+                    <th flex="12">CO<sub>2</sub> Offset</th>
+                    <th flex="3"></th>
                 </tr>
 
-                <!--<tr layout="row" layout-fill layout-wrap ng-repeat="id in ctrl.project_name">-->
-                    <!--<td contentEditable="true" flex="15">{{ctrl.project_name.item_description}}</td>-->
-                <!--</tr>-->
-                <tr layout="row" layout-fill layout-wrap>
-                    <td contentEditable="true" flex="25">{{ctrl.project_name.item_description}}</td>
-                    <td contentEditable="true" flex="15">{{ctrl.project_name.category}}</td>
-                    <td contentEditable="true" flex="15">{{ctrl.project_name.sub_category}}</td>
-                    <td contentEditable="true" flex="5">{{ctrl.project_name.weight}}</td>
-                    <td contentEditable="true" flex="5">{{ctrl.project_name.units}}</td>
-                    <td flex="10">{{ctrl.project_name.co2_offset}} metric tons</td>
-                    <td flex="5" style="text-align: left;" type="submit" ng-value="id" ng-click="ctrl.deleteProjectItem()"><img src="../images/icons/ic_delete_black_24px.svg" alt="Delete Project"/> </td>
+                <tr layout="row" layout-wrap >
+                    <td contentEditable="true" flex="25">{{ctrl.selected_project.item_description}}</td>
+                    <td contentEditable="true" flex="15">{{ctrl.selected_project.category}}</td>
+                    <td contentEditable="true" flex="15">{{ctrl.selected_project.sub_category}}</td>
+                    <td contentEditable="true" flex="5">{{ctrl.selected_project.weight}}</td>
+                    <td contentEditable="true" flex="5">{{ctrl.selected_project.units}}</td>
+                    <td flex="12">{{ctrl.selected_project.co2_offset}} metric tons</td>
+                    <td flex="3" style="text-align: left;" type="submit" ng-value="id" ng-click="ctrl.showDelete()"><img src="../images/icons/ic_delete_black_24px.svg" alt="Delete Project" ng-click="showDelete($event, ctrl.selected_project.id)"/> </td>
                 </tr>
             </table>
         <div>
             <br>
             <md-divider ng-if="!$last"></md-divider>
-            <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+            <section layout="row" layout-align="center right">
             <md-button class="md-accent md-raised" ng-click="ctrl.calculateProjectTotal()" style="background-color: #0288d1;">Calculate Total</md-button>
             <md-button class="md-accent md-raised" ng-click="ctrl.saveProject()" style="background-color: #0288d1;">Save Changes</md-button>
             </section>
-            <p ng-show="ctrl.projectTotal">Your Total Estimated CO<sub>2</sub> Offset is {{ctrl.projectTotal}} metric tons</p>
+            <section layout="row" layout-align="right">
+                <p ng-show="ctrl.projectTotal">Your Total Estimated CO<sub>2</sub> Offset is {{ctrl.projectTotal}} metric tons</p>
+            </section>
+
         </div>
     </md-content>
 </div>
