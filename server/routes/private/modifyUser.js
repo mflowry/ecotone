@@ -12,10 +12,10 @@ router.get('/',function(req,res,next){
 });
 
 router.put('/', function(req, res, next) {
-
+    console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n\n\n\n\n\n',req.body)
     var existingUserById = {
         where: {
-            id: req.body.user_id
+            id: req.body.id
         }
     };
     console.log(req.body);

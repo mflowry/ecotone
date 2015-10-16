@@ -66,7 +66,7 @@ var userSchema = sequelize.define('user',
         zip_code: {
             type: Sequelize.STRING,
             validate: {
-                isInt: true
+                isInt: true // change to accept canadian
             }
         },
         register_date: {
