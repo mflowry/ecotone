@@ -17,7 +17,7 @@ app.controller('dashboardCtrl', ['$mdDialog', '$rootScope', '$scope', '$http', f
             .title('Are you sure you want to remove your project?')
             .content('This is permanent.')
             .ariaLabel('Remove project from account permanently')
-            .ok('Delete')
+            .ok('Remove')
             .cancel('Cancel')
             .targetEvent(ev);
         $mdDialog.show(confirm).then(function() {
@@ -39,5 +39,27 @@ app.controller('dashboardCtrl', ['$mdDialog', '$rootScope', '$scope', '$http', f
 //        $mdDialog.hide(answer);
 //    };
 //}
+    self = this;
+    self.newProject = newProject;
+    self.createProject = createProject;
+
+    function createProject() {
+        self.projectSubmission.user_id = $rootScope.user.id;
+
+        $http.post('/project', self.projectSubmission).then(function(res){
+            $mdDialog.hide();
+        })
+    }
+
+    function newProject( newProject ){
+
+        $mdDialog.show({
+            templateUrl: 'views/project-modal.html',
+            clickOutsideToClose: true,
+            controller: 'dashboardCtrl',
+            controllerAs: 'ctrl'
+        })
+
+    }
 
 }]);
