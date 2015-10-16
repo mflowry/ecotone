@@ -134,6 +134,8 @@ app.controller('calculateCtrl', ['$http', '$mdDialog', '$rootScope', 'authServic
     }
 
     function createProject() {
+        self.projectSubmission.user_id = $rootScope.user.id;
+
         $http.post('/project', self.projectSubmission).then(function(res){
             $mdDialog.hide();
         })
