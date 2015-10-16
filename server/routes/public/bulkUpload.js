@@ -61,6 +61,7 @@ function findCO2( primary_cat, secondary_cat, arr){
 
     // error handling (should not happen if csv uploaded correctly)
     if(row != undefined ){
+        //console.log(row[0].co2)
         return row[0].co2
     } else {
         return 'err'
@@ -84,16 +85,17 @@ router.post('/', function(req, res){
                     var bulkArr = req.body;
                     // for each csv row
                     bulkArr.forEach(function(item){
+ //                       console.log(' for each ', item.category, item.sub_category);
 
                         // find the co2 coeficient using function defined above
-                        var co2Coef = parseFloat(findCO2( item.category, item.subcategory, results.rows));
+                        var co2Coef = parseFloat(findCO2( item.category, item.sub_category, results.rows));
 
                         // get the units from the units conversion object
                         var unit = units.filter(function( unit ){ return unit.name == item.units });
 
                         // get the conversion factor
                         var unitCoef = unit[0].conversion;
-
+                        //console.log(co2Coef, unitCoef, item.weight);
                         // calc and assign new property to row
                         item.co2_offset =  Math.abs(unitCoef * parseFloat(item.weight) * co2Coef);
                     });

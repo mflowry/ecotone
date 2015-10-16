@@ -46,5 +46,5 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
             redirectTo: '/'
         });
 
-    //$httpProvider.interceptors.push('authInterceptor');
+    $httpProvider.interceptors.push('authInterceptor');
 }]);
