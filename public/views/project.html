@@ -29,7 +29,7 @@
             </md-autocomplete>
             <md-content>
                 <h3>Project Description </h3>
-                <p>{{ctrl.project_name.project_description}}</p>
+                <p>{{ctrl.selected_project.project_description}}</p>
             </md-content>
         <md-divider ng-if="!$last"></md-divider>
         </div>
@@ -51,13 +51,13 @@
                 </tr>
 
                 <tr layout="row" layout-wrap >
-                    <td contentEditable="true" flex="25">{{ctrl.selected_project.item_description}}</td>
-                    <td contentEditable="true" flex="15">{{ctrl.selected_project.category}}</td>
-                    <td contentEditable="true" flex="15">{{ctrl.selected_project.sub_category}}</td>
-                    <td contentEditable="true" flex="5">{{ctrl.selected_project.weight}}</td>
-                    <td contentEditable="true" flex="5">{{ctrl.selected_project.units}}</td>
+                    <td contentEditable="false" flex="25">{{ctrl.selected_project.item_description}}</td>
+                    <td contentEditable="false" flex="15">{{ctrl.selected_project.category}}</td>
+                    <td contentEditable="false" flex="15">{{ctrl.selected_project.sub_category}}</td>
+                    <td contentEditable="false" flex="5">{{ctrl.selected_project.weight}}</td>
+                    <td contentEditable="false" flex="5">{{ctrl.selected_project.units}}</td>
                     <td flex="12">{{ctrl.selected_project.co2_offset}} metric tons</td>
-                    <td flex="3" style="text-align: left;" type="submit" ng-value="id" ng-click="ctrl.showDelete()"><img src="../images/icons/ic_delete_black_24px.svg" alt="Delete Project" ng-click="showDelete($event, ctrl.selected_project.id)"/> </td>
+                    <td flex="3" style="text-align: left;" type="submit" ng-value="id" ><a href="/projects"><img src="images/icons/ic_create_black_24px.svg" alt="Edit item" /></a> | <img src="images/icons/ic_save_black_24px.svg" ng-click="contentEditable = true"  alt="Save Changes"/> | <img src="images/icons/ic_delete_black_24px.svg" ng-click="showDelete($event, ctrl.selected_project.id)" alt="Delete item" /> </td>
                 </tr>
             </table>
         <div>
@@ -65,12 +65,10 @@
             <md-divider ng-if="!$last"></md-divider>
             <section layout="row" layout-align="center right">
             <md-button class="md-accent md-raised" ng-click="ctrl.calculateProjectTotal()" style="background-color: #0288d1;">Calculate Total</md-button>
-            <md-button class="md-accent md-raised" ng-click="ctrl.saveProject()" style="background-color: #0288d1;">Save Changes</md-button>
             </section>
             <section layout="row" layout-align="right">
                 <p ng-show="ctrl.projectTotal">Your Total Estimated CO<sub>2</sub> Offset is {{ctrl.projectTotal}} metric tons</p>
             </section>
-
         </div>
     </md-content>
 </div>
