@@ -51,7 +51,6 @@ function getProjectsByProjectId(req, res, next){
                 if(err){
                     console.log(err);
                 } else{
-                    console.log(results.rows);
                     res.send(results.rows);
                 }
 
@@ -165,7 +164,7 @@ router.post('/calculation', function (req, res, next) {
 
                     }).catch(function (err) {
                         console.log('there was an error', err);
-                        res.send('error: ', err);
+                        //res.send('error: ', err);
                     });
             });
 
