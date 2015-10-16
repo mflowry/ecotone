@@ -197,6 +197,7 @@ console.log(self.projectList);
     };
 
     function calculateProjectTotal() {
+        console.log("calculating...");
         projectList.forEach(function (item) {
             projectTotal += item.co2_offset;
             console.log(projectTotal);
