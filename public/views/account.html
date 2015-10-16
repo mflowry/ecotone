@@ -5,11 +5,11 @@
         <md-content layout-padding layout="row" layout-sm="column">
             <md-input-container flex>
                 <label>First Name</label>
-                <input ng-model="user.firstName" required>
+                <input ng-model="user.first_name">
             </md-input-container>
             <md-input-container flex>
                 <label>Last Name</label>
-                <input ng-model="user.lastName" required>
+                <input ng-model="user.last_name">
             </md-input-container>
         </md-content>
         <md-content layout-padding layout="row" layout-sm="column">
@@ -17,33 +17,33 @@
                 <label>Title</label>
                 <input ng-model="user.title">
             </md-input-container>
-        </md-content>
-        <md-content layout-padding layout="row" layout-sm="column">
+        <!--</md-content>-->
+        <!--<md-content layout-padding layout="row" layout-sm="column">-->
             <md-input-container flex>
                 <label>Company Name</label>
-                <input ng-model="user.companyName">
+                <input ng-model="user.company_name">
             </md-input-container>
         </md-content>
         <md-content layout-padding layout="row" layout-sm="column">
             <md-input-container flex>
                 <label>Zip/Postal Code</label>
                 <!-- Should Validate for US and Candian zip/postal codes-->
-                <input ng-model="user.zipCode" ng-pattern="^(\d{5}-\d{4}|\d{5}|\d{9})$|^([a-zA-Z]\d[a-zA-Z]( )?\d[a-zA-Z]\d)$" required>
+                <input ng-model="user.zip_code" ng-pattern="^(\d{5}-\d{4}|\d{5}|\d{9})$|^([a-zA-Z]\d[a-zA-Z]( )?\d[a-zA-Z]\d)$">
             </md-input-container>
-        </md-content>
-        <md-content layout-padding layout="row" layout-sm="column">
+        <!--</md-content>-->
+        <!--<md-content layout-padding layout="row" layout-sm="column">-->
             <md-input-container flex>
                 <label>Email</label>
-                <input ng-model="user.email" type="email" required>
+                <input ng-model="user.email" type="email">
             </md-input-container>
         </md-content>
 
         <!-- User Login Credentials -->
-        <h2>Change Username and Password</h2>
+
         <md-content layout-padding layout="row" layout-sm="column">
             <md-input-container flex>
                 <label>Username</label>
-                <input ng-model="user.username" type="string" required>
+                <input ng-model="user.username" type="string">
             </md-input-container>
         </md-content>
         <md-content layout-padding layout="row" layout-sm="column">
@@ -54,11 +54,11 @@
                     <div ng-message="pattern">Password must be minimum of 8 characters with at least one number.</div>
                 </div>
             </md-input-container>
-        </md-content>
-        <md-content layout-padding layout="row" layout-sm="column">
+        <!--</md-content>-->
+        <!--<md-content layout-padding layout="row" layout-sm="column">-->
             <md-input-container flex>
                 <label>Confirm Password</label>
-                <input ng-model="user.confirmPassword" type="password" data-match="editAccountForm.password"  name="confirmPassword" required>
+                <input ng-model="user.confirmPassword" type="password" data-match="editAccountForm.password"  name="confirmPassword" ng-pattern="/(?=.*[0-9]){8,}/" required>
                 <div ng-messages="editAccountForm.confirmPassword.$error" role="alert">
                     <div ng-message="match">Passwords do not match!</div>
                 </div>
@@ -70,71 +70,3 @@
     </form>
 </div>
 
-
-
-
-<!--<div id="editAccount-page" layout="column" ng-controller="editAccountCtrl" ng-cloak>-->
-    <!--<h1 class="md-headline">Edit Account Information</h1>-->
-    <!--<form name="editForm">-->
-    <!--<md-content>-->
-
-        <!--<div layout layout-sm="column">-->
-            <!--<md-input-container flex>-->
-                <!--<label for="fName">First Name</label>-->
-                <!--<input id="fName" type="text" contentEditable="true" ng-model="user.firstName" />-->
-            <!--</md-input-container>-->
-            <!--<md-input-container flex>-->
-                <!--<label for="lName">Last Name</label>-->
-                <!--<input id="lName" type="text" contentEditable="true" ng-model="user.lastName" />-->
-            <!--</md-input-container>-->
-        <!--</div>-->
-
-        <!--<div layout layout-sm="column">-->
-            <!--<md-input-container flex>-->
-                <!--<label for="title">Title</label>-->
-                <!--<input id="title" type="text" contentEditable="true" ng-model="user.title" />-->
-            <!--</md-input-container>-->
-            <!--<md-input-container flex>-->
-                <!--<label for="company">Company</label>-->
-                <!--<input id="company" type="text" contentEditable="true" ng-model="user.company_name" />-->
-            <!--</md-input-container>-->
-        <!--</div>-->
-
-        <!--<div layout layout-sm="column">-->
-            <!--<md-input-container flex>-->
-                <!--<label for="zip">Zip/Postal Code:</label>-->
-                <!--<input id="zip" type="text" contentEditable="true" ng-model="user.zip_code" ng-pattern="^(\d{5}-\d{4}|\d{5}|\d{9})$|^([a-zA-Z]\d[a-zA-Z]( )?\d[a-zA-Z]\d)$" />-->
-            <!--</md-input-container>-->
-            <!--<md-input-container flex>-->
-                <!--<label for="email">Email:</label>-->
-                <!--<input id="email" type="text" contentEditable="true" ng-model="user.email" />-->
-            <!--</md-input-container>-->
-        <!--</div>-->
-
-        <!--<div layout layout-sm="column">-->
-            <!--<md-input-container flex>-->
-                <!--<label for="password">Password:</label>-->
-                <!--<input id="password" type="password" contentEditable="true" ng-model="user.Password" data-match="editAccountForm.password"  ng-pattern="/(?=.*[0-9]){8,}/" name="Password"  />-->
-
-                <!--<div ng-messages="editAccountForm.password.$error" role="alert">-->
-                    <!--<div ng-message="pattern">Password must be minimum of 8 characters with at least one number.</div>-->
-                <!--</div></md-input-container>-->
-            <!--<md-input-container flex>-->
-                <!--<label for="confirmPassword">Re-enter Password:</label>-->
-                <!--<input id="confirmPassword" type="password" contentEditable="true" ng-model="user.confirmPassword" />-->
-                <!--<div ng-messages="editAccountForm.confirmPassword.$error" role="alert">-->
-                    <!--<div ng-message="match">Passwords do not match!</div>-->
-                <!--</div>-->
-            <!--</md-input-container>-->
-        <!--</div>-->
-
-        <!--<div layout layout-sm="column">-->
-            <!--<md-input-container>-->
-                <!--<md-button class="md-raised md-accent" ng-click= "processForm(user)" type="submit" value="Save">Save changes-->
-                <!--</md-button>-->
-            <!--</md-input-container>-->
-        <!--</div>-->
-
-    <!--</md-content>-->
-        <!--</form>-->
-<!--</div>-->

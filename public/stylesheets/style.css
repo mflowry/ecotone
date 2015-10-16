@@ -64,58 +64,35 @@ md-autocomplete {
     -webkit-flex-wrap: nowrap;
     /* Safari */
     flex-wrap: nowrap; }
-
-.li_header {
-  display: inline-block;
-  width: 20%;
-  float: none;
-  background-color: #4CAF50;
-  color: white;
-  text-align: center;
-  /*align-items: center;*/
-  font-size: 16px;
-  font-weight: bold;
-  padding: 15px;
-  margin-top: 5px; }
-
-.heading {
-  display: inline-block;
-  /*  width: 20%;*/
-  float: none;
-  background-color: #4CAF50;
-  color: white;
-  text-align: center;
-  /*align-items: center;*/
-  font-size: 16px;
-  font-weight: bold;
-  padding: 5px;
-  margin-top: 5px; }
-
-table {
-  border-collapse: collapse;
-  text-align: left;
-  margin-bottom: 50px; }
-
-th {
-  border-top: solid 1px darkgray;
-  border-bottom: solid 1px darkgray;
-  background-color: lightgray; }
-
-td {
-  border-bottom: solid 1px darkgray; }
-
-img {
-  vertical-align: middle; }
-
-#secondary-margin {
-  margin-top: 32px; }
-
-.dialogdemoBasicUsage .dialogDemo1 {
-  height: 500px; }
-
-.dialogdemoBasicUsage .dialog-demo-content div {
-  text-align: center; }
-
-.dialogdemoBasicUsage .md-subheader {
-  background-color: #dcedc8;
-  margin: 0; }
+  #dashboard-page #project-page .li_header {
+    display: inline-block;
+    width: 20%;
+    float: none;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 15px;
+    margin-top: 5px; }
+  #dashboard-page #project-page table {
+    border-collapse: collapse;
+    text-align: left;
+    margin-bottom: 50px; }
+  #dashboard-page #project-page th {
+    border-top: solid 1px darkgray;
+    border-bottom: solid 1px darkgray;
+    background-color: lightgray; }
+  #dashboard-page #project-page td {
+    border-bottom: solid 1px darkgray; }
+  #dashboard-page #project-page img {
+    vertical-align: middle; }
+  #dashboard-page #project-page #secondary-margin {
+    margin-top: 32px; }
+  #dashboard-page #project-page .dialogdemoBasicUsage .dialogDemo1 {
+    height: 500px; }
+  #dashboard-page #project-page .dialogdemoBasicUsage .dialog-demo-content div {
+    text-align: center; }
+  #dashboard-page #project-page .dialogdemoBasicUsage .md-subheader {
+    background-color: #dcedc8;
+    margin: 0; }

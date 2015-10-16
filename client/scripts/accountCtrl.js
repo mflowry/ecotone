@@ -1,9 +1,10 @@
 
 // Edit account info HTML - Kim
 app.controller('editAccountCtrl', ['$scope', '$http', '$location', '$rootScope', function($scope, $http, $location, $rootScope) {
-    $scope.user = $rootScope.user;
-    var infoToUpdate =
     $scope.user = {};
+    console.log($rootScope.user);
+    $scope.user = $rootScope.user;
+    var infoToUpdate;
 
     $scope.updateUserInfo = function (user) {
         console.log("Posting...");
