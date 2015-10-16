@@ -7,19 +7,19 @@
     </p>
     <md-input-container layout-fill flex>
         <label>Email</label>
-        <input ng-model="ctrl.submission.email" type="email">
+        <input ng-model="ctrl.projectSubmission.email" type="email">
     </md-input-container>
     <md-input-container layout-fill flex>
         <label>Material</label>
-        <input ng-init="" ng-model="ctrl.submission.material" type="text">
+        <input ng-init="" ng-model="ctrl.projectSubmission.material" type="text">
     </md-input-container>
     <md-input-container layout-fill flex>
         <label>Comment</label>
-        <textarea ng-model="ctrl.submission.notes" md-maxlength="255"></textarea>
+        <textarea ng-model="ctrl.projectSubmission.notes" md-maxlength="255"></textarea>
     </md-input-container>
     <div class="md-actions">
-        <md-button ng-click="ctrl.submitSuggestion()" class="md-primary">
-               Submit
+        <md-button ng-click="ctrl.createProject()" class="md-primary">
+            Submit
         </md-button>
     </div>
 </md-content>

@@ -4,7 +4,6 @@ app.controller('dashboardCtrl', ['$mdDialog', '$rootScope', '$scope', '$http', f
 
     //load project list on page load
     $http.get('/project/' + user.id).then(function(response) {
-        console.log(response);
         $scope.projectList = response.data;
         //response.data.forEach(function(item){
         //    item.project_name = item.primary_cat.toLowerCase();
