@@ -246,7 +246,12 @@ calculationSchema = sequelize.define('calculation',
         units: {
             type: Sequelize.STRING,
             validate: {
-                isAlphanumeric: true
+                isAlphanumericWithSpaces: function(value) {
+                    console.log(value.match('^[0-9a-zA-Z ]+$') || false);
+                    if(!value.match('^[0-9a-zA-Z .-]+$')) {
+                        throw new Error('Only alphanumeric and spaces allowed!')
+                    }
+                }
             }
         },
         weight: {
@@ -265,7 +270,7 @@ calculationSchema = sequelize.define('calculation',
             type: Sequelize.STRING,
             validate: {
                 isAlphanumericWithSpaces: function(value) {
-                    console.log(value.match('^[0-9a-zA-Z .]+$') || false);
+                    console.log(value.match('^[0-9a-zA-Z .-]+$') || false);
                     if(!value.match('^[0-9a-zA-Z .-]+$')) {
                         throw new Error('Only alphanumeric,spaces, periods, and dashes allowed!')
                     }
