@@ -22,12 +22,12 @@ function getProjectsByUserId(req, res, next){
         if( err ){
             console.log(err);
         } else {
-            client.query('select * from projects inner join calculations on (projects.id = calculations.project_id) where user_id=$1', [userId],function(err,results){
+            client.query('select * from projects inner join calculations on (projects.id = calculations.project_id) where user_id=$1 and projects.active=true and calculations.active=true', [userId],function(err,results){
                 done();
                 if(err){
                     console.log(err);
                 } else{
-                    console.log(results);
+                    //console.log(results);
                 }
                 //var projects = results.rows;
                 res.send(results.rows);
@@ -46,15 +46,15 @@ function getProjectsByProjectId(req, res, next){
         if( err ){
             console.log(err);
         } else {
-            client.query('select * from projects inner join calculations on (projects.id = calculations.project_id) where projects.id=$1 and user_id=$2', [projectId,userId],function(err,results){
+            client.query('select * from projects inner join calculations on (projects.id = calculations.project_id) where projects.id=$1 and user_id=$2 and projects.active=true and calculations.active=true', [projectId,userId],function(err,results){
                 done();
                 if(err){
                     console.log(err);
                 } else{
-                    console.log(results);
+                    console.log(results.rows);
+                    res.send(results.rows);
                 }
-                //var projects = results.rows;
-                res.send(results.rows);
+
             });
 
 
@@ -75,53 +75,37 @@ router.get('/', function(req,res,next){
 
 router.post('/', function (req, res, next) {
 
-    Users.findById(req.body.user_id).then(function (user) {
+    Users.findById(req.body.user_id)
+        .then(function (user) {
 
-        var existingProjectId = {
-            where: {
-                project_name: req.body.project_name,
-                user_id: req.body.user_id
-            }
-        };
-
-        console.log(req.body);
-
-            Projects.find(existingProjectId).then(function (project) {
-
-                // if returned project is null (does not exist)
-                if (project === null) {
-
-                    // create a new project using the values in the request body
-                    Projects.create(req.body)
-                        .then(function (project) {
-
-                            // add the project to the user
-                            user.addProject(project).then(function(){
-
-
+            var existingProjectId = {
+                where: {
+                    project_name: req.body.project_name,
+                    user_id: req.body.user_id
+                },
+                defaults: req.body
+            };
+            return Projects.findOrCreate(existingProjectId)
+                .spread(function (project, created){
+                    if(created){
+                        return user.addProject(project)
+                            .then(function(){
                                 project.dataValues.user_id = user.id;
-                                // send the relevant part of the project object to client
-                                res.send(project);
-
-                            });
-
-                        }).catch(function (err) {
-                            res.send('error: ', err);
-                        });
-                } else {
-
-                    // if project already exists, send status 409
-                    res.sendStatus(409).send({message: "Duplicate project name"});
-                }
+                                res.send(project.dataValues);
+                            })
+                    } else {
+                        throw new Error('Duplicate Project Name');
+                    }
+                });
             }).catch(function (err) {
-                console.log(err);
-                // status should only occur if there is an error internal to the database
-                res.sendStatus(500)
-            });
-        //})
-    })
 
-
+                if (err.message === 'Duplicate Project Name'){
+                    res.status(409).send({message:err.message});
+                }
+                else{
+                    res.send(err);
+                }
+        });
 });
 
 router.put('/', function (req, res, next) {
@@ -155,7 +139,7 @@ router.delete('/:id', function (req, res, next) {
         truncate: false
     };
 
-    Projects.destroy(existingProjectById)
+    Projects.update({active:false},existingProjectById)
         .then(function (project) {
             //console.log(project);
             res.sendStatus(200);
@@ -167,37 +151,35 @@ router.delete('/:id', function (req, res, next) {
 
 router.post('/calculation', function (req, res, next) {
 
-    Projects.findById(req.body.project_id).then(function (project) {
+    Projects.findById(req.body[0].project_id)
+        .then(function (project) {
 
-        var returnedCalculations = [];
-        req.body.forEach(function(item){
+            req.body.forEach( function(item){
 
-            Calculations.create(
-                item)
-                .then(function (calculation) {
+                Calculations.create(item)
+                    .then(function (calculation) {
 
-                    // add the project to the user
-                    project.addCalculation(calculation).then(function(){
+                        // add the project to the user
+                        project.addCalculation(calculation).then(function(){
+                        });
 
-
-                        calculation.dataValues.project_id = project.project_id;
-                        // send the relevant part of the project object to client
-                        returnedCalculations.push(item);
+                    }).catch(function (err) {
+                        console.log('there was an error', err);
+                        res.send('error: ', err);
                     });
+            });
 
-                }).catch(function (err) {
-                    console.log('there was an error', err);
-                    res.send('error: ', err);
-                });
+            //console.log(returnedCalculations);
+            res.sendStatus(200);
+
+        })
+        .catch(function (err) {
+            res.send(err);
         });
-
-        res.send(returnedCalculations);
-
-    })
 
 });
 
-router.delete('/calculations/:id', function (req, res, next) {
+router.delete('/calculation/:id', function (req, res, next) {
 
     // set query data to find project by id
     var existingCalculationById = {
@@ -210,8 +192,8 @@ router.delete('/calculations/:id', function (req, res, next) {
         truncate: false
     };
 
-    Projects.destroy(existingCalculationById)
-        .then(function (caclulation) {
+    Calculations.update({active: false},existingCalculationById)
+        .then(function (calculation) {
             //console.log(project);
             res.sendStatus(200);
         }).catch(function (err) {
@@ -222,19 +204,31 @@ router.delete('/calculations/:id', function (req, res, next) {
 
 router.put('/calculation', function (req, res, next) {
 
-    var existingCalculationById = {
-        where: {
-            id: req.body.calculation_id
-        }
-    };
+    Projects.findById(req.body.project_id)
+        .then(function (project) {
 
-    Projects.update(req.body, existingCalculationById)
-        .then(function (calculation) {
-            //console.log(calculation);
-            res.sendStatus(200);
-        }).catch(function (err) {
-            console.log('there was an error', err);
-            res.send('error!', err);
+            var existingCalculationByProjectId = {
+                where: {
+                    project_id: project.id
+                }
+            };
+            console.log('found project', project.id);
+
+            Calculations.update(existingCalculationByProjectId)
+                    .then(function (affectedRows) {
+                        //// add the project to the user
+                        //Calculations.find.addCalculation(calculation).then(function(){
+                        //
+                        //});
+                        res.status(200).send("Updated " + affectedRows + " calculations");
+
+                    }).catch(function (err) {
+                        console.log('there was an error', err);
+                        res.send('error: ', err);
+                    });
+            })
+        .catch(function (err) {
+            res.send(err);
         });
 });
 

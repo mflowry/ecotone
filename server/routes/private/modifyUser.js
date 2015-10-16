@@ -42,7 +42,7 @@ router.delete('/:id', function(req, res, next) {
         truncate: false
     };
 
-    Users.destroy(existingUserById)
+    Users.update({active: false}, existingUserById)
         .then(function (user) {
             //console.log(user);
             res.sendStatus(200);
