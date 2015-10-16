@@ -136,6 +136,15 @@ describe('The project/calculation API', function(){
         item_description: chance.paragraph({sentences: 2})
     };
 
+    var newCalculation3 = {
+        category: chance.word(),
+        sub_category: chance.word(),
+        units: chance.word(),
+        weight: chance.floating(),
+        co2_offset: chance.floating(),
+        item_description: chance.paragraph({sentences: 2})
+    };
+
     it('should create a new user', function( done ){
 
         api.post('/register')
@@ -234,10 +243,10 @@ describe('The project/calculation API', function(){
     it('should create multiple project calculations', function(done){
 
         var calcToSend = [];
-        newCalculation1.project_id = project.id;
         newCalculation2.project_id = project.id;
-        calcToSend.push(newCalculation1);
+        newCalculation3.project_id = project.id;
         calcToSend.push(newCalculation2);
+        calcToSend.push(newCalculation3);
 
         api.post('/project/calculation')
             .set('Authorization', 'Bearer ' + token)
@@ -253,29 +262,47 @@ describe('The project/calculation API', function(){
         //});
     });
 
+    var calculation;
+
+    it('should return a list of projects', function(done){
+        api.get('/project/?user_id=' + user.id + '&project_id=' + project.id)
+            .set('Authorization', 'Bearer ' + token)
+            .end(function(err,res){
+                res.body[0].should.have.property('user_id', user.id);
+                res.body[0].should.have.property('project_id', project.id);
+
+                calculation = res.body[0];
+
+                done();
+            });
+    });
+
+
     it('should update a single calculation', function( done ){
 
-        var newName = chance.last();
-        var newDescription = chance.paragraph({sentences: 2});
-        var projectId = project.id;
-        var projectsToUpdate = [];
-        var updatedProject = {
-            project_name: newName,
-            project_description: newDescription,
-            project_id: projectId
-        };
+            var updatedProjectCalculation = {
+                category: chance.last(),
+                item_description: chance.paragraph({sentences: 2}),
+                project_id: project.id
+            };
 
-        projectsToUpdate.push(updatedProject);
+            api.put('/project/calculation')
+                .set('Authorization', 'Bearer ' + token)
+                .send(updatedProjectCalculation)
+                .expect(200, done);
+        });
 
-        api.put('/project/calculation')
+
+
+    it('should delete a project', function( done ){
+        api.delete('/project/' + project.id)
             .set('Authorization', 'Bearer ' + token)
-            .send(projectsToUpdate)
             .expect(200, done);
     });
 
-    //it('should delete a calc', function( done ){
-    //    api.delete('/project/' + project.id)
-    //        .set('Authorization', 'Bearer ' + token)
-    //        .expect(200, done);
-    //});
+    it('should delete a calc', function( done ){
+        api.delete('/project/calculation/' + calculation.id)
+            .set('Authorization', 'Bearer ' + token)
+            .expect(200, done);
+    });
 });

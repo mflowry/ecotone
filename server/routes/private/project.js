@@ -22,7 +22,7 @@ function getProjectsByUserId(req, res, next){
         if( err ){
             console.log(err);
         } else {
-            client.query('select * from projects inner join calculations on (projects.id = calculations.project_id) where user_id=$1', [userId],function(err,results){
+            client.query('select * from projects inner join calculations on (projects.id = calculations.project_id) where user_id=$1 and projects.active=true and calculations.active=true', [userId],function(err,results){
                 done();
                 if(err){
                     console.log(err);
@@ -46,11 +46,12 @@ function getProjectsByProjectId(req, res, next){
         if( err ){
             console.log(err);
         } else {
-            client.query('select * from projects inner join calculations on (projects.id = calculations.project_id) where projects.id=$1 and user_id=$2', [projectId,userId],function(err,results){
+            client.query('select * from projects inner join calculations on (projects.id = calculations.project_id) where projects.id=$1 and user_id=$2 and projects.active=true and calculations.active=true', [projectId,userId],function(err,results){
                 done();
                 if(err){
                     console.log(err);
                 } else{
+                    console.log(results.rows);
                     res.send(results.rows);
                 }
 
@@ -178,7 +179,7 @@ router.post('/calculation', function (req, res, next) {
 
 });
 
-router.delete('/calculations/:id', function (req, res, next) {
+router.delete('/calculation/:id', function (req, res, next) {
 
     // set query data to find project by id
     var existingCalculationById = {
@@ -191,8 +192,8 @@ router.delete('/calculations/:id', function (req, res, next) {
         truncate: false
     };
 
-    Projects.update({active: false},existingCalculationById)
-        .then(function (caclulation) {
+    Calculations.update({active: false},existingCalculationById)
+        .then(function (calculation) {
             //console.log(project);
             res.sendStatus(200);
         }).catch(function (err) {
@@ -203,7 +204,7 @@ router.delete('/calculations/:id', function (req, res, next) {
 
 router.put('/calculation', function (req, res, next) {
 
-    Projects.findById(req.body[0].project_id)
+    Projects.findById(req.body.project_id)
         .then(function (project) {
 
             var existingCalculationByProjectId = {
