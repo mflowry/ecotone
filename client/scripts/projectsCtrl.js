@@ -6,7 +6,7 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
     self.projectList = [
                 {
                     id: 21,
-                    project_name: "Ben's House",
+                    project_name: "ben's house",
                     project_description: "Remodel",
                     created_at: "2015-10-14T16:42:40.896Z",
                     updated_at: "2015-10-14T16:42:40.901Z",
@@ -21,7 +21,7 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
                 },
                 {
                     id: 202,
-                    project_name: "James' House",
+                    project_name: "james' house",
                     project_description: "Teardown",
                     created_at: "2014-10-14T16:42:40.896Z",
                     updated_at: "2014-10-14T16:42:40.901Z",
@@ -36,7 +36,7 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
                 },
                 {
                     id: 2112,
-                    project_name: "Kim's Barn",
+                    project_name: "kim's barn",
                     project_description: "Remodel",
                     created_at: "2013-10-14T16:42:40.896Z",
                     updated_at: "2013-10-14T16:42:40.901Z",
@@ -49,6 +49,7 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
                     project_id: 6,
                     item_description: "barn wood"
                 }];
+
     self.result = '';
     self.querySearch = querySearch;
     self.selectedItemChange = selectedItemChange;
@@ -56,6 +57,7 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
     self.projectTotal = 0;
     self.deleteProjectItem = deleteProjectItem;
     self.id = 0;
+
 console.log(self.projectList);
 
     //refresh project list
@@ -132,8 +134,6 @@ console.log(self.projectList);
 
 
     function querySearch(query) {
-        console.log("This is the project list:");
-        console.log(self.projectList);
         return query ? self.projectList.filter(createFilterFor(query)) : self.projectList;
     }
 
@@ -185,13 +185,19 @@ console.log(self.projectList);
 
     function deleteProjectItem() {
         console.log("Deleting...", self.project_id);
-        //$http.update('/project', self.project_id).then(function (response) {
+        //$http.update('/project', self.id).then(function (response) {
         //findOne and delete by id using projectlist.id
         //    console.log("Item was deleted.", response);
         //    self.getProjectList();
     }
 
+    function saveProject() {
+        console.log("Saving...", self.id);
+        //save all project fields? how do I even do this?
+    };
+
     function calculateProjectTotal() {
+        console.log("calculating...");
         projectList.forEach(function (item) {
             projectTotal += item.co2_offset;
             console.log(projectTotal);

@@ -29,7 +29,7 @@
             </md-autocomplete>
             <md-content>
                 <h3>Project Description </h3>
-                <p>{{ctrl.project_description}}</p>
+                <p>{{ctrl.project_name.project_description}}</p>
             </md-content>
         <md-divider ng-if="!$last"></md-divider>
         </div>
@@ -37,40 +37,39 @@
     <md-content>
             <br>
             <table class="dialog-demo-content" style="min-width: 1200px; text-align: left;">
+                <!--<tr layout="row" layout-fill layout-wrap >-->
+                <!--<th>Item Description</th>-->
+                <!--</tr>-->
                 <tr layout="row" layout-fill layout-wrap >
-                    <!--<th flex="15">Item Description</th>-->
+                    <th flex="25">Item Description</th>
                     <th flex="15">Category</th>
                     <th flex="15">Sub-Category</th>
-                    <th flex="10">Weight</th>
-                    <th flex="10">Units</th>
-                    <th flex="15">CO<sub>2</sub> Offset</th>
-                    <th flex="15">Edit/Delete</th>
+                    <th flex="5">Weight</th>
+                    <th flex="5">Units</th>
+                    <th flex="10">CO<sub>2</sub> Offset</th>
+                    <th flex="5"></th>
                 </tr>
 
+                <!--<tr layout="row" layout-fill layout-wrap ng-repeat="id in ctrl.project_name">-->
+                    <!--<td contentEditable="true" flex="15">{{ctrl.project_name.item_description}}</td>-->
+                <!--</tr>-->
                 <tr layout="row" layout-fill layout-wrap>
-                    <!--<td contentEditable="true" flex="15">Southeast bedroom wood blinds-5</td>-->
-                    <td contentEditable="true" flex="15">Blinds</td>
-                    <td contentEditable="true" flex="15">Wood</td>
-                    <td contentEditable="true" flex="10">50</td>
-                    <td contentEditable="true" flex="10">lbs</td>
-                    <td contentEditable="true" flex="15">0.005 metric tons</td>
-                    <td flex="15" style="text-align: left;" type="submit" value="Save"><a href="/calculator"><img src="images/icons/ic_create_black_24px.svg" alt="Edit Project" /></a> | <img ng-click="showDelete($event)" src="../images/icons/ic_delete_black_24px.svg" alt="Delete Project"/> </td>
-                </tr>
-
-                <tr layout="row" layout-wrap ng-repeat="project in projects">
-                    <!--<td contentEditable="true" flex="15">{{ctrl.item_description}}</td>-->
-                    <td contentEditable="true" flex="15">{{ctrl.category}}</td>
-                    <td contentEditable="true" flex="15">{{ctrl.subcategory}}</td>
-                    <td contentEditable="true" flex="10">{{ctrl.weight}}</td>
-                    <td contentEditable="true" flex="10">{{ctrl.units}}</td>
-                    <td contentEditable="true" flex="15">{{ctrl.co2_offset}} metric tons</td>
-                    <td flex="15" style="text-align: left;" type="submit" ng-value="user_id" ng-click="ctrl.deleteProjectItem()"><img src="../images/icons/ic_delete_black_24px.svg" alt="Delete Project"/> </td>
+                    <td contentEditable="true" flex="25">{{ctrl.project_name.item_description}}</td>
+                    <td contentEditable="true" flex="15">{{ctrl.project_name.category}}</td>
+                    <td contentEditable="true" flex="15">{{ctrl.project_name.sub_category}}</td>
+                    <td contentEditable="true" flex="5">{{ctrl.project_name.weight}}</td>
+                    <td contentEditable="true" flex="5">{{ctrl.project_name.units}}</td>
+                    <td flex="10">{{ctrl.project_name.co2_offset}} metric tons</td>
+                    <td flex="5" style="text-align: left;" type="submit" ng-value="id" ng-click="ctrl.deleteProjectItem()"><img src="../images/icons/ic_delete_black_24px.svg" alt="Delete Project"/> </td>
                 </tr>
             </table>
         <div>
             <br>
             <md-divider ng-if="!$last"></md-divider>
-            <div><md-button class="md-accent md-raised" ng-click="ctrl.calculateProjectTotal()" >Calculate Total</md-button></div>
+            <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+            <md-button class="md-accent md-raised" ng-click="ctrl.calculateProjectTotal()" style="background-color: #0288d1;">Calculate Total</md-button>
+            <md-button class="md-accent md-raised" ng-click="ctrl.saveProject()" style="background-color: #0288d1;">Save Changes</md-button>
+            </section>
             <p ng-show="ctrl.projectTotal">Your Total Estimated CO<sub>2</sub> Offset is {{ctrl.projectTotal}} metric tons</p>
         </div>
     </md-content>
