@@ -5,11 +5,11 @@
         <md-content layout-padding layout="row" layout-sm="column">
             <md-input-container flex>
                 <label>First Name</label>
-                <input ng-model="user.firstName" required>
+                <input ng-model="user.first_name" required>
             </md-input-container>
             <md-input-container flex>
                 <label>Last Name</label>
-                <input ng-model="user.lastName" required>
+                <input ng-model="user.last_name" required>
             </md-input-container>
         </md-content>
         <md-content layout-padding layout="row" layout-sm="column">
@@ -21,14 +21,14 @@
         <md-content layout-padding layout="row" layout-sm="column">
             <md-input-container flex>
                 <label>Company Name</label>
-                <input ng-model="user.companyName">
+                <input ng-model="user.company_name">
             </md-input-container>
         </md-content>
         <md-content layout-padding layout="row" layout-sm="column">
             <md-input-container flex>
                 <label>Zip/Postal Code</label>
                 <!-- Should Validate for US and Candian zip/postal codes-->
-                <input ng-model="user.zipCode" ng-pattern="^(\d{5}-\d{4}|\d{5}|\d{9})$|^([a-zA-Z]\d[a-zA-Z]( )?\d[a-zA-Z]\d)$" required>
+                <input ng-model="user.zip_code" ng-pattern="^(\d{5}-\d{4}|\d{5}|\d{9})$|^([a-zA-Z]\d[a-zA-Z]( )?\d[a-zA-Z]\d)$" required>
             </md-input-container>
         </md-content>
         <md-content layout-padding layout="row" layout-sm="column">
