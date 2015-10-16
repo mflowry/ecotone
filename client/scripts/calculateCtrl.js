@@ -56,6 +56,8 @@ app.controller('calculateCtrl', ['$http', '$mdDialog', '$rootScope', 'authServic
     };
     self.newCalculation = newCalculation;
     self.saveToProject = saveToProject;
+    self.newProject = newProject;
+    self.createProject = createProject;
 
 
     function searchTextChange(text) {
@@ -114,16 +116,15 @@ app.controller('calculateCtrl', ['$http', '$mdDialog', '$rootScope', 'authServic
     }
 
     function submitSuggestion(){
-        $http.post('/suggestion', self.submission).then(function( res ){
+        $http.post('/suggestion', self.suggestSubmission).then(function( res ){
             $mdDialog.hide();
         });
     }
 
     function newSuggestion( suggestion ){
-        document.getElementById('sidenav').focus();
 
         $mdDialog.show({
-            templateUrl: '/views/submit-modal.html',
+            templateUrl: '/views/suggest-modal.html',
             clickOutsideToClose: true,
             controller: 'calculateCtrl',
             controllerAs: 'ctrl',
@@ -132,5 +133,21 @@ app.controller('calculateCtrl', ['$http', '$mdDialog', '$rootScope', 'authServic
 
     }
 
+    function createProject() {
+        $http.post('/project', self.projectSubmission).then(function(res){
+            $mdDialog.hide();
+        })
+    }
+
+    function newProject( newProject ){
+
+        $mdDialog.show({
+            templateUrl: 'views/project-modal.html',
+            clickOutsideToClose: true,
+            controller: 'calculateCtrl',
+            controllerAs: 'ctrl'
+        })
+
+    }
 
 }]);
