@@ -8,22 +8,22 @@ app.controller('dashboardCtrl', ['$mdDialog', '$rootScope', '$scope', '$http', f
         //response.data.forEach(function(item){
         //    item.project_name = item.primary_cat.toLowerCase();
     });
-//this is for the delete modal alert for deleting a project-- still not working correct
+//this is for the remove project modal alert for removing a project, data will still be in database-- still not working correct
 
     $scope.showDelete = function(ev) {
 
         console.log('CLICK');
         var confirm = $mdDialog.confirm()
-            .title('Are you sure you want to delete your project?')
+            .title('Are you sure you want to remove your project?')
             .content('This is permanent.')
-            .ariaLabel('Delete project permanently')
+            .ariaLabel('Remove project from account permanently')
             .ok('Delete')
             .cancel('Cancel')
             .targetEvent(ev);
         $mdDialog.show(confirm).then(function() {
-            $scope.alert = 'Your project has been deleted.';
+            $scope.alert = 'Your project has been removed.';
         }, function() {
-            $scope.alert = 'Your project has not been deleted.';
+            $scope.alert = 'Your project has not been removed.';
         });
     };
 
