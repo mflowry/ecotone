@@ -15,7 +15,7 @@ router.put('/', function(req, res, next) {
 
     var existingUserById = {
         where: {
-            id: req.body.user_id
+            id: req.body.id
         }
     };
     console.log(req.body);
@@ -42,7 +42,7 @@ router.delete('/:id', function(req, res, next) {
         truncate: false
     };
 
-    Users.destroy(existingUserById)
+    Users.update({active: false}, existingUserById)
         .then(function (user) {
             //console.log(user);
             res.sendStatus(200);

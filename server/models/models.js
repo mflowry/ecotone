@@ -81,9 +81,11 @@ var userSchema = sequelize.define('user',
                 isInt: true
             }
         },
-        register_date: {
-            type: Sequelize.DATE
+        active: {
+            type: Sequelize.BOOLEAN,
+            defaultValue: true
         }
+
     },
     {
         underscored: true,
@@ -163,14 +165,6 @@ var userSchema = sequelize.define('user',
 
 //methods to be run before validation
 userSchema.hook('beforeValidate', function (user, options, next) {
-    //var user = this;
-    if (!user.register_date) {
-        user.register_date = pg.types.setTypeParser(1114, function (stringValue) {
-            return new Date(stringValue, "-0600");
-        });
-        user.registerDate = new Date();
-
-    }
 
     //only hash the password if it has been modified (or is new)
     if (!user.changed('password')) {
@@ -220,6 +214,10 @@ projectSchema = sequelize.define('project',
                     }
                 }
             }
+        },
+        active: {
+            type: Sequelize.BOOLEAN,
+            defaultValue: true
         }
     },
     {underscored: true}
@@ -273,6 +271,10 @@ calculationSchema = sequelize.define('calculation',
                     }
                 }
             }
+        },
+        active: {
+            type: Sequelize.BOOLEAN,
+            defaultValue: true
         }
     },
     {underscored: true}

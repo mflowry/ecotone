@@ -118,7 +118,16 @@ describe('The project/calculation API', function(){
         project_description: 'test this string 1'
     };
 
-    var newCalculation = {
+    var newCalculation1 = {
+        category: chance.word(),
+        sub_category: chance.word(),
+        units: chance.word(),
+        weight: chance.floating(),
+        co2_offset: chance.floating(),
+        item_description: chance.paragraph({sentences: 2})
+    };
+
+    var newCalculation2 = {
         category: chance.word(),
         sub_category: chance.word(),
         units: chance.word(),
@@ -205,25 +214,66 @@ describe('The project/calculation API', function(){
     it('should create a single project calculation', function(done){
 
         var calcToSend = [];
-        newCalculation.project_id = project.id;
-        calcToSend.push(newCalculation);
-
-        console.log(calcToSend);
+        newCalculation1.project_id = project.id;
+        calcToSend.push(newCalculation1);
 
         api.post('/project/calculation')
            .set('Authorization', 'Bearer ' + token)
            .send(calcToSend)
-           .end(function( err, res ){
-                console.log(res.body);
-                res.body.should.have.length(1);
-                res.body[0].should.have.property('category', newCalculation.category);
-                res.body[0].should.have.property('sub_category', newCalculation.sub_category);
-                calculations = res.body;
-                done();
-           });
+           //.end(function( err, res ){
+                //console.log(res.body);
+                //res.body.should.have.length(1);
+                //res.body[0].should.have.property('category', newCalculation.category);
+                //res.body[0].should.have.property('sub_category', newCalculation.sub_category);
+                //calculations = res.body;
+                //done();
+            .expect(200, done);
+           //});
     });
 
-    //it('should delete a project', function( done ){
+    it('should create multiple project calculations', function(done){
+
+        var calcToSend = [];
+        newCalculation1.project_id = project.id;
+        newCalculation2.project_id = project.id;
+        calcToSend.push(newCalculation1);
+        calcToSend.push(newCalculation2);
+
+        api.post('/project/calculation')
+            .set('Authorization', 'Bearer ' + token)
+            .send(calcToSend)
+            //.end(function( err, res ){
+            //console.log(res.body);
+            //res.body.should.have.length(1);
+            //res.body[0].should.have.property('category', newCalculation.category);
+            //res.body[0].should.have.property('sub_category', newCalculation.sub_category);
+            //calculations = res.body;
+            //done();
+            .expect(200, done);
+        //});
+    });
+
+    it('should update a single calculation', function( done ){
+
+        var newName = chance.last();
+        var newDescription = chance.paragraph({sentences: 2});
+        var projectId = project.id;
+        var projectsToUpdate = [];
+        var updatedProject = {
+            project_name: newName,
+            project_description: newDescription,
+            project_id: projectId
+        };
+
+        projectsToUpdate.push(updatedProject);
+
+        api.put('/project/calculation')
+            .set('Authorization', 'Bearer ' + token)
+            .send(projectsToUpdate)
+            .expect(200, done);
+    });
+
+    //it('should delete a calc', function( done ){
     //    api.delete('/project/' + project.id)
     //        .set('Authorization', 'Bearer ' + token)
     //        .expect(200, done);

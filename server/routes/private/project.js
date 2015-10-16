@@ -27,7 +27,7 @@ function getProjectsByUserId(req, res, next){
                 if(err){
                     console.log(err);
                 } else{
-                    console.log(results);
+                    //console.log(results);
                 }
                 //var projects = results.rows;
                 res.send(results.rows);
@@ -96,50 +96,16 @@ router.post('/', function (req, res, next) {
                         throw new Error('Duplicate Project Name');
                     }
                 });
-        //
-        //
-        ////console.log(req.body);
-        //
-        //    Projects.findOrCreate(existingProjectId)
-        //        .spread(function (project, created) {
-        //
-        //        // if returned project is null (does not exist)
-        //        if (project === null) {
-        //
-        //            // create a new project using the values in the request body
-        //            return Projects.create(req.body)
-        //                .then(function (project) {
-        //
-        //                    // add the project to the user
-        //                    user.addProject(project).then(function(){
-        //
-        //
-        //                        project.dataValues.user_id = user.id;
-        //                        // send the relevant part of the project object to client
-        //                        res.send(project);
-        //
-        //                    });
-        //
-        //                }).catch(function (err) {
-        //                    res.send('error: ', err);
-        //                });
-        //        } else {
-        //
-        //            // if project already exists, send status 409
-        //            res.sendStatus(409).send({message: "Duplicate project name"});
-        //        }
             }).catch(function (err) {
 
                 if (err.message === 'Duplicate Project Name'){
-                    res.sendStatus(409).send({message:err.message});
+                    res.status(409).send({message:err.message});
                 }
-                res.send(err);
-                // status should only occur if there is an error internal to the database
-                //res.sendStatus(409).send({message: "Duplicate project name"});
-
-            });
-        //})
-    });
+                else{
+                    res.send(err);
+                }
+        });
+});
 
 router.put('/', function (req, res, next) {
 
@@ -172,7 +138,7 @@ router.delete('/:id', function (req, res, next) {
         truncate: false
     };
 
-    Projects.destroy(existingProjectById)
+    Projects.update({active:false},existingProjectById)
         .then(function (project) {
             //console.log(project);
             res.sendStatus(200);
@@ -184,33 +150,31 @@ router.delete('/:id', function (req, res, next) {
 
 router.post('/calculation', function (req, res, next) {
 
-    Projects.findById(req.body[0].project_id).then(function (project) {
-        var returnedCalculations = [];
-        req.body.forEach(function(item){
+    Projects.findById(req.body[0].project_id)
+        .then(function (project) {
 
-            Calculations.create(
-                item)
-                .then(function (calculation) {
+            req.body.forEach( function(item){
 
-                    // add the project to the user
-                    project.addCalculation(calculation).then(function(){
+                Calculations.create(item)
+                    .then(function (calculation) {
 
+                        // add the project to the user
+                        project.addCalculation(calculation).then(function(){
+                        });
 
-                        calculation.dataValues.project_id = project.project_id;
-                        // send the relevant part of the project object to client
-                        returnedCalculations.push(calculation.dataValues);
-                        //console.log(calculation);
+                    }).catch(function (err) {
+                        console.log('there was an error', err);
+                        res.send('error: ', err);
                     });
+            });
 
-                }).catch(function (err) {
-                    console.log('there was an error', err);
-                    res.send('error: ', err);
-                });
+            //console.log(returnedCalculations);
+            res.sendStatus(200);
+
+        })
+        .catch(function (err) {
+            res.send(err);
         });
-        console.log(returnedCalculations);
-        res.send(returnedCalculations);
-
-    })
 
 });
 
@@ -227,7 +191,7 @@ router.delete('/calculations/:id', function (req, res, next) {
         truncate: false
     };
 
-    Projects.destroy(existingCalculationById)
+    Projects.update({active: false},existingCalculationById)
         .then(function (caclulation) {
             //console.log(project);
             res.sendStatus(200);
@@ -239,19 +203,31 @@ router.delete('/calculations/:id', function (req, res, next) {
 
 router.put('/calculation', function (req, res, next) {
 
-    var existingCalculationById = {
-        where: {
-            id: req.body.calculation_id
-        }
-    };
+    Projects.findById(req.body[0].project_id)
+        .then(function (project) {
 
-    Projects.update(req.body, existingCalculationById)
-        .then(function (calculation) {
-            //console.log(calculation);
-            res.sendStatus(200);
-        }).catch(function (err) {
-            console.log('there was an error', err);
-            res.send('error!', err);
+            var existingCalculationByProjectId = {
+                where: {
+                    project_id: project.id
+                }
+            };
+            console.log('found project', project.id);
+
+            Calculations.update(existingCalculationByProjectId)
+                    .then(function (affectedRows) {
+                        //// add the project to the user
+                        //Calculations.find.addCalculation(calculation).then(function(){
+                        //
+                        //});
+                        res.status(200).send("Updated " + affectedRows + " calculations");
+
+                    }).catch(function (err) {
+                        console.log('there was an error', err);
+                        res.send('error: ', err);
+                    });
+            })
+        .catch(function (err) {
+            res.send(err);
         });
 });
 
