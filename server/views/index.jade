@@ -5,11 +5,9 @@ block content
     section(layout="row" style="height: 100vh" ng-controller="navCtrl")
       md-sidenav(id="sidenav" class="md-sidenav-left md-primary md-whiteframe-z2 md-closed" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" flex)
         header.sidenav-header
-          img(src="/images/ECOTONE_logo.gif" alt="ECOTONE")
+          img(src="/images/ECOTONE_emailSIG.png" alt="ECOTONE")
         md-toolbar.md-primary(layout-fill flex)
           ul
-            li
-              md-button.md-primary(md-no-ink href="http://ecotone-partners.com/") Learn About Ecotone
             li
               md-button.md-primary(md-no-ink href="/calculator") Calculator
             li
@@ -22,6 +20,8 @@ block content
               md-button.md-primary(md-no-ink href="/account" ng-show="user.username") My Account
             li
               md-button.md-primary(md-no-ink href="/calculator" ng-click="logout()" ng-show="user.username") Logout
+              li
+                md-button.md-primary(md-no-ink href="http://ecotone-partners.com/") About Ecotone
             li
               md-button.md-primary(md-no-ink href="/admin") ADMIN
 
