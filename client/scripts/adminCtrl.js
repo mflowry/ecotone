@@ -14,9 +14,19 @@ app.controller('adminCtrl', ['$http', '$scope','$parse', function( $http, $scope
         var csvObject = $scope.csv.result;
         console.log(csvObject);
 
-        $http.post('/bulk', csvObject).then(function( res ){
+        $http.post('/bulk', csvObject)
+            .then(function( res ){
             console.log(res);
-        })
+                res.data.forEach(function(item){
+                    item.project_id = 1;
+                });
+            return res.data})
+            .then(function( projects ) {
+                $http.post('/project/calculation/', projects)
+            }).catch(function(err){
+                console.log(err);
+            });
+
     }
 
     function markComplete( suggestion ) {
