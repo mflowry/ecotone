@@ -34,7 +34,7 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         }).when('/dashboard',
         {
             templateUrl: '/views/dashboard.html',
-            controller: 'dashboardCtrl'
+            controller: 'dashboardCtrl as ctrl'
         }).when('/projects',
         {
             templateUrl: '/views/project.html',

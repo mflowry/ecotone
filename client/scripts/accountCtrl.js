@@ -4,7 +4,6 @@ app.controller('editAccountCtrl', ['$scope', '$http', '$location', '$rootScope',
     $scope.user = {};
     console.log($rootScope.user);
     $scope.user = $rootScope.user;
-    var infoToUpdate;
 
     $scope.updateUserInfo = function () {
         console.log("Posting...");
