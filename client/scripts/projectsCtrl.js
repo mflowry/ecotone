@@ -67,9 +67,9 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
             .then(function (response) {
                 console.log(response);
 
-                var projectList = [];
-                var currentProject = response.data[0].project_name;
-                var uniqueName = false;
+                var projectList = [];//[response.data[0].project_name];
+                var currentProject = projectList[0];
+                var duplicate = false;
                 response.data.forEach(function (item) {
                     //item.project_name = item.project_name.toLowerCase();
 
@@ -79,19 +79,18 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
                     //    }
                     //
                     //});
-                    //if(item.project_name != currentProject){
-                    //    projectList.push(item.project_name);
-                    //}
-                    //currentProject = item.project_name;
+
+                    duplicate = projectList.some(function(projectName){
+                        console.log(item.project_name,projectName);
+                        return projectName === item.project_name;
+                    });
+                    if(!duplicate){
+                        projectList.push(item.project_name);
+                    }
 
                 });
 
                 console.log(projectList);
-                //    //item.project_description = item.project_description;
-                //    //item.itemId = item.id;
-                //    //item.co2_offset = item.co2_offset;
-                //});
-                //self.projectList = projectList;
         });
     }
 
