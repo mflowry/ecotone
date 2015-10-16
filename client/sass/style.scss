@@ -57,8 +57,6 @@ md-autocomplete{
 
 #dashboard-page #project-page {
 
-
-
   h2 {
     padding-left: 20px;
     margin-top: 35px;
@@ -123,34 +121,34 @@ md-autocomplete{
     text-align: left;
     margin-bottom: 50px;
   }
- th{
-   border-top: solid 1px darkgray;
-   border-bottom: solid 1px darkgray;
-   background-color: lightgray;
- }
+  th {
+    border-top: solid 1px darkgray;
+    border-bottom: solid 1px darkgray;
+    background-color: lightgray;
+  }
 
- td{
-   border-bottom: solid 1px darkgray;
- }
+  td {
+    border-bottom: solid 1px darkgray;
+  }
 
- img{
-   vertical-align: middle;
- }
+  img {
+    vertical-align: middle;
+  }
 
+  #secondary-margin {
+    margin-top: 32px;
+  }
 
-#secondary-margin{
-  margin-top: 32px;
-}
-
-.dialogdemoBasicUsage .dialogDemo1 {
-  height: 500px;
-}
+  .dialogdemoBasicUsage .dialogDemo1 {
+    height: 500px;
+  }
 
   .dialogdemoBasicUsage .dialog-demo-content div {
-  text-align: center;
+    text-align: center;
   }
 
   .dialogdemoBasicUsage .md-subheader {
-  background-color: #dcedc8;
-  margin: 0;
+    background-color: #dcedc8;
+    margin: 0;
+  }
 }

@@ -1,21 +1,20 @@
 <md-content layout="column" layout-padding layout-margin layout-align="space-between center">
     <h2>
-        SUGGEST A NEW MATERIAL
+        CREATE A PROJECT
     </h2>
     <p>
-        Don't see your material? Let us know and we'll add it to our list!
+        Projects allow you to save multiple material calculations,<br>
+        write descriptions, and keep track of things overtime.<br>
+        As available information gets updated, we'll let you<br>
+        know if any calculations change.
     </p>
     <md-input-container layout-fill flex>
-        <label>Email</label>
-        <input ng-model="ctrl.projectSubmission.email" type="email">
+        <label>Project Name</label>
+        <input ng-model="ctrl.projectSubmission.project_name" type="text">
     </md-input-container>
     <md-input-container layout-fill flex>
-        <label>Material</label>
-        <input ng-init="" ng-model="ctrl.projectSubmission.material" type="text">
-    </md-input-container>
-    <md-input-container layout-fill flex>
-        <label>Comment</label>
-        <textarea ng-model="ctrl.projectSubmission.notes" md-maxlength="255"></textarea>
+        <label>Description</label>
+        <textarea ng-model="ctrl.projectSubmission.project_description" ng-pattern="('^[0-9a-zA-Z .-]+$')" md-maxlength="255"></textarea>
     </md-input-container>
     <div class="md-actions">
         <md-button ng-click="ctrl.createProject()" class="md-primary">

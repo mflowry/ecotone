@@ -22,7 +22,7 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
                 {
                     id: 202,
                     project_name: "james' house",
-                    project_description: "Teardown",
+                    project_description: "Summit Ave carriage house teardown and rebuild",
                     created_at: "2014-10-14T16:42:40.896Z",
                     updated_at: "2014-10-14T16:42:40.901Z",
                     user_id: 24,
@@ -32,7 +32,7 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
                     weight: 100,
                     co2_offset: 0.303,
                     project_id: 6,
-                    item_description: "roof shingles"
+                    item_description: "dark brown roof shingles--30 year life, some water damage"
                 },
                 {
                     id: 2112,
@@ -79,59 +79,6 @@ console.log(self.projectList);
     //load project list on page load
     //getProjectList();
 
-    //function getProjectList(){
-    //    console.log("Project list loaded: ", self.projectList);
-    //    projectList = [
-    //        {
-    //            id: 21,
-    //            project_name: "Ben's House",
-    //            project_description: "Remodel",
-    //            created_at: "2015-10-14T16:42:40.896Z",
-    //            updated_at: "2015-10-14T16:42:40.901Z",
-    //            user_id: 4,
-    //            category: "wood",
-    //            sub_category: "oak",
-    //            units: "lbs",
-    //            weight: 10,
-    //            co2_offset: 0.03,
-    //            project_id: 6,
-    //            item_description: "porch spindles"
-    //        },
-    //        {
-    //            id: 202,
-    //            project_name: "James' House",
-    //            project_description: "Teardown",
-    //            created_at: "2014-10-14T16:42:40.896Z",
-    //            updated_at: "2014-10-14T16:42:40.901Z",
-    //            user_id: 24,
-    //            category: "asphalt shingles",
-    //            sub_category: "null",
-    //            units: "lbs",
-    //            weight: 100,
-    //            co2_offset: 0.303,
-    //            project_id: 6,
-    //            item_description: "roof shingles"
-    //        },
-    //        {
-    //            id: 2112,
-    //            project_name: "Kim's Barn",
-    //            project_description: "Remodel",
-    //            created_at: "2013-10-14T16:42:40.896Z",
-    //            updated_at: "2013-10-14T16:42:40.901Z",
-    //            user_id: 14,
-    //            category: "wood flooring",
-    //            sub_category: "pine",
-    //            units: "lbs",
-    //            weight: 500,
-    //            co2_offset: 3.03,
-    //            project_id: 6,
-    //            item_description: "barn wood"
-    //        }
-    //    ];
-    //}
-
-
-
 
     function querySearch(query) {
         return query ? self.projectList.filter(createFilterFor(query)) : self.projectList;
@@ -150,13 +97,15 @@ console.log(self.projectList);
     }
 
     function selectedItemChange(item) {
+        console.log('item', item);
+        console.log('selected_ project',self.selected_project);
         if ( item == undefined ) {
-            self.project_name = '';
+            self.selected_project = '';
             self.project_description = '';
         }
     }
 
-    $scope.showDelete = function(ev) {
+    $scope.showDelete = function(ev, id) {
         console.log('CLICK');
         var confirm = $mdDialog.confirm()
             .title('Are you sure you want to delete this item?')
@@ -165,7 +114,9 @@ console.log(self.projectList);
             .ok('Delete')
             .cancel('Cancel')
             .targetEvent(ev);
-        $mdDialog.show(confirm).then(function() {
+        $mdDialog.show(confirm).then(function(){
+            console.log("Deleting", id);
+            self.deleteProjectItem(id);
             $scope.alert = 'Your item has been deleted.';
         }, function() {
             $scope.alert = 'Your item has not been deleted.';
@@ -183,8 +134,9 @@ console.log(self.projectList);
 //    };
 //}
 
-    function deleteProjectItem() {
-        console.log("Deleting...", self.project_id);
+    function deleteProjectItem(id) {
+        console.log("Deleting...", id);
+
         //$http.update('/project', self.id).then(function (response) {
         //findOne and delete by id using projectlist.id
         //    console.log("Item was deleted.", response);
@@ -197,6 +149,7 @@ console.log(self.projectList);
     };
 
     function calculateProjectTotal() {
+        console.log("calculating...");
         projectList.forEach(function (item) {
             projectTotal += item.co2_offset;
             console.log(projectTotal);
