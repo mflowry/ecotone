@@ -1,7 +1,13 @@
-#sidenav, md-sidenav {
+#sidenav, .md-sidenav {
   float: left;
   color: white;
   background-color: #4caf50; }
+
+.ng-scope {
+  color: white; }
+
+#footer .ng-scope {
+  color: black; }
 
 .sidenav-header {
   margin: 10px auto;

@@ -1,12 +1,17 @@
 $accent: #546E7A;
 $warn: orange;
 
-#sidenav, md-sidenav {
+#sidenav, .md-sidenav{
   float: left;
   color: white;
   background-color: rgb(76,175,80);;
 }
-
+.ng-scope {
+  color: white;
+}
+#footer .ng-scope {
+  color: black;
+}
 .sidenav-header {
   margin: 10px auto;
   background-color: rgb(76,175,80);
