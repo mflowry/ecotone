@@ -1,9 +1,11 @@
-#sidenav .ng-scope {
+#sidenav, md-sidenav {
   float: left;
-  color: white; }
+  color: white;
+  background-color: #4caf50; }
 
 .sidenav-header {
-  margin: 10px auto; }
+  margin: 10px auto;
+  background-color: #4caf50; }
 
 #hello {
   padding: 60px;
