@@ -18,7 +18,7 @@ app.controller('adminCtrl', ['$http', '$scope','$parse', function( $http, $scope
             .then(function( res ){
             console.log(res);
                 res.data.forEach(function(item){
-                    item.project_id = 1;
+                    item.project_id = 3;
                 });
             return res.data})
             .then(function( projects ) {
