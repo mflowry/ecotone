@@ -18,8 +18,8 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
     function getProjectList() {
         $http.get('/project/?user_id=' + $rootScope.user.id)
             .then(function (response) {
+                self.projectList = res.data;
                 console.log("List on load", response);
-
                 var projectList = [];//[response.data[0].project_name];
                 var currentProject = projectList[0];
                 var duplicate = false;
@@ -34,16 +34,19 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
                     //});
 
                     duplicate = projectList.some(function (projectName) {
-                        console.log(item.project_name, projectName);
                         return projectName === item.project_name;
                     });
                     if (!duplicate) {
                         projectList.push(item.project_name);
+                        console.log("This is the unduped project list:", projectList);
                     }
                 });
                 console.log(projectList);
             });
     }
+
+    //load project list on page load
+    getProjectList();
 
     ////refresh project list
     //function getProjectList() {
@@ -52,8 +55,6 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
     //    })
     //}
 
-    //load project list on page load
-    getProjectList();
 
     //get items for selected project
     function getProjectItems() {
