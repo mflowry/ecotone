@@ -1,6 +1,7 @@
 // Project Page -  Kim/Madeleine
 app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', function($mdDialog, $scope, $rootScope, $http) {
 
+
     // Self declaration
     var self = this;
     self.projectList = '';
@@ -8,11 +9,10 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
     self.querySearch = querySearch;
     self.selectedItemChange = selectedItemChange;
     self.searchTextChange = searchTextChange;
+    self.selectedProjectItems = '';
     self.projectTotal = 0;
     self.deleteProjectItem = deleteProjectItem;
     self.id = 0;
-
-
 
     //refresh project list
     function getProjectList() {
@@ -33,17 +33,24 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
                     //
                     //});
 
-                    duplicate = projectList.some(function(projectName){
+                    duplicate = projectList.some(function (projectName) {
                         console.log(item.project_name, projectName);
                         return projectName === item.project_name;
                     });
-                    if(!duplicate){
+                    if (!duplicate) {
                         projectList.push(item.project_name);
                     }
                 });
                 console.log(projectList);
-        });
+            });
     }
+
+    ////refresh project list
+    //function getProjectList() {
+    //    $http.get('/project/namesById?user_id=' + $rootScope.user.id).then(function( res ){
+    //        self.projectList = res.data;
+    //    })
+    //}
 
     //load project list on page load
     getProjectList();
@@ -76,7 +83,12 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
 
     function selectedItemChange(item) {
         console.log('item', item);
-        console.log('selected_ project',self.selected_project);
+        $http.get('/project/?user_id=' + $rootScope.user.id + '&project_id=' + self.selected_project.id).then(function(res ) {
+            self.selectedProjectItems = res.data;
+            console.log(self.selectedProjectItems);
+        });
+
+
         if ( item == undefined ) {
             self.selected_project = '';
             self.project_description = '';
@@ -101,6 +113,7 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
             $scope.alert = 'Your item has not been deleted.';
         });
     };
+
 //    function DialogController($scope, $mdDialog) {
 //    $scope.hide = function() {
 //        $mdDialog.hide();
@@ -112,6 +125,7 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
 //        $mdDialog.hide(answer);
 //    };
 //}
+
     //delete the line item
     function deleteProjectItem(id) {
         console.log("Deleting...", id);
@@ -126,7 +140,7 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
     function saveProject() {
         console.log("Saving...", self.id);
         //save all project fields? how do I even do this?
-    };
+    }
 
     //calculate the total co2 offset for all project line items
     function calculateProjectTotal() {

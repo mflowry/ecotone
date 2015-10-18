@@ -20,6 +20,10 @@ app.controller('calculateCtrl', ['$http', '$mdDialog', '$rootScope', 'authServic
 
     });
 
+    $http.get('/project/namesById?user_id=' + $rootScope.user.id).then(function( res ){
+        self.projects = res.data;
+    })
+
     // Self dec
     var self = this;
 

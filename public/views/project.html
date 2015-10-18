@@ -50,13 +50,13 @@
                     <th flex="3"></th>
                 </tr>
 
-                <tr layout="row" layout-wrap >
-                    <td contentEditable="false" flex="25">{{ctrl.selected_project.item_description}}</td>
-                    <td contentEditable="false" flex="15">{{ctrl.selected_project.category}}</td>
-                    <td contentEditable="false" flex="15">{{ctrl.selected_project.sub_category}}</td>
-                    <td contentEditable="false" flex="5">{{ctrl.selected_project.weight}}</td>
-                    <td contentEditable="false" flex="5">{{ctrl.selected_project.units}}</td>
-                    <td flex="12">{{ctrl.selected_project.co2_offset}} metric tons</td>
+                <tr layout="row" ng-repeat=" item in ctrl.selectedProjectItems" layout-wrap >
+                    <td contentEditable="false" flex="25">{{item.item_description}}</td>
+                    <td contentEditable="false" flex="15">{{item.category}}</td>
+                    <td contentEditable="false" flex="15">{{item.sub_category}}</td>
+                    <td contentEditable="false" flex="5">{{item.weight}}</td>
+                    <td contentEditable="false" flex="5">{{item.units}}</td>
+                    <td flex="12">{{item.co2_offset}} metric tons</td>
                     <td flex="3" style="text-align: left;" type="submit" ng-value="id" ><a href="/projects"><img src="images/icons/ic_create_black_24px.svg" alt="Edit item" /></a> | <img src="images/icons/ic_save_black_24px.svg" ng-click="contentEditable = true"  alt="Save Changes"/> | <img src="images/icons/ic_delete_black_24px.svg" ng-click="showDelete($event, ctrl.selected_project.id)" alt="Delete item" /> </td>
                 </tr>
             </table>
