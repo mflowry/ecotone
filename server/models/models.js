@@ -234,7 +234,12 @@ calculationSchema = sequelize.define('calculation',
         category: {
             type: Sequelize.STRING,
             validate: {
-                isAlphanumeric: true
+                isAlphanumericWithSpaces: function(value) {
+                    console.log(value.match('^[0-9a-zA-Z ]+$') || false);
+                    if(!value.match('^[0-9a-zA-Z .-]+$')) {
+                        throw new Error('Only alphanumeric and spaces allowed!')
+                    }
+                }
             }
         },
         sub_category: {
