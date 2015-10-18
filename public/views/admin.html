@@ -1,1 +1,40 @@
-<p>ADMIN PAGE!</p>
+<div>
+    <table>
+        <tr>
+            <th>Material</th>
+            <th>Email</th>
+            <th>Notes</th>
+            <th>Button</th>
+        </tr>
+        <tr ng-repeat="suggestion in ctrl.suggestions">
+            <td>{{suggestion.material}}</td>
+            <td>{{suggestion.email}}</td>
+            <td>{{suggestion.notes}}</td>
+            <td ng-click="ctrl.markComplete( suggestion )"><button>Done</button></td>
+        </tr>
+    </table>
+</div>
+
+<div class="block row">
+    <div class="title"><h4>Select your CSV file: </h4></div>
+    <div class="block right">
+        <ng-csv-import
+                class="import"
+                content="csv.content"
+                header="csv.header"
+                header-visible="csv.headerVisible"
+                separator="csv.separator"
+                separator-visible="csv.separatorVisible"
+                result="csv.result"
+                encoding="csv.encoding"
+                encoding-visible="csv.encodingVisible"></ng-csv-import>
+    </div>
+    <button ng-click="ctrl.submitCSV()">Submit</button>
+</div>
+
+<div class="block row">
+    <h1>RESULT</h1>
+<p>{{ csv.result }}</p>
+    <div class="content" hljs source="toPrettyJSON(csv.result, 2)"></div>
+</div>
+

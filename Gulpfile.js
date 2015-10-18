@@ -4,13 +4,13 @@ var gulp = require('gulp'),
     sourcemaps = require('gulp-sourcemaps'),
     uglify = require('gulp-uglify'),
     sass = require('gulp-sass'),
-    concat = require('gulp-concat')
+    concat = require('gulp-concat');
 
 var config = {
     paths: {
-        public: './public',
+        public: './public/scripts',
         client: './client',
-        js: './client/**/*.js',
+        js: ['./client/scripts/main.js','./client/**/*.js'],
         server: './server',
         sass: './client/sass/*.scss',
         css: './public/stylesheets'
@@ -18,6 +18,7 @@ var config = {
 };
 
 gulp.task('default', ['sass', 'javascript', 'watch', 'sass:watch'],
+
     function(){
         gutil.log('Gulped!');
     });
@@ -30,9 +31,10 @@ gulp.task('sass', function () {
 
 gulp.task('javascript', function(){
     gulp.src(config.paths.js)
-      //  .pipe(sourcemaps.init())
-        //.pipe(uglify())
-        //.pipe(sourcemaps.write())
+        .pipe(sourcemaps.init())
+        .pipe(concat('app.js'))
+        .pipe(uglify())
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(config.paths.public))
 });
 
@@ -41,10 +43,5 @@ gulp.task('watch', function() {
 });
 
 gulp.task('sass:watch', function() {
-   gulp.watch(config.paths.sass, ['sass'])
-})
-
-
-//gulp.task('sass:watch', function() {
-//   gulp.watch(config.paths.sass, ['sass'])
-//});
+    gulp.watch(config.paths.sass, ['sass'])
+});

@@ -1,39 +1,40 @@
-<div ng-controller="createAccountCtrl" layout="column" ng-cloak>
+<div class="content-layout" id="register-page" layout="column" ng-controller="createAccountCtrl" ng-cloak>
     <h2>Create an Account</h2>
     <!-- Account Information -->
-    <form name="createAccountForm">
+    <form name="registerForm">
         <md-content layout-padding layout="row" layout-sm="column">
             <md-input-container flex>
                 <label>First Name</label>
-                <input ng-model="user.firstName" placeholder="First Name" required>
+                <input ng-model="user.first_name" required>
             </md-input-container>
             <md-input-container flex>
                 <label>Last Name</label>
-                <input ng-model="user.lastName" placeholder="Last Name" required>
+                <input ng-model="user.last_name" required>
             </md-input-container>
         </md-content>
         <md-content layout-padding layout="row" layout-sm="column">
             <md-input-container flex>
                 <label>Title</label>
-                <input ng-model="user.title" placeholder="Title">
+                <input ng-model="user.title">
             </md-input-container>
         </md-content>
         <md-content layout-padding layout="row" layout-sm="column">
             <md-input-container flex>
                 <label>Company Name</label>
-                <input ng-model="user.companyName" placeholder="Company">
+                <input ng-model="user.company_name">
             </md-input-container>
         </md-content>
         <md-content layout-padding layout="row" layout-sm="column">
             <md-input-container flex>
-                <label>Zip Code</label>
-                <input ng-model="user.zipCode" placeholder="55444" ng-pattern="\d{5}?" required>
+                <label>Zip/Postal Code</label>
+                <!-- Should Validate for US and Candian zip/postal codes-->
+                <input ng-model="user.zip_code" ng-pattern="^(\d{5}-\d{4}|\d{5}|\d{9})$|^([a-zA-Z]\d[a-zA-Z]( )?\d[a-zA-Z]\d)$" required>
             </md-input-container>
         </md-content>
         <md-content layout-padding layout="row" layout-sm="column">
             <md-input-container flex>
                 <label>Email</label>
-                <input ng-model="user.email" placeholder="Email address" type="email" required>
+                <input ng-model="user.email" type="email" required>
             </md-input-container>
         </md-content>
 
@@ -42,23 +43,29 @@
         <md-content layout-padding layout="row" layout-sm="column">
             <md-input-container flex>
                 <label>Username</label>
-                <input ng-model="user.username" placeholder="username" type="string" required>
+                <input ng-model="user.username" type="string" required>
             </md-input-container>
         </md-content>
         <md-content layout-padding layout="row" layout-sm="column">
             <md-input-container flex>
-                <label>Password (at least 8 characters with one number) </label>
-                <input ng-model="user.password" type="password" ng-minlength="8" ng-maxlength="20" ng-pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" required>
+                <label>Password</label>
+                <input ng-model="user.password" type="password" name="password" ng-pattern="/(?=.*[0-9]){8,}/" required>
+                <div ng-messages="registerForm.password.$error" role="alert">
+                     <div ng-message="pattern">Password must be minimum of 8 characters with at least one number.</div>
+                </div>
             </md-input-container>
         </md-content>
         <md-content layout-padding layout="row" layout-sm="column">
             <md-input-container flex>
-                <label>Confirm your password</label>
-                <input ng-model="user.passwordConfirm" type="password" required>
+                <label>Confirm Password</label>
+                <input ng-model="user.confirmPassword" type="password" data-match="registerForm.password"  name="confirmPassword" required>
+                <div ng-messages="registerForm.confirmPassword.$error" role="alert">
+                    <div ng-message="match">Passwords do not match!</div>
+                </div>
             </md-input-container>
         </md-content>
         <md-content layout-padding layout="row" layout-sm="column">
-            <md-button class="md-primary md-raised" ng-click= "processForm(user)" type="submit" value="Save">Save</md-button>
+            <md-button class="md-accent md-raised" ng-click= "processForm(user)" type="submit" value="Save">Save</md-button>
         </md-content>
     </form>
 </div>

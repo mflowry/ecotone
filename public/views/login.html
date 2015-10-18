@@ -1,16 +1,19 @@
-<div ng-controller="loginCtrl">
+<div class="content-layout" id="login-page" layout="column" ng-controller="loginCtrl" ng-cloak>
+    <h2>Login to create projects and track your savings.</h2>
     <form ng-submit="login()" name="loginForm">
         <md-content>
             <md-input-container>
                 <label>Username</label>
-                <input ng-model="user.username" type="string">
+                <input ng-model="form.username" type="string">
             </md-input-container>
             <md-input-container>
                 <label>Password</label>
-                <input ng-model="user.password" type="password">
+                <input ng-model="form.password" type="password">
             </md-input-container>
-            <md-button class="md-accent md-raised" type="submit" value="Submit">Submit</md-button>
-            <md-button href="/register">Register</md-button>
+            <div id="submit-buttons">
+                <md-button class="md-accent md-raised" type="submit" value="Submit">Submit</md-button>
+                <md-button href="/register">Register</md-button>
+            </div>
         </md-content>
     </form>
 </div>

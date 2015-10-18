@@ -1,26 +1,66 @@
-#sidenav {
-  position: absolute;
-  height: 100%; }
+#sidenav, .md-sidenav {
+  float: left;
+  color: white;
+  background-color: #4caf50; }
+
+#footer .ng-scope {
+  color: black; }
 
 .sidenav-header {
-  margin: 10px auto; }
+  margin: 10px auto;
+  background-color: #4caf50; }
 
-header md-toolbar {
-  height: 100px; }
+#hello {
+  padding: 60px;
+  background-color: white;
+  box-shadow: none; }
 
-.md-toolbar-tools h1 {
-  font-size: inherit;
-  font-weight: inherit;
-  margin: inherit; }
+#footer {
+  margin: auto 0 0 auto; }
+
+#footer li {
+  display: inline-block;
+  vertical-align: bottom; }
 
 button.md-primary span {
   color: white; }
 
+<<<<<<< HEAD
 .md-button.md-primary.md-raised {
   color: white; }
 
+=======
+.md-primary.md-button.md-default-theme.md-ink-ripple.ng-transclude.ng-click {
+  background-color: #546E7A; }
+
+button.md-accent span {
+  color: white; }
+
+.md-actions .md-button.md-default-theme.md-ink-ripple:first-child {
+  background-color: #546E7A; }
+
+.md-actions .md-button.md-default-theme.md-ink-ripple {
+  background-color: orange; }
+
+>>>>>>> front-end
 md-autocomplete {
   background-color: white; }
+
+table {
+  border-collapse: collapse;
+  text-align: left;
+  margin-bottom: 50px; }
+
+th {
+  border-top: solid 1px darkgray;
+  border-bottom: solid 1px darkgray;
+  background-color: lightgray; }
+
+td {
+  border-bottom: solid 1px darkgray; }
+
+#login-page #submit-buttons a {
+  vertical-align: middle; }
 
 #dashboard-page #project-page {
   /*need to figure out how to use flex!!!! so the table items shrink down instead of go on another*/ }
@@ -55,25 +95,18 @@ md-autocomplete {
     background-color: #4CAF50;
     color: white;
     text-align: center;
-    /*align-items: center;*/
     font-size: 16px;
     font-weight: bold;
     padding: 15px;
     margin-top: 5px; }
-  #dashboard-page #project-page .heading {
-    display: inline-block;
-    /*  width: 20%;*/
-    float: none;
-    background-color: #4CAF50;
-    color: white;
-    text-align: center;
-    /*align-items: center;*/
-    font-size: 16px;
-    font-weight: bold;
-    padding: 5px;
-    margin-top: 5px; }
-  #dashboard-page #project-page table {
-    margin-left: 50px; }
-
-#secondary-margin {
-  margin-top: 32px; }
+  #dashboard-page #project-page img {
+    vertical-align: middle; }
+  #dashboard-page #project-page #secondary-margin {
+    margin-top: 32px; }
+  #dashboard-page #project-page .dialogdemoBasicUsage .dialogDemo1 {
+    height: 500px; }
+  #dashboard-page #project-page .dialogdemoBasicUsage .dialog-demo-content div {
+    text-align: center; }
+  #dashboard-page #project-page .dialogdemoBasicUsage .md-subheader {
+    background-color: #dcedc8;
+    margin: 0; }

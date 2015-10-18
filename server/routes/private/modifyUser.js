@@ -3,7 +3,7 @@ const
     router = express.Router(),
     expressJwt = require('express-jwt');
 
-var Users = require('../../models/users');
+var Users = require('../../models/models').Users;
 
 router.use(expressJwt({secret: 'supersecret'}));
 
@@ -12,14 +12,14 @@ router.get('/',function(req,res,next){
 });
 
 router.put('/', function(req, res, next) {
-
-    var existingUserByUsername = {
+    console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n\n\n\n\n\n',req.body)
+    var existingUserById = {
         where: {
-            username: req.body.username
+            id: req.body.id
         }
     };
-
-    Users.update(req.body, existingUserByUsername)
+    console.log(req.body);
+    Users.update(req.body, existingUserById)
         .then(function (user) {
             //console.log(user);
             res.sendStatus(200);
@@ -42,7 +42,7 @@ router.delete('/:id', function(req, res, next) {
         truncate: false
     };
 
-    Users.destroy(existingUserById)
+    Users.update({active: false}, existingUserById)
         .then(function (user) {
             //console.log(user);
             res.sendStatus(200);

@@ -1,17 +1,16 @@
 const
     express = require('express'),
     router = express.Router(),
-    Users = require('../../models/users');
+    Users = require('../../models/models').Users;
 
 router.post('/', function(req, res, next) {
-        console.log("THIS IS THE REQUEST FOR THE REQUEST SHDAFDS", req.body)
         var existingUserByEmail = {
             where: {
                 email: req.body.email
             }
         };
 
-        Users.sync().then(function () {
+        //Users.sync().then(function () {
             Users.find(existingUserByEmail).then(function(user){
 
                 // if returned user is null (does not exist)
@@ -41,7 +40,7 @@ router.post('/', function(req, res, next) {
                 // status should only occur if there is an error internal to the database
                 res.sendStatus(500)
             });
-        })
+        //})
 });
 
 module.exports = router;

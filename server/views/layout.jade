@@ -6,6 +6,7 @@ html(lang="en" ng-app="ecotoneApp")
     link(rel="stylesheet" href="/stylesheets/angular/angular-material.min.css")
     link(rel="stylesheet" href="/stylesheets/style.css")
 
+    script(type="text/javascript") (function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src = "//cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);
     script(type="text/javascript" src="./scripts/angular/angular.min.js")
     script(type="text/javascript" src="./scripts/angular/angular-route.min.js")
     script(type="text/javascript" src="./scripts/angular/angular-material.min.js")
@@ -15,24 +16,8 @@ html(lang="en" ng-app="ecotoneApp")
     script(type="text/javascript" src="./scripts/angular/angular-validation-match.min.js")
     script(type="text/javascript" src="./scripts/app.js")
 
-    meta(name="viewport" content="initial-scale=1")
+    meta(name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" )
     base(href='/')
 
   body
-    md-sidenav(id="sidenav" class="md-sidenav-left md-primary md-whiteframe-z2 md-closed ng-isolate-scope md-locked-open" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" flex)
-      header.sidenav-header
-        img(src="/images/ECOTONE_logo.gif" alt="ECOTONE")
-      md-toolbar.md-primary(layout="column" style="height:600px" flex)
-
-  md-content.body(layout="column" layout-fill layout-align="top center" flex)
     block content
-
-    //footer
-    //  md-toolbar
-    //    div(class="md-toolbar-tools")
-    //      span
-    //        p(id="copyright") &copy; 2015 Ecotone-Partners
-    //      span(flex)
-    //      md-button.md-primary(md-no-ink href="/about") About
-    //      md-button.md-primary(md-no-ink href="/contact") Contact
-    //      md-button.md-primary(md-no-ink href="/privacy") Privacy

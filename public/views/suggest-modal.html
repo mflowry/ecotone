@@ -1,0 +1,25 @@
+<md-content layout="column" layout-padding layout-margin layout-align="space-between center">
+    <h2>
+        SUGGEST A NEW MATERIAL
+    </h2>
+    <p>
+        Don't see your material? Let us know and we'll add it to our list!
+    </p>
+    <md-input-container layout-fill flex>
+        <label>Email</label>
+        <input ng-model="ctrl.suggestSubmission.email" type="email">
+    </md-input-container>
+    <md-input-container layout-fill flex>
+        <label>Material</label>
+        <input ng-init="" ng-model="ctrl.suggestSubmission.material" type="text">
+    </md-input-container>
+    <md-input-container layout-fill flex>
+        <label>Comment</label>
+        <textarea ng-model="ctrl.suggestSubmission.notes" md-maxlength="255"></textarea>
+    </md-input-container>
+    <div class="md-actions">
+        <md-button ng-click="ctrl.submitSuggestion()" class="md-primary">
+               Submit
+        </md-button>
+    </div>
+</md-content>

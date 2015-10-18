@@ -1,4 +1,5 @@
 <div id="calculator-page">
+<<<<<<< HEAD
     <div ng-controller="calculateCtrl as ctrl" layout="column" ng-cloak>
         <h2>Calculate Your CO2 Offset</h2>
         <!-- New Project Info -->
@@ -19,37 +20,100 @@
                     placeholder="Material type">
                 <md-item-template>
                     <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item.primary_cat}}</span>
+=======
+    <md-content layout="column" layout-align="space-between center">
+        <h2>Calculate Your CO<sub>2</sub> Offset</h2>
+        <md-input-container layout-fill flex>
+            <md-select ng-show="user.username" ng-model="ctrl.project_name" placeholder="Select project" layout-fill flex>
+                <md-option ng-repeat="project in ctrl.projects">
+                    {{ project.project_name }}
+                </md-option>
+                <md-option ng-click="ctrl.newProject()">
+                    Create new project...
+                </md-option>
+            </md-select>
+        </md-input-container>
+        <div id="material-choice" layout-fill>
+            <md-autocomplete ng-disabled="ctrl.isDisabled"
+                md-selected-item="ctrl.category"
+                md-selected-item-change="ctrl.selectedItemChange(item)"
+                md-search-text="ctrl.searchText"
+                md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                md-items="item in ctrl.querySearch(ctrl.searchText)"
+                md-item-text="item.primary_cat"
+                md-min-length="0"
+                md-floating-label="Material type"
+                layout-fill>
+
+                <md-item-template>
+                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">
+                        {{item.primary_cat}}
+                    </span>
+>>>>>>> front-end
                 </md-item-template>
+
                 <md-not-found>
-                    No matches found for "{{searchText}}".
+                    <div>
+                        No material matches {{ ctrl.searchText }}
+                    </div>
                 </md-not-found>
             </md-autocomplete>
+<<<<<<< HEAD
             <!--</md-content>-->
                 <span flex></span>
             <md-input-container ng-show="category.secondaries[0].secondary_cat != null">
                 <md-select id="secondary-margin" ng-model="ctrl.warmId" placeholder="Subcategory">
                     <md-option ng-repeat="subcategory in category.secondaries" ng-value="subcategory.warm_id" >
+=======
+
+            <md-input-container ng-show="ctrl.category.secondaries[0].secondary_cat != null" layout="column" layout-align="end center" layout-fill flex>
+                <md-select ng-model="ctrl.warmId" placeholder="Subcategory" layout-fill layout-align="center">
+                    <md-option ng-repeat="subcategory in ctrl.category.secondaries" ng-value="subcategory.warm_id">
+>>>>>>> front-end
                         {{subcategory.secondary_cat}}
                     </md-option>
                 </md-select>
             </md-input-container>
-                <div layout layout-sm="column">
-                <md-input-container flex>
+
+            <div layout layout-sm="row" layout-align="space-between center" layout-fill>
+                <md-input-container>
                     <label>Weight</label>
                     <input ng-model="ctrl.weight" type="text">
                 </md-input-container>
+<<<<<<< HEAD
                 <md-select ng-model="ctrl.conversion" placeholder="Select units" flex>
                         <md-option ng-repeat="unit in ctrl.units" ng-value="unit.conversion" > {{ unit.name }}
+=======
+
+                <md-select ng-model="ctrl.conversion" placeholder="Select units" flex>
+                    <md-option ng-repeat="unit in ctrl.units" ng-value="unit.conversion">
+                        {{ unit.name }}
+>>>>>>> front-end
                     </md-option>
                 </md-select>
             </div>
 
+            <md-input-container ng-show="user.username" flex>
+                <label>Material description (optional)</label>
+                <textarea ng-model="ctrl.item_description" md-maxlength="255" name="description"></textarea>
+            </md-input-container>
+        </div>
 
+<<<<<<< HEAD
             <md-button class="md-accent md-raised" ng-click="ctrl.newCalculation()" type="submit" value="Save">Submit</md-button>
 
             <p ng-show="ctrl.result">Your Estimated CO2 Offset is {{ctrl.result}} metric tons.</p>
+=======
+        <md-button class="md-accent md-raised" ng-click="ctrl.newCalculation()">Calculate</md-button>
 
-            </div>
-        </md-content>
-    </div>
+        <p ng-show="ctrl.result">Your Estimated CO<sub>2</sub> Offset is {{ctrl.result}} metric tons.</p>
+>>>>>>> front-end
+
+        <md-button class="md-primary md-raised" ng-show="user.username && project.project_name" ng-click="ctrl.saveToProject()">Save to project</md-button>
+
+        <div ng-show="user.username">
+            <md-button ng-click="ctrl.newSuggestion()">+ Suggest a new material</md-button>
+        </div>
+
+    </md-content>
 </div>

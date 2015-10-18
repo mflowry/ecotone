@@ -1,3 +1,4 @@
+// APPLICATION DEPENDENCIES
 const
     express = require('express'),
     path = require('path'),
@@ -5,8 +6,10 @@ const
     logger = require('morgan'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
-    jsonwebtoken = require('jsonwebtoken');
+    jsonwebtoken = require('jsonwebtoken'),
+    models = require('./models/models');
 
+// ROUTING PATHS
 const
     routes = require('./routes/index'),
     login = require('./routes/public/login'),
@@ -14,12 +17,20 @@ const
     register = require('./routes/public/register'),
     modifyUser = require('./routes/private/modifyUser'),
     calculations = require('./routes/public/calculations'),
-    project = require('./routes/private/project');
+    project = require('./routes/private/project'),
+    suggestion = require('./routes/public/suggestion'),
+    bulk = require('./routes/public/bulkUpload');
 
 
 
 
 var app = express();
+
+models.Users.sync().then(function(){
+    models.Projects.sync().then(function(){
+        models.Calculations.sync();
+    });
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -40,13 +51,15 @@ app.use('/register',register);
 app.use('/modifyUser',modifyUser);
 app.use('/calculations',calculations);
 app.use('/project',project);
-
+app.use('/suggestion', suggestion);
+app.use('/bulk', bulk);
+app.use('*', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handlers
@@ -54,23 +67,23 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
+    app.use(function(err, req, res, next) {
+        res.status(err.status || 500);
+        res.render('error', {
+            message: err.message,
+            error: err
+        });
     });
-  });
 }
 
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
 });
 
 

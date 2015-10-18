@@ -1,34 +1,88 @@
-#sidenav {
-  position: absolute;
-  height: 100%;
-}
+$accent: #546E7A;
+$warn: orange;
 
+#sidenav, .md-sidenav{
+  float: left;
+  color: white;
+  background-color: rgb(76,175,80);;
+}
+.ng-scope {
+}
+#footer .ng-scope {
+  color: black;
+}
 .sidenav-header {
-  margin: 10px auto; }
-
-header md-toolbar {
-  height: 100px;
+  margin: 10px auto;
+  background-color: rgb(76,175,80);
 }
 
+#hello {
+  padding: 60px;
+  background-color: white;
+  box-shadow: none;
+}
 
-.md-toolbar-tools h1 {
-  font-size: inherit;
-  font-weight: inherit;
-  margin: inherit;
+#footer {
+  margin: auto 0 0 auto;
+}
+
+#footer li {
+  display: inline-block;
+  vertical-align: bottom;
 }
 
 button.md-primary span {
   color: white;
 }
-.md-button.md-primary.md-raised{
+
+.md-primary.md-button.md-default-theme.md-ink-ripple.ng-transclude.ng-click{
+  background-color: #546E7A;
+}
+
+
+button.md-accent span{
   color:white
 }
 
+.md-actions {
+  .md-button.md-default-theme.md-ink-ripple:first-child {
+    background-color: $accent;
+
+  }
+  .md-button.md-default-theme.md-ink-ripple {
+    background-color: $warn;
+  }
+}
 md-autocomplete{
   background-color: white;
 }
 
+
+table {
+  border-collapse: collapse;
+  text-align: left;
+  margin-bottom: 50px;
+}
+
+th {
+  border-top: solid 1px darkgray;
+  border-bottom: solid 1px darkgray;
+  background-color: lightgray;
+}
+
+td {
+  border-bottom: solid 1px darkgray;
+}
+
+#login-page{
+  #submit-buttons a {
+    vertical-align: middle;
+  }
+}
+
+
 #dashboard-page #project-page {
+
   h2 {
     padding-left: 20px;
     margin-top: 35px;
@@ -62,19 +116,7 @@ md-autocomplete{
     -webkit-flex-wrap: nowrap; /* Safari */
     flex-wrap: nowrap;
   }
-  li {
-    ////display: inline-block;
-    ////width: 20%;
-    //float: none;
-    //color: #333333;
-    //text-align: center;
-    ///* align-items: center;*/
-    //font-size: 14px;
-    //padding: 15px;
-    //font-weight: normal;
-    //padding: 15px;
-    //margin-top: 5px;
-  }
+
   .li_header {
     display: inline-block;
     width: 20%;
@@ -82,30 +124,45 @@ md-autocomplete{
     background-color: #4CAF50;
     color: white;
     text-align: center;
-    /*align-items: center;*/
     font-size: 16px;
     font-weight: bold;
     padding: 15px;
     margin-top: 5px;
   }
-  .heading {
-    display: inline-block;
-    /*  width: 20%;*/
-    float: none;
-    background-color: #4CAF50;
-    color: white;
-    text-align: center;
-    /*align-items: center;*/
-    font-size: 16px;
-    font-weight: bold;
-    padding: 5px;
-    margin-top: 5px;
-  }
-  table {
-    margin-left: 50px;
-  }
-}
+  //.heading {
+  ////  display: inline-block;
+  ////  /*  width: 20%;*/
+  ////  float: none;
+  ////  background-color: #4CAF50;
+  ////  color: white;
+  ////  text-align: center;
+  ////  /*align-items: center;*/
+  ////  font-size: 16px;
+  ////  font-weight: bold;
+  ////  padding: 5px;
+  ////  margin-top: 5px;
+  ////}
 
-#secondary-margin{
-  margin-top: 32px;
+
+  img {
+    vertical-align: middle;
+  }
+
+  #secondary-margin {
+    margin-top: 32px;
+  }
+
+  .dialogdemoBasicUsage .dialogDemo1 {
+    height: 500px;
+  }
+
+  .dialogdemoBasicUsage .dialog-demo-content div {
+    text-align: center;
+  }
+
+  .dialogdemoBasicUsage .md-subheader {
+    background-color: #dcedc8;
+    margin: 0;
+  }
+
 }
