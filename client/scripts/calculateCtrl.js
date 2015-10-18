@@ -22,7 +22,7 @@ app.controller('calculateCtrl', ['$http', '$mdDialog', '$rootScope', 'authServic
 
     $http.get('/project/namesById?user_id=' + $rootScope.user.id).then(function( res ){
         self.projects = res.data;
-    })
+    });
 
     // Self dec
     var self = this;
@@ -75,7 +75,7 @@ app.controller('calculateCtrl', ['$http', '$mdDialog', '$rootScope', 'authServic
             self.warmId = '';
             self.weight = '';
             self.item_description = '';
-            self.conversion = '';
+            self.selected_unit = '';
             self.result = '';
         }
     }
@@ -84,11 +84,28 @@ app.controller('calculateCtrl', ['$http', '$mdDialog', '$rootScope', 'authServic
 
         var calculate = {
             warmId: self.warmId || self.category.secondaries[0].warm_id,
-            weight: parseFloat(self.weight) * self.conversion
+            weight: parseFloat(self.weight) * self.selected_unit.conversion
         };
 
         $http.post('/calculations', calculate).then(function(response) {
             self.result = Math.floor(Math.abs(response.data) * 1000) / 1000;
+
+            if($rootScope.user) {
+                var savedCalculation = [{}];
+                savedCalculation[0].project_id = self.selected_project.id;
+                savedCalculation[0].category = self.category.primary_cat;
+                savedCalculation[0].sub_category = self.subcategory || null;
+                savedCalculation[0].units = self.selected_unit.name;
+                savedCalculation[0].weight = self.weight;
+                savedCalculation[0].c02_offset = self.result;
+                savedCalculation[0].item_description = self.item_description;
+
+                console.log(savedCalculation);
+
+                $http.post('/project/calculation', savedCalculation).then(function (res) {
+                    console.log(res);
+                })
+            }
         });
     }
 
@@ -97,7 +114,7 @@ app.controller('calculateCtrl', ['$http', '$mdDialog', '$rootScope', 'authServic
             category: self.category,
             subcategory: self.subcategory,
             warm_Id: self.warmId,
-            weight: parseFloat(self.weight)*self.conversion,
+            weight: parseFloat(self.weight)*self.selected_unit.conversion,
             units: self.unit.name,
             item_description: self.item_description
         };

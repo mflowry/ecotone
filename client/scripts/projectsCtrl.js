@@ -1,8 +1,11 @@
 // Project Page -  Kim/Madeleine
 app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', function($mdDialog, $scope, $rootScope, $http) {
 
+    // Self dec
 
-    // Self declaration
+
+
+
     var self = this;
     self.projectList = '';
     self.result = '';
@@ -14,46 +17,13 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
     self.deleteProjectItem = deleteProjectItem;
     self.id = 0;
 
+
     //refresh project list
     function getProjectList() {
-        $http.get('/project/?user_id=' + $rootScope.user.id)
-            .then(function (response) {
-                console.log("List on load", response);
-
-                var projectList = [];//[response.data[0].project_name];
-                var currentProject = projectList[0];
-                var duplicate = false;
-                response.data.forEach(function (item) {
-                    //item.project_name = item.project_name.toLowerCase();
-
-                    //projectList.forEach(function (listItem, index, array) {
-                    //    if (listItem !== item.project_name) {
-                    //        uniqueName = true;
-                    //    }
-                    //
-                    //});
-
-                    duplicate = projectList.some(function (projectName) {
-                        console.log(item.project_name, projectName);
-                        return projectName === item.project_name;
-                    });
-                    if (!duplicate) {
-                        projectList.push(item.project_name);
-                    }
-                });
-                console.log(projectList);
-            });
+        $http.get('/project/namesById?user_id=' + $rootScope.user.id).then(function( res ){
+            self.projectList = res.data;
+        })
     }
-
-    ////refresh project list
-    //function getProjectList() {
-    //    $http.get('/project/namesById?user_id=' + $rootScope.user.id).then(function( res ){
-    //        self.projectList = res.data;
-    //    })
-    //}
-
-    //load project list on page load
-    getProjectList();
 
     //get items for selected project
     function getProjectItems() {
@@ -63,12 +33,14 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
         });
     }
 
-    //project name autocomplete dropdown query search
+    //load project list on page load
+    getProjectList();
+
+
     function querySearch(query) {
         return query ? self.projectList.filter(createFilterFor(query)) : self.projectList;
     }
 
-    //filter for autocomplete
     function createFilterFor(query) {
         var lowercaseQuery = query.toLowerCase();
         //query.charAt(0).toUpperCase() + query.slice(1);
@@ -95,7 +67,6 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
         }
     }
 
-    //show alert before deleting line item
     $scope.showDelete = function(ev, id) {
         console.log('CLICK');
         var confirm = $mdDialog.confirm()
@@ -114,19 +85,7 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
         });
     };
 
-//    function DialogController($scope, $mdDialog) {
-//    $scope.hide = function() {
-//        $mdDialog.hide();
-//    };
-//    $scope.cancel = function() {
-//        $mdDialog.cancel();
-//    };
-//    $scope.answer = function(answer) {
-//        $mdDialog.hide(answer);
-//    };
-//}
 
-    //delete the line item
     function deleteProjectItem(id) {
         console.log("Deleting...", id);
 
@@ -136,21 +95,19 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
         //    self.getProjectList();
     }
 
-    //save changes to a line item
     function saveProject() {
         console.log("Saving...", self.id);
         //save all project fields? how do I even do this?
-    }
+    };
 
-    //calculate the total co2 offset for all project line items
     function calculateProjectTotal() {
         console.log("calculating...");
         projectList.forEach(function (item) {
             projectTotal += item.co2_offset;
             console.log(projectTotal);
-        return projectTotal;
+            return projectTotal;
 
-    })
+        })
     }
 
 
