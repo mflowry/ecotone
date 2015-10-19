@@ -1,14 +1,22 @@
 $accent: #546E7A;
 $warn: orange;
 
-.nav-ul li{
-  display: block;
-  float: left;
-  color: white;
+.nav-ul {
+  h3{
+    color: white;
+  }
+  li span {
+    float: left;
+    color: white;
+  }
+  li .md-button {
+    margin: 0;
+    padding: 0;
+  }
 }
 
 .sidenav-header {
-  margin: 10px auto;
+  margin: 20px auto;
 }
 
 #footer {
