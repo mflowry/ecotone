@@ -38,7 +38,8 @@ var userSchema = sequelize.define('user',
             type: Sequelize.STRING,
             validate: {
                 isAlphanumericWithSpaces: function(value) {
-                    if(!value.match('^[0-9a-zA-Z .-]+$')) {
+                    console.log(value.match('^[0-9a-zA-Z .-]+$') || false);
+                    if(!value.match("^[0-9a-zA-Z .-']+$")) {
                         throw new Error('Only alphanumeric,spaces, periods, and dashes allowed!')
                     }
                 }
@@ -48,7 +49,8 @@ var userSchema = sequelize.define('user',
             type: Sequelize.STRING,
             validate: {
                 isAlphanumericWithSpaces: function(value) {
-                    if(!value.match('^[0-9a-zA-Z .-]+$')) {
+                    console.log(value.match('^[0-9a-zA-Z .-]+$') || false);
+                    if(!value.match("^[0-9a-zA-Z .-']+$")) {
                         throw new Error('Only alphanumeric,spaces, periods, and dashes allowed!')
                     }
                 }
@@ -58,7 +60,8 @@ var userSchema = sequelize.define('user',
             type: Sequelize.STRING,
             validate: {
                 isAlphanumericWithSpaces: function(value) {
-                    if(!value.match('^[0-9a-zA-Z .-]+$')) {
+                    console.log(value.match('^[0-9a-zA-Z .-]+$') || false);
+                    if(!value.match("^[0-9a-zA-Z .-']+$")) {
                         throw new Error('Only alphanumeric,spaces, periods, and dashes allowed!')
                     }
                 }
@@ -69,7 +72,8 @@ var userSchema = sequelize.define('user',
             unique: true,
             validate: {
                 isAlphanumericWithSpaces: function(value) {
-                    if(!value.match('^[0-9a-zA-Z .-]+$')) {
+                    console.log(value.match('^[0-9a-zA-Z .-]+$') || false);
+                    if(!value.match("^[0-9a-zA-Z .-']+$")) {
                         throw new Error('Only alphanumeric,spaces, periods, and dashes allowed!')
                     }
                 }
@@ -202,14 +206,20 @@ projectSchema = sequelize.define('project',
         project_name: {
             type: Sequelize.STRING,
             validate: {
-                isAlphanumeric: true
+                isAlphanumericWithSpaces: function(value) {
+                    console.log(value.match('^[0-9a-zA-Z .-]+$') || false);
+                    if(!value.match("^[0-9a-zA-Z .-']+$")) {
+                        throw new Error('Only alphanumeric,spaces, periods, and dashes allowed!')
+                    }
+                }
             }
         },
         project_description: {
             type: Sequelize.STRING,
             validate: {
                 isAlphanumericWithSpaces: function(value) {
-                    if(!value.match('^[0-9a-zA-Z .-]+$')) {
+                    console.log(value.match('^[0-9a-zA-Z .-]+$') || false);
+                    if(!value.match("^[0-9a-zA-Z .-']+$")) {
                         throw new Error('Only alphanumeric,spaces, periods, and dashes allowed!')
                     }
                 }
@@ -235,9 +245,9 @@ calculationSchema = sequelize.define('calculation',
             type: Sequelize.STRING,
             validate: {
                 isAlphanumericWithSpaces: function(value) {
-                    console.log(value.match('^[0-9a-zA-Z ]+$') || false);
-                    if(!value.match('^[0-9a-zA-Z .-]+$')) {
-                        throw new Error('Only alphanumeric and spaces allowed!')
+                    console.log(value.match('^[0-9a-zA-Z .-]+$') || false);
+                    if(!value.match("^[0-9a-zA-Z .-']+$")) {
+                        throw new Error('Only alphanumeric,spaces, periods, and dashes allowed!')
                     }
                 }
             }
@@ -252,9 +262,9 @@ calculationSchema = sequelize.define('calculation',
             type: Sequelize.STRING,
             validate: {
                 isAlphanumericWithSpaces: function(value) {
-                    console.log(value.match('^[0-9a-zA-Z ]+$') || false);
-                    if(!value.match('^[0-9a-zA-Z .-]+$')) {
-                        throw new Error('Only alphanumeric and spaces allowed!')
+                    console.log(value.match('^[0-9a-zA-Z .-]+$') || false);
+                    if(!value.match("^[0-9a-zA-Z .-']+$")) {
+                        throw new Error('Only alphanumeric,spaces, periods, and dashes allowed!')
                     }
                 }
             }
@@ -276,7 +286,7 @@ calculationSchema = sequelize.define('calculation',
             validate: {
                 isAlphanumericWithSpaces: function(value) {
                     console.log(value.match('^[0-9a-zA-Z .-]+$') || false);
-                    if(!value.match('^[0-9a-zA-Z .-]+$')) {
+                    if(!value.match("^[0-9a-zA-Z .-']+$")) {
                         throw new Error('Only alphanumeric,spaces, periods, and dashes allowed!')
                     }
                 }
