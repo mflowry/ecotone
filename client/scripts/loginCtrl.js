@@ -5,7 +5,8 @@ app.controller('loginCtrl', ['$scope', '$http', 'authService', '$location', '$ro
             method: 'POST',
             url: '/login',
             data: $scope.form
-        }).then(function(response){
+        }).then(function( response ){
+
             authService.saveToken(response.data.token);
             $rootScope.user = authService.getUser();
             $location.path('/');
