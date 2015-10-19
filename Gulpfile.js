@@ -15,7 +15,7 @@ var config = {
         js: ['./client/scripts/main.js','./client/**/*.js'],
         server: './server',
         sass: './client/sass/*.scss',
-        css: './public/stylesheets'
+        css: './public/stylesheets/*.css'
     }
 };
 
@@ -49,7 +49,3 @@ gulp.task('sass:watch', function() {
 
 
 
-
-//gulp.task('sass:watch', function() {
-//   gulp.watch(config.paths.sass, ['sass'])
-//});

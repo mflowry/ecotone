@@ -27,9 +27,34 @@ function getProjectsByUserId(req, res, next){
                 if(err){
                     console.log(err);
                 } else{
-                    //console.log(results);
+                   // console.log(results);
                 }
                 //var projects = results.rows;
+                console.log ('ABOUT TO SEND');
+                res.send(results.rows);
+            });
+
+
+        }
+    });
+}
+
+function getProjectNamesByUserId(req, res, next){
+    var userId = req.query.user_id;
+    //console.log(userId);
+    pg.connect( connectionString , function( err, client , done){
+        if( err ){
+            console.log(err);
+        } else {
+            client.query('select * from projects  where projects.user_id=$1 and projects.active=true ', [userId],function(err,results){
+                done();
+                if(err){
+                    console.log(err);
+                } else{
+                    // console.log(results);
+                }
+                //var projects = results.rows;
+                console.log ('ABOUT TO SEND');
                 res.send(results.rows);
             });
 
@@ -70,6 +95,14 @@ router.get('/', function(req,res,next){
             res.status(400).send("You must specify a user id or a user id and a project id")
         }
         //getProjectsByUserId(req,res,next);
+});
+
+router.get('/namesById', function( req, res, next ){
+   if(req.query.user_id){
+       getProjectNamesByUserId( req, res, next );
+   } else {
+       res.status(400).send('You must specify a user id');
+   }
 });
 
 router.post('/', function (req, res, next) {
