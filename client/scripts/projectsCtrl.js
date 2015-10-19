@@ -1,13 +1,11 @@
 // Project Page -  Kim/Madeleine
-app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', function($mdDialog, $scope, $rootScope, $http) {
+app.controller('projectsCtrl', ['projectMethods', '$mdDialog', '$scope', '$rootScope', '$http', function(projectMethods, $mdDialog, $scope, $rootScope, $http) {
 
-    // Self dec
-
-
+    // INIT
+    self.projectList = projectMethods.getProjectNames();
 
 
     var self = this;
-    self.projectList = '';
     self.result = '';
     self.querySearch = querySearch;
     self.selectedItemChange = selectedItemChange;
@@ -18,23 +16,7 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
     self.id = 0;
 
 
-    //refresh project list
-    function getProjectList() {
-        $http.get('/project/namesById?user_id=' + $rootScope.user.id).then(function( res ){
-            self.projectList = res.data;
-        })
-    }
-
-    //get items for selected project
-    function getProjectItems() {
-        $http.get('/project/?user_id=' + $rootScope.user.id + "&project_id=2").then(function (response) {
-            console.log(response);
-            self.projectItems = response.data;
-        });
-    }
-
     //load project list on page load
-    getProjectList();
 
 
     function querySearch(query) {
@@ -55,10 +37,8 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
 
     function selectedItemChange(item) {
         console.log('item', item);
-        $http.get('/project/?user_id=' + $rootScope.user.id + '&project_id=' + self.selected_project.id).then(function(res ) {
-            self.selectedProjectItems = res.data;
-            console.log(self.selectedProjectItems);
-        });
+        projectMethods.setSelectedProject(self.selected_project);
+        console.log(projectMethods.getSelectedProject());
 
 
         if ( item == undefined ) {
