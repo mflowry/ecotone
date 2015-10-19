@@ -1,6 +1,10 @@
 $accent: #546E7A;
 $warn: orange;
 
+.sidenav-header {
+  margin: 20px auto;
+}
+
 .nav-ul {
   h3{
     color: white;
@@ -15,8 +19,8 @@ $warn: orange;
   }
 }
 
-.sidenav-header {
-  margin: 20px auto;
+#content{
+  margin-top: 50px;
 }
 
 #footer {
