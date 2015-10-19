@@ -4,20 +4,19 @@ const
     expressJwt = require('express-jwt'),
     pg = require('pg');
 
-var Projects = require('../../models/models').Projects;
-var Users = require('../../models/models').Users;
-var Calculations = require('../../models/models').Calculations;
+var Projects = require('../../models/models').Projects,
+    Users = require('../../models/models').Users,
+    Calculations = require('../../models/models').Calculations,
+    connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/ecotone';
 
 router.use(expressJwt({secret: 'supersecret'}));
-
-var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/ecotone';
 
 const client = new pg.Client(connectionString);
 client.connect();
 
-function getProjectsByUserId(req, res, next){
+//return all calculations for a given user
+function getProjectsByUserId(req, res){
     var userId = req.query.user_id;
-    //console.log(userId);
     pg.connect( connectionString , function( err, client , done){
         if( err ){
             console.log(err);
@@ -27,10 +26,8 @@ function getProjectsByUserId(req, res, next){
                 if(err){
                     console.log(err);
                 } else{
-                    //console.log(results);
+                    res.send(results.rows);
                 }
-                //var projects = results.rows;
-                res.send(results.rows);
             });
 
 
@@ -38,10 +35,10 @@ function getProjectsByUserId(req, res, next){
     });
 }
 
-function getProjectsByProjectId(req, res, next){
+//get calculations for given user and project
+function getProjectsByProjectId(req, res){
     var userId = req.query.user_id,
         projectId = req.query.project_id;
-    //console.log(userId);
     pg.connect( connectionString , function( err, client , done){
         if( err ){
             console.log(err);
@@ -63,17 +60,17 @@ function getProjectsByProjectId(req, res, next){
 
 router.get('/', function(req,res,next){
         if(req.query.user_id && req.query.project_id){
-            getProjectsByProjectId(req,res,next);
+            getProjectsByProjectId(req,res);
         } else if(req.query.user_id){
-            getProjectsByUserId(req,res,next);
+            getProjectsByUserId(req,res);
         } else{
-            res.status(400).send("You must specify a user id or a user id and a project id")
+            res.status(400).send({message:"You must specify a user id or a user id and a project id"})
         }
-        //getProjectsByUserId(req,res,next);
 });
 
+//add a new project
 router.post('/', function (req, res, next) {
-
+    //find user to associate project with
     Users.findById(req.body.user_id)
         .then(function (user) {
 
@@ -84,20 +81,25 @@ router.post('/', function (req, res, next) {
                 },
                 defaults: req.body
             };
+
+            //find an existing project or create a new one
             return Projects.findOrCreate(existingProjectId)
                 .spread(function (project, created){
                     if(created){
+                        //create a new project and associate it with the user
                         return user.addProject(project)
                             .then(function(){
+                                //add the user_id field to the returned project
                                 project.dataValues.user_id = user.id;
                                 res.send(project.dataValues);
                             })
                     } else {
+                        //if existing project, send an error
                         throw new Error('Duplicate Project Name');
                     }
                 });
             }).catch(function (err) {
-
+                //if error is due to duplicate project name, send custom status
                 if (err.message === 'Duplicate Project Name'){
                     res.status(409).send({message:err.message});
                 }
@@ -107,6 +109,7 @@ router.post('/', function (req, res, next) {
         });
 });
 
+//update projects
 router.put('/', function (req, res, next) {
 
     var existingProjectById = {
@@ -116,12 +119,11 @@ router.put('/', function (req, res, next) {
     };
 
     Projects.update(req.body, existingProjectById)
-        .then(function (project) {
-            //console.log(project);
-            res.sendStatus(200);
+        .then(function () {
+            res.sendStatus(200).send('Updated Project.');
         }).catch(function (err) {
             console.log('there was an error', err);
-            res.send('error!', err);
+            res.send({message: err});
         });
 });
 
@@ -138,9 +140,9 @@ router.delete('/:id', function (req, res, next) {
         truncate: false
     };
 
+    //sets active field to false, doesn't actually remove project from database
     Projects.update({active:false},existingProjectById)
-        .then(function (project) {
-            //console.log(project);
+        .then(function () {
             res.sendStatus(200);
         }).catch(function (err) {
             console.log('there was an error', err);
@@ -148,17 +150,21 @@ router.delete('/:id', function (req, res, next) {
         });
 });
 
+//add a new calculation
 router.post('/calculation', function (req, res, next) {
 
+    //find project to associate calculation with
     Projects.findById(req.body[0].project_id)
         .then(function (project) {
 
+            //allow for bulk calculation creation
             req.body.forEach( function(item){
 
+                //create calculation
                 Calculations.create(item)
                     .then(function (calculation) {
 
-                        // add the project to the user
+                        // associate the calculation with the current project
                         project.addCalculation(calculation).then(function(){
                         });
 
@@ -168,7 +174,6 @@ router.post('/calculation', function (req, res, next) {
                     });
             });
 
-            //console.log(returnedCalculations);
             res.sendStatus(200);
 
         })
@@ -191,44 +196,40 @@ router.delete('/calculation/:id', function (req, res, next) {
         truncate: false
     };
 
+    //sets active field to false, doesn't actually remove project from database
     Calculations.update({active: false},existingCalculationById)
-        .then(function (calculation) {
-            //console.log(project);
+        .then(function () {
             res.sendStatus(200);
         }).catch(function (err) {
             console.log('there was an error', err);
-            res.send('error: ', err);
+            res.send({message: err});
         });
 });
 
+//update calculations
 router.put('/calculation', function (req, res, next) {
 
-    Projects.findById(req.body.project_id)
-        .then(function (project) {
+            var calculationId = req.body.calculation_id;
 
-            var existingCalculationByProjectId = {
+            var existingCalculationById = {
                 where: {
-                    project_id: project.id
+                    id: calculationId
                 }
             };
             console.log('found project', project.id);
 
-            Calculations.update(existingCalculationByProjectId)
+            Calculations.update(existingCalculationById)
                     .then(function (affectedRows) {
-                        //// add the project to the user
-                        //Calculations.find.addCalculation(calculation).then(function(){
-                        //
-                        //});
-                        res.status(200).send("Updated " + affectedRows + " calculations");
+                        res.status(200).send("Updated " + affectedRows + " calculations.");
 
                     }).catch(function (err) {
                         console.log('there was an error', err);
                         res.send('error: ', err);
                     });
-            })
-        .catch(function (err) {
-            res.send(err);
-        });
+            //})
+        //.catch(function (err) {
+        //    res.send(err);
+        //});
 });
 
 module.exports = router;

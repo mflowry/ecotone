@@ -283,7 +283,7 @@ describe('The project/calculation API', function(){
             var updatedProjectCalculation = {
                 category: chance.last(),
                 item_description: chance.paragraph({sentences: 2}),
-                project_id: project.id
+                calculation_id: project.id
             };
 
             api.put('/project/calculation')
