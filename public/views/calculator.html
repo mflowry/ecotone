@@ -1,6 +1,6 @@
 <div id="calculator-page">
     <md-content layout="column" layout-align="space-between center">
-        <h2>Calculate Your CO<sub>2</sub> Offset</h2>
+        <h1>Calculate Your CO<sub>2</sub> Offset</h1>
         <md-input-container layout-fill flex>
             <md-select ng-show="user.username" ng-model="ctrl.selected_project" ng-change="ctrl.setSelectedProject()" placeholder="Select project" layout-fill flex>
                 <md-option ng-repeat="project in ctrl.projects" ng-value="project">
@@ -72,7 +72,7 @@
 
         <p ng-show="ctrl.result">Your Estimated CO<sub>2</sub> Offset is {{ctrl.result}} metric tons.</p>
 
-        <md-button class="md-primary md-raised" ng-show="user.username && project.project_name" ng-click="ctrl.saveToProject()">Save to project</md-button>
+        <md-button class="md-primary md-raised" ng-show="ctrl.selected_project" ng-click="ctrl.saveToProject()">Save to project</md-button>
 
         <div ng-show="user.username">
             <md-button ng-click="ctrl.newSuggestion()">+ Suggest a new material</md-button>
