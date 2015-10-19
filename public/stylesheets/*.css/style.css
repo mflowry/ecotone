@@ -43,7 +43,7 @@ md-autocomplete {
 table {
   border-collapse: collapse;
   text-align: left;
-  margin-bottom: 50px; }
+  margin-bottom: 25px; }
 
 th {
   border-top: solid 1px darkgray;
@@ -52,6 +52,9 @@ th {
 
 td {
   border-bottom: solid 1px darkgray; }
+
+img {
+  vertical-align: middle; }
 
 #login-page #submit-buttons a {
   vertical-align: middle; }
@@ -93,8 +96,6 @@ td {
     font-weight: bold;
     padding: 15px;
     margin-top: 5px; }
-  #dashboard-page #project-page img {
-    vertical-align: middle; }
   #dashboard-page #project-page #secondary-margin {
     margin-top: 32px; }
   #dashboard-page #project-page .dialogdemoBasicUsage .dialogDemo1 {
