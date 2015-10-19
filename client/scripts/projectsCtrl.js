@@ -51,12 +51,13 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
     //load project list on page load
     getProjectList();
 
-    ////refresh project list
-    //function getProjectList() {
-    //    $http.get('/project/namesById?user_id=' + $rootScope.user.id).then(function( res ){
-    //        self.projectList = res.data;
-    //    })
-    //}
+    // refresh project list
+    function getProjectList() {
+        $http.get('/project/namesById?user_id=' + $rootScope.user.id).then(function( res ){
+            console.log(res.data);
+            self.projectList = res.data;
+        })
+    }
 
     //get items for selected project
     function getProjectItems() {
