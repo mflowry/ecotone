@@ -15,7 +15,7 @@ var config = {
         js: ['./client/scripts/main.js','./client/**/*.js'],
         server: './server',
         sass: './client/sass/*.scss',
-        css: './public/stylesheets/*.css'
+        css: './public/stylesheets/'
     }
 };
 
