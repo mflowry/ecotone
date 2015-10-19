@@ -3,15 +3,15 @@ extends layout
 block content
   div(layout="column" ng-cloak)
     section(layout="row" style="height: 100vh" ng-controller="navCtrl")
-      md-sidenav(id="sidenav" class="md-sidenav-left md-primary md-whiteframe-z2 md-closed" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" flex)
-        header.sidenav-header
-          img(src="/images/ECOTONE_emailSIG.png" alt="ECOTONE")
-        md-toolbar.md-primary(layout-fill flex)
-          ul
+      md-sidenav(id="sidenav" class="md-sidenav-left md-whiteframe-z2 md-closed" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" flex)
+        md-toolbar.md-background(layout-fill flex)
+          header.md-accent
+              img(src="/images/ECOTONE_emailSIG.png" alt="ECOTONE")
+          ul.md-background
             li
-              md-button.md-primary(md-no-ink href="/calculator") Calculator
+              md-button.md-background(md-no-ink href="/calculator") Calculator
             li
-              md-button.md-primary(md-no-ink href="/login" ng-hide="user.username") Login
+              md-button.md-primary.md-hue-4(md-no-ink href="/login" ng-hide="user.username") Login
             li
               md-button.md-primary(md-no-ink href="/dashboard" ng-show="user.username") My Dashboard
             li
@@ -26,20 +26,15 @@ block content
               md-button.md-primary(md-no-ink href="/admin") ADMIN
 
       md-content(layout="column" layout-fill)
-        md-toolbar(id="hello" md-scroll-shrink ng-if="true")
-          div.md-toolbar-tools(style="background-color: white")
-            //h1(ng-show="user.username") Hello, {{user.first_name}}!
         md-content(id="content" layout="column" layout-fill layout-padding layout-margin layout-align="start center" flex)
           <!-- ng-view will display injected content -->
           div(ng-view)
 
-          div(id="footer" layout="row" layout-fill layout-align="end end")
-            ul
-              li
-                span(flex)
-              li
+          div(id="footer" layout="row" flex style = "width: 100%;" layout-align="end end")
+            ul(style="display:inline;width:100%")
+              li(style="display:inline")
+                md-button(md-no-ink href="www.ecotone-partners.com") &copy; 2015 Ecotone-Partners
+              li(style="display:inline")
                 md-button(md-no-ink href="/sources") Sources
-              li
+              li(style="display:inline")
                 md-button(md-no-ink href="//www.iubenda.com/privacy-policy/759345" title="Privacy Policy") Privacy Policy
-              li
-                p(id="copyright") &copy; 2015 Ecotone-Partners
