@@ -1,33 +1,18 @@
 $accent: #546E7A;
 $warn: orange;
 
-#sidenav, .md-sidenav{
+.nav-ul li{
+  display: block;
   float: left;
   color: white;
-  background-color: rgb(76,175,80);;
 }
 
-#footer .ng-scope {
-  color: black;
-}
 .sidenav-header {
   margin: 10px auto;
-  //background-color: rgb(76,175,80);
-}
-
-#hello {
-  padding: 60px;
-  background-color: white;
-  box-shadow: none;
 }
 
 #footer {
   margin: auto 0 0 auto;
-}
-
-#footer li {
-  display: inline-block;
-  vertical-align: bottom;
 }
 
 button.md-primary span {
