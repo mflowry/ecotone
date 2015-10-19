@@ -1,22 +1,25 @@
 // Project Page -  Kim/Madeleine
-app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', function($mdDialog, $scope, $rootScope, $http) {
+app.controller('projectsCtrl', ['projectMethods', '$mdDialog', '$scope', '$rootScope', '$http', function(projectMethods, $mdDialog, $scope, $rootScope, $http) {
 
-    // Self dec
-
-
-
-
+    // INIT
     var self = this;
-    self.projectList = '';
+    self.selected_project = projectMethods.getSelectedProject();
     self.result = '';
     self.querySearch = querySearch;
     self.selectedItemChange = selectedItemChange;
     self.searchTextChange = searchTextChange;
-    self.selectedProjectItems = '';
+    self.projectItems = '';
     self.projectTotal = 0;
     self.deleteProjectItem = deleteProjectItem;
     self.id = 0;
-
+    projectMethods.getProjectNames( function( list ) {
+       self.projectList = list;
+    });
+    if( self.selected_project ) {
+        projectMethods.getProjectItems(function (items) {
+            self.projectItems = items;
+        })
+    }
 
     //refresh project list
     function getProjectList() {
@@ -67,8 +70,8 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
         });
     }
 
+
     //load project list on page load
-    getProjectList();
 
 
     function querySearch(query) {
@@ -85,17 +88,19 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
 
     function searchTextChange(text) {
         console.log('Text changed to ', text);
+        self.projectItems = '';
+
     }
 
     function selectedItemChange(item) {
         console.log('item', item);
-        $http.get('/project/?user_id=' + $rootScope.user.id + '&project_id=' + self.selected_project.id).then(function(res ) {
-            self.selectedProjectItems = res.data;
-            console.log(self.selectedProjectItems);
+        projectMethods.setSelectedProject(self.selected_project);
+        projectMethods.getProjectItems( function( items ){
+            self.projectItems = items;
         });
 
-
         if ( item == undefined ) {
+            self.projectItems = '';
             self.selected_project = '';
             self.project_description = '';
         }
@@ -136,14 +141,12 @@ app.controller('projectsCtrl', ['$mdDialog', '$scope', '$rootScope', '$http', fu
 
     function calculateProjectTotal() {
         console.log("calculating...");
-        projectList.forEach(function (item) {
+        projectItems.forEach(function (item) {
             projectTotal += item.co2_offset;
             console.log(projectTotal);
             return projectTotal;
 
         })
     }
-
-
 
 }]);
