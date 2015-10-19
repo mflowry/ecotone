@@ -20,6 +20,7 @@ app.controller('projectsCtrl', ['projectMethods', '$mdDialog', '$scope', '$rootS
     if( self.selected_project ) {
         projectMethods.getProjectItems(function (items) {
             self.projectItems = items;
+
         });
     }
 
@@ -90,7 +91,7 @@ app.controller('projectsCtrl', ['projectMethods', '$mdDialog', '$scope', '$rootS
     function saveProject() {
         console.log("Saving...", self.id);
         //save all project fields? how do I even do this?
-    };
+    }
 
     function calculateProjectTotal() {
         console.log("calculating...");
