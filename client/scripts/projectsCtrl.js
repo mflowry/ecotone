@@ -17,6 +17,7 @@ app.controller('projectsCtrl', ['projectMethods', '$mdDialog', '$scope', '$rootS
     projectMethods.getProjectNames( function( list ) {
        self.projectList = list;
     });
+
     if( self.selected_project ) {
         projectMethods.getProjectItems(function (items) {
             self.projectItems = items;
