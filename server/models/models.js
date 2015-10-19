@@ -39,7 +39,7 @@ var userSchema = sequelize.define('user',
             validate: {
                 isAlphanumericWithSpaces: function(value) {
                     console.log(value.match('^[0-9a-zA-Z .-]+$') || false);
-                    if(!value.match("^[0-9a-zA-Z .-']+$")) {
+                    if(!value.match('^[0-9a-zA-Z .-]+$')) {
                         throw new Error('Only alphanumeric, spaces, periods, and dashes allowed!')
                     }
                 }
@@ -50,7 +50,7 @@ var userSchema = sequelize.define('user',
             validate: {
                 isAlphanumericWithSpaces: function(value) {
                     console.log(value.match('^[0-9a-zA-Z .-]+$') || false);
-                    if(!value.match("^[0-9a-zA-Z .-']+$")) {
+                    if(!value.match('^[0-9a-zA-Z .-]+$')) {
                         throw new Error('Only alphanumeric, spaces, periods, and dashes allowed!')
                     }
                 }
@@ -61,7 +61,7 @@ var userSchema = sequelize.define('user',
             validate: {
                 isAlphanumericWithSpaces: function(value) {
                     console.log(value.match('^[0-9a-zA-Z .-]+$') || false);
-                    if(!value.match("^[0-9a-zA-Z .-']+$")) {
+                    if(!value.match('^[0-9a-zA-Z .-]+$')) {
                         throw new Error('Only alphanumeric, spaces, periods, and dashes allowed!')
                     }
                 }
@@ -73,7 +73,7 @@ var userSchema = sequelize.define('user',
             validate: {
                 isAlphanumericWithSpaces: function(value) {
                     console.log(value.match('^[0-9a-zA-Z .-]+$') || false);
-                    if(!value.match("^[0-9a-zA-Z .-']+$")) {
+                    if(!value.match('^[0-9a-zA-Z .-]+$')) {
                         throw new Error('Only alphanumeric, spaces, periods, and dashes allowed!')
                     }
                 }
@@ -208,7 +208,7 @@ projectSchema = sequelize.define('project',
             validate: {
                 isAlphanumericWithSpaces: function(value) {
                     console.log(value.match('^[0-9a-zA-Z .-]+$') || false);
-                    if(!value.match("^[0-9a-zA-Z .-']+$")) {
+                    if(!value.match('^[0-9a-zA-Z .-]+$')) {
                         throw new Error('Only alphanumeric, spaces, periods, and dashes allowed!')
                     }
                 }
@@ -219,7 +219,7 @@ projectSchema = sequelize.define('project',
             validate: {
                 isAlphanumericWithSpaces: function(value) {
                     console.log(value.match('^[0-9a-zA-Z .-]+$') || false);
-                    if(!value.match("^[0-9a-zA-Z .-']+$")) {
+                    if(!value.match('^[0-9a-zA-Z .-]+$')) {
                         throw new Error('Only alphanumeric, spaces, periods, and dashes allowed!')
                     }
                 }
@@ -246,7 +246,7 @@ calculationSchema = sequelize.define('calculation',
             validate: {
                 isAlphanumericWithSpaces: function(value) {
                     console.log(value.match('^[0-9a-zA-Z .-]+$') || false);
-                    if(!value.match("^[0-9a-zA-Z .-']+$")) {
+                    if(!value.match('^[0-9a-zA-Z .-]+$')) {
                         throw new Error('Only alphanumeric, spaces, periods, and dashes allowed!')
                     }
                 }
@@ -263,7 +263,7 @@ calculationSchema = sequelize.define('calculation',
             validate: {
                 isAlphanumericWithSpaces: function(value) {
                     console.log(value.match('^[0-9a-zA-Z .-]+$') || false);
-                    if(!value.match("^[0-9a-zA-Z .-']+$")) {
+                    if(!value.match('^[0-9a-zA-Z .-]+$')) {
                         throw new Error('Only alphanumeric, spaces, periods, and dashes allowed!')
                     }
                 }
@@ -286,7 +286,7 @@ calculationSchema = sequelize.define('calculation',
             validate: {
                 isAlphanumericWithSpaces: function(value) {
                     console.log(value.match('^[0-9a-zA-Z .-]+$') || false);
-                    if(!value.match("^[0-9a-zA-Z .-']+$")) {
+                    if(!value.match('^[0-9a-zA-Z .-]+$')) {
                         throw new Error('Only alphanumeric, spaces, periods, and dashes allowed!')
                     }
                 }
