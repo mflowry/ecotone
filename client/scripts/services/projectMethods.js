@@ -19,6 +19,12 @@ app.factory('projectMethods', ['$http', '$rootScope', function ( $http, $rootSco
         });
     }
 
+    function getProjectNamesReturn(){
+        return $http.get( '/project/namesById?user_id=' + $rootScope.user.id ).then( function( res ){
+            return res.data
+        });
+    }
+
     function getProjectItems( callback ) {
         $http.get( '/project/?user_id=' + $rootScope.user.id + "&project_id=" + selectedProject.id ).then( function (res) {
             callback( res.data );
@@ -41,6 +47,7 @@ app.factory('projectMethods', ['$http', '$rootScope', function ( $http, $rootSco
 
         setSelectedProject: setSelectedProject,
 
+        getProjectNamesReturn: getProjectNamesReturn,
         getAllProjectItems: getAllProjectItems,
         getSelectedProjectItems: getSelectedProjectItems,
         getProjectNames: getProjectNames,

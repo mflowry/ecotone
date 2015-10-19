@@ -6,11 +6,16 @@
                 <md-option ng-repeat="project in ctrl.projects" ng-value="project">
                     {{ project.project_name }}
                 </md-option>
-                <md-option ng-click="ctrl.newProject()">
-                    Create new project...
-                </md-option>
+
+                <!-- Causes Bug -->
+                <!--<md-option ng-click="ctrl.newProject()">-->
+                    <!--Create new project...-->
+                <!--</md-option>-->
             </md-select>
         </md-input-container>
+        <div ng-show="user.username">
+            <md-button ng-click="ctrl.newProject()">Create New Project</md-button>
+        </div>
         <div id="material-choice" layout-fill>
             <md-autocomplete ng-disabled="ctrl.isDisabled"
                 md-selected-item="ctrl.category"

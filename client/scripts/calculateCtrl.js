@@ -1,4 +1,5 @@
-app.controller('calculateCtrl', ['projectMethods', '$http', '$mdDialog', '$rootScope', 'authService', '$location', function( projectMethods, $http, $mdDialog, $rootScope, authService, $location ) {
+app.controller('calculateCtrl', ['$scope', 'projectMethods', '$timeout', '$http', '$mdDialog', '$rootScope', 'authService', '$location',
+    function( $scope, projectMethods, $timeout, $http, $mdDialog, $rootScope, authService, $location ) {
 
     // Check user
     $rootScope.user = authService.getUser();
@@ -167,8 +168,16 @@ app.controller('calculateCtrl', ['projectMethods', '$http', '$mdDialog', '$rootS
 
         $http.post('/project', self.projectSubmission).then(function(res){
             $mdDialog.hide();
+            //projectMethods.getProjectNamesReturn().then(function( names ){
+            //    console.log(names);
+            //    self.projects = names;
+            //    $scope.$apply();
+            //})
+
         })
     }
+
+
 
     function newProject( newProject ){
 
