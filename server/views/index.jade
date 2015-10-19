@@ -9,6 +9,8 @@ block content
               img(src="/images/ECOTONE_emailSIG.png" alt="ECOTONE")
           ul.nav-ul
             li
+              h1(ng-show="user.username") Hello, {{user.first_name}}!
+            li
               md-button( href="/calculator") Calculator
             li
               md-button( href="/login" ng-hide="user.username") Login
@@ -28,7 +30,7 @@ block content
           <!-- ng-view will display injected content -->
           div.view(ng-view)
 
-          div(id="footer" layout="row" flex style = "width: 100%;" layout-align="end end")
+          div(id="footer" layout="row" flex style="width: 100%;" layout-align="end end")
             ul(style="display:inline;width:100%")
               li(style="display:inline")
                 md-button(md-no-ink href="www.ecotone-partners.com") &copy; 2015 Ecotone-Partners

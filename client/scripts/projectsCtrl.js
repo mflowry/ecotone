@@ -2,8 +2,6 @@
 app.controller('projectsCtrl', ['projectMethods', '$mdDialog', '$scope', '$rootScope', '$http', function(projectMethods, $mdDialog, $scope, $rootScope, $http) {
 
     // INIT
-
-
     var self = this;
     self.selected_project = projectMethods.getSelectedProject();
     self.result = '';
@@ -14,13 +12,63 @@ app.controller('projectsCtrl', ['projectMethods', '$mdDialog', '$scope', '$rootS
     self.projectTotal = 0;
     self.deleteProjectItem = deleteProjectItem;
     self.id = 0;
+    self.calculateProjectTotal = calculateProjectTotal;
     projectMethods.getProjectNames( function( list ) {
        self.projectList = list;
     });
+
     if( self.selected_project ) {
         projectMethods.getProjectItems(function (items) {
             self.projectItems = items;
+        })
+    }
 
+    //refresh project list
+    function getProjectList() {
+        $http.get('/project/namesById?user_id=' + $rootScope.user.id).then(function (response) {
+                self.projectList = res.data;
+                console.log("List on load", response);
+                var projectList = [];//[response.data[0].project_name];
+                var currentProject = projectList[0];
+                var duplicate = false;
+                response.data.forEach(function (item) {
+                    //item.project_name = item.project_name.toLowerCase();
+
+                    //projectList.forEach(function (listItem, index, array) {
+                    //    if (listItem !== item.project_name) {
+                    //        uniqueName = true;
+                    //    }
+                    //
+                    //});
+
+                    duplicate = projectList.some(function (projectName) {
+                        return projectName === item.project_name;
+                    });
+                    if (!duplicate) {
+                        projectList.push(item.project_name);
+                        console.log("This is the unduped project list:", projectList);
+                    }
+                });
+                console.log(projectList);
+            });
+    }
+
+    //load project list on page load
+    getProjectList();
+
+    // refresh project list
+    function getProjectList() {
+        $http.get('/project/namesById?user_id=' + $rootScope.user.id).then(function( res ){
+            console.log(res.data);
+            self.projectList = res.data;
+        })
+    }
+
+    //get items for selected project
+    function getProjectItems() {
+        $http.get('/project/?user_id=' + $rootScope.user.id + "&project_id=2").then(function (response) {
+            console.log(response);
+            self.projectItems = response.data;
         });
     }
 
@@ -95,14 +143,14 @@ app.controller('projectsCtrl', ['projectMethods', '$mdDialog', '$scope', '$rootS
 
     function calculateProjectTotal() {
         console.log("calculating...");
-        projectList.forEach(function (item) {
+        projectTotal = 0;
+        self.projectItems.forEach(function (item) {
             projectTotal += item.co2_offset;
             console.log(projectTotal);
-            return projectTotal;
-
-        })
+        });
+        console.log(projectTotal);
+        return projectTotal;
     }
 
-
-
+// calculateProjectTotal();
 }]);
