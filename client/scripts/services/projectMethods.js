@@ -1,9 +1,12 @@
 app.factory('projectMethods', ['$http', '$rootScope', function ( $http, $rootScope ) {
 
-    var selectedProject;
+    var selectedProject, selectedProjectItems;
 
     function setSelectedProject( project ){
         selectedProject = project;
+        $http.get( '/project/?user_id=' + $rootScope.user.id + "&project_id=" + selectedProject.id ).then( function (res) {
+            selectedProjectItems = res.data;
+        });
     }
 
     function getSelectedProject( project ){
@@ -22,11 +25,16 @@ app.factory('projectMethods', ['$http', '$rootScope', function ( $http, $rootSco
         });
     }
 
+    function getSelectedProjectItems() {
+        return selectedProjectItems;
+    }
+
     return {
 
 
         setSelectedProject: setSelectedProject,
 
+        getSelectedProjectItems: getSelectedProjectItems,
         getProjectNames: getProjectNames,
         getProjectItems: getProjectItems,
         getSelectedProject: getSelectedProject
