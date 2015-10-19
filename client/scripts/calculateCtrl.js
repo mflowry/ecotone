@@ -95,6 +95,7 @@ app.controller('calculateCtrl', ['projectMethods', '$http', '$mdDialog', '$rootS
 
         $http.post('/calculations', calculate).then(function(response) {
             self.result = Math.floor(Math.abs(response.data) * 1000) / 1000;
+            console.log(self.result);
 
             if($rootScope.user) {
                 var savedCalculation = [{}];
@@ -103,7 +104,8 @@ app.controller('calculateCtrl', ['projectMethods', '$http', '$mdDialog', '$rootS
                 savedCalculation[0].sub_category = self.subcategory || null;
                 savedCalculation[0].units = self.selected_unit.name;
                 savedCalculation[0].weight = self.weight;
-                savedCalculation[0].c02_offset = self.result;
+                console.log(self.result);
+                savedCalculation[0].co2_offset = self.result;
                 savedCalculation[0].item_description = self.item_description;
 
                 console.log(savedCalculation);

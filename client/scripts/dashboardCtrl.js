@@ -45,4 +45,13 @@ app.controller('dashboardCtrl', ['projectMethods', '$mdDialog', '$rootScope', '$
 
     }
 
+    function calculateTotalCO2(){
+      projectMethods.getAllProjectItems( function( items ){
+          console.log(items);
+      })
+    };
+
+    calculateTotalCO2();
+
+
 }]);
