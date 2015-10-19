@@ -12,6 +12,7 @@ app.controller('projectsCtrl', ['projectMethods', '$mdDialog', '$scope', '$rootS
     self.projectTotal = 0;
     self.deleteProjectItem = deleteProjectItem;
     self.id = 0;
+    self.calculateProjectTotal = calculateProjectTotal;
     projectMethods.getProjectNames( function( list ) {
        self.projectList = list;
     });
@@ -141,12 +142,14 @@ app.controller('projectsCtrl', ['projectMethods', '$mdDialog', '$scope', '$rootS
 
     function calculateProjectTotal() {
         console.log("calculating...");
-        projectItems.forEach(function (item) {
+        projectTotal = 0;
+        self.projectItems.forEach(function (item) {
             projectTotal += item.co2_offset;
             console.log(projectTotal);
-            return projectTotal;
-
-        })
+        });
+        console.log(projectTotal);
+        return projectTotal;
     }
 
+// calculateProjectTotal();
 }]);
