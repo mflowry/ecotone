@@ -13,9 +13,7 @@
                 <!--</md-option>-->
             </md-select>
         </md-input-container>
-        <div ng-show="user.username">
-            <md-button ng-click="ctrl.newProject()">Create New Project</md-button>
-        </div>
+
         <div id="material-choice" layout-fill>
             <md-autocomplete ng-disabled="ctrl.isDisabled"
                 md-selected-item="ctrl.category"
@@ -76,6 +74,9 @@
 
         <div ng-show="user.username">
             <md-button ng-click="ctrl.newSuggestion()">+ Suggest a new material</md-button>
+        </div>
+        <div ng-show="user.username">
+            <md-button ng-click="ctrl.newProject()">+ Create New Project</md-button>
         </div>
 
     </md-content>

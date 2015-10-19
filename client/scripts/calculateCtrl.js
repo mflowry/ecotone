@@ -60,7 +60,6 @@ app.controller('calculateCtrl', ['$scope', 'projectMethods', '$timeout', '$http'
     self.newCalculation = newCalculation;
     self.saveToProject = saveToProject;
     self.newProject = newProject;
-    self.createProject = createProject;
     if(authService.isAuthed()) {
         projectMethods.getProjectNames(function (names) {
             self.projects = names;
@@ -163,30 +162,17 @@ app.controller('calculateCtrl', ['$scope', 'projectMethods', '$timeout', '$http'
 
     }
 
-    function createProject() {
-        self.projectSubmission.user_id = $rootScope.user.id;
-
-        $http.post('/project', self.projectSubmission).then(function(res){
-            $mdDialog.hide();
-            //projectMethods.getProjectNamesReturn().then(function( names ){
-            //    console.log(names);
-            //    self.projects = names;
-            //    $scope.$apply();
-            //})
-
-        })
-    }
-
 
 
     function newProject( newProject ){
 
-        $mdDialog.show({
-            templateUrl: 'views/project-modal.html',
-            clickOutsideToClose: true,
-            controller: 'calculateCtrl',
-            controllerAs: 'ctrl'
-        })
+        $location.path('/newProject');
+        //$mdDialog.show({
+        //    templateUrl: 'views/project-modal.html',
+        //    clickOutsideToClose: true,
+        //    controller: 'calculateCtrl',
+        //    controllerAs: 'ctrl'
+        //})
     }
 
 }]);
