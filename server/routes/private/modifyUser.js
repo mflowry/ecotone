@@ -12,13 +12,11 @@ router.get('/',function(req,res,next){
 });
 
 router.put('/', function(req, res, next) {
-    console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n\n\n\n\n\n',req.body)
     var existingUserById = {
         where: {
             id: req.body.id
         }
     };
-    console.log(req.body);
     Users.update(req.body, existingUserById)
         .then(function (user) {
             //console.log(user);
@@ -44,7 +42,6 @@ router.delete('/:id', function(req, res, next) {
 
     Users.update({active: false}, existingUserById)
         .then(function (user) {
-            //console.log(user);
             res.sendStatus(200);
         }).catch(function (err) {
             console.log('there was an error', err);

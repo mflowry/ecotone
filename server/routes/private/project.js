@@ -29,8 +29,6 @@ function getProjectsByUserId(req, res){
                     res.send(results.rows);
                 }
             });
-
-
         }
     });
 }
@@ -50,10 +48,7 @@ function getProjectsByProjectId(req, res){
                 } else{
                     res.send(results.rows);
                 }
-
             });
-
-
         }
     });
 }
@@ -120,7 +115,7 @@ router.put('/', function (req, res, next) {
 
     Projects.update(req.body, existingProjectById)
         .then(function () {
-            res.sendStatus(200).send('Updated Project.');
+            res.status(200).send('Updated Project.');
         }).catch(function (err) {
             console.log('there was an error', err);
             res.send({message: err});
@@ -146,7 +141,7 @@ router.delete('/:id', function (req, res, next) {
             res.sendStatus(200);
         }).catch(function (err) {
             console.log('there was an error', err);
-            res.send('error: ', err);
+            res.send({message: err});
         });
 });
 
@@ -178,7 +173,7 @@ router.post('/calculation', function (req, res, next) {
 
         })
         .catch(function (err) {
-            res.send(err);
+            res.send({message: err});
         });
 
 });
@@ -209,27 +204,20 @@ router.delete('/calculation/:id', function (req, res, next) {
 //update calculations
 router.put('/calculation', function (req, res, next) {
 
-            var calculationId = req.body.calculation_id;
+    var existingCalculationById = {
+        where: {
+            id: req.body.calculation_id
+        }
+    };
 
-            var existingCalculationById = {
-                where: {
-                    id: calculationId
-                }
-            };
-            console.log('found project', project.id);
+    Calculations.update(req.body, existingCalculationById)
+        .then(function () {
+            res.status(200).send("Updated calculation.");
 
-            Calculations.update(existingCalculationById)
-                    .then(function (affectedRows) {
-                        res.status(200).send("Updated " + affectedRows + " calculations.");
-
-                    }).catch(function (err) {
-                        console.log('there was an error', err);
-                        res.send('error: ', err);
-                    });
-            //})
-        //.catch(function (err) {
-        //    res.send(err);
-        //});
+        }).catch(function (err) {
+            console.log('there was an error', err);
+            res.send('error: ', err);
+        });
 });
 
 module.exports = router;
