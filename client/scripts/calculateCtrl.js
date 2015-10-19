@@ -1,4 +1,4 @@
-app.controller('calculateCtrl', ['$http', '$mdDialog', '$rootScope', 'authService', '$location', function( $http, $mdDialog, $rootScope, authService, $location ) {
+app.controller('calculateCtrl', ['projectMethods', '$http', '$mdDialog', '$rootScope', 'authService', '$location', function( projectMethods, $http, $mdDialog, $rootScope, authService, $location ) {
 
     // Check user
     $rootScope.user = authService.getUser();
@@ -20,9 +20,7 @@ app.controller('calculateCtrl', ['$http', '$mdDialog', '$rootScope', 'authServic
 
     });
 
-    $http.get('/project/namesById?user_id=' + $rootScope.user.id).then(function( res ){
-        self.projects = res.data;
-    });
+
 
     // Self dec
     var self = this;
@@ -62,6 +60,14 @@ app.controller('calculateCtrl', ['$http', '$mdDialog', '$rootScope', 'authServic
     self.saveToProject = saveToProject;
     self.newProject = newProject;
     self.createProject = createProject;
+    if(authService.isAuthed()) {
+        projectMethods.getProjectNames(function (names) {
+            self.projects = names;
+        });
+    }
+    self.setSelectedProject = function(){
+        projectMethods.setSelectedProject( self.selected_project );
+    };
 
 
     function searchTextChange(text) {
@@ -170,7 +176,6 @@ app.controller('calculateCtrl', ['$http', '$mdDialog', '$rootScope', 'authServic
             controller: 'calculateCtrl',
             controllerAs: 'ctrl'
         })
-
     }
 
 }]);

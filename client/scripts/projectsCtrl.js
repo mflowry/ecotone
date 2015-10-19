@@ -2,18 +2,26 @@
 app.controller('projectsCtrl', ['projectMethods', '$mdDialog', '$scope', '$rootScope', '$http', function(projectMethods, $mdDialog, $scope, $rootScope, $http) {
 
     // INIT
-    self.projectList = projectMethods.getProjectNames();
 
 
     var self = this;
+    self.selected_project = projectMethods.getSelectedProject();
     self.result = '';
     self.querySearch = querySearch;
     self.selectedItemChange = selectedItemChange;
     self.searchTextChange = searchTextChange;
-    self.selectedProjectItems = '';
+    self.projectItems = '';
     self.projectTotal = 0;
     self.deleteProjectItem = deleteProjectItem;
     self.id = 0;
+    projectMethods.getProjectNames( function( list ) {
+       self.projectList = list;
+    });
+    if( self.selected_project ) {
+        projectMethods.getProjectItems(function (items) {
+            self.projectItems = items;
+        });
+    }
 
 
     //load project list on page load
@@ -33,15 +41,19 @@ app.controller('projectsCtrl', ['projectMethods', '$mdDialog', '$scope', '$rootS
 
     function searchTextChange(text) {
         console.log('Text changed to ', text);
+        self.projectItems = '';
+
     }
 
     function selectedItemChange(item) {
         console.log('item', item);
         projectMethods.setSelectedProject(self.selected_project);
-        console.log(projectMethods.getSelectedProject());
-
+        projectMethods.getProjectItems( function( items ){
+            self.projectItems = items;
+        });
 
         if ( item == undefined ) {
+            self.projectItems = '';
             self.selected_project = '';
             self.project_description = '';
         }

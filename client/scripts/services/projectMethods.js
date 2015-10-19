@@ -1,4 +1,4 @@
-app.factory('projectMethods', ['$http', function ( $http ) {
+app.factory('projectMethods', ['$http', '$rootScope', function ( $http, $rootScope ) {
 
     var selectedProject;
 
@@ -7,23 +7,23 @@ app.factory('projectMethods', ['$http', function ( $http ) {
     }
 
     function getSelectedProject( project ){
-        return selectedProject;
+        return selectedProject || '';
     }
 
-    function getProjectNames(){
+    function getProjectNames( callback ){
         $http.get( '/project/namesById?user_id=' + $rootScope.user.id ).then( function( res ){
-            return res.data
-        })
+             callback( res.data );
+        });
     }
 
-    function getProjectItems() {
-        $http.get( '/project/?user_id=' + $rootScope.user.id + "&project_id=" + selectedProject.id ).then( function (response) {
-            console.log( res );
-            return  res.data;
+    function getProjectItems( callback ) {
+        $http.get( '/project/?user_id=' + $rootScope.user.id + "&project_id=" + selectedProject.id ).then( function (res) {
+            callback( res.data );
         });
     }
 
     return {
+
 
         setSelectedProject: setSelectedProject,
 

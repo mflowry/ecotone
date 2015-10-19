@@ -1,14 +1,5 @@
-app.controller('dashboardCtrl', ['$mdDialog', '$rootScope', '$scope', '$http', function($mdDialog, $rootScope, $scope, $http) {
+app.controller('dashboardCtrl', ['projectMethods', '$mdDialog', '$rootScope', '$scope', '$http', function(projectMethods, $mdDialog, $rootScope, $scope, $http) {
     var user=$rootScope.user;
-
-
-    //load project list on page load
-    $http.get('/project/' + user.id).then(function(response) {
-        $scope.projectList = response.data;
-        //response.data.forEach(function(item){
-        //    item.project_name = item.primary_cat.toLowerCase();
-    });
-//this is for the remove project modal alert for removing a project, data will still be in database-- still not working correct
 
     $scope.showDelete = function(ev) {
 
@@ -27,21 +18,13 @@ app.controller('dashboardCtrl', ['$mdDialog', '$rootScope', '$scope', '$http', f
         });
     };
 
-    //need to check if we need this!
-//    function DialogController($scope, $mdDialog) {
-//    $scope.hide = function() {
-//        $mdDialog.hide();
-//    };
-//    $scope.cancel = function() {
-//        $mdDialog.cancel();
-//    };
-//    $scope.answer = function(answer) {
-//        $mdDialog.hide(answer);
-//    };
-//}
     self = this;
     self.newProject = newProject;
     self.createProject = createProject;
+    projectMethods.getProjectNames(function (names) {
+        self.projects = names;
+        console.log(names);
+    });
 
     function createProject() {
         self.projectSubmission.user_id = $rootScope.user.id;

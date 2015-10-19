@@ -2,7 +2,7 @@
     <md-content layout="column" layout-align="space-between center">
         <h2>Calculate Your CO<sub>2</sub> Offset</h2>
         <md-input-container layout-fill flex>
-            <md-select ng-show="user.username" ng-model="ctrl.selected_project" placeholder="Select project" layout-fill flex>
+            <md-select ng-show="user.username" ng-model="ctrl.selected_project" ng-change="ctrl.setSelectedProject()" placeholder="Select project" layout-fill flex>
                 <md-option ng-repeat="project in ctrl.projects" ng-value="project">
                     {{ project.project_name }}
                 </md-option>
