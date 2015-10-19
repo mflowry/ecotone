@@ -29,11 +29,19 @@ app.factory('projectMethods', ['$http', '$rootScope', function ( $http, $rootSco
         return selectedProjectItems;
     }
 
+    function getAllProjectItems( callback ) {
+        $http.get( '/project/?user_id='+ $rootScope.user.id).then( function( res ){
+            callback( res.data )
+
+        })
+    }
+
     return {
 
 
         setSelectedProject: setSelectedProject,
 
+        getAllProjectItems: getAllProjectItems,
         getSelectedProjectItems: getSelectedProjectItems,
         getProjectNames: getProjectNames,
         getProjectItems: getProjectItems,
