@@ -20,13 +20,12 @@ router.get('/:token', function(req, res) {
             if (user===null) {
                 throw new Error('Password reset token is invalid or has expired.');
             } else{
-                res.redirect('/reset');
+                res.render('reset');
             }
 
         }).catch(function(err){
             res.render('error', {message: err.message});
         });
-
 
 });
 
