@@ -64,6 +64,7 @@
 
         <md-button class="md-accent md-raised" ng-click="ctrl.newCalculation()" ng-disabled="calcForm.$invalid">Calculate</md-button>
 
+        <p ng-show="ctrl.error"></p>
         <p ng-show="ctrl.result">Your Estimated CO<sub>2</sub> Offset is {{ctrl.result}} metric tons.</p>
 
         <div ng-show="user.username">
