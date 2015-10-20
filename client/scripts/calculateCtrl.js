@@ -59,7 +59,6 @@ app.controller('calculateCtrl', ['$scope', 'projectMethods', '$timeout', '$http'
     };
     self.newCalculation = newCalculation;
     self.saveToProject = saveToProject;
-    self.newProject = newProject;
     if(authService.isAuthed()) {
         projectMethods.getProjectNames(function (names) {
             self.projects = names;
@@ -94,17 +93,22 @@ app.controller('calculateCtrl', ['$scope', 'projectMethods', '$timeout', '$http'
         };
 
         $http.post('/calculations', calculate).then(function(response) {
-            self.result = Math.floor(Math.abs(response.data) * 1000) / 1000;
-            console.log(self.result);
 
-            if($rootScope.user) {
+            response.data = Math.abs(parseFloat(response.data));
+
+            if (response.data >= .0001) {
+                self.result = Math.floor(response.data * 10000) / 10000;
+            } else {
+                self.result = response.data.toExponential(2);
+            }
+
+            if ($rootScope.user) {
                 var savedCalculation = [{}];
                 savedCalculation[0].project_id = self.selected_project.id;
                 savedCalculation[0].category = self.category.primary_cat;
                 savedCalculation[0].sub_category = self.subcategory || null;
                 savedCalculation[0].units = self.selected_unit.name;
                 savedCalculation[0].weight = self.weight;
-                console.log(self.result);
                 savedCalculation[0].co2_offset = self.result;
                 savedCalculation[0].item_description = self.item_description;
 
@@ -113,6 +117,8 @@ app.controller('calculateCtrl', ['$scope', 'projectMethods', '$timeout', '$http'
                 $http.post('/project/calculation', savedCalculation).then(function (res) {
                     console.log(res);
                 })
+
+
             }
         });
     }
@@ -159,14 +165,6 @@ app.controller('calculateCtrl', ['$scope', 'projectMethods', '$timeout', '$http'
             controllerAs: 'ctrl',
             locals: {material: self.searchText}
         })
-
-    }
-
-
-
-    function newProject( newProject ){
-
-        $location.path('/newProject');
 
     }
 

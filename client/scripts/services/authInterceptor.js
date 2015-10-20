@@ -10,7 +10,7 @@ app.service('authService', ['$window', function ($window){
 
     this.saveToken = function (token) {
         $window.localStorage.jwtToken = token;
-        console.log('Saved token:',$window.localStorage.jwtToken);
+        //console.log('Saved token:',$window.localStorage.jwtToken);
     };
 
     this.getToken = function () {
@@ -68,4 +68,17 @@ app.factory('authInterceptor', ['$q', '$location', 'authService', function ($q, 
             return $q.reject(response);
         }
     };
+}]);
+
+app.service('showToast', ['$mdToast', function($mdToast){
+
+    this.showToast = function(message) {
+        $mdToast.show(
+            $mdToast.simple()
+                .content(message)
+                .hideDelay(3000)
+                .position('top right')
+        );
+    };
+
 }]);

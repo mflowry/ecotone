@@ -1,6 +1,6 @@
 
 // Edit account info HTML - Kim
-app.controller('editAccountCtrl', ['$scope', '$http', '$location', '$rootScope', function($scope, $http, $location, $rootScope) {
+app.controller('editAccountCtrl', ['$scope', '$http', '$location', '$rootScope', 'showToast', function($scope, $http, $location, $rootScope, showToast) {
     $scope.user = {};
     console.log($rootScope.user);
     $scope.user = $rootScope.user;
@@ -13,12 +13,12 @@ app.controller('editAccountCtrl', ['$scope', '$http', '$location', '$rootScope',
             data: $scope.user,
             dataType: 'json'
         }).then(function (response) {
-            console.log(response);
             $location.path('/calculator');
-            alert("Your account information has been changed.")
+            showToast.showToast("Your account information has been changed.")
         }, function(error){
             console.log('error');
-            alert("There was a problem processing your changes. Please try again later.")
+            showToast.showToast("There was a problem processing your changes. Please try again later.")
         });
     };
+
 }]);
