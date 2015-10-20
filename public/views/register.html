@@ -1,8 +1,8 @@
-<div class="content-layout" id="register-page" layout="column" ng-controller="createAccountCtrl" ng-cloak>
-    <h1>Create an Account</h1>
-    <!-- Account Information -->
+<div class="content-layout" id="register-page" layout="column" layout-fill ng-controller="createAccountCtrl" ng-cloak>
     <form name="registerForm">
-        <md-content layout-padding layout="row" layout-sm="column">
+        <!-- Account Information -->
+        <h1>Create an Account</h1>
+        <md-content layout="row" layout-md="column">
             <md-input-container flex>
                 <label>First Name</label>
                 <input ng-model="user.first_name" required>
@@ -12,63 +12,48 @@
                 <input ng-model="user.last_name" required>
             </md-input-container>
         </md-content>
-        <md-content layout-padding layout="row" layout-sm="column">
-            <md-input-container flex>
-                <label>Title</label>
-                <input ng-model="user.title">
-            </md-input-container>
-        </md-content>
-        <md-content layout-padding layout="row" layout-sm="column">
-            <md-input-container flex>
-                <label>Company Name</label>
-                <input ng-model="user.company_name">
-            </md-input-container>
-        </md-content>
-        <md-content layout-padding layout="row" layout-sm="column">
-            <md-input-container flex>
-                <label>Zip/Postal Code</label>
-                <!-- Should Validate for US and Canadian zip/postal codes-->
-                <input ng-model="user.zip_code" ng-pattern="/(\d{5}|[A-Z]\d[A-Z] ?\d[A-Z]\d)/" name = "zipCode" required>
-                <div ng-messages="registerForm.zipCode.$error" role="alert">
-                    <div ng-message="pattern">US or Canadian zip code formats only</div>
-                </div>
-            </md-input-container>
-        </md-content>
-        <md-content layout-padding layout="row" layout-sm="column">
-            <md-input-container flex>
-                <label>Email</label>
-                <input ng-model="user.email" type="email" required>
-            </md-input-container>
-        </md-content>
+        <md-input-container flex>
+            <label>Email</label>
+            <input ng-model="user.email" type="email" required>
+        </md-input-container>
+        <md-input-container flex>
+            <label>Company Name</label>
+            <input ng-model="user.company_name">
+        </md-input-container>
+        <md-input-container flex>
+            <label>Title</label>
+            <input ng-model="user.title">
+        </md-input-container>
+        <md-input-container flex>
+            <label>Zip/Postal Code</label>
+            <!-- Should Validate for US and Canadian zip/postal codes-->
+            <input ng-model="user.zip_code" ng-pattern="/(\d{5}|[A-Z]\d[A-Z] ?\d[A-Z]\d)/" name = "zipCode" required>
+            <div ng-messages="registerForm.zipCode.$error" role="alert">
+                <div ng-message="pattern">US or Canadian zip code formats only</div>
+            </div>
+        </md-input-container>
 
         <!-- User Login Credentials -->
         <h2>Create a Username and Password</h2>
-        <md-content layout-padding layout="row" layout-sm="column">
-            <md-input-container flex>
-                <label>Username</label>
-                <input ng-model="user.username" type="string" required>
-            </md-input-container>
-        </md-content>
-        <md-content layout-padding layout="row" layout-sm="column">
-            <md-input-container flex>
-                <label>Password</label>
-                <input ng-model="user.password" type="password" name="password" ng-pattern="/(?=.*[0-9]){8,}/" required>
-                <div ng-messages="registerForm.password.$error" role="alert">
-                     <div ng-message="pattern">Password must be minimum of 8 characters with at least one number.</div>
-                </div>
-            </md-input-container>
-        </md-content>
-        <md-content layout-padding layout="row" layout-sm="column">
-            <md-input-container flex>
-                <label>Confirm Password</label>
-                <input ng-model="user.confirmPassword" type="password" data-match="registerForm.password"  name="confirmPassword" required>
-                <div ng-messages="registerForm.confirmPassword.$error" role="alert">
-                    <div ng-message="match">Passwords do not match!</div>
-                </div>
-            </md-input-container>
-        </md-content>
-        <md-content layout-padding layout="row" layout-sm="column">
-            <md-button class="md-accent md-raised" ng-click= "processForm(user)" type="submit" value="Save">Save</md-button>
-        </md-content>
+
+        <md-input-container flex>
+            <label>Username</label>
+            <input ng-model="user.username" type="string" required>
+        </md-input-container>
+        <md-input-container flex>
+            <label>Password</label>
+            <input ng-model="user.password" type="password" name="password" ng-pattern="/(?=.*[0-9]){8,}/" required>
+            <div ng-messages="registerForm.password.$error" role="alert">
+                 <div ng-message="pattern">Minimum of 8 characters with at least one number.</div>
+            </div>
+        </md-input-container>
+        <md-input-container flex>
+            <label>Confirm Password</label>
+            <input ng-model="user.confirmPassword" type="password" data-match="registerForm.password"  name="confirmPassword" required>
+            <div ng-messages="registerForm.confirmPassword.$error" role="alert">
+                <div ng-message="match">Passwords do not match!</div>
+            </div>
+        </md-input-container>
+        <md-button class="md-accent md-raised" ng-click= "processForm(user)" ng-disabled="registerForm.$invalid" type="submit" value="Save">Save</md-button>
     </form>
 </div>
