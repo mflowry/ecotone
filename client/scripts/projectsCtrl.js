@@ -20,6 +20,7 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
         if (self.selected_project) {
             projectMethods.getProjectItems(function (items) {
                 self.projectItems = items;
+                calculateProjectTotal();
             })
         }
 
@@ -55,8 +56,10 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                     calcToSave[0].item_description = self.item_description;
 
                     calculator.saveCalculation(calcToSave).then( function(){
+                        console.log(calcToSave);
                         projectMethods.getProjectItems(function (items) {
                             self.projectItems = items;
+                            calculateProjectTotal();
                         })
                     })
                 }

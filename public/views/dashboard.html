@@ -19,7 +19,7 @@
                     <!--<th align="center">Total Weight</th>-->
 
                     <th align="center">Total CO<sub>2</sub></th>
-                    <th align="center">Edit |  Remove</th>
+                    <th align="center">Remove</th>
                 </tr>
 
                 <tr ng-repeat="project in ctrl.projects" ng-click="ctrl.selectProject(project)">
@@ -28,7 +28,7 @@
                     <!--<td align="center">{{weight}}{{units}}</td>-->
                     <td align="center">{{co2_offset}}</td>
                     </a>
-                    <td align="center"><a href="/projects"><img src="images/icons/ic_create_black_24px.svg" alt="Edit Project" /></a> | <img src="images/icons/ic_delete_black_24px.svg" alt="Remove Project" ng-click="showDelete(project)"/> </td>
+                    <td align="center"><img src="images/icons/ic_delete_black_24px.svg" alt="Remove Project" ng-click="showDelete(project);  $event.stopPropagation();"/> </td>
                 </tr>
             </table>
 

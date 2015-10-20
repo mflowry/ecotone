@@ -5,7 +5,6 @@ app.controller('dashboardCtrl', ['$location', 'projectMethods', '$mdDialog', '$r
 
 
     $scope.showDelete = function(project) {
-
         console.log('CLICK');
         var confirm = $mdDialog.confirm()
             .title('Are you sure you want to remove your project?')
