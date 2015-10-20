@@ -18,10 +18,10 @@ const
     modifyUser = require('./routes/private/modifyUser'),
     calculations = require('./routes/public/calculations'),
     project = require('./routes/private/project'),
-    suggestion = require('./routes/private/suggestion'),
-    bulk = require('./routes/public/bulkUpload');
-
-
+    suggestion = require('./routes/public/suggestion'),
+    bulk = require('./routes/public/bulkUpload'),
+    forgot = require('./routes/public/forgot'),
+    reset = require('./routes/public/reset');
 
 var app = express();
 
@@ -52,6 +52,8 @@ app.use('/calculations',calculations);
 app.use('/project',project);
 app.use('/suggestion', suggestion);
 app.use('/bulk', bulk);
+app.use('/forgot', forgot);
+app.use('/reset', reset);
 app.use('*', routes);
 
 // catch 404 and forward to error handler
