@@ -22,6 +22,7 @@ app.controller('calculateCtrl', ['calculator', '$scope', 'projectMethods', '$tim
     self.selectedItemChange = selectedItemChange;
     self.searchTextChange   = searchTextChange;
     self.newSuggestion = newSuggestion;
+    self.newCalculation = newCalculation;
     self.submitSuggestion = submitSuggestion;
 
     calculator.getMaterials().then(function( list ){
@@ -31,7 +32,6 @@ app.controller('calculateCtrl', ['calculator', '$scope', 'projectMethods', '$tim
     self.units = calculator.getUnits();
 
 
-    self.newCalculation = newCalculation;
     if(authService.isAuthed()) {
         projectMethods.getProjectNames(function (names) {
             self.projects = names;
@@ -59,6 +59,8 @@ app.controller('calculateCtrl', ['calculator', '$scope', 'projectMethods', '$tim
     }
 
     function newCalculation() {
+
+        console.log('click');
 
         var calculation = {
             warmId: self.warmId || self.category.secondaries[0].warm_id,

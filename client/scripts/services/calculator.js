@@ -36,10 +36,7 @@ app.factory('calculator', ['$rootScope', '$http', function( $rootScope, $http ){
     }
 
     function saveCalculation( calculation ) {
-        $http.post('/project/calculation', calculation).then(function (res) {
-
-
-        })
+        return $http.post('/project/calculation', calculation)
     }
 
 

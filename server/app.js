@@ -18,7 +18,7 @@ const
     modifyUser = require('./routes/private/modifyUser'),
     calculations = require('./routes/public/calculations'),
     project = require('./routes/private/project'),
-    suggestion = require('./routes/public/suggestion'),
+    suggestion = require('./routes/private/suggestion'),
     bulk = require('./routes/public/bulkUpload'),
     forgot = require('./routes/public/forgot'),
     reset = require('./routes/public/reset');
@@ -86,6 +86,5 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
 
 module.exports = app;
