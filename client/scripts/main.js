@@ -103,6 +103,11 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         {
             templateUrl: '/views/register.html',
             controller: 'createAccountCtrl'
+        }).when('/admin',
+        {
+            templateUrl: '/views/admin.html',
+            controller: 'adminCtrl as ctrl'
+
         }).when('/account',
         {
             templateUrl: '/views/account.html',
