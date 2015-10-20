@@ -15,6 +15,11 @@
         </md-input-container>
 
         <div id="material-choice" layout-fill>
+            <md-input-container ng-show="user.username" flex>
+                <label>Item description (optional)</label>
+                <textarea ng-model="ctrl.item_description" md-maxlength="255" name="description"></textarea>
+            </md-input-container>
+
             <md-autocomplete ng-disabled="ctrl.isDisabled"
                 md-selected-item="ctrl.category"
                 md-selected-item-change="ctrl.selectedItemChange(item)"
@@ -59,18 +64,11 @@
                     </md-option>
                 </md-select>
             </div>
-
-            <md-input-container ng-show="user.username" flex>
-                <label>Material description (optional)</label>
-                <textarea ng-model="ctrl.item_description" md-maxlength="255" name="description"></textarea>
-            </md-input-container>
         </div>
 
         <md-button class="md-accent md-raised" ng-click="ctrl.newCalculation()">Calculate</md-button>
 
-        <p ng-show="ctrl.result">Your Estimated CO<sub>2</sub> Offset is {{ctrl.result}} metric tons.</p>
-
-        <md-button class="md-primary md-raised" ng-show="ctrl.selected_project" ng-click="ctrl.saveToProject()">Save to project</md-button>
+        <p ng-show="ctrl.result">Your Estimated CO<sub>2</sub> Offset is<br>{{ctrl.result}} metric tons.</p>
 
         <div ng-show="user.username">
             <md-button ng-click="ctrl.newSuggestion()">+ Suggest a new material</md-button>
