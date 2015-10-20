@@ -25,8 +25,9 @@ router.post('/', function( req, res, next ){
     });
 });
 
-router.post('/', function( req, res, next){
+router.post('/getSuggestions', function( req, res, next){
     if(req.body.username == process.env.adminUser && req.body.password == process.env.adminPass) {
+        console.log('in if');
         var suggestions = [];
 
         pg.connect(connectionString, function (err, client, done) {

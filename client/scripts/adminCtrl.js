@@ -12,10 +12,10 @@ app.controller('adminCtrl', ['$http', '$rootScope', '$scope','$parse', function(
     function adminTest() {
         console.log(self.form);
         console.log('admin Test');
-        $http.post('/suggestion', self.form).then(function (res) {
+        $http.post('/suggestion/getSuggestions', self.form).then(function (res) {
             if(res.status != 404){
                 var suggestions = res.data;
-                console.log(suggestions);
+                console.log('suggestions', res);
                 self.suggestions = suggestions;
                 self.isLoggedIn = true;
             }
