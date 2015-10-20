@@ -9,7 +9,7 @@ var Projects = require('../../models/models').Projects,
     Calculations = require('../../models/models').Calculations,
     connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/ecotone';
 
-router.use(expressJwt({secret: 'supersecret'}));
+router.use(expressJwt({secret: process.env.jwtSecret || 'supersecret'}));
 
 const client = new pg.Client(connectionString);
 client.connect();
