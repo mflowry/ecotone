@@ -22,8 +22,8 @@
                     <th align="center">Edit |  Remove</th>
                 </tr>
 
-                <tr ng-repeat="project in ctrl.projects" ng-click="editProject(project)">
-                    <td ng-value="project.id"><a ng-href="/projects/{{project.id}}">{{project.project_name}}</td>
+                <tr ng-repeat="project in ctrl.projects" ng-click="ctrl.selectProject(project)">
+                    <td ng-value="project.id">{{project.project_name}}</td>
                     <td>{{project.project_description}}</td>
                     <!--<td align="center">{{weight}}{{units}}</td>-->
                     <td align="center">{{co2_offset}}</td>

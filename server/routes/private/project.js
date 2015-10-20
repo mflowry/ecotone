@@ -26,7 +26,6 @@ function getProjectsByUserId(req, res){
                 if(err){
                     console.log(err);
                 } else{
-<<<<<<< HEAD
                    // console.log(results);
                 }
                 //var projects = results.rows;
@@ -56,10 +55,7 @@ function getProjectNamesByUserId(req, res, next){
                 //var projects = results.rows;
                 console.log ('ABOUT TO SEND');
                 res.send(results.rows);
-=======
-                    res.send(results.rows);
-                }
->>>>>>> backend
+
             });
         }
     });
@@ -95,7 +91,6 @@ router.get('/', function(req,res,next){
         }
 });
 
-<<<<<<< HEAD
 router.get('/namesById', function( req, res, next ){
    if(req.query.user_id){
        getProjectNamesByUserId( req, res, next );
@@ -104,9 +99,7 @@ router.get('/namesById', function( req, res, next ){
    }
 });
 
-=======
-//add a new project
->>>>>>> backend
+
 router.post('/', function (req, res, next) {
     //find user to associate project with
     Users.findById(req.body.user_id)
