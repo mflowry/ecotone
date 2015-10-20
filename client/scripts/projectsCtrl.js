@@ -154,5 +154,4 @@ function editProject() {
         console.log(projectTotal);
         self.projectTotal = Math.floor(projectTotal * 100) / 100;
     }
-
 }]);

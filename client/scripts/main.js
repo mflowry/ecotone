@@ -127,8 +127,13 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         }).when('/sources',
         {
             templateUrl: '/views/sources.html'
+        }).when('/reset',
+        {
+            templateUrl: '/views/resetPassword.html',
+            controller: 'loginCtrl as ctrl'
         }).otherwise({
             redirectTo: '/'
+
         });
 
     $httpProvider.interceptors.push('authInterceptor');
