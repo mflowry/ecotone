@@ -12,6 +12,8 @@ app.controller('projectsCtrl', ['projectMethods', '$mdDialog', '$scope', '$rootS
     self.projectTotal = 0;
     self.deleteProjectItem = deleteProjectItem;
     self.id = 0;
+    self.editableProject = false;
+    self.editProject = editProject;
     self.calculateProjectTotal = calculateProjectTotal;
     projectMethods.getProjectNames( function( list ) {
        self.projectList = list;
@@ -22,7 +24,10 @@ app.controller('projectsCtrl', ['projectMethods', '$mdDialog', '$scope', '$rootS
             self.projectItems = items;
         })
     }
-
+function editProject() {
+    console.log("Editing");
+    self.editableProject = true;
+}
     //refresh project list
     function getProjectList() {
         $http.get('/project/namesById?user_id=' + $rootScope.user.id).then(function (response) {
@@ -74,8 +79,6 @@ app.controller('projectsCtrl', ['projectMethods', '$mdDialog', '$scope', '$rootS
 
 
     //load project list on page load
-
-
     function querySearch(query) {
         return query ? self.projectList.filter(createFilterFor(query)) : self.projectList;
     }
