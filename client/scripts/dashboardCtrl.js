@@ -37,12 +37,7 @@ app.controller('dashboardCtrl', ['$location', 'projectMethods', '$mdDialog', '$r
     function newProject( newProject ){
 
         $location.path('/newProject');
-        //$mdDialog.show({
-        //    templateUrl: 'views/project-modal.html',
-        //    clickOutsideToClose: true,
-        //    controller: 'calculateCtrl',
-        //    controllerAs: 'ctrl'
-        //})
+
     }
 
     function calculateTotalCO2(){

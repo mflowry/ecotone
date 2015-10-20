@@ -167,12 +167,7 @@ app.controller('calculateCtrl', ['$scope', 'projectMethods', '$timeout', '$http'
     function newProject( newProject ){
 
         $location.path('/newProject');
-        //$mdDialog.show({
-        //    templateUrl: 'views/project-modal.html',
-        //    clickOutsideToClose: true,
-        //    controller: 'calculateCtrl',
-        //    controllerAs: 'ctrl'
-        //})
+
     }
 
 }]);
