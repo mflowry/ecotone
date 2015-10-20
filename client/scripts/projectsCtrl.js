@@ -60,6 +60,12 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                         projectMethods.getProjectItems(function (items) {
                             self.projectItems = items;
                             calculateProjectTotal();
+                            self.category.primary_cat = null;
+                            self.subcategory = null;
+                            self.selected_unit = null;
+                            self.weight = null;
+                            self.result = null;
+                            self.item_description = null;
                         })
                     })
                 }
