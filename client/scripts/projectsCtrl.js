@@ -88,7 +88,8 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                 var lowercaseQuery = query.toLowerCase();
                 //query.charAt(0).toUpperCase() + query.slice(1);
                 return function filterFn(obj) {
-                    return (obj.project_name.indexOf(lowercaseQuery) != -1);
+                    console.log(obj);
+                    return (obj.primary_cat.indexOf(lowercaseQuery) != -1);
                 };
             }
 
