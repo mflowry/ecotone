@@ -3,11 +3,11 @@
     <md-content>
             <h1>Project Totals</h1>
         <div>
-            <h2 class="md-title" style="display: inline;">Your projects have prevented XXXXXX metric tons of CO<sub>2</sub> from being released:</h2><img src="images/Co2-Badge-96.png" alt="badge"  />
+            <h2 class="md-title">Your projects have prevented XXXXXX metric tons of CO<sub>2</sub> from being released:</h2>
         </div>
 
         <div>
-            <h3 class="md-body-2">Manage Projects here. Click on Project or Description field to edit. Projects can also be removed. Be careful, this is not reversible. </h3>
+            <h3 class="md-body-2">Click on row or pencil icon to edit project. Projects can also be removed. Be careful, this is not reversible. </h3>
 
         <md-content>
 
@@ -19,24 +19,22 @@
                     <th align="center">Total Weight</th>
 
                     <th align="center">Total CO<sub>2</sub></th>
-                    <th align="center">Edit | Save | Remove</th>
+                    <th align="center">Edit |  Remove</th>
                 </tr>
 
                 <tr ng-repeat="project in ctrl.projects">
-                    <td contentEditable="true">{{project.project_name}}</td>
-                    <td contentEditable="true">{{project.project_description}}</td>
+                    <td ng-value="project_id"><a ng-href="/projects/{{project_id}}">{{project.project_name}}</td>
+                    <td>{{project.project_description}}</td>
                     <td align="center">{{weight}}{{units}}</td>
                     <td align="center">{{co2_offset}}</td>
-                    <td align="center"><a href="/projects"><img src="images/icons/ic_create_black_24px.svg" alt="Edit Project" /></a>| <img src="images/icons/ic_save_black_24px.svg" alt="Save Changes"/> | <img src="images/icons/ic_delete_black_24px.svg" alt="Delete Project"/> </td>
+                    </a>
+                    <td align="center"><a href="/projects"><img src="images/icons/ic_create_black_24px.svg" alt="Edit Project" /></a> | <img src="images/icons/ic_delete_black_24px.svg" alt="Remove Project" ng-click="showDelete(project)"/> </td>
                 </tr>
-
-
             </table>
 
         </md-content>
-
             <div>
-                <md-button class="md-raised md-accent" ng-click="ctrl.newProject()">Create New Project</md-button>
+                <md-button class="md-raised md-accent" href="/createProject">Create New Project</md-button>
             </div>
 
         </div>

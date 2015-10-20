@@ -44,18 +44,19 @@
     <!--Table display-->
     <md-content>
         <br>
-        <table class="dialog-demo-content" style="min-width: 1200px; text-align: left;">
-
-        <!--Table Headers-->
-        <tr layout="row" layout-fill layout-wrap >
-            <th flex="25">Item Description</th>
-            <th flex="10">Category</th>
-            <th flex="10">Sub-Category</th>
-            <th flex="10">Weight</th>
-            <th flex="10">Units</th>
-            <th flex="10">CO<sub>2</sub> Offset</th>
-            <th flex="25"></th>
-        </tr>
+        <table class="dialog-demo-content" style="min-width: 1000px; text-align: left;">
+            <!--<tr layout="row" layout-fill layout-wrap >-->
+            <!--<th>Item Description</th>-->
+            <!--</tr>-->
+            <tr layout="row" layout-fill layout-wrap >
+                <th flex="25">Item Description</th>
+                <th flex="10">Category</th>
+                <th flex="10">Sub-Category</th>
+                <th flex="10">Weight</th>
+                <th flex="10">Units</th>
+                <th flex="10">CO<sub>2</sub> Offset</th>
+                <th flex="25"></th>
+            </tr>
 
         <!--Listing of each project item-->
             <tr layout="row" ng-repeat=" item in ctrl.projectItems" layout-wrap >

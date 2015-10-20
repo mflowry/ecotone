@@ -1,4 +1,22 @@
-<div>
+<div ng-hide="ctrl.isLoggedIn">
+    <h1>Admin Login</h1>
+    <form ng-submit="ctrl.adminTest()" name="loginForm">
+        <md-content>
+            <md-input-container>
+                <label>Username</label>
+                <input ng-model="ctrl.form.username" type="string" required>
+            </md-input-container>
+            <md-input-container>
+                <label>Password</label>
+                <input ng-model="ctrl.form.password" type="password" required>
+            </md-input-container>
+            <div id="submit-buttons">
+                <md-button class="md-accent md-raised" value="Submit" ng-disabled="loginForm.$invalid">Submit</md-button>
+            </div>
+        </md-content>
+    </form>
+</div>
+<div ng-show="ctrl.isLoggedIn">
     <table>
         <tr>
             <th>Material</th>
@@ -15,7 +33,7 @@
     </table>
 </div>
 
-<div class="block row">
+<div ng-show="ctrl.isLoggedIn" class="block row">
     <div class="title"><h4>Select your CSV file: </h4></div>
     <div class="block right">
         <ng-csv-import
@@ -31,10 +49,3 @@
     </div>
     <button ng-click="ctrl.submitCSV()">Submit</button>
 </div>
-
-<div class="block row">
-    <h1>RESULT</h1>
-<p>{{ csv.result }}</p>
-    <div class="content" hljs source="toPrettyJSON(csv.result, 2)"></div>
-</div>
-

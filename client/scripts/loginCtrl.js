@@ -1,5 +1,5 @@
 // Login HTML - Kate
-app.controller('loginCtrl', ['$scope', '$http', 'authService', '$location', '$rootScope', function($scope, $http, authService, $location, $rootScope) {
+app.controller('loginCtrl', ['$scope', '$http', 'authService', '$location', '$rootScope','showToast', function($scope, $http, authService, $location, $rootScope, showToast) {
     $scope.login = function () {
         $http({
             method: 'POST',
@@ -10,6 +10,10 @@ app.controller('loginCtrl', ['$scope', '$http', 'authService', '$location', '$ro
             authService.saveToken(response.data.token);
             $rootScope.user = authService.getUser();
             $location.path('/dashboard');
+
+        }, function(err){
+            //console.log(err);
+            showToast.showToast(err.data.message);
         })
-    }
+    };
 }]);

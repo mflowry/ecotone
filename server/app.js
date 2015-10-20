@@ -18,10 +18,8 @@ const
     modifyUser = require('./routes/private/modifyUser'),
     calculations = require('./routes/public/calculations'),
     project = require('./routes/private/project'),
-    suggestion = require('./routes/public/suggestion'),
-    bulk = require('./routes/public/bulkUpload'),
-    admin = require('./routes/admin');
-
+    suggestion = require('./routes/private/suggestion'),
+    bulk = require('./routes/public/bulkUpload');
 
 
 
@@ -46,7 +44,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/', routes);
-app.use('/admin', admin);
 app.use('/login', login);
 app.use('/materials', materials);
 app.use('/register',register);

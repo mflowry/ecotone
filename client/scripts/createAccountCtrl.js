@@ -1,9 +1,8 @@
 // Register HTML - Madeline
-app.controller('createAccountCtrl', ['$scope', '$http', '$location', function($scope, $http, $location) {
+app.controller('createAccountCtrl', ['$scope', '$http', '$location','showToast', function($scope, $http, $location, showToast) {
     $scope.user = {};
 
     $scope.processForm = function (user) {
-        console.log("Posting...");
         $http({
             method: 'POST',
             url: '/register',
@@ -12,7 +11,11 @@ app.controller('createAccountCtrl', ['$scope', '$http', '$location', function($s
         }).then(function (response) {
             console.log(response);
             $location.path('/login');
-            alert("Your account has been created.")
+            showToast.showToast("Your account has been created.");
+        }, function(err){
+            console.log(err);
+            showToast.showToast(err.data.message);
         })
     };
+
 }]);
