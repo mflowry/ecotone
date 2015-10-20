@@ -28,28 +28,12 @@ app.controller('dashboardCtrl', ['$location', 'projectMethods', '$mdDialog', '$r
     };
 
     self = this;
-    self.newProject = newProject;
-    self.createProject = createProject;
 
     // get the active projects
     projectMethods.getProjectNames(function (names) {
         self.projects = names;
         console.log(names);
     });
-
-    function createProject() {
-        self.projectSubmission.user_id = $rootScope.user.id;
-
-        $http.post('/project', self.projectSubmission).then(function(res){
-            $mdDialog.hide();
-        })
-    }
-
-    function newProject( newProject ){
-
-        $location.path('/newProject');
-
-    }
 
     function calculateTotalCO2(){
       projectMethods.getAllProjectItems( function( items ){

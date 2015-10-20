@@ -59,7 +59,6 @@ app.controller('calculateCtrl', ['$scope', 'projectMethods', '$timeout', '$http'
     };
     self.newCalculation = newCalculation;
     self.saveToProject = saveToProject;
-    self.newProject = newProject;
     if(authService.isAuthed()) {
         projectMethods.getProjectNames(function (names) {
             self.projects = names;
@@ -166,14 +165,6 @@ app.controller('calculateCtrl', ['$scope', 'projectMethods', '$timeout', '$http'
             controllerAs: 'ctrl',
             locals: {material: self.searchText}
         })
-
-    }
-
-
-
-    function newProject( newProject ){
-
-        $location.path('/newProject');
 
     }
 
