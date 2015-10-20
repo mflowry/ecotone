@@ -2,7 +2,6 @@ const
     bcrypt = require('bcrypt'),
     SALT_WORK_FACTOR = 12,
     Sequelize = require('sequelize'),
-    pg = require('pg'),
     jsonwebtoken = require('jsonwebtoken');
 
 var sequelize = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost:5432/ecotone');
@@ -82,8 +81,9 @@ var userSchema = sequelize.define('user',
             type: Sequelize.STRING,
             validate: {
                 isAlphanumericWithSpaces: function(value) {
-                    if(!value.match('^[0-9a-zA-Z ]+$')) {
-                        throw new Error('Only alphanumeric with spaces allowed!')
+                    var reg = new RegExp("^[0-9a-zA-Z ]+$");
+                    if(!value.match(reg)) {
+                        throw new Error('Only alphanumeric and spaces allowed!')
                     }
                 }
             }
@@ -91,6 +91,12 @@ var userSchema = sequelize.define('user',
         active: {
             type: Sequelize.BOOLEAN,
             defaultValue: true
+        },
+        resetPasswordToken: {
+            type: Sequelize.STRING
+        },
+        resetPasswordExpires: {
+            type: Sequelize.DATE
         }
 
     },
@@ -170,7 +176,7 @@ userSchema.hook('beforeValidate', function (user, options, next) {
 
     //only hash the password if it has been modified (or is new)
     if (!user.changed('password')) {
-        console.log('not modified!');
+        //console.log('not modified!');
         return next();
     }
     //generate a salty snack

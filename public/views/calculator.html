@@ -51,7 +51,7 @@
             <div layout layout-sm="row" layout-align="space-between center" layout-fill required>
                 <md-input-container>
                     <label>Weight</label>
-                    <input ng-model="ctrl.weight" type="text">
+                    <input ng-model="ctrl.weight" ng-pattern="" type="text">
                 </md-input-container>
 
                 <md-select ng-model="ctrl.selected_unit" placeholder="Select units" flex required>
@@ -64,6 +64,7 @@
 
         <md-button class="md-accent md-raised" ng-click="ctrl.newCalculation()" ng-disabled="calcForm.$invalid">Calculate</md-button>
 
+        <p ng-show="ctrl.error"></p>
         <p ng-show="ctrl.result">Your Estimated CO<sub>2</sub> Offset is {{ctrl.result}} metric tons.</p>
 
         <div ng-show="user.username">

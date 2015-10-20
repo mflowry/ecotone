@@ -86,7 +86,6 @@ describe('A Calculation', function(){
         weight: chance.floating()
     };
 
-    console.log(newCalculation.weight);
 
     it('should return a floating point number', function( done ){
 
@@ -283,7 +282,7 @@ describe('The project/calculation API', function(){
             var updatedProjectCalculation = {
                 category: chance.last(),
                 item_description: chance.paragraph({sentences: 2}),
-                project_id: project.id
+                calculation_id: calculation.id
             };
 
             api.put('/project/calculation')
