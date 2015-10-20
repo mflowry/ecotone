@@ -27,8 +27,11 @@
         <md-content layout-padding layout="row" layout-sm="column">
             <md-input-container flex>
                 <label>Zip/Postal Code</label>
-                <!-- Should Validate for US and Candian zip/postal codes-->
-                <input ng-model="user.zip_code" ng-pattern="^(\d{5}-\d{4}|\d{5}|\d{9})$|^([a-zA-Z]\d[a-zA-Z]( )?\d[a-zA-Z]\d)$" required>
+                <!-- Should Validate for US and Canadian zip/postal codes-->
+                <input ng-model="user.zip_code" ng-pattern="/(\d{5}|[A-Z]\d[A-Z] ?\d[A-Z]\d)/" name = "zipCode" required>
+                <div ng-messages="registerForm.zipCode.$error" role="alert">
+                    <div ng-message="pattern">US or Canadian zip code formats only</div>
+                </div>
             </md-input-container>
         </md-content>
         <md-content layout-padding layout="row" layout-sm="column">

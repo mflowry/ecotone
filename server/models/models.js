@@ -69,7 +69,6 @@ var userSchema = sequelize.define('user',
         },
         company_name: {
             type: Sequelize.STRING,
-            unique: true,
             validate: {
                 isAlphanumericWithSpaces: function(value) {
                     var reg = new RegExp("^[0-9a-zA-Z\' .-]+$");
@@ -128,11 +127,6 @@ var userSchema = sequelize.define('user',
                     }
                 };
                 userSchema.findOne(options).then(function (instance) {
-                    //if (err) {
-                    //    console.log(err);
-                    //    console.log('ERROR');
-                    //    return callback(err);
-                    //}
 
                     // make sure the user exists
                     if (!instance) {
@@ -166,7 +160,7 @@ var userSchema = sequelize.define('user',
                                 return callback(null, token, matchedUser);
                             }
                             else {
-                                return callback(new Error('Invalid username or password.'), null);
+                                return callback(new Error('Invalid username and/or password.'), null);
 
                             }
                         });
