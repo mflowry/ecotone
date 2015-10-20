@@ -116,6 +116,10 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         {
             templateUrl: '/views/dashboard.html',
             controller: 'dashboardCtrl as ctrl'
+        }).when('/projects/:id',
+        {
+            templateUrl: '/views/project.html',
+            controller: 'projectsCtrl as ctrl'
         }).when('/projects',
         {
             templateUrl: '/views/project.html',

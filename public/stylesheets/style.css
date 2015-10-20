@@ -49,6 +49,9 @@ th {
 td {
   border-bottom: solid 1px darkgray; }
 
+tr.hover {
+  cursor: pointer; }
+
 img {
   vertical-align: middle; }
 
