@@ -9,6 +9,8 @@ app.controller('calculateCtrl', ['$scope', 'projectMethods', '$timeout', '$http'
     }
 
     // INIT
+
+    /** IN FACTORY */
     $http.get('/materials').then(function(response) {
         var list = response.data;
 
@@ -34,6 +36,8 @@ app.controller('calculateCtrl', ['$scope', 'projectMethods', '$timeout', '$http'
     self.searchTextChange   = searchTextChange;
     self.newSuggestion = newSuggestion;
     self.submitSuggestion = submitSuggestion;
+
+    /** IN FACTORY **/
     self.units = [
         {
             name: 'lbs',
@@ -52,11 +56,8 @@ app.controller('calculateCtrl', ['$scope', 'projectMethods', '$timeout', '$http'
             conversion: 1.10231
         }
     ];
-    self.submission = {
-        email: '',
-        material: '',
-        notes: ''
-    };
+
+
     self.newCalculation = newCalculation;
     self.saveToProject = saveToProject;
     if(authService.isAuthed()) {
