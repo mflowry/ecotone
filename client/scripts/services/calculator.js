@@ -1,4 +1,4 @@
-app.factory('calculator', ['$http', function($http){
+app.factory('calculator', ['$rootScope', '$http', function( $rootScope, $http ){
 
     var materialsList;
     var units = [
@@ -20,6 +20,29 @@ app.factory('calculator', ['$http', function($http){
         }
     ];
 
+    /** PROMISE SYNTAX **/
+    function newCalculation( calculation ){
+
+        return $http.post('/calculations', calculation ).then(function(response) {
+
+            response.data = Math.abs(parseFloat(response.data));
+
+            if (response.data >= .0001) {
+                return Math.floor(response.data * 10000) / 10000;
+            } else {
+                return response.data.toExponential(2);
+            }
+        });
+    }
+
+    function saveCalculation( calculation ) {
+        $http.post('/project/calculation', calculation).then(function (res) {
+
+
+        })
+    }
+
+
     function getUnits(){
         return units;
     }
@@ -30,8 +53,6 @@ app.factory('calculator', ['$http', function($http){
 
             list.forEach(function(item){
                 item.primary_cat = item.primary_cat.toLowerCase();
-                // /item.primary_cat = item.primary_cat.charAt(0).toUpperCase() + item.primary_cat.slice(1).toLowerCase();
-
             });
 
             materialsList = list;
@@ -41,8 +62,10 @@ app.factory('calculator', ['$http', function($http){
     }
 
     return {
+        newCalculation: newCalculation,
         getMaterials: getMaterials,
         getUnits: getUnits,
+        saveCalculation: saveCalculation
 
     }
 }]);
