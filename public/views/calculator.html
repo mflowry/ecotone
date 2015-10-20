@@ -1,5 +1,5 @@
 <div id="calculator-page">
-    <md-content layout="column" layout-align="space-between center">
+    <form name="calcForm" layout="column" layout-align="space-between center">
         <h1>Calculate Your CO<sub>2</sub> Offset</h1>
         <md-input-container layout-fill flex>
             <md-select ng-show="user.username" ng-model="ctrl.selected_project" ng-change="ctrl.setSelectedProject()" placeholder="Select project" layout-fill flex>
@@ -29,7 +29,7 @@
                 md-item-text="item.primary_cat"
                 md-min-length="0"
                 md-floating-label="Material type"
-                layout-fill>
+                layout-fill required>
 
                 <md-item-template>
                     <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">
@@ -52,13 +52,13 @@
                 </md-select>
             </md-input-container>
 
-            <div layout layout-sm="row" layout-align="space-between center" layout-fill>
+            <div layout layout-sm="row" layout-align="space-between center" layout-fill required>
                 <md-input-container>
                     <label>Weight</label>
                     <input ng-model="ctrl.weight" type="text">
                 </md-input-container>
 
-                <md-select ng-model="ctrl.selected_unit" placeholder="Select units" flex>
+                <md-select ng-model="ctrl.selected_unit" placeholder="Select units" flex required>
                     <md-option ng-repeat="unit in ctrl.units" ng-value="unit">
                         {{ unit.name }}
                     </md-option>
@@ -66,9 +66,9 @@
             </div>
         </div>
 
-        <md-button class="md-accent md-raised" ng-click="ctrl.newCalculation()">Calculate</md-button>
+        <md-button class="md-accent md-raised" ng-click="ctrl.newCalculation()" ng-disabled="calcForm.$invalid">Calculate</md-button>
 
-        <p ng-show="ctrl.result">Your Estimated CO<sub>2</sub> Offset is<br>{{ctrl.result}} metric tons.</p>
+        <p ng-show="ctrl.result">Your Estimated CO<sub>2</sub> Offset is {{ctrl.result}} metric tons.</p>
 
         <div ng-show="user.username">
             <md-button ng-click="ctrl.newSuggestion()">+ Suggest a new material</md-button>
@@ -77,5 +77,5 @@
             <md-button ng-click="ctrl.newProject()">+ Create New Project</md-button>
         </div>
 
-    </md-content>
+    </form>
 </div>
