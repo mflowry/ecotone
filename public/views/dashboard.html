@@ -23,11 +23,12 @@
                 </tr>
 
                 <tr ng-repeat="project in ctrl.projects">
-                    <td>{{project.project_name}}</td>
+                    <td ng-value="project_id"><a ng-href="/projects/{{project_id}}">{{project.project_name}}</td>
                     <td>{{project.project_description}}</td>
                     <td align="center">{{weight}}{{units}}</td>
                     <td align="center">{{co2_offset}}</td>
-                    <td align="center"><a href="/projects"><img src="images/icons/ic_create_black_24px.svg" alt="Edit Project" /></a> | <img src="images/icons/ic_delete_black_24px.svg" alt="Delete Project" ng-click="showDelete(project)"/> </td>
+                    </a>
+                    <td align="center"><a href="/projects"><img src="images/icons/ic_create_black_24px.svg" alt="Edit Project" /></a> | <img src="images/icons/ic_delete_black_24px.svg" alt="Remove Project" ng-click="showDelete(project)"/> </td>
                 </tr>
             </table>
 
