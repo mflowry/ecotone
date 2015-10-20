@@ -1,5 +1,5 @@
-app.controller('calculateCtrl', ['$scope', 'projectMethods', '$timeout', '$http', '$mdDialog', '$rootScope', 'authService', '$location',
-    function( $scope, projectMethods, $timeout, $http, $mdDialog, $rootScope, authService, $location ) {
+app.controller('calculateCtrl', ['calculator', '$scope', 'projectMethods', '$timeout', '$http', '$mdDialog', '$rootScope', 'authService', '$location',
+    function( calculator, $scope, projectMethods, $timeout, $http, $mdDialog, $rootScope, authService, $location ) {
 
     // Check user
     $rootScope.user = authService.getUser();
@@ -9,17 +9,6 @@ app.controller('calculateCtrl', ['$scope', 'projectMethods', '$timeout', '$http'
     }
 
     // INIT
-    $http.get('/materials').then(function(response) {
-        var list = response.data;
-
-        list.forEach(function(item){
-            item.primary_cat = item.primary_cat.toLowerCase();
-            // /item.primary_cat = item.primary_cat.charAt(0).toUpperCase() + item.primary_cat.slice(1).toLowerCase();
-
-        });
-        self.list = list;
-
-    });
 
 
 
@@ -34,31 +23,15 @@ app.controller('calculateCtrl', ['$scope', 'projectMethods', '$timeout', '$http'
     self.searchTextChange   = searchTextChange;
     self.newSuggestion = newSuggestion;
     self.submitSuggestion = submitSuggestion;
-    self.units = [
-        {
-            name: 'lbs',
-            conversion: 0.0005
-        },
-        {
-            name: 'kilos',
-            conversion: 0.00110231
-        },
-        {
-            name: 'tons',
-            conversion: 1
-        },
-        {
-            name: 'metric tons',
-            conversion: 1.10231
-        }
-    ];
-    self.submission = {
-        email: '',
-        material: '',
-        notes: ''
-    };
+
+    calculator.getMaterials().then(function( list ){
+        self.list = list;
+    });
+
+    self.units = calculator.getUnits();
+
+
     self.newCalculation = newCalculation;
-    self.saveToProject = saveToProject;
     if(authService.isAuthed()) {
         projectMethods.getProjectNames(function (names) {
             self.projects = names;
@@ -87,55 +60,34 @@ app.controller('calculateCtrl', ['$scope', 'projectMethods', '$timeout', '$http'
 
     function newCalculation() {
 
-        var calculate = {
+        var calculation = {
             warmId: self.warmId || self.category.secondaries[0].warm_id,
             weight: parseFloat(self.weight) * self.selected_unit.conversion
         };
 
-        $http.post('/calculations', calculate).then(function(response) {
 
-            response.data = Math.abs(parseFloat(response.data));
 
-            if (response.data >= .0001) {
-                self.result = Math.floor(response.data * 10000) / 10000;
-            } else {
-                self.result = response.data.toExponential(2);
-            }
+        calculator.newCalculation( calculation ).then(function( answer ){
+           self.result =  answer;
 
-            if ($rootScope.user) {
-                var savedCalculation = [{}];
-                savedCalculation[0].project_id = self.selected_project.id;
-                savedCalculation[0].category = self.category.primary_cat;
-                savedCalculation[0].sub_category = self.subcategory || null;
-                savedCalculation[0].units = self.selected_unit.name;
-                savedCalculation[0].weight = self.weight;
-                savedCalculation[0].co2_offset = self.result;
-                savedCalculation[0].item_description = self.item_description;
 
-                console.log(savedCalculation);
 
-                $http.post('/project/calculation', savedCalculation).then(function (res) {
-                    console.log(res);
-                })
+            if(authService.isAuthed() && self.selected_project){
 
+                var calcToSave = [{}];
+                calcToSave[0].project_id = self.selected_project.id;
+                calcToSave[0].category = self.category.primary_cat;
+                calcToSave[0].sub_category = self.subcategory || null;
+                calcToSave[0].units = self.selected_unit.name;
+                calcToSave[0].weight = self.weight;
+                calcToSave[0].co2_offset = self.result;
+                calcToSave[0].item_description = self.item_description;
+
+                calculator.saveCalculation(calcToSave)
 
             }
         });
-    }
 
-    function saveToProject(){
-        var lineItem = {
-            category: self.category,
-            subcategory: self.subcategory,
-            warm_Id: self.warmId,
-            weight: parseFloat(self.weight)*self.selected_unit.conversion,
-            units: self.unit.name,
-            item_description: self.item_description
-        };
-        console.log(lineItem);
-        $http.post('/addToProject').then(function(response) {
-            console.log(response);
-        });
     }
 
     function querySearch(query) {
