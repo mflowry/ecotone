@@ -1,12 +1,23 @@
 
-app.controller('admin', ['$http', '$scope','$parse', function( $http, $scope, $parse ){
+app.controller('adminCtrl', ['$http', '$rootScope', '$scope','$parse', function( $http, $rootScope, $scope, $parse ){
     // INIT
-    init();
-
     var self = this;
     self.suggestions = '';
     self.markComplete = markComplete;
     self.submitCSV = submitCSV;
+    self.isLoggedIn = false;
+
+    self.adminTest = adminTest;
+    function adminTest() {
+        $http.get('/suggestion', {}).then(function (res) {
+            if(res.status != 404){
+                var suggestions = res.data;
+                console.log(suggestions);
+                self.suggestions = suggestions;
+                self.isLoggedIn = true;
+            }
+        });
+    }
 
     function submitCSV( ){
         var csvObject = $scope.csv.result;
@@ -36,7 +47,7 @@ app.controller('admin', ['$http', '$scope','$parse', function( $http, $scope, $p
     }
 
     function init() {
-        $http.get('/suggestion').then(function (res) {
+        $http.get('/suggestion', {}).then(function (res) {
             var suggestions = res.data;
             console.log(suggestions);
             self.suggestions = suggestions;
