@@ -1,6 +1,22 @@
 app.controller('dashboardCtrl', ['$location', 'projectMethods', '$mdDialog', '$rootScope', '$scope', '$http', function($location, projectMethods, $mdDialog, $rootScope, $scope, $http) {
     var user=$rootScope.user;
 
+    // INIT
+    //var self = this;
+    //self.selected_project = projectMethods.getSelectedProject();
+    //self.result = '';
+    //self.querySearch = querySearch;
+    //self.selectedItemChange = selectedItemChange;
+    //self.searchTextChange = searchTextChange;
+    //self.projectItems = '';
+    //self.projectTotal = 0;
+    //self.deleteProjectItem = deleteProjectItem;
+    //self.id = 0;
+    //self.calculateProjectTotal = calculateProjectTotal;
+    //projectMethods.getProjectNames( function( list ) {
+    //    self.projectList = list;
+    //});
+
     $scope.showDelete = function(project) {
 
         console.log('CLICK');
@@ -43,6 +59,17 @@ app.controller('dashboardCtrl', ['$location', 'projectMethods', '$mdDialog', '$r
 
 
     calculateTotalCO2();
+////Total projects C02 calculation
+//    function calculateProjectTotal() {
+//        console.log("calculating...");
+//        projectTotal = 0;
+//        self.projectItems.forEach(function (item) {
+//            projectTotal += item.co2_offset;
+//            console.log(projectTotal);
+//        });
+//        console.log(projectTotal);
+//        self.projectTotal = Math.floor(projectTotal * 100) / 100;
+//    }
 
 
 }]);
