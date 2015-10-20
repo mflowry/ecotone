@@ -123,6 +123,10 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         }).when('/sources',
         {
             templateUrl: '/views/sources.html'
+        }).when('/newProject',
+        {
+            templateUrl: '/views/newProject.html',
+            controller: 'newProjectCtrl as ctrl'
         }).otherwise({
             redirectTo: '/'
         });

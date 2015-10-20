@@ -9,7 +9,7 @@ app.controller('loginCtrl', ['$scope', '$http', 'authService', '$location', '$ro
 
             authService.saveToken(response.data.token);
             $rootScope.user = authService.getUser();
-            $location.path('/');
+            $location.path('/dashboard');
         })
     }
 }]);

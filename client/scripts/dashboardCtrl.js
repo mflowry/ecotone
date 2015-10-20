@@ -1,4 +1,4 @@
-app.controller('dashboardCtrl', ['projectMethods', '$mdDialog', '$rootScope', '$scope', '$http', function(projectMethods, $mdDialog, $rootScope, $scope, $http) {
+app.controller('dashboardCtrl', ['$location', 'projectMethods', '$mdDialog', '$rootScope', '$scope', '$http', function($location, projectMethods, $mdDialog, $rootScope, $scope, $http) {
     var user=$rootScope.user;
 
     $scope.showDelete = function(ev) {
@@ -36,13 +36,13 @@ app.controller('dashboardCtrl', ['projectMethods', '$mdDialog', '$rootScope', '$
 
     function newProject( newProject ){
 
-        $mdDialog.show({
-            templateUrl: 'views/project-modal.html',
-            clickOutsideToClose: true,
-            controller: 'dashboardCtrl',
-            controllerAs: 'ctrl'
-        })
-
+        $location.path('/newProject');
+        //$mdDialog.show({
+        //    templateUrl: 'views/project-modal.html',
+        //    clickOutsideToClose: true,
+        //    controller: 'calculateCtrl',
+        //    controllerAs: 'ctrl'
+        //})
     }
 
     function calculateTotalCO2(){
@@ -50,6 +50,7 @@ app.controller('dashboardCtrl', ['projectMethods', '$mdDialog', '$rootScope', '$
           console.log(items);
       })
     };
+
 
     calculateTotalCO2();
 

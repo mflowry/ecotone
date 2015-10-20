@@ -149,8 +149,7 @@ app.controller('projectsCtrl', ['projectMethods', '$mdDialog', '$scope', '$rootS
             console.log(projectTotal);
         });
         console.log(projectTotal);
-        return projectTotal;
+        self.projectTotal = Math.floor(projectTotal * 100) / 100;
     }
 
-// calculateProjectTotal();
 }]);

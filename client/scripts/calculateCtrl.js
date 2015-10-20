@@ -1,4 +1,5 @@
-app.controller('calculateCtrl', ['projectMethods', '$http', '$mdDialog', '$rootScope', 'authService', '$location', function( projectMethods, $http, $mdDialog, $rootScope, authService, $location ) {
+app.controller('calculateCtrl', ['$scope', 'projectMethods', '$timeout', '$http', '$mdDialog', '$rootScope', 'authService', '$location',
+    function( $scope, projectMethods, $timeout, $http, $mdDialog, $rootScope, authService, $location ) {
 
     // Check user
     $rootScope.user = authService.getUser();
@@ -59,7 +60,6 @@ app.controller('calculateCtrl', ['projectMethods', '$http', '$mdDialog', '$rootS
     self.newCalculation = newCalculation;
     self.saveToProject = saveToProject;
     self.newProject = newProject;
-    self.createProject = createProject;
     if(authService.isAuthed()) {
         projectMethods.getProjectNames(function (names) {
             self.projects = names;
@@ -162,22 +162,17 @@ app.controller('calculateCtrl', ['projectMethods', '$http', '$mdDialog', '$rootS
 
     }
 
-    function createProject() {
-        self.projectSubmission.user_id = $rootScope.user.id;
 
-        $http.post('/project', self.projectSubmission).then(function(res){
-            $mdDialog.hide();
-        })
-    }
 
     function newProject( newProject ){
 
-        $mdDialog.show({
-            templateUrl: 'views/project-modal.html',
-            clickOutsideToClose: true,
-            controller: 'calculateCtrl',
-            controllerAs: 'ctrl'
-        })
+        $location.path('/newProject');
+        //$mdDialog.show({
+        //    templateUrl: 'views/project-modal.html',
+        //    clickOutsideToClose: true,
+        //    controller: 'calculateCtrl',
+        //    controllerAs: 'ctrl'
+        //})
     }
 
 }]);

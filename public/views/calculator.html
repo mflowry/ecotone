@@ -1,17 +1,25 @@
 <div id="calculator-page">
     <md-content layout="column" layout-align="space-between center">
-        <h2>Calculate Your CO<sub>2</sub> Offset</h2>
+        <h1>Calculate Your CO<sub>2</sub> Offset</h1>
         <md-input-container layout-fill flex>
             <md-select ng-show="user.username" ng-model="ctrl.selected_project" ng-change="ctrl.setSelectedProject()" placeholder="Select project" layout-fill flex>
                 <md-option ng-repeat="project in ctrl.projects" ng-value="project">
                     {{ project.project_name }}
                 </md-option>
-                <md-option ng-click="ctrl.newProject()">
-                    Create new project...
-                </md-option>
+
+                <!-- Causes Bug -->
+                <!--<md-option ng-click="ctrl.newProject()">-->
+                    <!--Create new project...-->
+                <!--</md-option>-->
             </md-select>
         </md-input-container>
+
         <div id="material-choice" layout-fill>
+            <md-input-container ng-show="user.username" flex>
+                <label>Item description (optional)</label>
+                <textarea ng-model="ctrl.item_description" md-maxlength="255" name="description"></textarea>
+            </md-input-container>
+
             <md-autocomplete ng-disabled="ctrl.isDisabled"
                 md-selected-item="ctrl.category"
                 md-selected-item-change="ctrl.selectedItemChange(item)"
@@ -56,21 +64,17 @@
                     </md-option>
                 </md-select>
             </div>
-
-            <md-input-container ng-show="user.username" flex>
-                <label>Material description (optional)</label>
-                <textarea ng-model="ctrl.item_description" md-maxlength="255" name="description"></textarea>
-            </md-input-container>
         </div>
 
         <md-button class="md-accent md-raised" ng-click="ctrl.newCalculation()">Calculate</md-button>
 
-        <p ng-show="ctrl.result">Your Estimated CO<sub>2</sub> Offset is {{ctrl.result}} metric tons.</p>
-
-        <md-button class="md-primary md-raised" ng-show="ctrl.selected_project" ng-click="ctrl.saveToProject()">Save to project</md-button>
+        <p ng-show="ctrl.result">Your Estimated CO<sub>2</sub> Offset is<br>{{ctrl.result}} metric tons.</p>
 
         <div ng-show="user.username">
             <md-button ng-click="ctrl.newSuggestion()">+ Suggest a new material</md-button>
+        </div>
+        <div ng-show="user.username">
+            <md-button ng-click="ctrl.newProject()">+ Create New Project</md-button>
         </div>
 
     </md-content>
