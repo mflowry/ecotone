@@ -20,7 +20,7 @@ const
     project = require('./routes/private/project'),
     suggestion = require('./routes/public/suggestion'),
     bulk = require('./routes/public/bulkUpload'),
-    admin = require('./routes/admin');
+    admin = require('./routes/private/admin');
 
 
 

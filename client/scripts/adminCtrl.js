@@ -51,7 +51,7 @@ app.controller('admin', ['$http', '$scope','$parse', function( $http, $scope, $p
         separatorVisible: true,
         result: null,
         encoding: 'ISO-8859-1',
-        encodingVisible: true,
+        encodingVisible: true
     };
 
     var _lastGoodResult = '';

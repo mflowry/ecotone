@@ -87,7 +87,7 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         .primaryPalette('customPrimary')
         .accentPalette('customAccent')
         .warnPalette('customWarn')
-        .backgroundPalette('customBackground')
+        .backgroundPalette('customBackground');
 
 
     //routes for views
