@@ -87,7 +87,7 @@ router.post('/', function(req, res){
                     bulkArr.forEach(function(item){
  //                       console.log(' for each ', item.category, item.sub_category);
 
-                        // find the co2 coeficient using function defined above
+                        // find the co2 coefficient using function defined above
                         var co2Coef = parseFloat(findCO2( item.category, item.sub_category, results.rows));
 
                         // get the units from the units conversion object
