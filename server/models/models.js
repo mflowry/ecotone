@@ -82,12 +82,23 @@ var userSchema = sequelize.define('user',
         zip_code: {
             type: Sequelize.STRING,
             validate: {
-                isInt: true // change to accept canadian
+                isAlphanumericWithSpaces: function(value) {
+                    var reg = new RegExp("^[0-9a-zA-Z ]+$");
+                    if(!value.match(reg)) {
+                        throw new Error('Only alphanumeric and spaces allowed!')
+                    }
+                }
             }
         },
         active: {
             type: Sequelize.BOOLEAN,
             defaultValue: true
+        },
+        resetPasswordToken: {
+            type: Sequelize.STRING
+        },
+        resetPasswordExpires: {
+            type: Sequelize.DATE
         }
 
     },
