@@ -4,11 +4,11 @@
         <md-content>
             <md-input-container>
                 <label>Username</label>
-                <input ng-model="form.username" type="string" required>
+                <input ng-model="ctrl.form.username" type="string" required>
             </md-input-container>
             <md-input-container>
                 <label>Password</label>
-                <input ng-model="form.password" type="password" required>
+                <input ng-model="ctrl.form.password" type="password" required>
             </md-input-container>
             <div id="submit-buttons">
                 <md-button class="md-accent md-raised" value="Submit" ng-disabled="loginForm.$invalid">Submit</md-button>

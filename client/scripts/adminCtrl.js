@@ -2,6 +2,7 @@
 app.controller('adminCtrl', ['$http', '$rootScope', '$scope','$parse', function( $http, $rootScope, $scope, $parse ){
     // INIT
     var self = this;
+    self.form = {};
     self.suggestions = '';
     self.markComplete = markComplete;
     self.submitCSV = submitCSV;
@@ -9,7 +10,9 @@ app.controller('adminCtrl', ['$http', '$rootScope', '$scope','$parse', function(
 
     self.adminTest = adminTest;
     function adminTest() {
-        $http.get('/suggestion', {}).then(function (res) {
+        console.log(self.form);
+        console.log('admin Test');
+        $http.post('/suggestion', self.form).then(function (res) {
             if(res.status != 404){
                 var suggestions = res.data;
                 console.log(suggestions);
