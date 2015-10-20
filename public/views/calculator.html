@@ -7,10 +7,6 @@
                     {{ project.project_name }}
                 </md-option>
 
-                <!-- Causes Bug -->
-                <!--<md-option ng-click="ctrl.newProject()">-->
-                    <!--Create new project...-->
-                <!--</md-option>-->
             </md-select>
         </md-input-container>
 
@@ -74,7 +70,7 @@
             <md-button ng-click="ctrl.newSuggestion()">+ Suggest a new material</md-button>
         </div>
         <div ng-show="user.username">
-            <md-button ng-click="ctrl.newProject()">+ Create New Project</md-button>
+            <md-button href="/createProject">+ Create New Project</md-button>
         </div>
 
     </form>

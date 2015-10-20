@@ -1,0 +1,22 @@
+<md-content id="createProject-page" layout="column" layout-align="space-between center">
+    <h1>Create a Project</h1>
+    <p>
+        Projects allow you to save multiple material calculations,<br>
+        write descriptions, and keep track of things over time.<br>
+        As available information gets updated, we'll let you<br>
+        know if any calculations change.
+    </p>
+    <form name="createProjectForm" layout-fill flex>
+        <md-input-container layout-fill flex>
+            <label>Project Name</label>
+            <input ng-model="ctrl.projectSubmission.project_name" type="text" required>
+        </md-input-container>
+
+        <md-input-container layout-fill flex>
+            <label>Description</label>
+            <textarea ng-model="ctrl.projectSubmission.project_description" ng-pattern="('^[0-9a-zA-Z .-]+$')" md-maxlength="255"></textarea>
+        </md-input-container>
+
+        <md-button class="md-accent md-raised" type="submit" value="Submit" ng-click="ctrl.createProject()" ng-disabled="createProjectForm.$invalid">Submit</md-button>
+    </form>
+</md-content>
