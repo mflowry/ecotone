@@ -110,7 +110,6 @@ app.controller('calculateCtrl', ['$scope', 'projectMethods', '$timeout', '$http'
                 savedCalculation[0].sub_category = self.subcategory || null;
                 savedCalculation[0].units = self.selected_unit.name;
                 savedCalculation[0].weight = self.weight;
-                console.log(self.result);
                 savedCalculation[0].co2_offset = self.result;
                 savedCalculation[0].item_description = self.item_description;
 
