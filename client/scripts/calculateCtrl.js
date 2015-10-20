@@ -94,10 +94,16 @@ app.controller('calculateCtrl', ['$scope', 'projectMethods', '$timeout', '$http'
         };
 
         $http.post('/calculations', calculate).then(function(response) {
-            self.result = Math.floor(Math.abs(response.data) * 1000) / 1000;
-            console.log(self.result);
 
-            if($rootScope.user) {
+            response.data = Math.abs(parseFloat(response.data));
+
+            if (response.data >= .0001) {
+                self.result = Math.floor(response.data * 10000) / 10000;
+            } else {
+                self.result = response.data.toExponential(2);
+            }
+
+            if ($rootScope.user) {
                 var savedCalculation = [{}];
                 savedCalculation[0].project_id = self.selected_project.id;
                 savedCalculation[0].category = self.category.primary_cat;
@@ -113,6 +119,8 @@ app.controller('calculateCtrl', ['$scope', 'projectMethods', '$timeout', '$http'
                 $http.post('/project/calculation', savedCalculation).then(function (res) {
                     console.log(res);
                 })
+
+
             }
         });
     }

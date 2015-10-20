@@ -4,15 +4,18 @@ const
     Users = require('../../models/models').Users;
 
 router.post('/', function(req, res, next) {
-        var existingUserByEmail = {
+
+    var existingUserByEmail = {
             where: {
-                email: req.body.email
+                $or: [
+                    {username: req.body.username},
+                    {email: req.body.email}
+                ]
             }
         };
 
         //Users.sync().then(function () {
             Users.find(existingUserByEmail).then(function(user){
-
                 // if returned user is null (does not exist)
                 if( user === null ) {
 
@@ -31,14 +34,18 @@ router.post('/', function(req, res, next) {
                             res.send('error: ', err);
                         });
                 } else {
-
+                    console.log(user.email);
                     // if user already exists, send status 409
-                    res.sendStatus(409);
+                    if(user.email == req.body.email){
+                        res.status(409).send({message: 'That email has already been registered!'});
+                    } else{
+                        res.status(409).send({message: 'That username is already taken!'});
+                    }
                 }
             }).catch(function( err ){
 
                 // status should only occur if there is an error internal to the database
-                res.sendStatus(500)
+                res.status(500).send({message: 'There was an internal server error, please try again later.'});
             });
         //})
 });

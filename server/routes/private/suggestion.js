@@ -34,7 +34,7 @@ router.post('/getSuggestions', function( req, res, next){
             if (err) console.log(err);
 
             client.query('select * from suggestions where complete = false',
-                function (err, results) {
+                function (errg, results) {
                     done();
                     suggestions = results.rows;
                     client.query('select * from secondaries', function (err, results) {
