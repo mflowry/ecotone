@@ -1,7 +1,11 @@
 const
     express = require('express'),
     router = express.Router(),
+    expressJwt = require('express-jwt'),
     pg = require('pg');
+
+
+router.use(expressJwt({secret: 'supersecret'}));
 
 var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/ecotone';
 
@@ -21,21 +25,24 @@ router.post('/', function( req, res, next ){
     });
 });
 
-router.get('/', function( req, res, next){
-    var suggestions = [];
+router.post('/getSuggestions', function( req, res, next){
+    if(req.body.username == process.env.adminUser && req.body.password == process.env.adminPass) {
+        console.log('in if');
+        var suggestions = [];
 
-    pg.connect( connectionString , function( err, client, done ) {
-        if (err) console.log(err);
+        pg.connect(connectionString, function (err, client, done) {
+            if (err) console.log(err);
 
-        client.query('select * from suggestions where complete = false',
-            function( err, results){
-                done();
-                suggestions = results.rows;
-                client.query('select * from secondaries', function ( err, results ){
-                    res.send(suggestions);
-                });
-            })
-    });
+            client.query('select * from suggestions where complete = false',
+                function (err, results) {
+                    done();
+                    suggestions = results.rows;
+                    client.query('select * from secondaries', function (err, results) {
+                        res.send(suggestions);
+                    });
+                })
+        });
+    }
 });
 
 router.put('/complete/:id', function( req, res, next ){
