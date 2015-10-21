@@ -72,6 +72,7 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
 
             //get items for selected project
             function clearFields() {
+                self.searchText = "";
                 self.category = "";
                 self.subcategory = "";
                 self.selected_unit = "";
