@@ -35,10 +35,9 @@ app.factory('projectMethods', ['$http', '$rootScope', function ( $http, $rootSco
         return selectedProjectItems;
     }
 
-    function getAllProjectItems( callback ) {
-        $http.get( '/project/?user_id='+ $rootScope.user.id).then( function( res ){
-            callback( res.data )
-
+    function getAllProjectItems(  ) {
+        return $http.get( '/project/?user_id='+ $rootScope.user.id).then( function( res ){
+            return( res.data )
         })
     }
 
