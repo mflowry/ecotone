@@ -52,14 +52,13 @@ td {
 tr.hover {
   cursor: pointer; }
 
-img {
-  vertical-align: middle; }
-
 #login-page #submit-buttons a {
   vertical-align: middle; }
 
 #dashboard-page #project-page {
   /*need to figure out how to use flex!!!! so the table items shrink down instead of go on another*/ }
+  #dashboard-page #project-page img {
+    vertical-align: middle; }
   #dashboard-page #project-page h2 {
     padding-left: 20px;
     margin-top: 35px;

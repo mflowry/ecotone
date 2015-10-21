@@ -24,6 +24,21 @@ block content
               md-button( href="/admin") ADMIN
 
       md-content(layout="column" layout-fill)
+        md-toolbar.md-primary.md-hue-3(hide-gt-md)
+          header.md-accent.sidenav-header
+            img(src="/images/ECOTONE_emailSIG.png" alt="ECOTONE")
+          ul
+            li
+              md-button(href="/calculator") Calculator
+            li
+              md-button(href="/login" ng-hide="user.username") Login
+            li
+              md-button(href="/dashboard" ng-show="user.username") My Dashboard
+            li
+              md-button(href="/account" ng-show="user.username") My Account
+            li
+              md-button(href="/calculator" ng-click="logout()" ng-show="user.username") Logout
+
         md-content(id="content" layout="column" layout-fill layout-align="start center" flex)
           <!-- ng-view will display injected content -->
           div.view(ng-view)

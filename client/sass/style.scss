@@ -80,9 +80,7 @@ tr.hover {
   cursor: pointer;
 }
 
-img {
-  vertical-align: middle;
-}
+
 
 
 #login-page{
@@ -93,6 +91,9 @@ img {
 
 
 #dashboard-page #project-page {
+  img {
+    vertical-align: middle;
+  }
 
   h2 {
     padding-left: 20px;
