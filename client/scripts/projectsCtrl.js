@@ -21,7 +21,7 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
 
         if (self.selected_project) {
 
-            projectMethods.getProjectItems(function (items) {
+            projectMethods.getProjectItems().then(function(items) {
                 self.projectItems = items;
                 calculateProjectTotal();
                 self.downloadProject();
@@ -58,10 +58,12 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
 
                     calculator.saveCalculation(calcToSave).then(function () {
                         console.log(calcToSave);
-                        projectMethods.getProjectItems(function (items) {
+                        projectMethods.getProjectItems().then(function(items) {
                             self.projectItems = items;
+                            console.log(items);
+
                             calculateProjectTotal();
-                            clearFields();
+                            //clearFields();
 
                         })
                     });
@@ -127,9 +129,7 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
 
             function deleteProjectItem(item) {
                 $http.delete('/project/calculation/' + item.id).then(function () {
-                    projectMethods.getProjectItems(function (items) {
-                        self.projectItems = items;
-                    })
+                    projectMethods.getProjectItems().then(function(items){self.projectItems = items});
                 })
 
             }
