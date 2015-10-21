@@ -4,7 +4,7 @@
 
     <!--ADD A PROJECT ITEM-->
     <h3 class="md-subhead">Add a new item to your project list:</h3>
-    <form name="calcForm" layout="row" layout-align="space-between center" layout-fill>
+    <form name="calcForm" layout="row" layout-align="space-between center" layout-fill novalidate>
         <!--Enter item description-->
         <md-input-container flex="20">
             <label>Item description (optional)</label>
@@ -47,7 +47,7 @@
         <!--Enter weight-->
         <md-input-container flex="10">
             <label>Weight</label>
-            <input ng-model="ctrl.weight" type="text">
+            <input ng-model="ctrl.weight" type="text" name="weight" ng-pattern="/^\d*(\.\d+)?$/" required>
         </md-input-container>
 
         <!--Enter units-->
@@ -76,7 +76,7 @@
             <th flex="10" style="text-align: center">Delete</th>
         </tr>
 
-    <!--Listing of each project item-->
+        <!--Listing of each project item-->
         <tr ng-repeat=" item in ctrl.projectItems" layout="row" layout-padding layout-fill layout-wrap >
             <td flex="25">{{item.item_description}}</td>
             <td flex="15">{{item.category}}</td>
@@ -91,6 +91,6 @@
 
     <!--&lt;!&ndash;Display Total CO2 Offset&ndash;&gt;-->
     <!--<section layout="row" layout-align="right">-->
-        <!--<p ng-show="ctrl.projectTotal">Your Total Estimated CO<sub>2</sub> Offset is {{ctrl.projectTotal}} metric tons</p>-->
+    <!--<p ng-show="ctrl.projectTotal">Your Total Estimated CO<sub>2</sub> Offset is {{ctrl.projectTotal}} metric tons</p>-->
     <!--</section>-->
 </div>
