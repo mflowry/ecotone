@@ -127,7 +127,7 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                 });
 
             };
-        }
+
 
         function searchTextChange(text) {
             console.log('Text changed to ', text);
