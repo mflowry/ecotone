@@ -70,101 +70,101 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
             })
         };
 
-            //get items for selected project
-            function clearFields() {
-                self.searchText = "";
-                self.category = "";
-                self.subcategory = "";
-                self.selected_unit = "";
-                self.weight = "";
-                self.result = "";
-                self.item_description = "";
-            }
+        //get items for selected project
+        function clearFields() {
+            self.searchText = "";
+            self.category = "";
+            self.subcategory = "";
+            self.selected_unit = "";
+            self.weight = "";
+            self.result = "";
+            self.item_description = "";
+        }
 
 
-            //load project list on page load
-            function querySearch(query) {
-                return query ? self.projectList.filter(createFilterFor(query)) : self.projectList;
-            }
+        //load project list on page load
+        function querySearch(query) {
+            return query ? self.projectList.filter(createFilterFor(query)) : self.projectList;
+        }
 
-            function createFilterFor(query) {
-                var lowercaseQuery = query.toLowerCase();
-                //query.charAt(0).toUpperCase() + query.slice(1);
-                return function filterFn(obj) {
-                    return (obj.primary_cat.indexOf(lowercaseQuery) != -1);
-                };
-            }
-
-            function searchTextChange(text) {
-                console.log('Text changed to ', text);
-
-            }
-
-            function selectedItemChange(item) {
-                console.log('item', item);
-                // selected material;
-
-            }
-
-            $scope.showDelete = function (ev, id) {
-                console.log('CLICK');
-                var confirm = $mdDialog.confirm()
-                    .title('Are you sure you want to delete this item?')
-                    .content('This will be permanent.')
-                    .ariaLabel('Delete item permanently')
-                    .ok('Delete')
-                    .cancel('Cancel')
-                    .targetEvent(ev);
-                $mdDialog.show(confirm).then(function () {
-                    console.log("Deleting", id);
-                    self.deleteProjectItem(id);
-                    $scope.alert = 'Your item has been deleted.';
-                }, function () {
-                    $scope.alert = 'Your item has not been deleted.';
-                });
+        function createFilterFor(query) {
+            var lowercaseQuery = query.toLowerCase();
+            //query.charAt(0).toUpperCase() + query.slice(1);
+            return function filterFn(obj) {
+                return (obj.primary_cat.indexOf(lowercaseQuery) != -1);
             };
+        }
+
+        function searchTextChange(text) {
+            console.log('Text changed to ', text);
+
+        }
+
+        function selectedItemChange(item) {
+            console.log('item', item);
+            // selected material;
+
+        }
+
+        $scope.showDelete = function (ev, id) {
+            console.log('CLICK');
+            var confirm = $mdDialog.confirm()
+                .title('Are you sure you want to delete this item?')
+                .content('This will be permanent.')
+                .ariaLabel('Delete item permanently')
+                .ok('Delete')
+                .cancel('Cancel')
+                .targetEvent(ev);
+            $mdDialog.show(confirm).then(function () {
+                console.log("Deleting", id);
+                self.deleteProjectItem(id);
+                $scope.alert = 'Your item has been deleted.';
+            }, function () {
+                $scope.alert = 'Your item has not been deleted.';
+            });
+        };
 
 
-            function deleteProjectItem(item) {
-                $http.delete('/project/calculation/' + item.id).then(function () {
-                    projectMethods.getProjectItems(function (items) {
-                        self.projectItems = items;
-                    })
+        function deleteProjectItem(item) {
+            $http.delete('/project/calculation/' + item.id).then(function () {
+                projectMethods.getProjectItems(function (items) {
+                    self.projectItems = items;
                 })
+            })
 
-            }
+        }
 
 
-            function calculateProjectTotal() {
-                console.log("calculating...");
-                projectTotal = 0;
-                self.projectItems.forEach(function (item) {
-                    projectTotal += item.co2_offset;
-                    console.log(projectTotal);
-                });
+        function calculateProjectTotal() {
+            console.log("calculating...");
+            projectTotal = 0;
+            self.projectItems.forEach(function (item) {
+                projectTotal += item.co2_offset;
                 console.log(projectTotal);
-                self.projectTotal = Math.floor(projectTotal * 100) / 100;
-            }
+            });
+            console.log(projectTotal);
+            self.projectTotal = Math.floor(projectTotal * 100) / 100;
+        }
 
-            function downloadProject() {
-                var csvContent = "data:text/csv;charset=utf-8,";
+        function downloadProject() {
+            var csvContent = "data:text/csv;charset=utf-8,";
 
-                var dataString = 'category,sub_category,units,weight,item_description\n';
-                self.projectItems.forEach(function (item, index) {
-                    dataString += item.category + ',' + item.sub_category + ',' + item.units + ',' + item.weight + ','
-                        + item.item_description + '\n'
-                });
+            var dataString = 'category,sub_category,units,weight,item_description\n';
+            self.projectItems.forEach(function (item, index) {
+                dataString += item.category + ',' + item.sub_category + ',' + item.units + ',' + item.weight + ','
+                    + item.item_description + '\n'
+            });
 
-                // enable to download
-                //csvContent += dataString;
-                //var encodedUri = encodeURI(csvContent);
-                //var link = document.createElement("a");
-                //link.setAttribute("href", encodedUri);
-                //link.setAttribute("download", "my_data.csv");
-                //
-                //link.click(); // This will download the data file named "my_data.csv".
+            // enable to download
+            //csvContent += dataString;
+            //var encodedUri = encodeURI(csvContent);
+            //var link = document.createElement("a");
+            //link.setAttribute("href", encodedUri);
+            //link.setAttribute("download", "my_data.csv");
+            //
+            //link.click(); // This will download the data file named "my_data.csv".
 
-            }
+        }
 
 
-}]);
+    }]);
