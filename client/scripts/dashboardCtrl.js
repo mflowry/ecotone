@@ -2,7 +2,12 @@ app.controller('dashboardCtrl', ['$location', 'projectMethods', '$mdDialog', '$r
 
     self = this;
     self.selectProject= selectProject;
-
+    self.selectItems= '';
+    //self.grandTotal= grandTotal;
+    self.projects = '';
+    self.Co2GrandTotal = 0;
+    self.getAllItems= getAllItems;
+    self.calculateGrandTotal= calculateGrandTotal;
 
     $scope.showDelete = function(project) {
         console.log('CLICK');
@@ -11,7 +16,7 @@ app.controller('dashboardCtrl', ['$location', 'projectMethods', '$mdDialog', '$r
             .content('This is permanent.')
             .ariaLabel('Remove project from account permanently')
             .ok('Remove')
-            .cancel('Cancel')
+            .cancel('Cancel');
         $mdDialog.show(confirm).then(function() {
             console.log(project);
             $http.delete('/project/' + project.id).then(function( res ){
@@ -35,13 +40,27 @@ app.controller('dashboardCtrl', ['$location', 'projectMethods', '$mdDialog', '$r
         self.projects = names;
         console.log(names);
     });
+    getAllItems();
+
 
     function selectProject(project){
         console.log(project);
         projectMethods.setSelectedProject(project);
 
         $location.path('/projects');
-    };
+    }
 
+    function getAllItems() {
+        projectMethods.getAllProjectItems().then(function( items ){
+            self.selectItems = items;
+            calculateGrandTotal();
+        });
+    }
 
+    function calculateGrandTotal() {
+
+            self.selectItems.forEach(function (item) {
+                self.Co2GrandTotal += item.co2_offset;
+            });
+        }
 }]);
