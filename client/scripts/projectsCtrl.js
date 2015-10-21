@@ -137,6 +137,7 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
         function selectedItemChange(item) {
             console.log('item', item);
             // selected material;
+        }
 
             function deleteProjectItem(item) {
                 $http.delete('/project/calculation/' + item.id).then(function () {
