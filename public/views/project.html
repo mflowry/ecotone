@@ -3,9 +3,10 @@
     <h2 class="md-title">{{ ctrl.selected_project.project_name }} //  TOTAL CO<sub>2</sub> : {{ ctrl.projectTotal }}</h2>
 
     <!--ADD A PROJECT ITEM-->
+    <h3 class="md-subhead">Add a new item to your project list:</h3>
 
-    <p>Add a new item to your project list:</p>
     <form name="calcForm" layout="row" layout-align="space-between center" layout-fill>
+
         <!--Enter item description-->
         <md-input-container flex="20">
             <label>Item description (optional)</label>
@@ -39,8 +40,8 @@
 
         <!--Select secondary category-->
         <md-input-container layout-fill flex="20">
-            <md-select ng-model="ctrl.warmId" placeholder="Select subtype">
-                <md-option ng-repeat="subcategory in ctrl.category.secondaries" ng-value="subcategory.warm_id">
+            <md-select ng-model="ctrl.subcategory" placeholder="Select subtype">
+                <md-option ng-repeat="subcategory in ctrl.category.secondaries" ng-value="subcategory">
                     {{subcategory.secondary_cat}}
                 </md-option>
             </md-select>
@@ -60,7 +61,6 @@
             </md-option>
         </md-select>
         <!--</md-input-container>-->
-
         <md-input-container flex=none>
             <md-button class="md-accent md-raised" ng-click="ctrl.newCalculation()" ng-disabled="calcForm.$invalid">Calculate</md-button>
         </md-input-container>
@@ -68,23 +68,19 @@
 
 
     <!--Table display-->
-    <md-content>
-        <br>
-        <table style="min-width: 1000px; text-align: left;">
-            <!--<tr layout="row" layout-fill layout-wrap >-->
-            <!--<th>Item Description</th>-->
-            <!--</tr>-->
-            <tr layout="row" layout-align="space between" layout-fill layout-wrap >
-                <th flex="25">Item Description</th>
-                <th flex="15">Category</th>
-                <th flex="15">Sub-Category</th>
-                <th flex="15">Weight</th>
-                <th flex="20">CO<sub>2</sub> Offset</th>
-                <th flex="10" style="text-align: center">Delete</th>
-            </tr>
+    <table style="min-width: 1000px; text-align: left;">
 
-        <!--Listing of each project item-->
-            <tr ng-repeat=" item in ctrl.projectItems" layout="row" layout-padding layout-fill layout-wrap >
+        <tr layout="row" layout-align="space between" layout-fill layout-wrap >
+            <th flex="25">Item Description</th>
+            <th flex="15">Category</th>
+            <th flex="15">Sub-Category</th>
+            <th flex="15">Weight</th>
+            <th flex="20">CO<sub>2</sub> Offset</th>
+            <th flex="10" style="text-align: center">Delete</th>
+        </tr>
+
+    <!--Listing of each project item-->
+        <tr ng-repeat=" item in ctrl.projectItems" layout="row" layout-padding layout-fill layout-wrap >
             <td flex="25">{{item.item_description}}</td>
             <td flex="15">{{item.category}}</td>
             <td flex="15">{{item.sub_category}}</td>
@@ -92,13 +88,12 @@
 
             <td flex="20">{{item.co2_offset}} metric tons</td>
             <td flex="10" style="text-align: center;" type="submit" ng-value="id" ><img src="images/icons/ic_delete_black_24px.svg" ng-click="showDelete($event, item)" alt="Delete item" /> </td>
-            </tr>
-        </table>
+        </tr>
 
-            <!--Display Total CO2 Offset-->
-            <section layout="row" layout-align="right">
-            <p ng-show="ctrl.projectTotal">Your Total Estimated CO<sub>2</sub> Offset is {{ctrl.projectTotal}} metric tons</p>
-            </section>
-        </div>
-    </md-content>
+    </table>
+
+    <!--&lt;!&ndash;Display Total CO2 Offset&ndash;&gt;-->
+    <!--<section layout="row" layout-align="right">-->
+        <!--<p ng-show="ctrl.projectTotal">Your Total Estimated CO<sub>2</sub> Offset is {{ctrl.projectTotal}} metric tons</p>-->
+    <!--</section>-->
 </div>
