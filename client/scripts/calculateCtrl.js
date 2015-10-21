@@ -62,11 +62,17 @@ app.controller('calculateCtrl', ['calculator', '$scope', 'projectMethods', '$tim
 
         console.log('click');
 
+
+
+        if(self.subcategory == undefined) {
+            self.subcategory = self.category.secondaries[0];
+        }
+
+        console.log(self.subcategory);
         var calculation = {
-            warmId: self.subcategory.warmId || self.category.secondaries[0].warm_id,
+            warmId: self.subcategory.warm_id,
             weight: parseFloat(self.weight) * self.selected_unit.conversion
         };
-
 
 
         calculator.newCalculation( calculation ).then(function( answer ){

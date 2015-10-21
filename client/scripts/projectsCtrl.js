@@ -35,12 +35,17 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
         });
 
         function newCalculation() {
-            console.log(self.subcategory);
 
+
+            if(self.subcategory == undefined) {
+                self.subcategory = self.category.secondaries[0];
+            }
             var calculation = {
-                warmId: self.subcategory.warmId || self.category.secondaries[0].warm_id,
+                warmId: self.subcategory.warm_id,
                 weight: parseFloat(self.weight) * self.selected_unit.conversion
             };
+
+            console.log(calculation);
 
             calculator.newCalculation(calculation).then(function (answer) {
 
@@ -51,7 +56,7 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                     var calcToSave = [{}];
                     calcToSave[0].project_id = self.selected_project.id;
                     calcToSave[0].category = self.category.primary_cat;
-                    calcToSave[0].sub_category = self.subcategory.secondary_cat || null;
+                    calcToSave[0].sub_category = self.subcategory.secondary_cat;
                     calcToSave[0].units = self.selected_unit.name;
                     calcToSave[0].weight = self.weight;
                     calcToSave[0].co2_offset = self.result;
