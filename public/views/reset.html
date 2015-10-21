@@ -1,0 +1,23 @@
+<!--<div class="content-layout" id="reset-page" layout="column" ng-controller="resetCtrl" ng-cloak>-->
+    <h1> Reset Your Password </h1>
+    <form name="resetForm" ng-submit="ctrl.resetPassword()">
+        <md-input-container flex>
+            <label> Enter New Password </label>
+            <input ng-model="ctrl.password" type="password" name="password" ng-pattern="/(?=.*[0-9]){8,}/" required>
+            <div ng-messages="resetForm.password.$error" role="alert">
+                <div ng-message="pattern">Minimum of 8 characters with at least one number.</div>
+            </div>
+        </md-input-container>
+
+        <md-input-container flex>
+            <label>Confirm New Password</label>
+            <input ng-model="ctrl.confirmPassword" type="password" data-match="resetForm.password"  name="confirmPassword" required>
+            <div ng-messages="resetForm.confirmPassword.$error" role="alert">
+                <div ng-message="match"> Passwords do not match!</div>
+            </div>
+
+        </md-input-container>
+
+        <md-button class="md-accent md-raised" type="submit" value="Submit" ng-disabled="resetForm.$invalid" >Reset password</md-button>
+    </form>
+<!--</div>-->

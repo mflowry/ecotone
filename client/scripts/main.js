@@ -131,6 +131,10 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         }).when('/sources',
         {
             templateUrl: '/views/sources.html'
+        }).when('/reset/:token',
+        {
+            templateUrl: '/views/reset.html',
+            controller: 'resetCtrl as ctrl'
         }).otherwise({
             redirectTo: '/'
 
