@@ -5,7 +5,7 @@
     <!--ADD A PROJECT ITEM-->
 
     <p>Add a new item to your project list:</p>
-    <form name="calcForm" layout="row" layout-align="space-between start" layout-fill>
+    <form name="calcForm" layout="row" layout-align="space-between center" layout-fill>
         <!--Enter item description-->
         <md-input-container flex="20">
             <label>Item description (optional)</label>
@@ -41,7 +41,7 @@
 
         <!--Select secondary category-->
         <md-input-container layout-fill flex="20">
-            <md-select ng-model="ctrl.warmId" md-floating-label="Select subtype">
+            <md-select ng-model="ctrl.warmId" placeholder="Select subtype">
                 <md-option ng-repeat="subcategory in ctrl.category.secondaries" ng-value="subcategory.warm_id">
                     {{subcategory.secondary_cat}}
                 </md-option>
@@ -55,13 +55,13 @@
         </md-input-container>
 
         <!--Enter units-->
-        <md-input-container layout-fill flex="10">
-            <md-select ng-model="ctrl.selected_unit" placeholder="Select units" required>
-                <md-option ng-repeat="unit in ctrl.units" ng-value="unit">
-                    {{ unit.name }}
-                </md-option>
-            </md-select>
-        </md-input-container>
+        <!--<md-input-container >-->
+        <md-select ng-model="ctrl.selected_unit" placeholder="Select units" layout-fill flex="10" required>
+            <md-option ng-repeat="unit in ctrl.units" ng-value="unit">
+                {{ unit.name }}
+            </md-option>
+        </md-select>
+        <!--</md-input-container>-->
 
         <md-input-container flex=none>
             <md-button class="md-accent md-raised" ng-click="ctrl.newCalculation()" ng-disabled="calcForm.$invalid">Calculate</md-button>
