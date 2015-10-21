@@ -5,6 +5,7 @@
     <!--ADD A PROJECT ITEM-->
     <h3 class="md-subhead">Add a new item to your project list:</h3>
     <form name="calcForm" layout="row" layout-align="space-between center" layout-fill novalidate>
+
         <!--Enter item description-->
         <md-input-container flex="20">
             <label>Item description (optional)</label>
@@ -37,7 +38,7 @@
         </md-autocomplete>
 
         <!--Select secondary category-->
-        <md-select ng-model="ctrl.subcategory" placeholder="Select subtype" layout-fill flex="20">
+        <md-select ng-model="ctrl.subcategory" placeholder="Select subtype" style="padding-bottom: 6px" layout-fill flex="20">
             <md-option ng-repeat="subcategory in ctrl.category.secondaries" ng-value="subcategory">
                 {{subcategory.secondary_cat}}
             </md-option>
@@ -52,7 +53,7 @@
 
         <!--Enter units-->
         <!--<md-input-container >-->
-        <md-select ng-model="ctrl.selected_unit" placeholder="Select units" layout-fill flex="10" required>
+        <md-select ng-model="ctrl.selected_unit" placeholder="Units" style="padding-bottom: 6px" layout-fill flex="10" required>
             <md-option ng-repeat="unit in ctrl.units" ng-value="unit">
                 {{ unit.name }}
             </md-option>
