@@ -35,6 +35,7 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
         });
 
         function newCalculation() {
+            console.log(self.subcategory);
 
             var calculation = {
                 warmId: self.warmId || self.category.secondaries[0].warm_id,
@@ -76,7 +77,7 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
             function clearFields() {
                 self.searchText = "";
                 self.category = "";
-                self.subcategory = "";
+                //self.subcategory = "";
                 self.selected_unit = "";
                 self.weight = "";
                 self.result = "";

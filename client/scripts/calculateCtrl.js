@@ -79,6 +79,7 @@ app.controller('calculateCtrl', ['calculator', '$scope', 'projectMethods', '$tim
                     var calcToSave = [{}];
                     calcToSave[0].project_id = self.selected_project.id;
                     calcToSave[0].category = self.category.primary_cat;
+                    console.log(self.subcategory)
                     calcToSave[0].sub_category = self.subcategory || null;
                     calcToSave[0].units = self.selected_unit.name;
                     calcToSave[0].weight = self.weight;
