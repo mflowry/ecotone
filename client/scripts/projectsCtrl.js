@@ -140,7 +140,10 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
 
             function deleteProjectItem(item) {
                 $http.delete('/project/calculation/' + item.id).then(function () {
-                    projectMethods.getProjectItems().then(function(items){self.projectItems = items});
+                    projectMethods.getProjectItems().then(function(items){
+                        self.projectItems = items;
+                        calculateProjectTotal();
+                    });
                 })
             }
 
@@ -148,7 +151,7 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
 
         function calculateProjectTotal() {
             console.log("calculating...");
-            projectTotal = 0;
+            var projectTotal = 0;
             self.projectItems.forEach(function (item) {
                 projectTotal += item.co2_offset;
                 console.log(projectTotal);
