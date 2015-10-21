@@ -1,6 +1,6 @@
 <!--<div class="content-layout" id="reset-page" layout="column" ng-controller="resetCtrl" ng-cloak>-->
     <h1> Reset Your Password </h1>
-    <form name="resetForm" ng-submit="ctrl.resetPassword()">
+    <form name="resetForm" ng-submit="ctrl.resetPassword()" novalidate>
         <md-input-container flex>
             <label> Enter New Password </label>
             <input ng-model="ctrl.password" type="password" name="password" ng-pattern="/(?=.*[0-9]){8,}/" required>

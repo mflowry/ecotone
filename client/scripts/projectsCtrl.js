@@ -125,47 +125,57 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                 }, function () {
                     $scope.alert = 'Your item has not been deleted.';
                 });
-            };
 
+            };
+        }
+
+        function searchTextChange(text) {
+            console.log('Text changed to ', text);
+
+        }
+
+        function selectedItemChange(item) {
+            console.log('item', item);
+            // selected material;
 
             function deleteProjectItem(item) {
                 $http.delete('/project/calculation/' + item.id).then(function () {
                     projectMethods.getProjectItems().then(function(items){self.projectItems = items});
                 })
-
             }
 
 
-            function calculateProjectTotal() {
-                console.log("calculating...");
-                projectTotal = 0;
-                self.projectItems.forEach(function (item) {
-                    projectTotal += item.co2_offset;
-                    console.log(projectTotal);
-                });
+
+        function calculateProjectTotal() {
+            console.log("calculating...");
+            projectTotal = 0;
+            self.projectItems.forEach(function (item) {
+                projectTotal += item.co2_offset;
                 console.log(projectTotal);
-                self.projectTotal = Math.floor(projectTotal * 100) / 100;
-            }
+            });
+            console.log(projectTotal);
+            self.projectTotal = Math.floor(projectTotal * 100) / 100;
+        }
 
-            function downloadProject() {
-                var csvContent = "data:text/csv;charset=utf-8,";
+        function downloadProject() {
+            var csvContent = "data:text/csv;charset=utf-8,";
 
-                var dataString = 'category,sub_category,units,weight,item_description\n';
-                self.projectItems.forEach(function (item, index) {
-                    dataString += item.category + ',' + item.sub_category + ',' + item.units + ',' + item.weight + ','
-                        + item.item_description + '\n'
-                });
+            var dataString = 'category,sub_category,units,weight,item_description\n';
+            self.projectItems.forEach(function (item, index) {
+                dataString += item.category + ',' + item.sub_category + ',' + item.units + ',' + item.weight + ','
+                    + item.item_description + '\n'
+            });
 
-                // enable to download
-                //csvContent += dataString;
-                //var encodedUri = encodeURI(csvContent);
-                //var link = document.createElement("a");
-                //link.setAttribute("href", encodedUri);
-                //link.setAttribute("download", "my_data.csv");
-                //
-                //link.click(); // This will download the data file named "my_data.csv".
+            // enable to download
+            //csvContent += dataString;
+            //var encodedUri = encodeURI(csvContent);
+            //var link = document.createElement("a");
+            //link.setAttribute("href", encodedUri);
+            //link.setAttribute("download", "my_data.csv");
+            //
+            //link.click(); // This will download the data file named "my_data.csv".
 
-            }
+        }
 
 
-}]);
+    }]);
