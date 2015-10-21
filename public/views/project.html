@@ -1,66 +1,73 @@
 <div id="project-page">
-    <h1>Project Summary: {{ ctrl.selected_project.project_name }} //  TOTAL CO2 : {{ ctrl.projectTotal }}</h1>
+    <h1>Project Summary</h1>
+    <h2 class="md-title">{{ ctrl.selected_project.project_name }} //  TOTAL CO<sub>2</sub> : {{ ctrl.projectTotal }}</h2>
 
     <!--ADD A PROJECT ITEM-->
 
-    <div>
-        <md-content layout="row">
-        <md-input-container flex>
-            <!--Enter item description-->
-            <textarea ng-model="ctrl.item_description" md-maxlength="255" name="description" placeholder="Item Description (optional)"></textarea>
+    <p>Add a new item to your project list:</p>
+    <form name="calcForm" layout="row" layout-align="space-between start" layout-fill>
+        <!--Enter item description-->
+        <md-input-container flex="20">
+            <label>Item description (optional)</label>
+            <input ng-model="ctrl.item_description" md-maxlength="255" name="description">
         </md-input-container>
 
-        <!--Select category from dropdown-->
+        <!--Select material category from dropdown-->
+        <md-input-container flex="20">
+            <md-autocomplete ng-disabled="ctrl.isDisabled"
+                             md-selected-item="ctrl.category"
+                             md-selected-item-change="ctrl.selectedItemChange(item)"
+                             md-search-text="ctrl.searchText"
+                             md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                             md-items="item in ctrl.querySearch(ctrl.searchText)"
+                             md-item-text="item.primary_cat"
+                             md-min-length="0"
+                             md-floating-label="Select material type"
+                             layout-fill required>
+                <md-item-template>
+                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">
+                        {{item.primary_cat}}
+                    </span>
+                </md-item-template>
 
-        <md-autocomplete ng-disabled="ctrl.isDisabled"
-                         md-selected-item="ctrl.category"
-                         md-selected-item-change="ctrl.selectedItemChange(item)"
-                         md-search-text="ctrl.searchText"
-                         md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
-                         md-items="item in ctrl.querySearch(ctrl.searchText)"
-                         md-item-text="item.primary_cat"
-                         md-min-length="0"
-                         placeholder="Select Material type"
-                         layout-fill>
-            <md-item-template>
-            <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">
-                {{item.primary_cat}}
-            </span>
-            </md-item-template>
-
-            <!--Display error message-->
-            <md-not-found>
-                <div>
-                    No material matches {{ ctrl.searchText }}
-                </div>
-            </md-not-found>
-        </md-autocomplete>
+                <!--Display error message-->
+                <md-not-found>
+                    <div>
+                        No material matches {{ ctrl.searchText }}
+                    </div>
+                </md-not-found>
+            </md-autocomplete>
+        </md-input-container>
 
         <!--Select secondary category-->
-        <div ng-show="ctrl.category.secondaries[0].secondary_cat != null" layout="column" layout-align="end center" layout-fill flex>
-            <md-select ng-model="ctrl.warmId" placeholder="Select subtype" layout-fill layout-align="center">
+        <md-input-container layout-fill flex="20">
+            <md-select ng-model="ctrl.warmId" md-floating-label="Select subtype">
                 <md-option ng-repeat="subcategory in ctrl.category.secondaries" ng-value="subcategory.warm_id">
                     {{subcategory.secondary_cat}}
                 </md-option>
             </md-select>
-        </div>
+        </md-input-container>
 
         <!--Enter weight-->
-            <md-input-container>
-                <input ng-model="ctrl.weight" type="text" placeholder="Enter weight">
-            </md-input-container>
+        <md-input-container flex="10">
+            <label>Weight</label>
+            <input ng-model="ctrl.weight" type="text">
+        </md-input-container>
 
         <!--Enter units-->
-            <md-select ng-model="ctrl.selected_unit" placeholder="Select units" flex required>
+        <md-input-container layout-fill flex="10">
+            <md-select ng-model="ctrl.selected_unit" placeholder="Select units" required>
                 <md-option ng-repeat="unit in ctrl.units" ng-value="unit">
                     {{ unit.name }}
                 </md-option>
             </md-select>
+        </md-input-container>
 
+        <md-input-container flex=none>
             <md-button class="md-accent md-raised" ng-click="ctrl.newCalculation()" ng-disabled="calcForm.$invalid">Calculate</md-button>
+        </md-input-container>
+    </form>
 
-        </md-content>
-    </div>
 
     <!--Table display-->
     <md-content>
