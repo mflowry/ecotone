@@ -25,9 +25,9 @@ app.factory('projectMethods', ['$http', '$rootScope', function ( $http, $rootSco
         });
     }
 
-    function getProjectItems( callback ) {
-        $http.get( '/project/?user_id=' + $rootScope.user.id + "&project_id=" + selectedProject.id ).then( function (res) {
-            callback( res.data );
+    function getProjectItems() {
+        return $http.get( '/project/?user_id=' + $rootScope.user.id + "&project_id=" + selectedProject.id ).then( function (res) {
+            return ( res.data );
         });
     }
 
