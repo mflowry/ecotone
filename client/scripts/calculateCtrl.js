@@ -63,7 +63,7 @@ app.controller('calculateCtrl', ['calculator', '$scope', 'projectMethods', '$tim
         console.log('click');
 
         var calculation = {
-            warmId: self.warmId || self.category.secondaries[0].warm_id,
+            warmId: self.subcategory.warmId || self.category.secondaries[0].warm_id,
             weight: parseFloat(self.weight) * self.selected_unit.conversion
         };
 
@@ -79,8 +79,7 @@ app.controller('calculateCtrl', ['calculator', '$scope', 'projectMethods', '$tim
                     var calcToSave = [{}];
                     calcToSave[0].project_id = self.selected_project.id;
                     calcToSave[0].category = self.category.primary_cat;
-                    console.log(self.subcategory)
-                    calcToSave[0].sub_category = self.subcategory || null;
+                    calcToSave[0].sub_category = self.subcategory.secondary_cat || null;
                     calcToSave[0].units = self.selected_unit.name;
                     calcToSave[0].weight = self.weight;
                     calcToSave[0].co2_offset = self.result;

@@ -41,8 +41,8 @@
 
         <!--Select secondary category-->
         <md-input-container layout-fill flex="20">
-            <md-select ng-model="ctrl.warmId" placeholder="Select subtype">
-                <md-option ng-repeat="subcategory in ctrl.category.secondaries" ng-value="subcategory.warm_id">
+            <md-select ng-model="ctrl.subcategory" placeholder="Select subtype">
+                <md-option ng-repeat="subcategory in ctrl.category.secondaries" ng-value="subcategory">
                     {{subcategory.secondary_cat}}
                 </md-option>
             </md-select>
