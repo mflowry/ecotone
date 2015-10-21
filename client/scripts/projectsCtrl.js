@@ -98,16 +98,6 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                 };
             }
 
-            function searchTextChange(text) {
-                console.log('Text changed to ', text);
-
-            }
-
-            function selectedItemChange(item) {
-                console.log('item', item);
-                // selected material;
-
-            }
 
             $scope.showDelete = function (ev, id) {
                 console.log('CLICK');
@@ -136,6 +126,10 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
 
         function selectedItemChange(item) {
             console.log('item', item);
+            //if(self.category.secondaries[0].secondary_cat==null){
+            //    self.category.secondaries[0].secondary_cat == "No Secondary Category Available";
+            //    console.log(self.category);
+            //}
             // selected material;
         }
 
