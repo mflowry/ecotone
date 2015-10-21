@@ -101,9 +101,9 @@ var userSchema = sequelize.define('user',
 
     },
     {
+        //references to properties of this model will be given a name with an underscore in external tables
         underscored: true,
         instanceMethods: {
-
             comparePassword: function (candidatePassword, cb) {
                 bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
 
@@ -139,7 +139,7 @@ var userSchema = sequelize.define('user',
                                 return callback(err);
                             }
 
-                            // check if the password was a match
+                            // check if the password was a match, if so construct user object
                             if (isMatch) {
                                 var matchedUser = {
                                     username: instance.username,
@@ -233,6 +233,7 @@ projectSchema = sequelize.define('project',
             defaultValue: true
         }
     },
+    //references to properties of this model will be given a name with an underscore in external tables
     {underscored: true}
 );
 
@@ -300,6 +301,7 @@ calculationSchema = sequelize.define('calculation',
             defaultValue: true
         }
     },
+    //references to properties of this model will be given a name with an underscore in external tables
     {underscored: true}
 );
 
