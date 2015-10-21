@@ -1,21 +1,27 @@
 $accent: #546E7A;
 $warn: orange;
 
-.sidenav-header {
-  margin: 20px auto;
+md-toolbar {
+
 }
 
-.nav-ul {
-  h3{
-    color: white;
+md-sidenav {
+  .sidenav-header {
+    margin: 20px auto;
   }
-  li span {
-    float: left;
-    color: white;
-  }
-  li .md-button {
-    margin: 0;
-    padding: 0;
+
+  .nav-ul {
+    h3 {
+      color: white;
+    }
+    li span {
+      float: left;
+      color: white;
+    }
+    li .md-button {
+      margin: 0;
+      padding: 0;
+    }
   }
 }
 

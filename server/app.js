@@ -43,6 +43,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
 
+app.use('/reset', reset);
 app.use('/', routes);
 app.use('/login', login);
 app.use('/materials', materials);
@@ -53,7 +54,6 @@ app.use('/project',project);
 app.use('/suggestion', suggestion);
 app.use('/bulk', bulk);
 app.use('/forgot', forgot);
-app.use('/reset', reset);
 app.use('*', routes);
 
 // catch 404 and forward to error handler

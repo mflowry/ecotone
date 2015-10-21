@@ -1,5 +1,5 @@
-// Login HTML - Kate
-app.controller('loginCtrl', ['$scope', '$http', 'authService', '$location', '$rootScope','showToast', function($scope, $http, authService, $location, $rootScope, showToast) {
+app.controller('loginCtrl', ['$scope', '$http', 'authService', '$location', '$rootScope','showToast', '$mdDialog', function($scope, $http, authService, $location, $rootScope, showToast, $mdDialog) {
+
     $scope.login = function () {
         $http({
             method: 'POST',
@@ -16,4 +16,22 @@ app.controller('loginCtrl', ['$scope', '$http', 'authService', '$location', '$ro
             showToast.showToast(err.data.message);
         })
     };
+
+    $scope.submitReset = function () {
+        console.log(this.email);
+        $http.post('/forgot', {email: this.email}).then(function( res ){
+            $mdDialog.hide();
+        });
+    };
+
+    $scope.resetPassword = function() {
+
+        $mdDialog.show({
+            templateUrl: '/views/reset-modal.html',
+            clickOutsideToClose: true,
+            controller: 'loginCtrl',
+            controllerAs: 'ctrl'
+        })
+
+    }
 }]);

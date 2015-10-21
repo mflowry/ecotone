@@ -1,14 +1,14 @@
-.sidenav-header {
+md-sidenav .sidenav-header {
   margin: 20px auto; }
 
-.nav-ul h3 {
+md-sidenav .nav-ul h3 {
   color: white; }
 
-.nav-ul li span {
+md-sidenav .nav-ul li span {
   float: left;
   color: white; }
 
-.nav-ul li .md-button {
+md-sidenav .nav-ul li .md-button {
   margin: 0;
   padding: 0; }
 

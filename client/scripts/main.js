@@ -131,10 +131,6 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         }).when('/sources',
         {
             templateUrl: '/views/sources.html'
-        }).when('/reset',
-        {
-            templateUrl: '/views/passwordReset.html'
-            //controller: 'loginCtrl as ctrl'
         }).otherwise({
             redirectTo: '/'
 

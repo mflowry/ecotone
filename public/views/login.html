@@ -2,6 +2,7 @@
     <h1>Login to create projects and track your savings.</h1>
     <form ng-submit="login()" name="loginForm">
         <md-content>
+
             <md-input-container>
                 <label>Username</label>
                 <input ng-model="form.username" type="string" required>
@@ -10,11 +11,15 @@
                 <label>Password</label>
                 <input ng-model="form.password" type="password" required>
             </md-input-container>
+
             <div id="submit-buttons">
                 <md-button class="md-accent md-raised" type="submit" value="Submit" ng-disabled="loginForm.$invalid">Submit</md-button>
                 <md-button href="/register">Register</md-button>
-                <md-button href="/reset">Forgot Password</md-button>
             </div>
+
+
         </md-content>
     </form>
+
+    <md-button ng-click="resetPassword()">Forgot Password</md-button>
 </div>

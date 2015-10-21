@@ -5,7 +5,7 @@ const
 
 var Users = require('../../models/models').Users;
 
-router.get('/:token', function(req, res) {
+router.get('/:token?', function(req, res) {
     var findUserByToken = {
         where: {
             resetPasswordToken: req.params.token,
@@ -20,7 +20,7 @@ router.get('/:token', function(req, res) {
             if (user===null) {
                 throw new Error('Password reset token is invalid or has expired.');
             } else{
-                res.redirect('/reset');
+                res.render('passwordReset');
             }
 
         }).catch(function(err){
