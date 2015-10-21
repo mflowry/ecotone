@@ -3,11 +3,11 @@
     <md-content>
             <h1>Project Totals</h1>
         <div>
-            <h2 class="md-title">Your projects have prevented XXXXXX {{ctrl.Co2GrandTotal}} metric tons of CO<sub>2</sub> from being released.</h2>
+            <h2 class="md-title">Your projects have prevented {{ctrl.Co2GrandTotal}} metric tons of CO<sub>2</sub> from being released.</h2>
         </div>
 
         <div>
-            <h3 class="md-body-2">Click on row to edit project. Projects can also be removed. Be careful, this is not reversible. </h3>
+            <h3 class="md-body-2">Click on row to edit project. Click on the delete icon to delete a project. </h3>
 
         <md-content>
 
@@ -26,7 +26,7 @@
                     <td ng-value="project.id">{{project.project_name}}</td>
                     <td>{{project.project_description}}</td>
                     <!--<td align="center">{{weight}}{{units}}</td>-->
-                    <td align="center">{{co2_offset}}</td>
+                    <td align="center">{{ctrl.projectTotal}}</td>
                     </a>
                     <td align="center"><img src="images/icons/ic_delete_black_24px.svg" alt="Remove Project" ng-click="showDelete(project);  $event.stopPropagation();"/> </td>
                 </tr>
