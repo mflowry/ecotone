@@ -41,8 +41,8 @@
             </md-autocomplete>
 
             <md-input-container ng-show="ctrl.category.secondaries[0].secondary_cat != null" layout="column" layout-align="end center" layout-fill flex>
-                <md-select ng-model="ctrl.warmId" placeholder="Select subtype" layout-fill layout-align="center">
-                    <md-option ng-repeat="subcategory in ctrl.category.secondaries" ng-value="subcategory.warm_id">
+                <md-select ng-model="ctrl.subcategory" placeholder="Select subtype" layout-fill layout-align="center">
+                    <md-option ng-repeat="subcategory in ctrl.category.secondaries" ng-value="subcategory">
                         {{subcategory.secondary_cat}}
                     </md-option>
                 </md-select>
@@ -51,7 +51,7 @@
             <div layout layout-sm="row" layout-align="space-between center" layout-fill required>
                 <md-input-container>
                     <label>Weight</label>
-                    <input ng-model="ctrl.weight" ng-pattern="" type="text">
+                    <input ng-model="ctrl.weight" ng-pattern="/^\d*(\.\d+)?$/" type="text" name="weight" required>
                 </md-input-container>
 
                 <md-select ng-model="ctrl.selected_unit" placeholder="Select units" flex required>
