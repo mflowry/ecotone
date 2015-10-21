@@ -37,13 +37,12 @@
         </md-autocomplete>
 
         <!--Select secondary category-->
-        <md-input-container layout-fill flex="20">
-            <md-select ng-model="ctrl.subcategory" placeholder="Select subtype">
-                <md-option ng-repeat="subcategory in ctrl.category.secondaries" ng-value="subcategory">
-                    {{subcategory.secondary_cat}}
-                </md-option>
-            </md-select>
-        </md-input-container>
+        <md-select ng-model="ctrl.subcategory" placeholder="Select subtype" layout-fill flex="20">
+            <md-option ng-repeat="subcategory in ctrl.category.secondaries" ng-value="subcategory">
+                {{subcategory.secondary_cat}}
+            </md-option>
+        </md-select>
+
 
         <!--Enter weight-->
         <md-input-container flex="10">
