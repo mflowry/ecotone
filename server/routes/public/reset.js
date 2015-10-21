@@ -24,6 +24,7 @@ router.get('/:token?', function(req, res) {
             }
 
         }).catch(function(err){
+            console.log(err);
             res.render('error', {message: err.message});
         });
 
