@@ -20,6 +20,11 @@ app.controller('loginCtrl', ['$scope', '$http', 'authService', '$location', '$ro
     $scope.submitReset = function () {
         console.log(this.email);
         $http.post('/forgot', {email: this.email}).then(function( res ){
+            showToast.showToast('An email with password reset instructions has been sent.');
+            $mdDialog.hide();
+        }, function(err){
+            console.log(err);
+            showToast.showToast(err.data.message);
             $mdDialog.hide();
         });
     };

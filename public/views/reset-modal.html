@@ -5,13 +5,16 @@
     <p>
         Enter your email and we'll send you a link.
     </p>
-    <md-input-container layout-fill flex>
-        <label>Email</label>
-        <input ng-init="" ng-model="email" type="email">
-    </md-input-container>
-    <div class="md-actions">
-        <md-button ng-click="submitReset()" class="md-primary">
-            Submit
-        </md-button>
-    </div>
+    <form name="resetForm" ng-submit="submitReset()" layout-fill flex layout = "column" layout-align="center center">
+
+        <md-input-container layout-fill>
+            <label>Email</label>
+            <input ng-init="" ng-model="email" type="email">
+        </md-input-container>
+        <div class="md-actions">
+            <md-button type="submit" value="Submit" class="md-primary">
+                Submit
+            </md-button>
+        </div>
+    </form>
 </md-content>

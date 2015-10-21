@@ -8,7 +8,6 @@ const
 var Users = require('../../models/models').Users;
 
 router.post('/', function(req, res, next) {
-    console.log('test');
     async.waterfall([
         function(done) {
             crypto.randomBytes(20, function(err, buf) {
@@ -26,11 +25,10 @@ router.post('/', function(req, res, next) {
                 limit: 1
             };
 
-            console.log(req.body.email);
-
             Users.find(existingUserByEmail)
                 .then(function(user) {
                 if (user===null) {
+                    console.log('no user');
                     throw new Error('No account with that email address exists.');
                     //return res.redirect('/forgot');
                 } else{
@@ -48,11 +46,11 @@ router.post('/', function(req, res, next) {
                 }
 
             }).catch(function(err){
-                    res.send({message: err});
+                    console.log(err);
+                    res.status(500).send({message: err.message});
                 });
         },
         function(token, user, done) {
-            console.log(user.email);
             var smtpTransport = nodemailer.createTransport('SMTP', {
                 service: 'mailgun',
                 auth: {
@@ -78,8 +76,6 @@ router.post('/', function(req, res, next) {
         }
     ], function(err) {
         if (err) return next(err);
-        console.log('test');
-        //res.redirect('/forgot');
     });
 });
 

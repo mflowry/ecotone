@@ -173,10 +173,8 @@ var userSchema = sequelize.define('user',
 
 //methods to be run before validation
 userSchema.hook('beforeValidate', function (user, options, next) {
-
     //only hash the password if it has been modified (or is new)
     if (!user.changed('password')) {
-        //console.log('not modified!');
         return next();
     }
     //generate a salty snack
