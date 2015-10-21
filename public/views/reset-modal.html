@@ -5,16 +5,14 @@
     <p>
         Enter your email and we'll send you a link.
     </p>
-    <form name="resetForm" ng-submit="submitReset()" layout-fill flex layout = "column" layout-align="center center">
+    <form name="resetForm" ng-submit="submitReset()" layout-fill flex layout = "column" layout-align="center center" novalidate>
 
         <md-input-container layout-fill>
             <label>Email</label>
-            <input ng-init="" ng-model="email" type="email">
+            <input ng-init="" ng-model="email" type="email" name="email" required>
         </md-input-container>
-        <div class="md-actions">
-            <md-button type="submit" value="Submit" class="md-primary">
+            <md-button type="submit" value="Submit" class="md-accent md-raised"  ng-disabled="resetForm.$invalid">
                 Submit
             </md-button>
-        </div>
     </form>
 </md-content>
