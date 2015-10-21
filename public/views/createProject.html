@@ -17,6 +17,6 @@
             <textarea ng-model="ctrl.projectSubmission.project_description" ng-pattern="('^[0-9a-zA-Z .-]+$')" md-maxlength="255"></textarea>
         </md-input-container>
 
-        <md-button class="md-accent md-raised" type="submit" value="Submit" ng-click="ctrl.createProject()" ng-disabled="createProjectForm.$invalid">Submit</md-button>
+        <md-button class="md-accent md-raised" type="submit" value="Submit" ng-click="ctrl.createProject()">Submit</md-button>
     </form>
 </md-content>
