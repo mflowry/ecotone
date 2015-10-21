@@ -66,7 +66,7 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                         console.log(calcToSave);
                         projectMethods.getProjectItems().then(function(items) {
                             self.projectItems = items;
-                            console.log(items);
+                            console.log('ITEMS', items);
 
                             calculateProjectTotal();
                             //clearFields();
