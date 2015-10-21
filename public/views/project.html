@@ -13,31 +13,29 @@
         </md-input-container>
 
         <!--Select material category from dropdown-->
-        <md-input-container flex="20">
-            <md-autocomplete ng-disabled="ctrl.isDisabled"
-                             md-selected-item="ctrl.category"
-                             md-selected-item-change="ctrl.selectedItemChange(item)"
-                             md-search-text="ctrl.searchText"
-                             md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
-                             md-items="item in ctrl.querySearch(ctrl.searchText)"
-                             md-item-text="item.primary_cat"
-                             md-min-length="0"
-                             md-floating-label="Select material type"
-                             layout-fill required>
-                <md-item-template>
-                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">
-                        {{item.primary_cat}}
-                    </span>
-                </md-item-template>
+        <md-autocomplete ng-disabled="ctrl.isDisabled"
+                         md-selected-item="ctrl.category"
+                         md-selected-item-change="ctrl.selectedItemChange(item)"
+                         md-search-text="ctrl.searchText"
+                         md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                         md-items="item in ctrl.querySearch(ctrl.searchText)"
+                         md-item-text="item.primary_cat"
+                         md-min-length="0"
+                         md-floating-label="Select material type"
+                         layout-fill flex="20" required>
+            <md-item-template>
+                <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">
+                    {{item.primary_cat}}
+                </span>
+            </md-item-template>
 
-                <!--Display error message-->
-                <md-not-found>
-                    <div>
-                        No material matches {{ ctrl.searchText }}
-                    </div>
-                </md-not-found>
-            </md-autocomplete>
-        </md-input-container>
+            <!--Display error message-->
+            <md-not-found>
+                <div>
+                    No material matches {{ ctrl.searchText }}
+                </div>
+            </md-not-found>
+        </md-autocomplete>
 
         <!--Select secondary category-->
         <md-input-container layout-fill flex="20">
@@ -72,29 +70,28 @@
     <!--Table display-->
     <md-content>
         <br>
-        <table class="dialog-demo-content" style="min-width: 1000px; text-align: left;">
+        <table style="min-width: 1000px; text-align: left;">
             <!--<tr layout="row" layout-fill layout-wrap >-->
             <!--<th>Item Description</th>-->
             <!--</tr>-->
-            <tr layout="row" layout-fill layout-wrap >
+            <tr layout="row" layout-align="space between" layout-fill layout-wrap >
                 <th flex="25">Item Description</th>
-                <th flex="10">Category</th>
-                <th flex="10">Sub-Category</th>
-                <th flex="10">Weight</th>
-                <th flex="10">Units</th>
-                <th flex="10">CO<sub>2</sub> Offset</th>
-                <th flex="25"></th>
+                <th flex="15">Category</th>
+                <th flex="15">Sub-Category</th>
+                <th flex="15">Weight</th>
+                <th flex="20">CO<sub>2</sub> Offset</th>
+                <th flex="10" style="text-align: center">Delete</th>
             </tr>
 
         <!--Listing of each project item-->
-            <tr layout="row" ng-repeat=" item in ctrl.projectItems" layout-wrap >
+            <tr ng-repeat=" item in ctrl.projectItems" layout="row" layout-padding layout-fill layout-wrap >
             <td flex="25">{{item.item_description}}</td>
-            <td flex="10">{{item.category}}</td>
-            <td flex="10">{{item.sub_category}}</td>
-            <td flex="10">{{item.weight}}</td>
-            <td flex="10">{{item.units}}</td>
-            <td flex="10">{{item.co2_offset}} metric tons</td>
-            <td flex="25" style="text-align: left;" type="submit" ng-value="id" ><img src="images/icons/ic_delete_black_24px.svg" ng-click="showDelete($event, item)" alt="Delete item" /> </td>
+            <td flex="15">{{item.category}}</td>
+            <td flex="15">{{item.sub_category}}</td>
+            <td flex="15">{{item.weight + " " + item.units}}</td>
+
+            <td flex="20">{{item.co2_offset}} metric tons</td>
+            <td flex="10" style="text-align: center;" type="submit" ng-value="id" ><img src="images/icons/ic_delete_black_24px.svg" ng-click="showDelete($event, item)" alt="Delete item" /> </td>
             </tr>
         </table>
 
