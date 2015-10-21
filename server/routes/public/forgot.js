@@ -8,6 +8,7 @@ const
 var Users = require('../../models/models').Users;
 
 router.post('/', function(req, res, next) {
+    console.log('test');
     async.waterfall([
         function(done) {
             crypto.randomBytes(20, function(err, buf) {

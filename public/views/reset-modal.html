@@ -1,0 +1,17 @@
+<md-content layout="column" layout-padding layout-margin layout-align="space-between center">
+    <h1>
+        RESET YOUR PASSWORD
+    </h1>
+    <p>
+        Enter your email and we'll send you a link.
+    </p>
+    <md-input-container layout-fill flex>
+        <label>Email</label>
+        <input ng-init="" ng-model="email" type="email">
+    </md-input-container>
+    <div class="md-actions">
+        <md-button ng-click="submitReset()" class="md-primary">
+            Submit
+        </md-button>
+    </div>
+</md-content>
