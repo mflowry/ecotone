@@ -12,6 +12,7 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
         self.projectItems = '';
         self.projectTotal = 0;
         self.deleteProjectItem = deleteProjectItem;
+        self.clearFields = clearFields;
         self.id = 0;
         self.calculateProjectTotal = calculateProjectTotal;
         self.newCalculation = newCalculation;
@@ -40,12 +41,9 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                 weight: parseFloat(self.weight) * self.selected_unit.conversion
             };
 
-
-
-            calculator.newCalculation( calculation ).then(function( answer ){
+            calculator.newCalculation(calculation).then(function (answer) {
 
                 self.result = answer;
-
 
                 if (authService.isAuthed() && self.selected_project) {
 
@@ -58,28 +56,29 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                     calcToSave[0].co2_offset = self.result;
                     calcToSave[0].item_description = self.item_description;
 
-                    calculator.saveCalculation(calcToSave).then( function(){
+                    calculator.saveCalculation(calcToSave).then(function () {
                         console.log(calcToSave);
                         projectMethods.getProjectItems(function (items) {
                             self.projectItems = items;
                             calculateProjectTotal();
-                            self.category.primary_cat = null;
-                            self.subcategory = null;
-                            self.selected_unit = null;
-                            self.weight = null;
-                            self.result = null;
-                            self.item_description = null;
+                            clearFields();
+
                         })
-                    })
+                    });
+
                 }
-
-            });
-
-        }
-
-
+            })
+        };
 
             //get items for selected project
+            function clearFields() {
+                self.category = "";
+                self.subcategory = "";
+                self.selected_unit = "";
+                self.weight = "";
+                self.result = "";
+                self.item_description = "";
+            }
 
 
             //load project list on page load
@@ -91,7 +90,6 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                 var lowercaseQuery = query.toLowerCase();
                 //query.charAt(0).toUpperCase() + query.slice(1);
                 return function filterFn(obj) {
-                    console.log(obj);
                     return (obj.primary_cat.indexOf(lowercaseQuery) != -1);
                 };
             }
@@ -127,7 +125,7 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
 
 
             function deleteProjectItem(item) {
-                $http.delete('/project/calculation/' + item.id).then(function(){
+                $http.delete('/project/calculation/' + item.id).then(function () {
                     projectMethods.getProjectItems(function (items) {
                         self.projectItems = items;
                     })
@@ -147,25 +145,25 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                 self.projectTotal = Math.floor(projectTotal * 100) / 100;
             }
 
-        function downloadProject(){
-            var csvContent = "data:text/csv;charset=utf-8,";
+            function downloadProject() {
+                var csvContent = "data:text/csv;charset=utf-8,";
 
-            var dataString = 'category,sub_category,units,weight,item_description\n';
-            self.projectItems.forEach(function(item, index){
-                dataString += item.category + ',' + item.sub_category + ',' + item.units + ',' + item.weight + ','
-                    + item.item_description + '\n'
-            });
+                var dataString = 'category,sub_category,units,weight,item_description\n';
+                self.projectItems.forEach(function (item, index) {
+                    dataString += item.category + ',' + item.sub_category + ',' + item.units + ',' + item.weight + ','
+                        + item.item_description + '\n'
+                });
 
-            // enable to download
-            //csvContent += dataString;
-            //var encodedUri = encodeURI(csvContent);
-            //var link = document.createElement("a");
-            //link.setAttribute("href", encodedUri);
-            //link.setAttribute("download", "my_data.csv");
-            //
-            //link.click(); // This will download the data file named "my_data.csv".
+                // enable to download
+                //csvContent += dataString;
+                //var encodedUri = encodeURI(csvContent);
+                //var link = document.createElement("a");
+                //link.setAttribute("href", encodedUri);
+                //link.setAttribute("download", "my_data.csv");
+                //
+                //link.click(); // This will download the data file named "my_data.csv".
 
-        }
+            }
 
 
 }]);
