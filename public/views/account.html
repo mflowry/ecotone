@@ -53,7 +53,7 @@
             </div>
         </md-input-container>
 
-        <md-button class="md-accent md-raised" ng-click="updateUserInfo()" type="submit" value="Save">Save</md-button>
+        <md-button class="md-accent md-raised" ng-click="updateUserInfo()" type="submit" value="Save" ng-disabled="editAccountForm.$invalid">Save</md-button>
     </form>
 </div>
 
