@@ -71,7 +71,7 @@
 
             <!--Enter weight-->
             <md-input-container>
-                <input ng-model="ctrl.weight" type="text" placeholder="Enter weight">
+                <input ng-model="ctrl.weight" type="text" placeholder="Enter weight" ng-pattern="/^\d*(\.\d+)?$/" name="weight" required>
             </md-input-container>
 
             <!--Enter units-->
