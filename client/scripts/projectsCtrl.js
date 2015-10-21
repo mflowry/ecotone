@@ -15,12 +15,15 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
         self.id = 0;
         self.calculateProjectTotal = calculateProjectTotal;
         self.newCalculation = newCalculation;
+        self.downloadProject = downloadProject;
 
 
         if (self.selected_project) {
+
             projectMethods.getProjectItems(function (items) {
                 self.projectItems = items;
                 calculateProjectTotal();
+                self.downloadProject();
             })
         }
 
@@ -82,7 +85,8 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                 var lowercaseQuery = query.toLowerCase();
                 //query.charAt(0).toUpperCase() + query.slice(1);
                 return function filterFn(obj) {
-                    return (obj.project_name.indexOf(lowercaseQuery) != -1);
+                    console.log(obj);
+                    return (obj.primary_cat.indexOf(lowercaseQuery) != -1);
                 };
             }
 
@@ -136,6 +140,26 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                 console.log(projectTotal);
                 self.projectTotal = Math.floor(projectTotal * 100) / 100;
             }
+
+        function downloadProject(){
+            var csvContent = "data:text/csv;charset=utf-8,";
+
+            var dataString = 'category,sub_category,units,weight,item_description\n';
+            self.projectItems.forEach(function(item, index){
+                dataString += item.category + ',' + item.sub_category + ',' + item.units + ',' + item.weight + ','
+                    + item.item_description + '\n'
+            });
+
+            // enable to download
+            //csvContent += dataString;
+            //var encodedUri = encodeURI(csvContent);
+            //var link = document.createElement("a");
+            //link.setAttribute("href", encodedUri);
+            //link.setAttribute("download", "my_data.csv");
+            //
+            //link.click(); // This will download the data file named "my_data.csv".
+
+        }
 
 
 }]);
