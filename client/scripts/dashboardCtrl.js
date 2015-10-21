@@ -8,7 +8,7 @@ app.controller('dashboardCtrl', ['$location', 'projectMethods', '$mdDialog', '$r
     self.Co2GrandTotal = 0;
     self.getAllItems= getAllItems;
     self.calculateGrandTotal= calculateGrandTotal;
-    self.calculateProjectTotal = calculateProjectTotal;
+    self.calcProjectTotal = calcProjectTotal;
     self.projects.id = '';
     self.projectItems = '';
     self.projectTotal = 0;
@@ -44,8 +44,10 @@ app.controller('dashboardCtrl', ['$location', 'projectMethods', '$mdDialog', '$r
     projectMethods.getProjectNames(function (names) {
         self.projects = names;
         console.log("Proj name: ", names);
+        calcProjectTotal();
     });
     getAllItems();
+
 
 //select a project to edit
     function selectProject(project){
@@ -71,20 +73,20 @@ app.controller('dashboardCtrl', ['$location', 'projectMethods', '$mdDialog', '$r
         }
 
     //calculate co2 for each project
-    function getProjectItemsbyProjectId(id) {
-        self.projects.forEach(function () {
-            projectMethods.getProjectItems(function (items) {
-                self.projectItems = items;
+    function calcProjectTotal() {
+        self.projects.forEach(function (project) {
+            projectMethods.getProjectItemsByProjectId(project.id).then(function(items){
                 console.log(items);
+                var projectSum=0;
+                items.forEach(function(calculation){
+                    projectSum += calculation.co2_offset;
+                });
+                project.projectTotal= Math.floor(projectSum * 10000)/10000;
             });
-            calculateProjectTotal();
+
+           // calculateProjectTotal();
         })
     }
 
-    //calculate project total co2
-    function calculateProjectTotal(){
-        self.projectItems.forEach(function (item) {
-        self.projectTotal += item.co2_offset;
-            })
-        }
+
 }]);
