@@ -5,9 +5,9 @@ block content
     section(layout="row" style="height: 100vh" ng-controller="navCtrl")
       md-sidenav(id="sidenav" class="md-sidenav-left md-whiteframe-z2 md-closed" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" flex)
         md-toolbar.md-primary.md-hue-3(layout-fill flex)
-          header.md-accent.sidenav-header
+          header.sidenav-header
             img(src="/images/ECOTONE_emailSIG.png" alt="ECOTONE")
-          ul.nav-ul
+          ul.side-nav
             li
               h3(ng-show="user.username") Hello, {{user.first_name}}!
             li
@@ -24,10 +24,11 @@ block content
               md-button( href="/admin") ADMIN
 
       md-content(layout="column" layout-fill)
-        md-toolbar.md-primary.md-hue-3(hide-gt-md)
-          header.md-accent.sidenav-header
+        div(id="mobilenav" hide-gt-md)
+          header.mobilenav-header
             img(src="/images/ECOTONE_emailSIG.png" alt="ECOTONE")
-          ul
+          ul.mobile-nav
+            //(layout="row" layout-align="end end")
             li
               md-button(href="/calculator") Calculator
             li
