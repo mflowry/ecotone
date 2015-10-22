@@ -38,20 +38,20 @@
             <label>Username</label>
             <input ng-model="user.username" type="string">
         </md-input-container>
-        <md-input-container flex>
-            <label>Change Password</label>
-            <input ng-model="user.password" type="password" name="password" ng-pattern="/(?=.*[0-9]){8,}/">
-            <div ng-messages="editAccountForm.password.$error" role="alert">
-                <div ng-message="pattern">Password must be minimum of 8 characters with at least one number.</div>
-            </div>
-        </md-input-container>
-        <md-input-container flex>
-            <label>Confirm Password</label>
-            <input ng-model="user.confirmPassword" type="password" data-match="editAccountForm.password"  name="confirmPassword" ng-pattern="/(?=.*[0-9]){8,}/">
-            <div ng-messages="editAccountForm.confirmPassword.$error" role="alert">
-                <div ng-message="match">Passwords do not match!</div>
-            </div>
-        </md-input-container>
+        <!--<md-input-container flex>-->
+            <!--<label>Change Password</label>-->
+            <!--<input ng-model="user.password" type="password" name="password" ng-pattern="/(?=.*[0-9]){8,}/">-->
+            <!--<div ng-messages="editAccountForm.password.$error" role="alert">-->
+                <!--<div ng-message="pattern">Password must be minimum of 8 characters with at least one number.</div>-->
+            <!--</div>-->
+        <!--</md-input-container>-->
+        <!--<md-input-container flex>-->
+            <!--<label>Confirm Password</label>-->
+            <!--<input ng-model="user.confirmPassword" type="password" data-match="editAccountForm.password"  name="confirmPassword" ng-pattern="/(?=.*[0-9]){8,}/">-->
+            <!--<div ng-messages="editAccountForm.confirmPassword.$error" role="alert">-->
+                <!--<div ng-message="match">Passwords do not match!</div>-->
+            <!--</div>-->
+        <!--</md-input-container>-->
 
         <md-button class="md-accent md-raised" ng-click="updateUserInfo()" type="submit" value="Save" ng-disabled="editAccountForm.$invalid">Save</md-button>
     </form>
