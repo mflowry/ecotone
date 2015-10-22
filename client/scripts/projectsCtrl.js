@@ -107,18 +107,18 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
             $scope.showDelete = function (ev, id) {
                 console.log('CLICK');
                 var confirm = $mdDialog.confirm()
-                    .title('Are you sure you want to delete this item?')
-                    .content('This will be permanent.')
-                    .ariaLabel('Delete item permanently')
-                    .ok('Delete')
+                    .title('Are you sure you want to remove this item?')
+                    .content('This will remove the item from your project.')
+                    .ariaLabel('Remove item permanently')
+                    .ok('Remove')
                     .cancel('Cancel')
                     .targetEvent(ev);
                 $mdDialog.show(confirm).then(function () {
                     console.log("Deleting", id);
                     self.deleteProjectItem(id);
-                    $scope.alert = 'Your item has been deleted.';
+                    $scope.alert = 'Your item has been removed.';
                 }, function () {
-                    $scope.alert = 'Your item has not been deleted.';
+                    $scope.alert = 'Your item has not been removed.';
                 });
 
             };
