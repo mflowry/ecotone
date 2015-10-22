@@ -69,8 +69,6 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                             console.log('ITEMS', items);
 
                             calculateProjectTotal();
-                            //clearFields();
-
                         })
                     });
 
@@ -78,7 +76,7 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
             })
         };
 
-            //get items for selected project
+            //clear calculator fields after calculation
             function clearFields() {
                 self.searchText = "";
                 self.category = "";
@@ -147,8 +145,6 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                 })
             }
 
-
-
         function calculateProjectTotal() {
             console.log("calculating...");
             var projectTotal = 0;
@@ -157,7 +153,8 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                 console.log(projectTotal);
             });
             console.log(projectTotal);
-            self.projectTotal = Math.floor(projectTotal * 100) / 100;
+            self.projectTotal = Math.floor(projectTotal * 10000)/10000;
+            clearFields();
         }
 
         function downloadProject() {

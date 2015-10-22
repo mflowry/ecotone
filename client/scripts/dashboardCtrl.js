@@ -68,7 +68,8 @@ app.controller('dashboardCtrl', ['$location', 'projectMethods', '$mdDialog', '$r
     //calculate the Grand Total
     function calculateGrandTotal() {
         self.selectItems.forEach(function (item) {
-        self.Co2GrandTotal += item.co2_offset;
+        GrandTotal += item.co2_offset;
+            self.Co2GrandTotal=Math.floor(GrandTotal * 10000)/10000;
             });
         }
 
