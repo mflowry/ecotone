@@ -1,25 +1,5 @@
-#mobilenav {
-  background-color: #546E7A;
-  height: 100px;
-  display: inline-block; }
-  #mobilenav .mobilenav-header {
-    vertical-align: middle; }
-    #mobilenav .mobilenav-header img {
-      height: 80px;
-      margin: 10px; }
-  #mobilenav .mobile-nav {
-    list-style: none;
-    display: inline; }
-    #mobilenav .mobile-nav h3 {
-      color: white; }
-    #mobilenav .mobile-nav li {
-      display: inline;
-      float: right; }
-    #mobilenav .mobile-nav li span {
-      color: white; }
-    #mobilenav .mobile-nav li .md-button {
-      margin: 0;
-      padding: 0; }
+.md-toolbar-tools span.ng-scope {
+  color: white; }
 
 md-sidenav .sidenav-header {
   margin: 20px auto; }

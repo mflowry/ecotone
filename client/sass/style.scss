@@ -1,43 +1,17 @@
 $accent: #546E7A;
 $warn: orange;
 
-#mobilenav {
-  background-color: $accent;
-  height: 100px;
-  display: inline-block;
+.md-toolbar-tools {
 
-
-  .mobilenav-header {
-    img {
-      height: 80px;
-      margin: 10px;
-    }
-    vertical-align: middle;
+  span.ng-scope {
+    color: white;
   }
 
-  .mobile-nav {
-    list-style: none;
-    display: inline;
-
-
-    h3 {
-      color: white;
-    }
-    li {
-      display: inline;
-      float: right;
-    }
-    li span {
-      color: white;
-    }
-    li .md-button {
-      margin: 0;
-      padding: 0;
-    }
-  }
 }
 
+
 md-sidenav {
+
   .sidenav-header {
     margin: 20px auto;
   }
