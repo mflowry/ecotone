@@ -59,9 +59,9 @@ var userSchema = sequelize.define('user',
             type: Sequelize.STRING,
             validate: {
                 isAlphanumericWithSpaces: function(value) {
-                    var reg = new RegExp("^[0-9a-zA-Z\' .-]+$");
+                    var reg = new RegExp("^[0-9a-zA-Z\' /.-]+$");
                     if(!value.match(reg)) {
-                        throw new Error('Only alphanumeric, spaces, periods, and dashes allowed!')
+                        throw new Error('Only alphanumeric, spaces, periods, forward slashes, and dashes allowed!')
                     }
                 }
             }
@@ -70,9 +70,9 @@ var userSchema = sequelize.define('user',
             type: Sequelize.STRING,
             validate: {
                 isAlphanumericWithSpaces: function(value) {
-                    var reg = new RegExp("^[0-9a-zA-Z\' .-]+$");
+                    var reg = new RegExp("^[0-9a-zA-Z\' /.-]+$");
                     if(!value.match(reg)) {
-                        throw new Error('Only alphanumeric, spaces, periods, and dashes allowed!')
+                        throw new Error('Only alphanumeric, spaces, periods, forward slashes, and dashes allowed!')
                     }
                 }
             }
