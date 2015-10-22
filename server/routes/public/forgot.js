@@ -25,8 +25,6 @@ router.post('/', function(req, res, next) {
                 limit: 1
             };
 
-            console.log(req.body.email);
-
             Users.find(existingUserByEmail)
                 .then(function(user) {
                 if (user===null) {

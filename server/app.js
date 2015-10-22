@@ -7,7 +7,8 @@ const
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
     jsonwebtoken = require('jsonwebtoken'),
-    models = require('./models/models');
+    models = require('./models/models'),
+    expressValidator = require('express-validator');
 
 // ROUTING PATHS
 const
@@ -41,6 +42,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(expressValidator());
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/', routes);
