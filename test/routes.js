@@ -69,7 +69,7 @@ describe('The user API', function(){
 
         api.put('/modifyUser')
             .set('Authorization', 'Bearer ' + token)
-            .send({first_name: newName, user_id: user.id})
+            .send({first_name: newName, id: user.id})
             .expect(200, done);
     });
 

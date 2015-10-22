@@ -68,7 +68,6 @@ router.post('/:token', function(req, res, next) {
 
         },
         function(user, done) {
-            console.log(user.email);
             var smtpTransport = nodemailer.createTransport('SMTP', {
                 service: 'mailgun',
                 auth: {

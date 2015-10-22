@@ -6,7 +6,7 @@ var Users = require('../../models/models').Users;
 
 router.post('/', function(req, res, next) {
 
-    req.checkBody('email','Not a valid email').notEmpty().isEmail();
+    req.checkBody('username','Not a valid username').notEmpty().isAlphanumeric();
 
     var errors = req.validationErrors();
     if (errors) {
