@@ -83,8 +83,6 @@ function getProjectsByProjectId(req, res){
 
 router.get('/', function(req,res,next){
 
-    req.checkQuery('project_id', 'Invalid id').isInt();
-    req.checkQuery('user_id', 'Invalid id').isInt();
 
     var errors = req.validationErrors();
     if (errors) {
@@ -92,8 +90,11 @@ router.get('/', function(req,res,next){
         res.status(409).send({message: errors[0].msg});
     }else{
         if(req.query.user_id && req.query.project_id){
+            req.checkQuery('project_id', 'Invalid id').isInt();
+            req.checkQuery('user_id', 'Invalid id').isInt();
             getProjectsByProjectId(req,res);
         } else if(req.query.user_id){
+            req.checkQuery('user_id', 'Invalid id').isInt();
             getProjectsByUserId(req,res);
         } else{
             res.status(400).send({message:"You must specify a user id or a user id and a project id"})
