@@ -5,9 +5,9 @@ block content
     section(layout="row" style="height: 100vh" ng-controller="navCtrl")
       md-sidenav(id="sidenav" class="md-sidenav-left md-whiteframe-z2 md-closed" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" flex)
         md-toolbar.md-primary.md-hue-3(layout-fill flex)
-          header.md-accent.sidenav-header
+          header.sidenav-header
             img(src="/images/ECOTONE_emailSIG.png" alt="ECOTONE")
-          ul.nav-ul
+          ul.side-nav
             li
               h3(ng-show="user.username") Hello, {{user.first_name}}!
             li
@@ -24,30 +24,19 @@ block content
               md-button( href="/admin") ADMIN
 
       md-content(layout="column" layout-fill)
-        md-toolbar.md-primary.md-hue-3(hide-gt-md)
-          header.md-accent.sidenav-header
-            img(src="/images/ECOTONE_emailSIG.png" alt="ECOTONE")
-          ul
-            li
-              md-button(href="/calculator") Calculator
-            li
-              md-button(href="/login" ng-hide="user.username") Login
-            li
-              md-button(href="/dashboard" ng-show="user.username") My Dashboard
-            li
-              md-button(href="/account" ng-show="user.username") My Account
-            li
-              md-button(href="/calculator" ng-click="logout()" ng-show="user.username") Logout
-
-        md-content(id="content" layout="column" layout-fill layout-align="start center" flex)
+        md-toolbar.md-primary.md-hue-3(id="mobilenav" hide-gt-md)
+          div.md-toolbar-tools(layout-align="end center")
+            md-button(href="/calculator") Calculator
+            md-button(href="/login" ng-hide="user.username") Login
+            md-button(href="/dashboard" ng-show="user.username") My Dashboard
+            md-button(href="/account" ng-show="user.username") My Account
+            md-button(href="/calculator" ng-click="logout()" ng-show="user.username") Logout
+        md-content(id="content" layout="column" layout-align="start center" flex)
           <!-- ng-view will display injected content -->
           div.view(ng-view)
-
-          div(id="footer" layout="row" flex style="width: 100%;" layout-align="end end")
-            ul(style="display:inline;width:100%")
-              li(style="display:inline")
-                md-button(md-no-ink href="www.ecotone-partners.com") &copy; 2015 Ecotone-Partners
-              li(style="display:inline")
-                md-button(md-no-ink href="/sources") Sources
-              li(style="display:inline")
-                md-button(md-no-ink href="//www.iubenda.com/privacy-policy/759345" title="Privacy Policy") Privacy Policy
+          div(flex="grow")
+        footer(id="footer")
+          div(layout="row" layout-padding layout-align="end end")
+            md-button(md-no-ink href="www.ecotone-partners.com") &copy; 2015 Ecotone-Partners
+            md-button(md-no-ink href="/sources") Sources
+            md-button(md-no-ink href="//www.iubenda.com/privacy-policy/759345" title="Privacy Policy") Privacy Policy
