@@ -1,10 +1,12 @@
 <div id="project-page">
     <h1 class="headline">Project Summary</h1>
-    <h2 class="md-title">{{ ctrl.selected_project.project_name }} TOTAL CO<sub>2</sub> OFFSET: {{ ctrl.projectTotal }} metric tons</h2>
+    <h2 editable="true" class="md-title">{{ ctrl.selected_project.project_name }}: {{ ctrl.selected_project.project_description }}</h4>
+    <h4 CO<>Total CO<sub>2</sub> OFFSET: {{ ctrl.projectTotal }} metric tons</h4>
+
 
     <!--ADD A PROJECT ITEM-->
     <div layout="row" layout-align="space-between center">
-        <h3 class="md-body-2">ADD A NEW ITEM TO YOUR PROJECT LIST</h3>
+        <h2 class="md-body-2">Add a new item to your project:</h2>
         <md-button ng-click="ctrl.newSuggestion()">+ Suggest a new material</md-button>
     </div>
     <form name="calcForm" layout="row" layout-align="space-between center" layout-fill novalidate>
@@ -94,8 +96,4 @@
 
     </table>
 
-    <!--&lt;!&ndash;Display Total CO2 Offset&ndash;&gt;-->
-    <!--<section layout="row" layout-align="right">-->
-    <!--<p ng-show="ctrl.projectTotal">Your Total Estimated CO<sub>2</sub> Offset is {{ctrl.projectTotal}} metric tons</p>-->
-    <!--</section>-->
 </div>
