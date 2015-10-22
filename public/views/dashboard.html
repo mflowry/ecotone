@@ -7,7 +7,7 @@
         </div>
 
         <div>
-            <h3 class="md-body-2">Click on row to edit project. Click on the delete icon to delete a project. </h3>
+            <h3 class="md-body-2">Click on row to edit project. Click on the trash can to remove a project. </h3>
 
         <md-content>
 
@@ -18,7 +18,7 @@
                     <th width="25%">Description</th>
                     <!--<th align="center">Total Weight</th>-->
 
-                    <th align="center">Total CO<sub>2</sub></th>
+                    <th align="right">Total CO<sub>2</sub></th>
                     <th align="center">Remove</th>
                 </tr>
 
@@ -26,7 +26,7 @@
                     <td ng-value="project.id">{{project.project_name}}</td>
                     <td>{{project.project_description}}</td>
                     <!--<td align="center">{{weight}}{{units}}</td>-->
-                    <td align="center">{{project.projectTotal}}</td>
+                    <td align="right">{{project.projectTotal}}</td>
                     </a>
                     <td align="center"><img src="images/icons/ic_delete_black_24px.svg" alt="Remove Project" ng-click="showDelete(project);  $event.stopPropagation();"/> </td>
                 </tr>

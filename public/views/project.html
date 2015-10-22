@@ -1,6 +1,7 @@
 <div id="project-page">
     <h1>Project Summary</h1>
-    <h2 class="md-title">{{ ctrl.selected_project.project_name }} //  TOTAL CO<sub>2</sub> : {{ ctrl.projectTotal }}</h2>
+    <h2 class="md-title">{{ ctrl.selected_project.project_name }} </h2>
+    <h4>TOTAL CO<sub>2</sub> offset: {{ ctrl.projectTotal }} metric tons</h4>
 
     <!--ADD A PROJECT ITEM-->
     <h3 class="md-subhead">Add a new item to your project list:</h3>
@@ -73,8 +74,8 @@
             <th flex="15">Category</th>
             <th flex="15">Sub-Category</th>
             <th flex="15">Weight</th>
-            <th flex="20">CO<sub>2</sub> Offset</th>
-            <th flex="10" style="text-align: center">Delete</th>
+            <th flex="20" align="right">CO<sub>2</sub> Offset</th>
+            <th flex="10" align="center">Remove</th>
         </tr>
 
         <!--Listing of each project item-->
@@ -84,8 +85,8 @@
             <td flex="15">{{item.sub_category}}</td>
             <td flex="15">{{item.weight + " " + item.units}}</td>
 
-            <td flex="20">{{item.co2_offset}} metric tons</td>
-            <td flex="10" style="text-align: center;" type="submit" ng-value="id"><img src="images/icons/ic_delete_black_24px.svg" ng-click="showDelete($event, item)" alt="Delete item"/> </td>
+            <td flex="20" align="right">{{item.co2_offset}} metric tons</td>
+            <td flex="10" align="center" type="submit" ng-value="id"><img src="images/icons/ic_delete_black_24px.svg" ng-click="showDelete($event, item)" alt="Delete item"/> </td>
         </tr>
 
     </table>
