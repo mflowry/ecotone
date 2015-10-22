@@ -17,6 +17,8 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
         self.calculateProjectTotal = calculateProjectTotal;
         self.newCalculation = newCalculation;
         self.downloadProject = downloadProject;
+        self.submitSuggestion = submitSuggestion;
+        self.newSuggestion = newSuggestion;
 
 
         if (self.selected_project) {
@@ -177,5 +179,22 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
 
         }
 
+        function submitSuggestion(){
+            $http.post('/suggestion', self.suggestSubmission).then(function( res ){
+                $mdDialog.hide();
+            });
+        }
+
+        function newSuggestion( suggestion ){
+
+            $mdDialog.show({
+                templateUrl: '/views/suggest-modal.html',
+                clickOutsideToClose: true,
+                controller: 'calculateCtrl',
+                controllerAs: 'ctrl',
+                locals: {material: self.searchText}
+            })
+
+        }
 
     }]);

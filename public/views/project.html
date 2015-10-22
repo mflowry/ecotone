@@ -1,10 +1,12 @@
 <div id="project-page">
-    <h1>Project Summary</h1>
-    <h2 class="md-title">{{ ctrl.selected_project.project_name }} </h2>
-    <h4>TOTAL CO<sub>2</sub> offset: {{ ctrl.projectTotal }} metric tons</h4>
+    <h1 class="headline">Project Summary</h1>
+    <h2 class="md-title">{{ ctrl.selected_project.project_name }} TOTAL CO<sub>2</sub> OFFSET: {{ ctrl.projectTotal }} metric tons</h2>
 
     <!--ADD A PROJECT ITEM-->
-    <h3 class="md-subhead">Add a new item to your project list:</h3>
+    <div layout="row" layout-align="space-between center">
+        <h3 class="md-body-2">ADD A NEW ITEM TO YOUR PROJECT LIST</h3>
+        <md-button ng-click="ctrl.newSuggestion()">+ Suggest a new material</md-button>
+    </div>
     <form name="calcForm" layout="row" layout-align="space-between center" layout-fill novalidate>
 
         <!--Enter item description-->
@@ -64,6 +66,7 @@
             <md-button class="md-accent md-raised" ng-click="ctrl.newCalculation()" ng-disabled="calcForm.$invalid">Calculate</md-button>
         </md-input-container>
     </form>
+
 
 
     <!--Table display-->
