@@ -82,6 +82,15 @@ function getProjectsByProjectId(req, res){
 }
 
 router.get('/', function(req,res,next){
+
+    req.checkQuery('project_id', 'Invalid id').isInt();
+    req.checkQuery('user_id', 'Invalid id').isInt();
+
+    var errors = req.validationErrors();
+    if (errors) {
+        console.log(errors);
+        res.status(409).send({message: errors[0].msg});
+    }else{
         if(req.query.user_id && req.query.project_id){
             getProjectsByProjectId(req,res);
         } else if(req.query.user_id){
@@ -89,46 +98,64 @@ router.get('/', function(req,res,next){
         } else{
             res.status(400).send({message:"You must specify a user id or a user id and a project id"})
         }
+    }
 });
 
 router.get('/namesById', function( req, res, next ){
-   if(req.query.user_id){
-       getProjectNamesByUserId( req, res, next );
-   } else {
-       res.status(400).send('You must specify a user id');
-   }
+
+    req.checkQuery('user_id', 'Invalid id').isInt();
+
+    var errors = req.validationErrors();
+    if (errors) {
+        console.log(errors);
+        res.status(409).send({message: errors[0].msg});
+    }else{
+        if(req.query.user_id){
+            getProjectNamesByUserId( req, res, next );
+        } else {
+            res.status(400).send('You must specify a user id');
+        }
+    }
+
 });
 
 
 router.post('/', function (req, res, next) {
-    //find user to associate project with
-    Users.findById(req.body.user_id)
-        .then(function (user) {
 
-            var existingProjectId = {
-                where: {
-                    project_name: req.body.project_name,
-                    user_id: req.body.user_id
-                },
-                defaults: req.body
-            };
+    req.checkBody('user_id', 'Invalid id').isInt();
 
-            //find an existing project or create a new one
-            return Projects.findOrCreate(existingProjectId)
-                .spread(function (project, created){
-                    if(created){
-                        //create a new project and associate it with the user
-                        return user.addProject(project)
-                            .then(function(){
-                                //add the user_id field to the returned project
-                                project.dataValues.user_id = user.id;
-                                res.send(project.dataValues);
-                            })
-                    } else {
-                        //if existing project, send an error
-                        throw new Error('Duplicate Project Name');
-                    }
-                });
+    var errors = req.validationErrors();
+    if (errors) {
+        console.log(errors);
+        res.status(409).send({message: errors[0].msg});
+    }else{
+        Users.findById(req.body.user_id)
+            .then(function (user) {
+
+                var existingProjectId = {
+                    where: {
+                        project_name: req.body.project_name,
+                        user_id: req.body.user_id
+                    },
+                    defaults: req.body
+                };
+
+                //find an existing project or create a new one
+                return Projects.findOrCreate(existingProjectId)
+                    .spread(function (project, created){
+                        if(created){
+                            //create a new project and associate it with the user
+                            return user.addProject(project)
+                                .then(function(){
+                                    //add the user_id field to the returned project
+                                    project.dataValues.user_id = user.id;
+                                    res.send(project.dataValues);
+                                })
+                        } else {
+                            //if existing project, send an error
+                            throw new Error('Duplicate Project Name');
+                        }
+                    });
             }).catch(function (err) {
                 //if error is due to duplicate project name, send custom status
                 if (err.message === 'Duplicate Project Name'){
@@ -137,123 +164,165 @@ router.post('/', function (req, res, next) {
                 else{
                     res.send(err);
                 }
-        });
+            });
+    }
+    //find user to associate project with
+
 });
 
 //update projects
 router.put('/', function (req, res, next) {
 
-    var existingProjectById = {
-        where: {
-            id: req.body.project_id
-        }
-    };
+    req.checkBody('project_id', 'Invalid id').isInt();
 
-    Projects.update(req.body, existingProjectById)
-        .then(function () {
-            res.status(200).send('Updated Project.');
-        }).catch(function (err) {
-            console.log('there was an error', err);
-            res.send({message: err});
-        });
+    var errors = req.validationErrors();
+    if (errors) {
+        console.log(errors);
+        res.status(409).send({message: errors[0].msg});
+    }else{
+        var existingProjectById = {
+            where: {
+                id: req.body.project_id
+            }
+        };
+
+        Projects.update(req.body, existingProjectById)
+            .then(function () {
+                res.status(200).send('Updated Project.');
+            }).catch(function (err) {
+                console.log('there was an error', err);
+                res.send({message: err});
+            });
+    }
+
 });
 
 router.delete('/:id', function (req, res, next) {
 
-    // set query data to find project by id
-    var existingProjectById = {
-        where: {
-            id: req.params.id
-        },
+    req.checkParams('id', 'Invalid id').notEmpty().isInt();
 
-        // ensures only one project is found as fallback
-        limit: 1,
-        truncate: false
-    };
+    var errors = req.validationErrors();
+    if (errors) {
+        console.log(errors);
+        res.status(409).send({message: errors[0].msg});
+    } else{
+        var existingProjectById = {
+            where: {
+                id: req.params.id
+            },
 
-    //sets active field to false, doesn't actually remove project from database
-    Projects.update({active:false},existingProjectById)
-        .then(function () {
-            res.sendStatus(200);
-        }).catch(function (err) {
-            console.log('there was an error', err);
-            res.send({message: err});
-        });
+            // ensures only one project is found as fallback
+            limit: 1,
+            truncate: false
+        };
+
+        //sets active field to false, doesn't actually remove project from database
+        Projects.update({active:false},existingProjectById)
+            .then(function () {
+                res.sendStatus(200);
+            }).catch(function (err) {
+                console.log('there was an error', err);
+                res.send({message: err});
+            });
+    }
 });
 
 //add a new calculation
 router.post('/calculation', function (req, res, next) {
 
-    //find project to associate calculation with
-    Projects.findById(req.body[0].project_id)
-        .then(function (project) {
+    req.checkBody('[0].project_id', 'Invalid id').notEmpty().isInt();
 
-            //allow for bulk calculation creation
-            req.body.forEach( function(item){
+    var errors = req.validationErrors();
+    if (errors) {
+        console.log(errors);
+        res.status(409).send({message: errors[0].msg});
+    } else{
+        //find project to associate calculation with
+        Projects.findById(req.body[0].project_id)
+            .then(function (project) {
 
-                //create calculation
-                Calculations.create(item)
-                    .then(function (calculation) {
+                //allow for bulk calculation creation
+                req.body.forEach( function(item){
 
-                        // associate the calculation with the current project
-                        project.addCalculation(calculation).then(function(){
+                    //create calculation
+                    Calculations.create(item)
+                        .then(function (calculation) {
+
+                            // associate the calculation with the current project
+                            project.addCalculation(calculation).then(function(){
+                            });
+
+                        }).catch(function (err) {
+                            console.log('there was an error', err);
+                            //res.send('error: ', err);
                         });
+                });
 
-                    }).catch(function (err) {
-                        console.log('there was an error', err);
-                        //res.send('error: ', err);
-                    });
+                res.sendStatus(200);
+
+            })
+            .catch(function (err) {
+                res.send({message: err});
             });
-
-            res.sendStatus(200);
-
-        })
-        .catch(function (err) {
-            res.send({message: err});
-        });
-
+    }
 });
 
 router.delete('/calculation/:id', function (req, res, next) {
 
-    // set query data to find project by id
-    var existingCalculationById = {
-        where: {
-            id: req.params.id
-        },
+    req.checkParams('id', 'Invalid id').notEmpty().isInt();
 
-        // ensures only one project is found as fallback
-        limit: 1,
-        truncate: false
-    };
+    var errors = req.validationErrors();
+    if (errors) {
+        console.log(errors);
+        res.status(409).send({message: errors[0].msg});
+    } else{
+        // set query data to find project by id
+        var existingCalculationById = {
+            where: {
+                id: req.params.id
+            },
 
-    //sets active field to false, doesn't actually remove project from database
-    Calculations.update({active: false},existingCalculationById)
-        .then(function () {
-            res.sendStatus(200);
-        }).catch(function (err) {
-            console.log('there was an error', err);
-            res.send({message: err});
-        });
+            // ensures only one project is found as fallback
+            limit: 1,
+            truncate: false
+        };
+
+        //sets active field to false, doesn't actually remove project from database
+        Calculations.update({active: false},existingCalculationById)
+            .then(function () {
+                res.sendStatus(200);
+            }).catch(function (err) {
+                console.log('there was an error', err);
+                res.send({message: err});
+            });
+    }
 });
 
 //update calculations
 router.put('/calculation', function (req, res, next) {
 
-    var existingCalculationById = {
-        where: {
-            id: req.body.calculation_id
-        }
-    };
+    req.checkBody('calculation_id', 'Invalid id').notEmpty().isInt();
 
-    Calculations.update(req.body, existingCalculationById)
-        .then(function () {
-            res.status(200).send("Updated calculation.");
+    var errors = req.validationErrors();
+    if (errors) {
+        console.log(errors);
+        res.status(409).send({message: errors[0].msg});
+    } else{
+        var existingCalculationById = {
+            where: {
+                id: req.body.calculation_id
+            }
+        };
 
-        }).catch(function (err) {
-            console.log('there was an error', err);
-            res.send('error: ', err);
-        });
+        Calculations.update(req.body, existingCalculationById)
+            .then(function () {
+                res.status(200).send("Updated calculation.");
+
+            }).catch(function (err) {
+                console.log('there was an error', err);
+                res.send('error: ', err);
+            });
+    }
 });
 
 module.exports = router;
