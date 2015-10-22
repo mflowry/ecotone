@@ -12,19 +12,29 @@ router.get('/',function(req,res,next){
 });
 
 router.put('/', function(req, res, next) {
-    var existingUserById = {
-        where: {
-            id: req.body.id
-        }
-    };
-    Users.update(req.body, existingUserById)
-        .then(function (user) {
-            //console.log(user);
-            res.sendStatus(200);
-        }).catch(function (err) {
-            console.log('there was an error', err);
-            res.send('error!',err);
-        });
+
+    req.checkBody('id', 'Invalid id').notEmpty().isInt();
+
+    var errors = req.validationErrors();
+    if (errors) {
+        console.log(errors);
+        res.status(409).send({message: errors[0].msg});
+    }else{
+        var existingUserById = {
+            where: {
+                id: req.body.id
+            }
+        };
+        Users.update(req.body, existingUserById)
+            .then(function (user) {
+                //console.log(user);
+                res.sendStatus(200);
+            }).catch(function (err) {
+                console.log('there was an error', err);
+                res.send('error!',err);
+            });
+    }
+
 });
 
 router.delete('/:id', function(req, res, next) {
