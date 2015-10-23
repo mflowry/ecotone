@@ -37,8 +37,5 @@ md-sidenav .side-nav li .md-button {
 md-autocomplete {
   background-color: white; }
 
-#login-page #submit-buttons a {
-  vertical-align: middle; }
-
-.createProjectForm, .editProjectForm {
+.createProjectForm, .editProjectForm, .loginForm {
   width: 300px; }

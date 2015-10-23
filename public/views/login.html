@@ -1,25 +1,21 @@
-<div class="content-layout" id="login-page" layout="column" ng-controller="loginCtrl" ng-cloak>
-    <h1>Login to create projects and track your savings.</h1>
-    <form ng-submit="login()" name="loginForm" novalidate>
-        <md-content>
+<div id="login-page" ng-controller="loginCtrl" layout-padding ng-cloak>
+    <form ng-submit="login()" name="loginForm" layout="column" layout-align="space-between center" novalidate>
+        <h1>Login to create projects and track savings.</h1>
 
-            <md-input-container>
-                <label>Username</label>
-                <input ng-model="form.username" type="string" required>
-            </md-input-container>
-            <md-input-container>
-                <label>Password</label>
-                <input ng-model="form.password" type="password" required>
-            </md-input-container>
+        <md-input-container layout-fill >
+            <label>Username</label>
+            <input ng-model="form.username" type="text" required>
+        </md-input-container>
+        <md-input-container layout-fill >
+            <label>Password</label>
+            <input ng-model="form.password" type="password" required>
+        </md-input-container>
 
-            <div id="submit-buttons">
-                <md-button class="md-accent md-raised" type="submit" value="Submit" ng-disabled="loginForm.$invalid">Submit</md-button>
-                <md-button href="/register">Register</md-button>
-            </div>
+        <div layout="row">
+            <md-button class="md-accent md-raised" type="submit" value="Submit" ng-disabled="loginForm.$invalid">Submit</md-button>
+            <md-button href="/register">Register</md-button>
 
-
-        </md-content>
+        </div>
+        <md-button ng-click="resetPassword()">Forgot Password</md-button>
     </form>
-
-    <md-button ng-click="resetPassword()">Forgot Password</md-button>
 </div>
