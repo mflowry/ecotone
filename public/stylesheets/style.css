@@ -37,5 +37,5 @@ md-sidenav .side-nav li .md-button {
 md-autocomplete {
   background-color: white; }
 
-.createProjectForm, .editProjectForm, .loginForm {
+.createProjectForm, .editProjectForm, .loginForm, .calcForm {
   width: 300px; }
