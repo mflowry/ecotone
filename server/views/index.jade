@@ -15,7 +15,7 @@ block content
             li
               md-button( href="/login" ng-hide="user.username") Login
             li
-              md-button( href="/dashboard" ng-show="user.username") My Dashboard
+              md-button( href="/dashboard" ng-show="user.username") My Projects
             li
               md-button( href="/account" ng-show="user.username") My Account
             li
@@ -28,7 +28,7 @@ block content
           div.md-toolbar-tools(layout-align="space-around center")
             md-button(href="/calculator") Calculator
             md-button(href="/login" ng-hide="user.username") Login
-            md-button(href="/dashboard" ng-show="user.username") My Dashboard
+            md-button(href="/dashboard" ng-show="user.username") My Projects
             md-button(href="/account" ng-show="user.username") My Account
             md-button(href="/calculator" ng-click="logout()" ng-show="user.username") Logout
         md-content(id="content" layout="column" layout-align="start center" flex)
@@ -41,4 +41,4 @@ block content
               md-button(md-no-ink href="/sources") Sources
               md-button(md-no-ink href="//www.iubenda.com/privacy-policy/759345" title="Privacy Policy") Privacy Policy
             div(hide-sm)
-              md-button(md-no-ink href="www.ecotone-partners.com") &copy; 2015 Ecotone-Partners
+              h5(layout-padding md-no-ink href="www.ecotone-partners.com") &copy; 2015 Ecotone-Partners

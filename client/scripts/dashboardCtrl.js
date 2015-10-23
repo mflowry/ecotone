@@ -15,7 +15,6 @@ app.controller('dashboardCtrl', ['$location', 'projectMethods', '$mdDialog', '$r
 
 
     $scope.showDelete = function(project) {
-        console.log('CLICK');
         var confirm = $mdDialog.confirm()
             .title('Are you sure you want to remove your project?')
             .content('This is permanent.')
@@ -23,12 +22,10 @@ app.controller('dashboardCtrl', ['$location', 'projectMethods', '$mdDialog', '$r
             .ok('Remove')
             .cancel('Cancel');
         $mdDialog.show(confirm).then(function() {
-            console.log(project);
             $http.delete('/project/' + project.id).then(function( res ){
                if( res.status == 200 ){
                    projectMethods.getProjectNames(function (names) {
                        self.projects = names;
-                       console.log(names);
                    });
                }
             });
@@ -43,7 +40,6 @@ app.controller('dashboardCtrl', ['$location', 'projectMethods', '$mdDialog', '$r
 // get the active projects
     projectMethods.getProjectNames(function (names) {
         self.projects = names;
-        console.log("Proj name: ", names);
         calcProjectTotal();
     });
     getAllItems();
@@ -51,7 +47,6 @@ app.controller('dashboardCtrl', ['$location', 'projectMethods', '$mdDialog', '$r
 
 //select a project to edit
     function selectProject(project){
-        console.log(project);
         projectMethods.setSelectedProject(project);
 
         $location.path('/projects');
@@ -79,7 +74,6 @@ app.controller('dashboardCtrl', ['$location', 'projectMethods', '$mdDialog', '$r
     function calcProjectTotal() {
         self.projects.forEach(function (project) {
             projectMethods.getProjectItemsByProjectId(project.id).then(function(items){
-                console.log(items);
                 var projectSum=0;
                 items.forEach(function(calculation){
                     projectSum += calculation.co2_offset;

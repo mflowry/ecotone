@@ -15,11 +15,11 @@ app.controller('adminCtrl', ['$http', '$rootScope', '$scope','$parse', function(
         self.adminCred = self.form;
         console.log(self.form);
         console.log('admin Test');
+
         $http.post('/suggestion/getSuggestions', self.form).then(function (res) {
             if(res.status != 404){
                 console.log(res.data);
                 var suggestions = res.data;
-                console.log('suggestions', res);
                 self.suggestions = suggestions;
                 self.isLoggedIn = true;
             }
@@ -28,11 +28,9 @@ app.controller('adminCtrl', ['$http', '$rootScope', '$scope','$parse', function(
 
     function submitCSV( ){
         var csvObject = $scope.csv.result;
-        console.log(csvObject);
 
         $http.post('/bulk', csvObject)
             .then(function( res ){
-                console.log(res);
                 res.data.forEach(function(item){
                     item.project_id = 1;
                 });
@@ -56,7 +54,6 @@ app.controller('adminCtrl', ['$http', '$rootScope', '$scope','$parse', function(
         console.log(self.adminCred);
         $http.post('/suggestion',self.adminCred).then(function (res) {
             var suggestions = res.data;
-            console.log(suggestions);
             self.suggestions = suggestions;
         });
     }
