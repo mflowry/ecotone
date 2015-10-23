@@ -1,3 +1,7 @@
+@media (min-width: 600px) {
+  #content {
+    margin-top: 50px; } }
+
 .md-toolbar-tools span.ng-scope {
   color: white; }
 
@@ -14,10 +18,6 @@ md-sidenav .side-nav li span {
 md-sidenav .side-nav li .md-button {
   margin: 0;
   padding: 0; }
-
-@media (min-width: 600px) {
-  #content {
-    margin-top: 50px; } }
 
 button.md-primary span {
   color: white; }
@@ -40,5 +40,5 @@ md-autocomplete {
 #login-page #submit-buttons a {
   vertical-align: middle; }
 
-#createProject-page .createProjectForm {
-  width: 350px; }
+.createProjectForm, .editProjectForm {
+  width: 300px; }

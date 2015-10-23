@@ -1,21 +1,22 @@
 $accent: #546E7A;
 $warn: orange;
 
-.md-toolbar-tools {
+@media (min-width: 600px) {
+  #content {
+    margin-top: 50px;
+  }
+}
 
+.md-toolbar-tools {
   span.ng-scope {
     color: white;
   }
-
 }
 
-
 md-sidenav {
-
   .sidenav-header {
     margin: 20px auto;
   }
-
   .side-nav {
     h3 {
       color: white;
@@ -31,13 +32,6 @@ md-sidenav {
   }
 }
 
-@media (min-width: 600px) {
-  #content {
-    margin-top: 50px;
-  }
-}
-
-
 button.md-primary span {
   color: white;
 }
@@ -45,7 +39,6 @@ button.md-primary span {
 .md-primary.md-button.md-default-theme.md-ink-ripple.ng-transclude.ng-click{
   background-color: #546E7A;
 }
-
 
 button.md-accent span{
   color:white
@@ -71,12 +64,9 @@ md-autocomplete{
   }
 }
 
-#createProject-page {
-  .createProjectForm {
-    width: 350px;
-  }
+.createProjectForm, .editProjectForm {
+  width: 300px;
 }
-
 
 //#dashboard-page #project-page {
 //table {
