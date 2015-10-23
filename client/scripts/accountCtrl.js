@@ -1,6 +1,6 @@
 
 // Edit account info HTML - Kim
-app.controller('editAccountCtrl', ['$scope', '$http', '$location', '$rootScope', 'showToast', function($scope, $http, $location, $rootScope, showToast) {
+app.controller('editAccountCtrl', ['$scope', '$http', '$location', '$rootScope', 'showToast', '$mdDialog', function($scope, $http, $location, $rootScope, showToast, $mdDialog) {
     $scope.user = {};
     $scope.user = $rootScope.user;
 
