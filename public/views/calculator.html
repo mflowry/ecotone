@@ -52,6 +52,9 @@
                 <md-input-container>
                     <label>Weight</label>
                     <input ng-model="ctrl.weight" ng-pattern="/^\d*(\.\d+)?$/" type="text" name="weight" required>
+                    <div ng-messages="calcForm.weight.$error" role="alert">
+                        <div ng-message="pattern"><span>Numbers only.</span></div>
+                    </div>
                 </md-input-container>
 
                 <md-select ng-model="ctrl.selected_unit" placeholder="Select units" flex required>

@@ -31,13 +31,12 @@ md-sidenav {
   }
 }
 
-#content{
-  margin-top: 50px;
+@media (min-width: 600px) {
+  #content {
+    margin-top: 50px;
+  }
 }
 
-//#footer {
-//  margin: auto 0 0 auto;
-//}
 
 button.md-primary span {
   color: white;
@@ -61,33 +60,10 @@ button.md-accent span{
     background-color: $warn;
   }
 }
+
 md-autocomplete{
   background-color: white;
 }
-
-
-table {
-  border-collapse: collapse;
-  text-align: left;
-  margin-bottom: 25px;
-}
-
-th {
-  border-top: solid 1px darkgray;
-  border-bottom: solid 1px darkgray;
-  background-color: lightgray;
-}
-
-td {
-  border-bottom: solid 1px darkgray;
-}
-
-tr.hover {
-  cursor: pointer;
-}
-
-
-
 
 #login-page{
   #submit-buttons a {
@@ -95,8 +71,36 @@ tr.hover {
   }
 }
 
+#createProject-page {
+  .createProjectForm {
+    width: 350px;
+  }
+}
+
 
 //#dashboard-page #project-page {
+//table {
+//  border-collapse: collapse;
+//  text-align: left;
+//  margin-bottom: 25px;
+//}
+//
+//th {
+//  border-top: solid 1px darkgray;
+//  border-bottom: solid 1px darkgray;
+//  background-color: lightgray;
+//}
+//
+//td {
+//  border-bottom: solid 1px darkgray;
+//}
+//
+//tr.hover {
+//  cursor: pointer;
+//}
+//
+//
+
 //  img {
 //    vertical-align: middle;
 //  }
