@@ -15,7 +15,7 @@ block content
             li
               md-button( href="/login" ng-hide="user.username") Login
             li
-              md-button( href="/dashboard" ng-show="user.username") My Dashboard
+              md-button( href="/dashboard" ng-show="user.username") My Projects
             li
               md-button( href="/account" ng-show="user.username") My Account
             li
@@ -28,7 +28,7 @@ block content
           div.md-toolbar-tools(layout-align="space-around center")
             md-button(href="/calculator") Calculator
             md-button(href="/login" ng-hide="user.username") Login
-            md-button(href="/dashboard" ng-show="user.username") My Dashboard
+            md-button(href="/dashboard" ng-show="user.username") My Projects
             md-button(href="/account" ng-show="user.username") My Account
             md-button(href="/calculator" ng-click="logout()" ng-show="user.username") Logout
         md-content(id="content" layout="column" layout-align="start center" flex)

@@ -1,12 +1,12 @@
-<md-content id="createProject-page" layout="column" layout-align="space-between center">
-    <h1>Create a Project</h1>
-    <!--<p>-->
+<md-content id="createProject-page">
+    <form class="createProjectForm" name="createProjectForm" layout="column" layout-align="space-between center" novalidate>
+        <h1>Create a Project</h1>
+        <!--<p>-->
         <!--Projects allow you to save multiple material calculations,<br>-->
         <!--write descriptions, and keep track of things over time.<br>-->
         <!--As available information gets updated, we'll let you<br>-->
         <!--know if any calculations change.-->
-    <!--</p>-->
-    <form class="createProjectForm" name="createProjectForm" layout-fill flex novalidate>
+        <!--</p>-->
         <md-input-container layout-fill flex>
             <label>Project Name</label>
             <input ng-model="ctrl.projectSubmission.project_name" type="text" required>
