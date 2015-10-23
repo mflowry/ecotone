@@ -1,30 +1,30 @@
-<div class="content-layout" id="register-page" layout="column" layout-fill ng-controller="createAccountCtrl" ng-cloak>
-    <form name="registerForm" novalidate>
+<div class="content-layout" id="register-page" layout-padding ng-controller="createAccountCtrl" ng-cloak>
+    <form name="registerForm" layout="column" layout-align="space-between center" novalidate>
         <!-- Account Information -->
         <h1>Create an Account</h1>
         <md-content layout="row" layout-md="column">
-            <md-input-container flex>
+            <md-input-container layout-fill>
                 <label>First Name</label>
                 <input ng-model="user.first_name" required>
             </md-input-container>
-            <md-input-container flex>
+            <md-input-container layout-fill>
                 <label>Last Name</label>
                 <input ng-model="user.last_name" required>
             </md-input-container>
         </md-content>
-        <md-input-container flex>
+        <md-input-container layout-fill>
             <label>Email</label>
             <input ng-model="user.email" type="email" required>
         </md-input-container>
-        <md-input-container flex>
+        <md-input-container layout-fill>
             <label>Company Name</label>
             <input ng-model="user.company_name">
         </md-input-container>
-        <md-input-container flex>
+        <md-input-container layout-fill>
             <label>Title</label>
             <input ng-model="user.title">
         </md-input-container>
-        <md-input-container flex>
+        <md-input-container layout-fill>
             <label>Zip/Postal Code</label>
             <!-- Should Validate for US and Canadian zip/postal codes-->
             <input ng-model="user.zip_code" ng-pattern="/(\d{5}|[A-Z]\d[A-Z] ?\d[A-Z]\d)/" name = "zipCode" required>
@@ -36,18 +36,18 @@
         <!-- User Login Credentials -->
         <h2>Create a Username and Password</h2>
 
-        <md-input-container flex>
+        <md-input-container layout-fill>
             <label>Username</label>
             <input ng-model="user.username" type="string" required>
         </md-input-container>
-        <md-input-container flex>
+        <md-input-container layout-fill>
             <label>Password</label>
             <input ng-model="user.password" type="password" name="password" ng-pattern="/(?=.*[0-9]){8,}/" required>
             <div ng-messages="registerForm.password.$error" role="alert">
                  <div ng-message="pattern">Minimum of 8 characters with at least one number.</div>
             </div>
         </md-input-container>
-        <md-input-container flex>
+        <md-input-container layout-fill>
             <label>Confirm Password</label>
             <input ng-model="user.confirmPassword" type="password" data-match="registerForm.password"  name="confirmPassword" required>
             <div ng-messages="registerForm.confirmPassword.$error" role="alert">
