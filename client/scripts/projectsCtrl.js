@@ -203,9 +203,11 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
 
         function editProject (){
             var selectedProject = projectMethods.getSelectedProject();
+            console.log(self.selected_project.project_name);
             var updatedProject = {
                 project_id: selectedProject.id,
-                project_description: selectedProject.project_description,
+                project_name: self.selected_project.project_name,
+                project_description: self.selected_project.project_description,
                 user_id: $rootScope.user.id
             };
             //updatedProject.user_id = $rootScope.user.id;
