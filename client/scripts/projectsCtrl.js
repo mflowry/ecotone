@@ -64,6 +64,9 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                     calcToSave[0].weight = self.weight;
                     calcToSave[0].co2_offset = self.result;
                     calcToSave[0].item_description = self.item_description;
+                    if( self.item_description == '' ){
+                        calcToSave[0].item_description = null;
+                    }
 
                     calculator.saveCalculation(calcToSave).then(function () {
                         console.log(calcToSave);
@@ -74,7 +77,6 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                             calculateProjectTotal();
                         })
                     });
-
                 }
             })
         };

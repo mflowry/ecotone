@@ -140,7 +140,7 @@ router.post('/', function (req, res, next) {
                     },
                     defaults: req.body
                 };
-
+                console.log(req.body);
                 //find an existing project or create a new one
                 return Projects.findOrCreate(existingProjectId)
                     .spread(function (project, created){
@@ -230,6 +230,8 @@ router.delete('/:id', function (req, res, next) {
 
 //add a new calculation
 router.post('/calculation', function (req, res, next) {
+
+    console.log('THE THING', req.body)
 
     req.checkBody('[0].project_id', 'Invalid id').notEmpty().isInt();
 
