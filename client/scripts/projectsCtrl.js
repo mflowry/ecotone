@@ -31,7 +31,6 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
         }
 
         self.units = calculator.getUnits();
-        console.log(self.units);
         calculator.getMaterials().then(function( list ){
             self.projectList = list;
         });
@@ -47,7 +46,6 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                 weight: parseFloat(self.weight) * self.selected_unit.conversion
             };
 
-            console.log(calculation);
 
             calculator.newCalculation(calculation).then(function (answer) {
 
@@ -68,10 +66,8 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                     }
 
                     calculator.saveCalculation(calcToSave).then(function () {
-                        console.log(calcToSave);
                         projectMethods.getProjectItems().then(function(items) {
                             self.projectItems = items;
-                            console.log('ITEMS', items);
 
                             calculateProjectTotal();
                         })
@@ -107,7 +103,6 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
 
 
             $scope.showDelete = function (ev, id) {
-                console.log('CLICK');
                 var confirm = $mdDialog.confirm()
                     .title('Are you sure you want to remove this item?')
                     .content('This will remove the item from your project.')
@@ -116,7 +111,6 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                     .cancel('Cancel')
                     .targetEvent(ev);
                 $mdDialog.show(confirm).then(function () {
-                    console.log("Deleting", id);
                     self.deleteProjectItem(id);
                     $scope.alert = 'Your item has been removed.';
                 }, function () {
@@ -127,17 +121,11 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
 
 
         function searchTextChange(text) {
-            console.log('Text changed to ', text);
 
         }
 
         function selectedItemChange(item) {
-            console.log('item', item);
-            //if(self.category.secondaries[0].secondary_cat==null){
-            //    self.category.secondaries[0].secondary_cat == "No Secondary Category Available";
-            //    console.log(self.category);
-            //}
-            // selected material;
+
         }
 
             function deleteProjectItem(item) {
@@ -150,13 +138,10 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
             }
 
         function calculateProjectTotal() {
-            console.log("calculating...");
             var projectTotal = 0;
             self.projectItems.forEach(function (item) {
                 projectTotal += item.co2_offset;
-                console.log(projectTotal);
             });
-            console.log(projectTotal);
             self.projectTotal = Math.floor(projectTotal * 10000)/10000;
             clearFields();
         }
@@ -202,7 +187,6 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
 
         function editProject (){
             var selectedProject = projectMethods.getSelectedProject();
-            console.log(self.selected_project.project_name);
             var updatedProject = {
                 project_id: selectedProject.id,
                 project_name: self.selected_project.project_name,
@@ -210,7 +194,6 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                 user_id: $rootScope.user.id
             };
             //updatedProject.user_id = $rootScope.user.id;
-            console.log(updatedProject);
             $http.put('/project', updatedProject)
                 .then(function(res){
                     showToast.showToast(res.data.message);

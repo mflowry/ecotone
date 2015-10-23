@@ -9,7 +9,6 @@ app.controller('createAccountCtrl', ['$scope', '$http', '$location','showToast',
             data: $scope.user,
             dataType: 'json'
         }).then(function (response) {
-            console.log(response);
             $location.path('/login');
             showToast.showToast("Your account has been created.");
         }, function(err){
