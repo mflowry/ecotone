@@ -65,8 +65,10 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                         calcToSave[0].item_description = null;
                     }
 
+                    self.projectItems.push(calcToSave);
                     calculator.saveCalculation(calcToSave).then(function () {
                         projectMethods.getProjectItems().then(function(items) {
+                            console.log('ITEM ITEM ITEM IN THEN ', items);
                             self.projectItems = items;
 
                             calculateProjectTotal();
