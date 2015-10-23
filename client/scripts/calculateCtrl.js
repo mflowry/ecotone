@@ -1,5 +1,5 @@
-app.controller('calculateCtrl', ['calculator', '$scope', 'projectMethods', '$timeout', '$http', '$mdDialog', '$rootScope', 'authService', '$location',
-    function( calculator, $scope, projectMethods, $timeout, $http, $mdDialog, $rootScope, authService, $location ) {
+app.controller('calculateCtrl', ['calculator', '$scope', 'projectMethods', '$timeout', '$http', '$mdDialog', '$rootScope', 'authService', '$location', 'showToast',
+    function( calculator, $scope, projectMethods, $timeout, $http, $mdDialog, $rootScope, authService, $location, showToast ) {
 
     // Check user
     $rootScope.user = authService.getUser();
@@ -113,7 +113,17 @@ app.controller('calculateCtrl', ['calculator', '$scope', 'projectMethods', '$tim
 
     function submitSuggestion(){
         $http.post('/suggestion', self.suggestSubmission).then(function( res ){
-            $mdDialog.hide();
+            if(res.data.message){
+                showToast.showToast(res.data.message);
+                $mdDialog.hide();
+            }
+
+        }, function(err){
+            if(err){
+                console.log(err);
+                showToast.showToast(err.data.message);
+                $mdDialog.hide();
+            }
         });
     }
 

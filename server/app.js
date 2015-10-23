@@ -8,7 +8,8 @@ const
     bodyParser = require('body-parser'),
     jsonwebtoken = require('jsonwebtoken'),
     models = require('./models/models'),
-    expressValidator = require('express-validator');
+    expressValidator = require('express-validator'),
+    customValidators = require('./modules/customValidators');
 
 // ROUTING PATHS
 const
@@ -42,7 +43,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(expressValidator());
+app.use(expressValidator({customValidators: customValidators}));
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/reset', reset);

@@ -9,11 +9,15 @@ app.controller('adminCtrl', ['$http', '$rootScope', '$scope','$parse', function(
     self.isLoggedIn = false;
 
     self.adminTest = adminTest;
+    self.adminCred = {};
     function adminTest() {
+
+        self.adminCred = self.form;
         console.log(self.form);
         console.log('admin Test');
         $http.post('/suggestion/getSuggestions', self.form).then(function (res) {
             if(res.status != 404){
+                console.log(res.data);
                 var suggestions = res.data;
                 console.log('suggestions', res);
                 self.suggestions = suggestions;
@@ -43,14 +47,14 @@ app.controller('adminCtrl', ['$http', '$rootScope', '$scope','$parse', function(
 
     function markComplete( suggestion ) {
         var id = suggestion.id;
-        console.log(id);
         $http.put('/suggestion/complete/' + id).then(function( res ) {
             init();
         });
     }
 
     function init() {
-        $http.get('/suggestion', {}).then(function (res) {
+        console.log(self.adminCred);
+        $http.post('/suggestion',self.adminCred).then(function (res) {
             var suggestions = res.data;
             console.log(suggestions);
             self.suggestions = suggestions;

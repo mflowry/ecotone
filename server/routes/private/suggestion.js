@@ -13,19 +13,33 @@ const client = new pg.Client(connectionString);
 client.connect();
 
 router.post('/', function( req, res, next ){
+
+    req.checkBody('email', 'Invalid email').isEmail();
+    req.checkBody('material', 'Invalid material').isCustomAllowedText();
+    req.checkBody('notes', 'Invalid comment').isCustomAllowedText();
+
     var data = req.body;
-    pg.connect( connectionString , function( err, client , done){
-        if( err ){
-            console.log(err);
-        } else {
-            client.query('INSERT INTO suggestions(email, material, notes) VALUES($1, $2, $3)', [data.email, data.material, data.notes]);
-            done();
-            res.send(200);
-        }
-    });
+    var errors = req.validationErrors();
+    if (errors) {
+        console.log(errors);
+        res.status(409).send({message: errors[0].msg});
+    }else {
+        pg.connect( connectionString , function( err, client , done){
+            if( err ){
+                console.log(err);
+                res.status(500).send({message: err.message});
+            } else {
+                client.query('INSERT INTO suggestions(email, material, notes) VALUES($1, $2, $3)', [data.email, data.material, data.notes]);
+                done();
+                res.status(200).send({message: 'Suggestion submitted.'});
+            }
+        });
+    }
+
 });
 
 router.post('/getSuggestions', function( req, res, next){
+    console.log(req.body);
     if(req.body.username == process.env.adminUser && req.body.password == process.env.adminPass) {
         console.log('in if');
         var suggestions = [];
@@ -46,6 +60,8 @@ router.post('/getSuggestions', function( req, res, next){
 });
 
 router.put('/complete/:id', function( req, res, next ){
+
+    //req.checkParams('id', 'Invalid id').isInt();
 
     var id = req.params.id;
     console.log(id);

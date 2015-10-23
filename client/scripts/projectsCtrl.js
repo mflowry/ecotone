@@ -218,7 +218,7 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                 }, function(err){
                 if(err){
                     console.log(err);
-                    showToast.showToast(res.data.message);
+                    showToast.showToast(err.data.message);
                 }
             })
         }

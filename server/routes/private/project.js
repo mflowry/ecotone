@@ -174,7 +174,6 @@ router.post('/', function (req, res, next) {
 //update projects
 router.put('/', function (req, res, next) {
 
-    console.log('update route');
     req.checkBody('project_id', 'Invalid id').isInt();
 
     var errors = req.validationErrors();
