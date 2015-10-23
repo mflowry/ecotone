@@ -1,109 +1,109 @@
-<div id="project-page">
-    <div layout="row" layout-align="space-between">
-        <h1 contenteditable="true" class="headline" > {{ ctrl.selected_project.project_name }}
-            <md-button ng-click="ctrl.editProject()"><img src="../images/icons/ic_save_black_24px.svg" alt="Save Changes"/></md-button>
-        </h1>
-        <h2 class="md-title">CO Total CO<sub>2</sub> OFFSET: {{ ctrl.projectTotal }} metric tons</h2>
-    </div>
-    <h4 contenteditable="true" >{{ ctrl.selected_project.project_description }}
-        <md-button ng-click="ctrl.editProject()"><img src="../images/icons/ic_save_black_24px.svg" alt="Save Changes"/></md-button>
-    </h4>
+<div id="project-page" layout="row">
+    <div>
+        <!-- LOAD AND EDIT PROJECT INFORMATION -->
+        <div layout="row" layout-align="space-between center">
+            <h1 class="headline" > {{ ctrl.selected_project.project_name }}</h1>
+            <h2 class="md-title">CO Total CO<sub>2</sub> OFFSET: {{ ctrl.projectTotal }} metric tons</h2>
+        </div>
+        <div layout="row" layout-align="space-between center">
+            <h4>{{ ctrl.selected_project.project_description }}</h4>
+            <md-button class="md-accent md-raised" href="/editProject">Edit Project Info</md-button>
+        </div>
 
-    <md-divider ng-if="!$last"></md-divider>
+        <md-divider ng-if="!$last"></md-divider>
 
-    <!--ADD A PROJECT ITEM-->
-    <div layout="row" layout-align="space-between center">
-        <h2 class="md-body-2">Add a new item to your project:</h2>
-        <md-button ng-click="ctrl.newSuggestion()">+ Suggest a new material</md-button>
-    </div>
-    <form name="calcForm" layout="row" layout-align="space-between center" layout-fill novalidate>
+        <!--ADD A PROJECT ITEM-->
+        <div layout="row" layout-align="space-between center">
+            <h2 class="md-body-2">Add a new item to your project:</h2>
+            <md-button ng-click="ctrl.newSuggestion()">+ Suggest a new material</md-button>
+        </div>
+        <form name="calcForm" layout="row" layout-align="space-between center" layout-fill novalidate>
 
-        <!--Enter item description-->
-        <md-input-container flex="20">
-            <label>Item description</label>
-            <input ng-model="ctrl.item_description" md-maxlength="255" name="description">
-        </md-input-container>
+            <!--Enter item description-->
+            <md-input-container flex="20">
+                <label>Item description</label>
+                <input ng-model="ctrl.item_description" md-maxlength="255" name="description">
+            </md-input-container>
 
-        <!--Select material category from dropdown-->
-        <md-autocomplete ng-disabled="ctrl.isDisabled"
-                         md-selected-item="ctrl.category"
-                         md-selected-item-change="ctrl.selectedItemChange(item)"
-                         md-search-text="ctrl.searchText"
-                         md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
-                         md-items="item in ctrl.querySearch(ctrl.searchText)"
-                         md-item-text="item.primary_cat"
-                         md-min-length="0"
-                         md-floating-label="Select material type"
-                         layout-fill flex="20" required>
-            <md-item-template>
-                <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">
-                    {{item.primary_cat}}
-                </span>
-            </md-item-template>
+            <!--Select material category from dropdown-->
+            <md-autocomplete ng-disabled="ctrl.isDisabled"
+                             md-selected-item="ctrl.category"
+                             md-selected-item-change="ctrl.selectedItemChange(item)"
+                             md-search-text="ctrl.searchText"
+                             md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                             md-items="item in ctrl.querySearch(ctrl.searchText)"
+                             md-item-text="item.primary_cat"
+                             md-min-length="0"
+                             md-floating-label="Select material type"
+                             layout-fill flex="20" required>
+                <md-item-template>
+                    <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">
+                        {{item.primary_cat}}
+                    </span>
+                </md-item-template>
 
-            <!--Display error message-->
-            <md-not-found>
-                <div>
-                    No material matches {{ ctrl.searchText }}
+                <!--Display error message-->
+                <md-not-found>
+                    <div>
+                        No material matches {{ ctrl.searchText }}
+                    </div>
+                </md-not-found>
+            </md-autocomplete>
+
+            <!--Select secondary category-->
+            <md-select ng-model="ctrl.subcategory" placeholder="Select subtype" style="padding-bottom: 6px" layout-fill flex="20">
+                <md-option ng-repeat="subcategory in ctrl.category.secondaries" ng-value="subcategory">
+                    {{subcategory.secondary_cat}}
+                </md-option>
+            </md-select>
+
+
+            <!--Enter weight-->
+            <md-input-container flex="10">
+                <label>Weight</label>
+                <input ng-model="ctrl.weight" type="text" name="weight" ng-pattern="/^\d*(\.\d+)?$/" required>
+                <div ng-messages="calcForm.weight.$error" role="alert">
+                    <div ng-message="pattern"><span>Numbers only.</span></div>
                 </div>
-            </md-not-found>
-        </md-autocomplete>
+            </md-input-container>
 
-        <!--Select secondary category-->
-        <md-select ng-model="ctrl.subcategory" placeholder="Select subtype" style="padding-bottom: 6px" layout-fill flex="20">
-            <md-option ng-repeat="subcategory in ctrl.category.secondaries" ng-value="subcategory">
-                {{subcategory.secondary_cat}}
-            </md-option>
-        </md-select>
-
-
-        <!--Enter weight-->
-        <md-input-container flex="10">
-            <label>Weight</label>
-            <input ng-model="ctrl.weight" type="text" name="weight" ng-pattern="/^\d*(\.\d+)?$/" required>
-            <div ng-messages="calcForm.weight.$error" role="alert">
-                <div ng-message="pattern"><span>Numbers only.</span></div>
-            </div>
-        </md-input-container>
-
-        <!--Enter units-->
-        <!--<md-input-container >-->
-        <md-select ng-model="ctrl.selected_unit" placeholder="Units" style="padding-bottom: 6px" layout-fill flex="10" required>
-            <md-option ng-repeat="unit in ctrl.units" ng-value="unit">
-                {{ unit.name }}
-            </md-option>
-        </md-select>
-        <!--</md-input-container>-->
-        <md-input-container flex=none>
-            <md-button class="md-accent md-raised" ng-click="ctrl.newCalculation()" ng-disabled="calcForm.$invalid">Calculate</md-button>
-        </md-input-container>
-    </form>
+            <!--Enter units-->
+            <!--<md-input-container >-->
+            <md-select ng-model="ctrl.selected_unit" placeholder="Units" style="padding-bottom: 6px" layout-fill flex="10" required>
+                <md-option ng-repeat="unit in ctrl.units" ng-value="unit">
+                    {{ unit.name }}
+                </md-option>
+            </md-select>
+            <!--</md-input-container>-->
+            <md-input-container flex=none>
+                <md-button class="md-accent md-raised" ng-click="ctrl.newCalculation()" ng-disabled="calcForm.$invalid">Calculate</md-button>
+            </md-input-container>
+        </form>
 
 
+        <!--Table display-->
+        <table style="min-width: 1000px; text-align: left;">
 
-    <!--Table display-->
-    <table style="min-width: 1000px; text-align: left;">
+            <tr layout="row" layout-align="space between" layout-fill layout-wrap >
+                <th flex="25">Item Description</th>
+                <th flex="15">Category</th>
+                <th flex="15">Sub-Category</th>
+                <th flex="15">Weight</th>
+                <th flex="20" align="right">CO<sub>2</sub> Offset</th>
+                <th flex="10" align="center">Remove</th>
+            </tr>
 
-        <tr layout="row" layout-align="space between" layout-fill layout-wrap >
-            <th flex="25">Item Description</th>
-            <th flex="15">Category</th>
-            <th flex="15">Sub-Category</th>
-            <th flex="15">Weight</th>
-            <th flex="20" align="right">CO<sub>2</sub> Offset</th>
-            <th flex="10" align="center">Remove</th>
-        </tr>
+            <!--Listing of each project item-->
+            <tr ng-repeat=" item in ctrl.projectItems" layout="row" layout-padding layout-fill layout-wrap >
+                <td flex="25">{{item.item_description}}</td>
+                <td flex="15">{{item.category}}</td>
+                <td flex="15">{{item.sub_category}}</td>
+                <td flex="15">{{item.weight + " " + item.units}}</td>
 
-        <!--Listing of each project item-->
-        <tr ng-repeat=" item in ctrl.projectItems" layout="row" layout-padding layout-fill layout-wrap >
-            <td flex="25">{{item.item_description}}</td>
-            <td flex="15">{{item.category}}</td>
-            <td flex="15">{{item.sub_category}}</td>
-            <td flex="15">{{item.weight + " " + item.units}}</td>
+                <td flex="20" align="right">{{item.co2_offset}} metric tons</td>
+                <td flex="10" align="center" type="submit" ng-value="id"><img src="images/icons/ic_delete_black_24px.svg" ng-click="showDelete($event, item)" alt="Delete item"/> </td>
+            </tr>
 
-            <td flex="20" align="right">{{item.co2_offset}} metric tons</td>
-            <td flex="10" align="center" type="submit" ng-value="id"><img src="images/icons/ic_delete_black_24px.svg" ng-click="showDelete($event, item)" alt="Delete item"/> </td>
-        </tr>
-
-    </table>
-
+        </table>
+    </div>
 </div>

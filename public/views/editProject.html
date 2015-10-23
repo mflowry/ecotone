@@ -1,0 +1,19 @@
+<md-content id="editProject-page" layout="column" layout-align="space-between center">
+    <h1>Edit Project Information</h1>
+    <form name="editProjectForm" layout-fill flex novalidate>
+        <md-input-container layout-fill flex>
+            <label>Project Name</label>
+            <input ng-model="ctrl.selected_project.project_name" type="text">
+        </md-input-container>
+
+        <md-input-container layout-fill flex>
+            <label>Description</label>
+            <textarea ng-model="ctrl.selected_project.project_description" ng-pattern="('^[0-9a-zA-Z, .\/!?-]+$')" md-maxlength="255" name="projectDescription"></textarea>
+            <div ng-messages="editProjectForm.projectDescription.$error" role="alert">
+                <div ng-message="pattern">Allowed characters: Alphanumeric, punctuation, -, and /</div>
+            </div>
+        </md-input-container>
+
+        <md-button class="md-accent md-raised" type="submit" value="Save" ng-click="ctrl.editProject()" ng-disabled="editProjectForm.$invalid">Save</md-button>
+    </form>
+</md-content>

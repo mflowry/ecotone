@@ -128,6 +128,10 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         {
             templateUrl: '/views/createProject.html',
             controller: 'createProjectCtrl as ctrl'
+        }).when('/editProject',
+        {
+            templateUrl: '/views/editProject.html',
+            controller: 'projectsCtrl as ctrl'
         }).when('/sources',
         {
             templateUrl: '/views/sources.html'

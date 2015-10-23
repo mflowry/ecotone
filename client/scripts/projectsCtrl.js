@@ -1,6 +1,5 @@
-// Project Page -  Kim/Madeleine
-app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '$mdDialog', '$scope', '$rootScope', '$http','showToast',
-    function(authService, projectMethods, calculator, $mdDialog, $scope, $rootScope, $http,showToast) {
+app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '$mdDialog', '$scope', '$rootScope', '$http', 'showToast', '$location',
+    function(authService, projectMethods, calculator, $mdDialog, $scope, $rootScope, $http,showToast, $location) {
 
         // INIT
         var self = this;
@@ -215,7 +214,8 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
             $http.put('/project', updatedProject)
                 .then(function(res){
                     showToast.showToast(res.data.message);
-            }, function(err){
+                    $location.path('/projects');
+                }, function(err){
                 if(err){
                     console.log(err);
                     showToast.showToast(res.data.message);

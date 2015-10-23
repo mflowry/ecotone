@@ -1,13 +1,12 @@
-<div id="dashboard-page" layout="column" >
+<div id="dashboard-page" layout-fill>
 <!-- Beginning dashboard -->
-    <md-content>
-            <h1>Project Totals</h1>
-        <div>
-            <h2 class="md-title">Your projects have prevented {{ctrl.Co2GrandTotal}} metric tons of CO<sub>2</sub> from being released.</h2>
-        </div>
 
-        <div>
-            <h3 class="md-body-2">Click on row to edit project. Click on the trash can to remove a project. </h3>
+    <h1 class="headline">Project Totals</h1>
+    <h2 class="md-title">You have prevented {{ctrl.Co2GrandTotal}} metric tons of CO<sub>2</sub> from being released.</h2>
+
+    <md-divider ng-if="!$last"></md-divider>
+
+    <h3 class="md-body-2">Click on row to edit project. Click on the trash can to remove a project. </h3>
 
         <md-content>
 
