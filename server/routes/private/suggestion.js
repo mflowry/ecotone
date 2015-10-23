@@ -39,32 +39,27 @@ router.post('/', function( req, res, next ){
 });
 
 router.post('/getSuggestions', function( req, res, next){
-    console.log(req.body);
+    console.log('get suggestions', req.body);
     if(req.body.username == process.env.adminUser && req.body.password == process.env.adminPass) {
-        console.log('in if');
         var suggestions = [];
 
         pg.connect(connectionString, function (err, client, done) {
             if (err) console.log(err);
 
             client.query('select * from suggestions where complete = false',
-                function (errg, results) {
+                function (err, results) {
                     done();
                     suggestions = results.rows;
-                    client.query('select * from secondaries', function (err, results) {
-                        res.send(suggestions);
-                    });
-                })
+                    res.send(suggestions);
+
+                });
         });
     }
 });
 
 router.put('/complete/:id', function( req, res, next ){
 
-    //req.checkParams('id', 'Invalid id').isInt();
-
     var id = req.params.id;
-    console.log(id);
 
     pg.connect( connectionString, function( err, client, done ){
         if (err) console.log(err);

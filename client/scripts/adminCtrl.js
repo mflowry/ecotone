@@ -9,10 +9,8 @@ app.controller('adminCtrl', ['$http', '$rootScope', '$scope','$parse', function(
     self.isLoggedIn = false;
 
     self.adminTest = adminTest;
-    self.adminCred = {};
     function adminTest() {
 
-        self.adminCred = self.form;
         console.log(self.form);
         console.log('admin Test');
 
@@ -51,8 +49,8 @@ app.controller('adminCtrl', ['$http', '$rootScope', '$scope','$parse', function(
     }
 
     function init() {
-        console.log(self.adminCred);
-        $http.post('/suggestion',self.adminCred).then(function (res) {
+        console.log(self.form);
+        $http.post('/suggestion/getSuggestions',self.form).then(function (res) {
             var suggestions = res.data;
             self.suggestions = suggestions;
         });
