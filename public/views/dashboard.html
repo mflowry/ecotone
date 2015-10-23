@@ -1,42 +1,31 @@
-<div id="dashboard-page" layout-fill>
-<!-- Beginning dashboard -->
+<div id="dashboard-page" layout-margin>
 
+    <!-- User totals -->
     <h1 class="headline">Project Totals</h1>
     <h2 class="md-title">You have prevented {{ctrl.Co2GrandTotal}} metric tons of CO<sub>2</sub> from being released.</h2>
 
-    <md-divider ng-if="!$last"></md-divider>
+    <md-divider></md-divider>
 
-    <h3 class="md-body-2">Click on row to edit project. Click on the trash can to remove a project. </h3>
+    <!--Table display-->
+    <h3 class="md-body-2">Click on row to edit project. Click on the trashcan to remove a project. </h3>
 
-        <md-content>
+    <table style="min-width: 1000px; text-align: left;">
 
-            <table class="dialog-demo-content table" style="min-width: 100%; text-align: left;">
+        <tr layout="row" layout-align="space-between" layout-fill layout-wrap>
+            <th flex="30">Project</th>
+            <th flex="40">Description</th>
+            <th flex="20">Total CO<sub>2</sub></th>
+            <th flex="10" align="center">Remove</th>
+        </tr>
 
-                 <tr class="th">
-                    <th>Project</th>
-                    <th flex="25">Description</th>
-                    <!--<th align="center">Total Weight</th>-->
+        <tr ng-repeat="project in ctrl.projects" ng-click="ctrl.selectProject(project)" layout="row" layout-align="space-between" layout-fill layout-wrap>
+            <td flex="30" ng-value="project.id">{{project.project_name}}</td>
+            <td flex="40">{{project.project_description}}</td>
+            <td flex="20">{{project.projectTotal}}</td>
+            <td flex="10" align="center"><img src="images/icons/ic_delete_black_24px.svg" alt="Remove Project" ng-click="showDelete(project);  $event.stopPropagation();"/> </td>
+        </tr>
+    </table>
 
-                    <th align="right">Total CO<sub>2</sub></th>
-                    <th align="center">Remove</th>
-                </tr>
-
-                <tr ng-repeat="project in ctrl.projects" ng-click="ctrl.selectProject(project)">
-                    <td ng-value="project.id">{{project.project_name}}</td>
-                    <td>{{project.project_description}}</td>
-                    <!--<td align="center">{{weight}}{{units}}</td>-->
-                    <td align="right">{{project.projectTotal}}</td>
-                    </a>
-                    <td align="center"><img src="images/icons/ic_delete_black_24px.svg" alt="Remove Project" ng-click="showDelete(project);  $event.stopPropagation();"/> </td>
-                </tr>
-            </table>
-
-        </md-content>
-            <div>
-                <md-button class="md-raised md-accent" href="/createProject">Create New Project</md-button>
-            </div>
-
-        </div>
-    </md-content>
+    <md-button href="/createProject">+ Create New Project</md-button>
 
  </div>
