@@ -59,10 +59,7 @@ router.post('/getSuggestions', function( req, res, next){
 
 router.put('/complete/:id', function( req, res, next ){
 
-    //req.checkParams('id', 'Invalid id').isInt();
-
     var id = req.params.id;
-    console.log(id);
 
     pg.connect( connectionString, function( err, client, done ){
         if (err) console.log(err);
