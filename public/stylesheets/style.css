@@ -19,14 +19,14 @@ md-sidenav .side-nav li .md-button {
   margin: 0;
   padding: 0; }
 
-button.md-primary span {
+.md-button.md-primary span {
+  color: white; }
+
+.md-button.md-accent span {
   color: white; }
 
 .md-primary.md-button.md-default-theme.md-ink-ripple.ng-transclude.ng-click {
   background-color: #546E7A; }
-
-button.md-accent span {
-  color: white; }
 
 .md-actions .md-button.md-default-theme.md-ink-ripple:first-child {
   background-color: #546E7A; }
