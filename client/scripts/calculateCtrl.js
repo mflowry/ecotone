@@ -11,7 +11,6 @@ app.controller('calculateCtrl', ['calculator', '$scope', 'projectMethods', '$tim
     // INIT
 
 
-
     // Self dec
     var self = this;
 
