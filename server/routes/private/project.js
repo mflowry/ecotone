@@ -231,6 +231,8 @@ router.delete('/:id', function (req, res, next) {
 //add a new calculation
 router.post('/calculation', function (req, res, next) {
 
+    console.log('THE THING', req.body)
+
     req.checkBody('[0].project_id', 'Invalid id').notEmpty().isInt();
 
     var errors = req.validationErrors();
