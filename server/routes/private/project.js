@@ -173,7 +173,7 @@ router.post('/', function (req, res, next) {
 
 //update projects
 router.put('/', function (req, res, next) {
-
+    console.log('update route');
     req.checkBody('project_id', 'Invalid id').isInt();
 
     var errors = req.validationErrors();
@@ -189,7 +189,7 @@ router.put('/', function (req, res, next) {
 
         Projects.update(req.body, existingProjectById)
             .then(function () {
-                res.status(200).send('Updated Project.');
+                res.status(200).send({message:'Updated Project.'});
             }).catch(function (err) {
                 console.log('there was an error', err);
                 res.send({message: err});

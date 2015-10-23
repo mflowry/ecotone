@@ -1,7 +1,21 @@
 <div id="project-page">
-    <h1 class="headline">Project Summary</h1>
-    <h2 editable="true" class="md-title">{{ ctrl.selected_project.project_name }}: {{ ctrl.selected_project.project_description }}</h4>
-    <h4 CO<>Total CO<sub>2</sub> OFFSET: {{ ctrl.projectTotal }} metric tons</h4>
+    <div layout="row" layout-align="space-between">
+        <h1 contenteditable="true" class="headline" >{{ ctrl.selected_project.project_name }}
+            <md-button ng-click="ctrl.editProject()"><img src="../images/icons/ic_save_black_24px.svg" alt="Save Changes"/></md-button>
+        </h1>
+        <h2 class="md-title">CO Total CO<sub>2</sub> OFFSET: {{ ctrl.projectTotal }} metric tons</h2>
+    </div>
+    <h4 contenteditable="true" >{{ ctrl.selected_project.project_description }}
+        <md-button ng-click="ctrl.editProject()"><img src="../images/icons/ic_save_black_24px.svg" alt="Save Changes"/></md-button>
+    </h4>
+
+    <!--&lt;!&ndash;Display selected project and description&ndash;&gt;-->
+    <!--<md-content>-->
+        <!--<h4 contentEditable=ctrl.editableProject  ng-value="ctrl.selected_project.project_id" >{{ctrl.selected_project.project_name}}:  {{ctrl.selected_project.project_description}}<img   src="images/icons/ic_create_black_24px.svg" alt="Edit item" ng-click="ctrl.editProject()"/></a> | <img src="images/icons/ic_save_black_24px.svg"   alt="Save Changes"/> | <img src="images/icons/ic_delete_black_24px.svg" ng-click="showDelete($event, ctrl.selected_project.project_id)" alt="Delete item" />{{ctrl.selected_project.project_id}}</h4>-->
+
+    <!--</md-content>-->
+    <md-divider ng-if="!$last"></md-divider>
+
 
 
     <!--ADD A PROJECT ITEM-->
@@ -54,6 +68,9 @@
         <md-input-container flex="10">
             <label>Weight</label>
             <input ng-model="ctrl.weight" type="text" name="weight" ng-pattern="/^\d*(\.\d+)?$/" required>
+            <div ng-messages="calcForm.weight.$error" role="alert">
+                <div ng-message="pattern"><span>Numbers only.</span></div>
+            </div>
         </md-input-container>
 
         <!--Enter units-->

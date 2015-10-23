@@ -1,6 +1,6 @@
 // Project Page -  Kim/Madeleine
-app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '$mdDialog', '$scope', '$rootScope', '$http',
-    function(authService, projectMethods, calculator, $mdDialog, $scope, $rootScope, $http) {
+app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '$mdDialog', '$scope', '$rootScope', '$http','showToast',
+    function(authService, projectMethods, calculator, $mdDialog, $scope, $rootScope, $http,showToast) {
 
         // INIT
         var self = this;
@@ -19,6 +19,7 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
         self.downloadProject = downloadProject;
         self.submitSuggestion = submitSuggestion;
         self.newSuggestion = newSuggestion;
+        self.editProject = editProject;
 
 
         if (self.selected_project) {
@@ -180,12 +181,13 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
         }
 
         function submitSuggestion(){
-            $http.post('/suggestion', self.suggestSubmission).then(function( res ){
+            $http.post('/suggestion', self.suggestSubmission)
+                .then(function( res ){
                 $mdDialog.hide();
             });
         }
 
-        function newSuggestion( suggestion ){
+        function newSuggestion( ){
 
             $mdDialog.show({
                 templateUrl: '/views/suggest-modal.html',
@@ -195,6 +197,26 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                 locals: {material: self.searchText}
             })
 
+        }
+
+        function editProject (){
+            var selectedProject = projectMethods.getSelectedProject();
+            var updatedProject = {
+                project_id: selectedProject.id,
+                project_description: selectedProject.project_description,
+                user_id: $rootScope.user.id
+            };
+            //updatedProject.user_id = $rootScope.user.id;
+            console.log(updatedProject);
+            $http.put('/project', updatedProject)
+                .then(function(res){
+                    showToast.showToast(res.data.message);
+            }, function(err){
+                if(err){
+                    console.log(err);
+                    showToast.showToast(res.data.message);
+                }
+            })
         }
 
     }]);
