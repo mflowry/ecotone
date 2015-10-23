@@ -59,15 +59,10 @@ app.controller('calculateCtrl', ['calculator', '$scope', 'projectMethods', '$tim
 
     function newCalculation() {
 
-        console.log('click');
-
-
-
         if(self.subcategory == undefined) {
             self.subcategory = self.category.secondaries[0];
         }
 
-        console.log(self.subcategory);
         var calculation = {
             warmId: self.subcategory.warm_id,
             weight: parseFloat(self.weight) * self.selected_unit.conversion
