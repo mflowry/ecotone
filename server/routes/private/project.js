@@ -140,7 +140,7 @@ router.post('/', function (req, res, next) {
                     },
                     defaults: req.body
                 };
-
+                console.log(req.body);
                 //find an existing project or create a new one
                 return Projects.findOrCreate(existingProjectId)
                     .spread(function (project, created){
