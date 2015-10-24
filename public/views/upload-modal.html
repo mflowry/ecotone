@@ -1,0 +1,26 @@
+<md-content layout="column" layout-padding layout-margin layout-align="space-between center">
+    <h1>
+        UPLOAD A CSV
+    </h1>
+    <!--<p>-->
+        <!--Don't see your material? Let us know and we'll add it to our list!-->
+    <!--</p>-->
+    <form name="suggestionForm" ng-submit="ctrl.submitSuggestion()" layout-fill flex layout = "column" layout-align="center center" novalidate>
+        <md-input-container layout-fill flex>
+            <label>Email</label>
+            <input ng-init="" ng-model="ctrl.suggestSubmission.email" type="email" required name="email">
+        </md-input-container>
+        <md-input-container layout-fill flex>
+            <label>Material</label>
+            <input ng-model="ctrl.suggestSubmission.material" type="text" required name="material">
+        </md-input-container>
+        <md-input-container layout-fill flex>
+            <label>Comment</label>
+            <input type="text" ng-model="ctrl.suggestSubmission.notes" md-maxlength="255" required name="notes">
+        </md-input-container>
+        <md-button type="submit" class="md-accent md-raised" ng-disabled="suggestionForm.$invalid">
+            Submit
+        </md-button>
+
+    </form>
+</md-content>

@@ -1,4 +1,4 @@
-<div id="calculator-page" layout-padding>
+<div id="calculator-page" layout-padding layout="column" layout-align="space-between center">
     <form name="calcForm" class="calcForm" layout="column" layout-align="space-between center" novalidate>
         <h1>Calculate Your CO<sub>2</sub> Offset</h1>
         <md-input-container layout-fill flex>
@@ -67,15 +67,16 @@
 
         <md-button class="md-accent md-raised" ng-click="ctrl.newCalculation()" ng-disabled="calcForm.$invalid">Calculate</md-button>
 
-        <p ng-show="ctrl.error"></p>
-        <p ng-show="ctrl.result">Your Estimated CO<sub>2</sub> Offset is {{ctrl.result}} metric tons.</p>
-
-        <div ng-show="user.username">
-            <md-button ng-click="ctrl.newSuggestion()">+ Suggest a new material</md-button>
-        </div>
-        <div ng-show="user.username">
-            <md-button href="/createProject">+ Create New Project</md-button>
-        </div>
-
     </form>
+
+    <div flex>
+        <p ng-show="ctrl.error"></p>
+        <p class="md-title" ng-show="ctrl.result" style="text-align: center">Your Estimated CO<sub>2</sub> Offset is<br>{{ctrl.result}} metric tons.</p>
+    </div>
+
+    <div ng-show="user.username" layout="column" layout-align="space-between center">
+        <md-button ng-click="ctrl.newSuggestion()">+ Suggest a new material</md-button>
+        <md-button href="/createProject">+ Create New Project</md-button>
+    </div>
+
 </div>
