@@ -1,4 +1,4 @@
-app.controller('createProjectCtrl', ['projectMethods', '$location', '$rootScope', 'authService', '$http', function(projectMethods, $location, $rootScope, authService, $http){
+app.controller('createProjectCtrl', ['projectMethods', '$location', '$rootScope', 'authService', '$http','showToast', function(projectMethods, $location, $rootScope, authService, $http, showToast){
 
     $rootScope.user = authService.getUser();
 
@@ -12,6 +12,11 @@ app.controller('createProjectCtrl', ['projectMethods', '$location', '$rootScope'
         $http.post('/project', self.projectSubmission).then(function(res){
             projectMethods.setSelectedProject(res.data);
             $location.path('/projects');
+        },function(err){
+            if(err){
+                console.log(err);
+                showToast.showToast(err.data.message);
+            }
         })
     }
 

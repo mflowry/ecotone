@@ -14,7 +14,7 @@
 
         <md-input-container layout-fill flex>
             <label>Description</label>
-            <textarea ng-model="ctrl.projectSubmission.project_description" ng-pattern="('^[0-9a-zA-Z, .\/!?-]+$')" md-maxlength="255" name="projectDescription"></textarea>
+            <input type="text" ng-model="ctrl.projectSubmission.project_description" ng-pattern="('^[0-9a-zA-Z, .\/!?-]+$')" md-maxlength="255" name="projectDescription">
             <div ng-messages="createProjectForm.projectDescription.$error" role="alert">
                 <div ng-message="pattern">Allowed characters: Alphanumeric, punctuation, -, and /</div>
             </div>

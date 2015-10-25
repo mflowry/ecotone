@@ -136,7 +136,8 @@ router.post('/', function (req, res, next) {
                 var existingProjectId = {
                     where: {
                         project_name: req.body.project_name,
-                        user_id: req.body.user_id
+                        user_id: req.body.user_id,
+                        active: true
                     },
                     defaults: req.body
                 };

@@ -26,6 +26,8 @@ app.controller('dashboardCtrl', ['$location', 'projectMethods', '$mdDialog', '$r
                if( res.status == 200 ){
                    projectMethods.getProjectNames(function (names) {
                        self.projects = names;
+                       calcProjectTotal();
+                       getAllItems();
                    });
                }
             });
