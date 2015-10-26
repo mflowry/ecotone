@@ -58,18 +58,14 @@ md-autocomplete{
   background-color: white;
 }
 
+a {
+  color: darkgreen;
+}
+
 .createProjectForm, .editProjectForm, .loginForm, .calcForm {
   width: 300px;
 }
 
-
-//#dashboard-page #project-page {
-//table {
-//  border-collapse: collapse;
-//  text-align: left;
-//  margin-bottom: 25px;
-//}
-//
 th {
   padding: 5px 0;
   border-top: solid 1px darkgray;
@@ -82,52 +78,3 @@ td {
   border-bottom: solid 1px darkgray;
 }
 
-
-//
-//  h2 {
-//    padding-left: 20px;
-//    margin-top: 35px;
-//    margin-left: 50px;
-//    margin-right: 50px;
-//    font-size: inherit;
-//    font-weight: inherit;
-//  }
-//
-//  h3 {
-//    margin-left: 50px;
-//    margin-right: 50px;
-//    font-size: inherit;
-//    font-weight: inherit;
-//  }
-//
-//  .li_header {
-//    display: inline-block;
-//    width: 20%;
-//    float: none;
-//    background-color: #4CAF50;
-//    color: white;
-//    text-align: center;
-//    font-size: 16px;
-//    font-weight: bold;
-//    padding: 15px;
-//    margin-top: 5px;
-//  }
-//
-//
-//  #secondary-margin {
-//    margin-top: 32px;
-//  }
-//
-//  .dialogdemoBasicUsage .dialogDemo1 {
-//    height: 500px;
-//  }
-//
-//  .dialogdemoBasicUsage .dialog-demo-content div {
-//    text-align: center;
-//  }
-//
-//  .dialogdemoBasicUsage .md-subheader {
-//    background-color: #dcedc8;
-//    margin: 0;
-//  }
-//}
