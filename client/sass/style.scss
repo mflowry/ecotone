@@ -57,8 +57,9 @@ md-sidenav {
 md-autocomplete{
   background-color: white;
 }
-
-
+a {
+  color: darkgreen;
+}
 .createProjectForm, .editProjectForm, .loginForm, .calcForm {
   width: 300px;
 }
