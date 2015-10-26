@@ -264,8 +264,8 @@ router.post('/calculation', function (req, res, next) {
                         });
                 });
 
+            }).then(function(){
                 res.sendStatus(200);
-
             })
             .catch(function (err) {
                 res.send({message: err});

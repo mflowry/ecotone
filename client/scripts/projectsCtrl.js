@@ -28,7 +28,6 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
             projectMethods.getProjectItems().then(function(items) {
                 self.projectItems = items;
                 calculateProjectTotal();
-                self.downloadProject();
             })
         }
 
@@ -67,14 +66,20 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                         calcToSave[0].item_description = null;
                     }
 
-                    self.projectItems.push(calcToSave);
-                    calculator.saveCalculation(calcToSave).then(function () {
-                        projectMethods.getProjectItems().then(function(items) {
-                            console.log('ITEM ITEM ITEM IN THEN ', items);
-                            self.projectItems = items;
+                    //self.projectItems.push(calcToSave);
+                    calculator.saveCalculation(calcToSave).then(function ( status ) {
 
-                            calculateProjectTotal();
-                        })
+
+                        setTimeout(function(){
+                            projectMethods.getProjectItems().then(function(items) {
+                                console.log('ITEM ITEM ITEM IN THEN ', items);
+                                self.projectItems = items;
+
+                                calculateProjectTotal();
+                            })
+                        }, 10);
+
+
                     });
                 }
             })
@@ -159,14 +164,13 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                     + item.item_description + '\n'
             });
 
-            // enable to download
-            //csvContent += dataString;
-            //var encodedUri = encodeURI(csvContent);
-            //var link = document.createElement("a");
-            //link.setAttribute("href", encodedUri);
-            //link.setAttribute("download", "my_data.csv");
-            //
-            //link.click(); // This will download the data file named "my_data.csv".
+            csvContent += dataString;
+            var encodedUri = encodeURI(csvContent);
+            var link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "my_data.csv");
+
+            link.click(); // This will download the data file named "my_data.csv".
 
         }
 
