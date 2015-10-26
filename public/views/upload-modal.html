@@ -2,24 +2,24 @@
     <h1>
         UPLOAD A CSV
     </h1>
-    <!--<p>-->
-        <!--Don't see your material? Let us know and we'll add it to our list!-->
-    <!--</p>-->
-    <form name="suggestionForm" ng-submit="ctrl.submitSuggestion()" layout-fill flex layout = "column" layout-align="center center" novalidate>
-        <md-input-container layout-fill flex>
-            <label>Email</label>
-            <input ng-init="" ng-model="ctrl.suggestSubmission.email" type="email" required name="email">
-        </md-input-container>
-        <md-input-container layout-fill flex>
-            <label>Material</label>
-            <input ng-model="ctrl.suggestSubmission.material" type="text" required name="material">
-        </md-input-container>
-        <md-input-container layout-fill flex>
-            <label>Comment</label>
-            <input type="text" ng-model="ctrl.suggestSubmission.notes" md-maxlength="255" required name="notes">
-        </md-input-container>
-        <md-button type="submit" class="md-accent md-raised" ng-disabled="suggestionForm.$invalid">
-            Submit
+
+    <form name="uploadForm" layout-fill flex layout = "column" layout-align="center center" novalidate>
+        <div layout-fill flex>
+            <h4 class="title">Select your CSV file: </h4>
+            <ng-csv-import
+                class="import"
+                content="csv.content"
+                header="csv.header"
+                header-visible="csv.headerVisible"
+                separator="csv.separator"
+                separator-visible="csv.separatorVisible"
+                result="csv.result"
+                encoding="csv.encoding"
+                encoding-visible="csv.encodingVisible"></ng-csv-import>
+        </div>
+
+        <md-button type="submit" class="md-accent md-raised" ng-click="ctrl.submitCSV()">
+            Upload
         </md-button>
 
     </form>

@@ -184,7 +184,6 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                 controllerAs: 'ctrl',
                 locals: {material: self.searchText}
             })
-
         }
 
         function editProject (){
