@@ -132,10 +132,10 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         {
             templateUrl: '/views/editProject.html',
             controller: 'projectsCtrl as ctrl'
-        }).when('/upload',
-        {
-            templateUrl: '/views/upload-modal.html',
-            controller: 'projectsCtrl as ctrl'
+        //}).when('/upload',
+        //{
+        //    templateUrl: '/views/upload-modal.html',
+        //    controller: 'projectsCtrl as ctrl'
         }).when('/sources',
         {
             templateUrl: '/views/sources.html'

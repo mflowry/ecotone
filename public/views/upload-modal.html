@@ -3,7 +3,7 @@
         UPLOAD A CSV
     </h1>
 
-    <form name="uploadForm" layout-fill flex layout = "column" layout-align="center center" novalidate>
+    <form name="uploadForm" layout-fill flex layout="column" layout-align="center center" novalidate>
         <div layout-fill flex>
             <h4 class="title">Select your CSV file: </h4>
             <ng-csv-import
@@ -17,10 +17,10 @@
                 encoding="csv.encoding"
                 encoding-visible="csv.encodingVisible"></ng-csv-import>
         </div>
-
-        <md-button type="submit" class="md-accent md-raised" ng-click="ctrl.submitCSV()">
-            Upload
-        </md-button>
-
     </form>
+
+    <md-button type="submit" class="md-accent md-raised" ng-click="ctrl.submitCSV()">
+        Upload
+    </md-button>
+
 </md-content>

@@ -19,6 +19,8 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
         self.submitSuggestion = submitSuggestion;
         self.newSuggestion = newSuggestion;
         self.editProject = editProject;
+        self.submitCSV = submitCSV;
+        self.uploadCSV = uploadCSV;
 
 
         if (self.selected_project) {
@@ -183,6 +185,20 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                 controller: 'calculateCtrl',
                 controllerAs: 'ctrl',
                 locals: {material: self.searchText}
+            })
+        }
+
+        function submitCSV(){
+
+        }
+
+        function uploadCSV() {
+
+            $mdDialog.show({
+                templateUrl: '/views/upload-modal.html',
+                clickOutsideToClose: true,
+                controller: 'projectsCtrl',
+                controllerAs: 'ctrl'
             })
         }
 
