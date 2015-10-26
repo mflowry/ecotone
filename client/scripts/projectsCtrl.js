@@ -70,14 +70,14 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                     calculator.saveCalculation(calcToSave).then(function ( status ) {
 
 
-                        setTimeout(function(){
+                        //setTimeout(function(){
                             projectMethods.getProjectItems().then(function(items) {
                                 console.log('ITEM ITEM ITEM IN THEN ', items);
                                 self.projectItems = items;
 
                                 calculateProjectTotal();
-                            })
-                        }, 10);
+                            });
+                        //}, 10);
 
 
                     });
@@ -186,7 +186,7 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
             $mdDialog.show({
                 templateUrl: '/views/suggest-modal.html',
                 clickOutsideToClose: true,
-                controller: 'calculateCtrl',
+                controller: 'projectsCtrl',
                 controllerAs: 'ctrl',
                 locals: {material: self.searchText}
             })
