@@ -39,3 +39,13 @@ md-autocomplete {
 
 .createProjectForm, .editProjectForm, .loginForm, .calcForm {
   width: 300px; }
+
+th {
+  padding: 5px 0;
+  border-top: solid 1px darkgray;
+  border-bottom: solid 1px darkgray;
+  background-color: lightgray; }
+
+td {
+  padding: 5px 0 2px;
+  border-bottom: solid 1px darkgray; }

@@ -7,7 +7,11 @@
     <md-divider></md-divider>
 
     <!--Table display-->
-    <h3 class="md-body-2">Click on row to edit project. Click on the trashcan to remove a project. </h3>
+    <div layout="row" layout-align="space-between start">
+        <h3 class="md-body-2">Click on row to edit project. Click on the trashcan to remove a project. </h3>
+        <md-button href="/createProject">+ Create New Project</md-button>
+    </div>
+
 
     <table style="min-width: 900px; text-align: left;">
 
@@ -26,7 +30,4 @@
         </tr>
     </table>
 
-    <div layout="row" layout-align="center">
-        <md-button href="/createProject">+ Create New Project</md-button>
-    </div>
  </div>

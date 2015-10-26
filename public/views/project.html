@@ -7,6 +7,7 @@
     </div>
     <div layout="row" layout-align="space-between center">
         <h4>{{ ctrl.selected_project.project_description }}</h4>
+        <md-button class="md-accent md-raised" href="/editProject">Edit Project Info</md-button>
     </div>
 
     <md-divider></md-divider>
@@ -103,9 +104,8 @@
             <td flex="10" align="center" type="submit" ng-value="id"><img src="images/icons/ic_delete_black_24px.svg" ng-click="showDelete($event, item)" alt="Delete item"/> </td>
         </tr>
     </table>
-
+    <div flex="grow"></div>
     <div layout="row" layout-align="start end">
-        <md-button class="md-accent md-raised" href="/editProject">Edit Project Info</md-button>
         <md-button class="md-accent md-raised" href="/upload">Upload CSV</md-button>
         <md-button class="md-accent md-raised" ng-click="ctrl.downloadProject()">Download Project</md-button>
     </div>
