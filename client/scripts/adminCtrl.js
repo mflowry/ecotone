@@ -24,22 +24,7 @@ app.controller('adminCtrl', ['$http', '$rootScope', '$scope','$parse', function(
         });
     }
 
-    function submitCSV( ){
-        var csvObject = $scope.csv.result;
 
-        $http.post('/bulk', csvObject)
-            .then(function( res ){
-                res.data.forEach(function(item){
-                    item.project_id = 1;
-                });
-                return res.data})
-            .then(function( projects ) {
-                $http.post('/project/calculation/', projects)
-            }).catch(function(err){
-                console.log(err);
-            });
-
-    }
 
     function markComplete( suggestion ) {
         var id = suggestion.id;
@@ -56,32 +41,5 @@ app.controller('adminCtrl', ['$http', '$rootScope', '$scope','$parse', function(
         });
     }
 
-    $scope.csv = {
-        content: null,
-        header: true,
-        headerVisible: true,
-        separator: ',',
-        separatorVisible: true,
-        result: null,
-        encoding: 'ISO-8859-1',
-        encodingVisible: true
-    };
-
-    var _lastGoodResult = '';
-    $scope.toPrettyJSON = function (json, tabWidth) {
-        var objStr = JSON.stringify(json);
-        var obj = null;
-        try {
-            obj = $parse(objStr)({});
-        } catch(e){
-            // eat $parse error
-            return _lastGoodResult;
-        }
-
-        var result = JSON.stringify(obj, null, Number(tabWidth));
-        _lastGoodResult = result;
-
-        return result;
-    };
 
 }]);

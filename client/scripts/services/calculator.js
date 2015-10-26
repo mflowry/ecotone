@@ -29,7 +29,7 @@ app.factory('calculator', ['$rootScope', '$http', function( $rootScope, $http ){
 
             if (response.data >= .0001) {
                 return Math.floor(response.data * 10000) / 10000;
-            } else if( response.data <= .0001 ) {
+            } else {
                 return response.data.toExponential(2);
             }
         });
