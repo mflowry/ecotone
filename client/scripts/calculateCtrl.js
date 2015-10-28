@@ -76,14 +76,14 @@ app.controller('calculateCtrl', ['calculator', '$scope', 'projectMethods', '$tim
 
                 if (authService.isAuthed() && self.selected_project) {
 
-                    var calcToSave = [{}];
-                    calcToSave[0].project_id = self.selected_project.id;
-                    calcToSave[0].category = self.category.primary_cat;
-                    calcToSave[0].sub_category = self.subcategory.secondary_cat || null;
-                    calcToSave[0].units = self.selected_unit.name;
-                    calcToSave[0].weight = self.weight;
-                    calcToSave[0].co2_offset = self.result;
-                    calcToSave[0].item_description = self.item_description;
+                    var calcToSave = {};
+                    calcToSave.project_id = self.selected_project.id;
+                    calcToSave.category = self.category.primary_cat;
+                    calcToSave.sub_category = self.subcategory.secondary_cat || null;
+                    calcToSave.units = self.selected_unit.name;
+                    calcToSave.weight = self.weight;
+                    calcToSave.co2_offset = self.result;
+                    calcToSave.item_description = self.item_description;
 
                     calculator.saveCalculation(calcToSave)
 

@@ -234,9 +234,8 @@ router.delete('/:id', function (req, res, next) {
 //add a new calculation
 router.post('/calculation', function (req, res, next) {
 
-    console.log('THE THING', req.body)
-
-    req.checkBody('[0].project_id', 'Invalid id').notEmpty().isInt();
+    console.log(req.body);
+    req.checkBody('project_id', 'Invalid id').notEmpty().isInt();
 
     var errors = req.validationErrors();
     if (errors) {
@@ -244,28 +243,27 @@ router.post('/calculation', function (req, res, next) {
         res.status(409).send({message: errors[0].msg});
     } else{
         //find project to associate calculation with
-        Projects.findById(req.body[0].project_id)
+        Projects.findById(req.body.project_id)
             .then(function (project) {
 
                 //allow for bulk calculation creation
-                req.body.forEach( function(item){
 
                     //create calculation
-                    Calculations.create(item)
-                        .then(function (calculation) {
+                Calculations.create(req.body)
+                    .then(function (calculation) {
 
-                            // associate the calculation with the current project
-                            project.addCalculation(calculation).then(function(){
-                            });
+                        // associate the calculation with the current project
+                        project.addCalculation(calculation).then(function(){
+                            res.send(200);
+                        }).catch(function ( err ) {
+                            res.send({message: err})
+                        })
 
-                        }).catch(function (err) {
-                            console.log('there was an error', err);
-                            //res.send('error: ', err);
-                        });
-                });
+                    }).catch(function (err) {
+                        console.log('there was an error', err);
+                        //res.send('error: ', err);
+                    });
 
-            }).then(function(){
-                res.sendStatus(200);
             })
             .catch(function (err) {
                 res.send({message: err});
