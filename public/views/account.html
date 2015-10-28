@@ -45,16 +45,9 @@
                 <div ng-message="pattern">Password must be minimum of 8 characters with at least one number.</div>
             </div>
         </md-input-container>
-        <!--<md-input-container layout-fill flex>-->
-            <!--<label>Confirm Password</label>-->
-            <!--<input ng-model="user.confirmPassword" type="password" data-match="editAccountForm.password"  name="confirmPassword" ng-pattern="/(?=.*[0-9]){8,}/">-->
-            <!--<div ng-messages="editAccountForm.confirmPassword.$error" role="alert">-->
-                <!--<div ng-message="match">Passwords do not match!</div>-->
-            <!--</div>-->
-        <!--</md-input-container>-->
     <div layout="row">
-        <md-button class="md-accent md-raised" ng-click="updateUserInfo()" type="submit" value="Save" ng-disabled="editAccountForm.$invalid">Save</md-button>
         <md-button ng-click="resetPassword()">Change Password</md-button>
+        <md-button class="md-accent md-raised" ng-click="updateUserInfo()" type="submit" value="Save" ng-disabled="editAccountForm.$invalid">Save</md-button>
     </div>
     </form>
 </div>
