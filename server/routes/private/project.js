@@ -188,7 +188,6 @@ router.put('/', function (req, res, next) {
             }
         };
 
-        console.log(req.body);
         Projects.update(req.body, existingProjectById)
             .then(function (project) {
                 console.log(project);
@@ -248,19 +247,20 @@ router.post('/calculation', function (req, res, next) {
 
                 //allow for bulk calculation creation
 
-                    //create calculation
-                Calculations.create(req.body)
+                //create calculation
+                return Calculations.create(req.body)
                     .then(function (calculation) {
 
                         // associate the calculation with the current project
-                        project.addCalculation(calculation).then(function(){
-                            res.send(200);
-                        }).catch(function ( err ) {
-                            res.send({message: err})
-                        })
+                        project.addCalculation(calculation).then(function() {
+                            res.sendStatus(200);
+                        });
+                        //}).catch(function ( err ) {
+                        //    res.send({message: err})
+                        //})
 
-                    }).catch(function (err) {
-                        console.log('there was an error', err);
+                    //}).catch(function (err) {
+                    //    console.log('there was an error', err);
                         //res.send('error: ', err);
                     });
 
