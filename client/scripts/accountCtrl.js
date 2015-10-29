@@ -13,9 +13,9 @@ app.controller('editAccountCtrl', ['$scope', '$http', '$location', '$rootScope',
         }).then(function (response) {
             $location.path('/calculator');
             showToast.showToast("Your new account information will be reflected at next login.")
-        }, function(error){
-            console.log('error');
-            showToast.showToast("There was a problem processing your changes. Please try again later.")
+        }, function(err){
+            console.log(err);
+            showToast.showToast(err.data.message);
         });
     };
 
