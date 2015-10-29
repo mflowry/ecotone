@@ -248,7 +248,7 @@ describe('The project/calculation API', function(){
         //console.log(project.id);
         var objToSend = {
             project_id: project.id,
-            calculations: calcToSend
+            data: calcToSend
         };
 
         api.post('/project/csvUpload')
