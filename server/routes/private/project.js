@@ -270,6 +270,7 @@ router.post('/calculation', function (req, res, next) {
             });
     }
 });
+
 router.post('/csvUpload', function (req, res, next) {
     req.checkBody('project_id', 'Invalid id').isInt();
     var calculations = req.body.calculations;
@@ -281,11 +282,13 @@ router.post('/csvUpload', function (req, res, next) {
         //find project to associate calculation with
         Projects.findById(req.body.project_id)
             .then(function (project) {
-                //create bulk calculation
+                //create bulk calculation, use next tick to avoid clogging the stack
                 process.nextTick(function(){
+                    //create each calculation row
                     async.each(calculations, function (calc, done) {
                         Calculations.create(calc)
                             .then(function (calculation) {
+                                //associate calculations with the project
                                 project.addCalculation(calculation)
                                     .then(function () {
                                         done();
@@ -295,8 +298,6 @@ router.post('/csvUpload', function (req, res, next) {
                             }).catch(function (err) {
                                 done(err);
                             });
-
-
                     }, function (err) {
                         if (err) {
                             return next(new Error(err));
@@ -305,9 +306,6 @@ router.post('/csvUpload', function (req, res, next) {
                         }
                     });
                 });
-
-
-
             })
             .catch(function (err) {
                 return next(new Error(err));
