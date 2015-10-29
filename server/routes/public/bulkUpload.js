@@ -61,7 +61,7 @@ function findCO2( primary_cat, secondary_cat, arr){
 
     // error handling (should not happen if csv uploaded correctly)
     if(row != undefined ){
-        //console.log(row[0].co2)
+        console.log(row[0]);
         return row[0].co2
     } else {
         return 'err'

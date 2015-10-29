@@ -13,7 +13,7 @@ router.post('/', function(req, res, next) {
         console.log(errors);
         res.status(409).send({message: errors[0].msg});
     }else{
-        var existingUserByEmail = {
+        var existingUser = {
             where: {
                 $or: [
                     {username: req.body.username},
@@ -23,7 +23,7 @@ router.post('/', function(req, res, next) {
         };
 
         //Users.sync().then(function () {
-        Users.find(existingUserByEmail).then(function(user){
+        Users.find(existingUser).then(function(user){
             // if returned user is null (does not exist)
             if( user === null ) {
 
