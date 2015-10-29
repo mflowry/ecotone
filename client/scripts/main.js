@@ -143,7 +143,10 @@ app.config(['$mdThemingProvider', '$routeProvider', '$locationProvider', '$httpP
         {
             templateUrl: '/views/reset.html',
             controller: 'resetCtrl as ctrl'
-        })
+        }).otherwise({
+            redirectTo: '/'
+
+        });
 
     $httpProvider.interceptors.push('authInterceptor');
 }]);
