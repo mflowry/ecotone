@@ -240,16 +240,20 @@ describe('The project/calculation API', function(){
     });
 
     it('should create multiple project calculations', function(done){
-
         var calcToSend = [];
-        newCalculation2.project_id = project.id;
-        newCalculation3.project_id = project.id;
+        //newCalculation2.project_id = project.id;
+        //newCalculation3.project_id = project.id;
         calcToSend.push(newCalculation2);
         calcToSend.push(newCalculation3);
+        //console.log(project.id);
+        var objToSend = {
+            project_id: project.id,
+            data: calcToSend
+        };
 
-        api.post('/project/calculation')
+        api.post('/project/csvUpload')
             .set('Authorization', 'Bearer ' + token)
-            .send(calcToSend)
+            .send(objToSend)
             //.end(function( err, res ){
             //console.log(res.body);
             //res.body.should.have.length(1);
