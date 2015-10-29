@@ -24,7 +24,8 @@ const
     suggestion = require('./routes/private/suggestion'),
     bulk = require('./routes/public/bulkUpload'),
     forgot = require('./routes/public/forgot'),
-    reset = require('./routes/public/reset');
+    reset = require('./routes/public/reset'),
+    wildcard = require('./routes/wildcard');
 
 var app = express();
 
@@ -47,8 +48,8 @@ app.use(cookieParser());
 app.use(expressValidator({customValidators: customValidators}));
 app.use(express.static(path.join(__dirname, '../public')));
 
-app.use('/reset', reset);
 app.use('/', routes);
+app.use('/reset', reset);
 app.use('/login', login);
 app.use('/materials', materials);
 app.use('/register',register);
@@ -58,7 +59,7 @@ app.use('/project',project);
 app.use('/suggestion', suggestion);
 app.use('/bulk', bulk);
 app.use('/forgot', forgot);
-//app.use('*', routes);
+app.use('/*', wildcard);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

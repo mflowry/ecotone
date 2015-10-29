@@ -6,7 +6,7 @@
     <form name="uploadForm" layout-fill flex layout="column" layout-align="center center" novalidate>
         <div layout-fill flex>
             <h4 class="title">Select your CSV file: </h4>
-            <ng-csv-import
+            <h5 class="subhead" layout-margin layout-padding layout-align="space-between"><ng-csv-import
                 class="import"
                 content="csv.content"
                 header="csv.header"
@@ -15,7 +15,7 @@
                 separator-visible="csv.separatorVisible"
                 result="csv.result"
                 encoding="csv.encoding"
-                encoding-visible="csv.encodingVisible"></ng-csv-import>
+                encoding-visible="csv.encodingVisible"></ng-csv-import></h5>
         </div>
     </form>
 
