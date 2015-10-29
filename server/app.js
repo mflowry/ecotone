@@ -9,6 +9,7 @@ const
     jsonwebtoken = require('jsonwebtoken'),
     models = require('./models/models'),
     expressValidator = require('express-validator'),
+    validator = require('validator'),
     customValidators = require('./modules/customValidators');
 
 // ROUTING PATHS

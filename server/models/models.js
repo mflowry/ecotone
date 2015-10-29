@@ -303,6 +303,10 @@ calculationSchema = sequelize.define('calculation',
     {underscored: true}
 );
 
+//calculationSchema.afterBulkCreate(function(calculation){
+//
+//});
+
 //set up associations
 userSchema.hasMany(projectSchema);
 projectSchema.belongsTo(userSchema);
