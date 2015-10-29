@@ -4,7 +4,7 @@ const
     assert = require('assert'),
     Chance = require('chance'),
     request = require('supertest'),
-    api = request('http://localhost:3000'),
+    api = request('http://localhost:5000'),
     chance = new Chance();
 
 
@@ -227,7 +227,7 @@ describe('The project/calculation API', function(){
 
         api.post('/project/calculation')
            .set('Authorization', 'Bearer ' + token)
-           .send(calcToSend)
+           .send(newCalculation1)
            //.end(function( err, res ){
                 //console.log(res.body);
                 //res.body.should.have.length(1);

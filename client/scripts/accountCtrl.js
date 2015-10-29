@@ -12,7 +12,7 @@ app.controller('editAccountCtrl', ['$scope', '$http', '$location', '$rootScope',
             dataType: 'json'
         }).then(function (response) {
             $location.path('/calculator');
-            showToast.showToast("Your account information has been changed.")
+            showToast.showToast("Your new account information will be reflected at next login.")
         }, function(error){
             console.log('error');
             showToast.showToast("There was a problem processing your changes. Please try again later.")
