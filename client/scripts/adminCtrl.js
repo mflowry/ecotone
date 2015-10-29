@@ -5,7 +5,6 @@ app.controller('adminCtrl', ['$http', '$rootScope', '$scope','$parse', function(
     self.form = {};
     self.suggestions = '';
     self.markComplete = markComplete;
-    self.submitCSV = submitCSV;
     self.isLoggedIn = false;
 
     self.adminTest = adminTest;
