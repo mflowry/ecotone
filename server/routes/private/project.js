@@ -272,6 +272,7 @@ router.post('/calculation', function (req, res, next) {
 });
 
 router.post('/csvUpload', function (req, res, next) {
+   console.log(req.body);
     req.checkBody('project_id', 'Invalid id').isInt();
     var calculations = req.body.calculations;
     var errors = req.validationErrors();

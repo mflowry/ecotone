@@ -10,13 +10,13 @@ app.controller('uploadCtrl', ['$location', '$http', '$scope', 'projectMethods', 
         var csvObject = $scope.csv.result;
 
         $http.post('/bulk', csvObject)
-            .then(function( res ){
-                res.data.forEach(function(item){
-                    item.project_id = projectMethods.getSelectedProject().id;
-                });
-                return res.data})
-            .then(function( projects ) {
-                $http.post('/project/calculation/', projects)
+
+            .then(function( calculations ) {
+                var calculationsToSend = {
+                    calculations: calculations.data,
+                    project_id: projectMethods.getSelectedProject().id
+                };
+                $http.post('/project/csvUpload/', calculationsToSend);
                 $location.path('/projects')
             }).catch(function(err){
                 console.log(err);
