@@ -52,8 +52,8 @@
         </md-autocomplete>
 
         <!--Select secondary category-->
-        <md-select ng-model="ctrl.subcategory" placeholder="Select subtype" style="padding-bottom: 6px" layout-fill flex="20">
-            <md-option ng-repeat="subcategory in ctrl.category.secondaries" ng-value="subcategory">
+        <md-select ng-hide="ctrl.enableSecondary" ng-model="ctrl.subcategory" placeholder="Select subtype" style="padding-bottom: 6px" layout-fill flex="20">
+            <md-option  ng-repeat="subcategory in ctrl.category.secondaries" ng-value="subcategory">
                 {{subcategory.secondary_cat}}
             </md-option>
         </md-select>

@@ -21,6 +21,7 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
         self.editProject = editProject;
         self.submitCSV = submitCSV;
         self.uploadCSV = uploadCSV;
+        self.enableSecondary = true;
 
 
         if (self.selected_project) {
@@ -29,6 +30,8 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                 self.projectItems = items;
                 calculateProjectTotal();
             })
+        } else {
+            $location.path('/dashboard');
         }
 
         self.units = calculator.getUnits();
@@ -125,10 +128,16 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
 
 
         function searchTextChange(text) {
-
+            console.log('text change');
+            self.category = '';
+            self.enableSecondary = true;
         }
 
         function selectedItemChange(item) {
+            console.log(item);
+            if(item.secondaries[0].secondary_cat != null){
+                self.enableSecondary = false;
+            }
 
         }
 
