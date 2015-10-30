@@ -3,6 +3,8 @@ public/scripts/app.min.js
 public/scripts/app.js
 public/scripts/*.js
 
+.env
+
 # Logs
 logs
 *.log
