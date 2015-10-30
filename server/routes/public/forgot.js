@@ -62,9 +62,9 @@ router.post('/', function(req, res, next) {
                 var smtpTransport = nodemailer.createTransport('SMTP', {
                     service: 'mailgun',
                     auth: {
-                        api_key: 'key-29ab2a0ca6dedaa06bd1f7aee276391f',
-                        user: 'postmaster@sandboxcfba68f48e7043be83a68b6df8491c52.mailgun.org',
-                        pass: '9f1c5990577e11fc09e9acb72bd75a41'
+                        api_key: process.env.mailGunApiKey,
+                        user: process.env.mailGunUser,
+                        pass: process.env.mailGunPass
                     }
                 });
                 var mailOptions = {
