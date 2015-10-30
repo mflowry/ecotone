@@ -1,14 +1,21 @@
-app.controller('uploadCtrl', ['$location', '$http', '$scope', 'projectMethods', function($location, $http, $scope, projectMethods ){
+app.controller('uploadCtrl', ['authService', '$location', '$http', '$scope', 'projectMethods', function(authService, $location, $http, $scope, projectMethods ){
     console.log('on upload');
 
     var self = this;
 
     self.submitCSV = submitCSV;
+    self.buttonDisabled = false;
+    self.selected_project = projectMethods.getSelectedProject();
+    if (!self.selected_project) {
+        $location.path('/dashboard');
+
+    }
 
     console.log(projectMethods.getSelectedProject().id);
     function submitCSV( ){
         var csvObject = $scope.csv.result;
 
+        self.buttonDisabled = true;
         $http.post('/bulk', csvObject)
 
             .then(function( calculations ) {
@@ -16,8 +23,9 @@ app.controller('uploadCtrl', ['$location', '$http', '$scope', 'projectMethods', 
                     calculations: calculations.data,
                     project_id: projectMethods.getSelectedProject().id
                 };
-                $http.post('/project/csvUpload/', calculationsToSend);
-                $location.path('/projects')
+                $http.post('/project/csvUpload/', calculationsToSend).then(function(){
+                    $location.path('/projects')
+                });
             }).catch(function(err){
                 console.log(err);
             });
