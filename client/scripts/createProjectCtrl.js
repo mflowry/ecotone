@@ -7,7 +7,7 @@ app.controller('createProjectCtrl', ['projectMethods', '$location', '$rootScope'
     self.createProject = createProject;
 
     function createProject(){
-        self.projectSubmission.user_id = $rootScope.user.id;
+        self.projectSubmission.user_id = $rootScope.user.id
 
         $http.post('/project', self.projectSubmission).then(function(res){
             projectMethods.setSelectedProject(res.data);

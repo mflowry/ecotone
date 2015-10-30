@@ -3,7 +3,6 @@ app.controller('dashboardCtrl', ['$location', 'projectMethods', '$mdDialog', '$r
     self = this;
     self.selectProject= selectProject;
     self.selectItems= '';
-    //self.grandTotal= grandTotal;
     self.projects = '';
     self.Co2GrandTotal = 0;
     self.getAllItems= getAllItems;
@@ -83,7 +82,6 @@ app.controller('dashboardCtrl', ['$location', 'projectMethods', '$mdDialog', '$r
                 project.projectTotal= Math.floor(projectSum * 10000)/10000;
             });
 
-           // calculateProjectTotal();
         })
     }
 

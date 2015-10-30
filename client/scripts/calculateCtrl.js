@@ -8,9 +8,6 @@ app.controller('calculateCtrl', ['calculator', '$scope', 'projectMethods', '$tim
         $location.path('/');
     }
 
-    // INIT
-
-
     // Self dec
     var self = this;
 

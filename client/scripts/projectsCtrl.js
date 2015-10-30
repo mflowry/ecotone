@@ -69,15 +69,12 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                     //self.projectItems.push(calcToSave);
                     calculator.saveCalculation(calcToSave).then(function ( status ) {
 
-
-                        //setTimeout(function(){
-                            projectMethods.getProjectItems().then(function(items) {
+                         projectMethods.getProjectItems().then(function(items) {
                                 console.log('ITEM ITEM ITEM IN THEN ', items);
                                 self.projectItems = items;
 
                                 calculateProjectTotal();
                             });
-                        //}, 10);
 
 
                     });
@@ -89,7 +86,6 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
             function clearFields() {
                 self.searchText = "";
                 self.category = "";
-                //self.subcategory = "";
                 self.selected_unit = "";
                 self.weight = "";
                 self.result = "";
@@ -104,7 +100,6 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
 
             function createFilterFor(query) {
                 var lowercaseQuery = query.toLowerCase();
-                //query.charAt(0).toUpperCase() + query.slice(1);
                 return function filterFn(obj) {
                     return (obj.primary_cat.indexOf(lowercaseQuery) != -1);
                 };
@@ -214,7 +209,7 @@ app.controller('projectsCtrl', ['authService', 'projectMethods', 'calculator', '
                 project_description: self.selected_project.project_description,
                 user_id: $rootScope.user.id
             };
-            //updatedProject.user_id = $rootScope.user.id;
+
             $http.put('/project', updatedProject)
                 .then(function(res){
                     showToast.showToast(res.data.message);

@@ -8,7 +8,6 @@ app.controller('resetCtrl', ['$routeParams','$http','showToast','$location', fun
 
 
     function resetPassword(){
-        //self.projectSubmission.user_id = $rootScope.user.id;
         $http.post('/reset/' + token,{password: self.password}).then(function(res){
             $location.path('/login');
         },function(err){
