@@ -10,7 +10,8 @@ const
     models = require('./models/models'),
     expressValidator = require('express-validator'),
     validator = require('validator'),
-    customValidators = require('./modules/customValidators');
+    customValidators = require('./modules/customValidators'),
+    dotEnv = require('dotenv').load();
 
 // ROUTING PATHS
 const

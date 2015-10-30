@@ -153,7 +153,7 @@ var userSchema = sequelize.define('user',
                                 };
 
                                 // return the jwt
-                                var token = jsonwebtoken.sign(matchedUser, 'supersecret', {
+                                var token = jsonwebtoken.sign(matchedUser, process.env.jwtSecret, {
                                     expiresIn: 1440 // expires in 24 hours
                                 });
                                 return callback(null, token, matchedUser);

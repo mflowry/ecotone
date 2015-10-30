@@ -5,7 +5,7 @@ const
     pg = require('pg');
 
 
-router.use(expressJwt({secret: 'supersecret'}));
+router.use(expressJwt({secret: process.env.jwtSecret}));
 
 var connectionString = process.env.DATABASE_URL || 'postgres://localhost:5432/ecotone';
 

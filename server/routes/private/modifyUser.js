@@ -5,7 +5,7 @@ const
 
 var Users = require('../../models/models').Users;
 
-router.use(expressJwt({secret: process.env.jwtSecret || 'supersecret'}));
+router.use(expressJwt({secret: process.env.jwtSecret}));
 
 router.get('/',function(req,res,next){
     res.sendStatus(200);
