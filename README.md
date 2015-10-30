@@ -1,8 +1,8 @@
 
-##[Ecotone] (http://ecotone-partners.com/)
+## Ecotone Calculator Application
 
 #About:
-Ecotone Partners help their clients measure, manage, and communicate their social, environmental, and business (economical) impacts.
+[Ecotone Partners] (http://ecotone-partners.com/) help their clients measure, manage, and communicate their social, environmental, and business (economical) impacts.
 They work with “hybrid” companies like non-profits that have business activities, traditional corporations that have philanthropy, and B-corps which are for-profit corporations that includes positive impact on society and the environment.
 
 #Project:
