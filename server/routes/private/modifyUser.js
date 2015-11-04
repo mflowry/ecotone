@@ -6,6 +6,7 @@ const
 var Users = require('../../models/models').Users;
 
 router.use(expressJwt({secret: process.env.jwtSecret}));
+//jwtSecret=9383316b-976f-4226-9748-28ddde8e3279
 
 router.get('/',function(req,res,next){
     res.sendStatus(200);
