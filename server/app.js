@@ -11,7 +11,7 @@ const
     expressValidator = require('express-validator'),
     validator = require('validator'),
     customValidators = require('./modules/customValidators'),
-    dotEnv = require('dotenv').load();
+    dotEnv = require('dotenv').load({silent: true});
 
 // ROUTING PATHS
 const
